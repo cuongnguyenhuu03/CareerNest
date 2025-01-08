@@ -78,4 +78,18 @@ public class UserService implements IUserService {
         return res;
     }
 
+    @Override
+    public User handleGetUserByUserName(String email) {
+        return this.userRepository.findByEmail(email);
+    }
+
+    @Override
+    public void updateUserToken(String refreshToken, String email) {
+        User currentUser = this.handleGetUserByUserName(email);
+        if (currentUser != null) {
+            currentUser.setRefreshToken(refreshToken);
+        }
+        this.userRepository.save(currentUser);
+    }
+
 }

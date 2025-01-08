@@ -1,6 +1,7 @@
 package com.nhc.CareerNest.util.exception;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -18,7 +19,10 @@ public class GlobalException {
         return res;
     }
 
-    @ExceptionHandler(IdInvalidException.class)
+    @ExceptionHandler(value = {
+            IdInvalidException.class,
+            BadCredentialsException.class
+    })
     public RestResponse handleBadRequest(IdInvalidException ex) {
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());

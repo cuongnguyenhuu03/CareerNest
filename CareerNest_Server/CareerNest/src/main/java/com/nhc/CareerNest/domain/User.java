@@ -4,6 +4,7 @@ import java.sql.Date;
 
 import com.nhc.CareerNest.util.constant.GenderEnum;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,6 +28,9 @@ public class User {
     private boolean isBlocked;
     private String phoneNumber;
     private String address;
+
+    @Column(columnDefinition = "MEDIUMTEXT")
+    private String refreshToken;
 
     public String getAddress() {
         return address;
@@ -106,6 +110,14 @@ public class User {
 
     public void setBlocked(boolean isBlocked) {
         this.isBlocked = isBlocked;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 
 }

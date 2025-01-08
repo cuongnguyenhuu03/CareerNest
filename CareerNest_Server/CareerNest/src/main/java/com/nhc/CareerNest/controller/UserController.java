@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nhc.CareerNest.domain.User;
 import com.nhc.CareerNest.domain.response.RestResponse;
 import com.nhc.CareerNest.service.impl.UserService;
+import com.nhc.CareerNest.util.anotation.ApiMessage;
 import com.nhc.CareerNest.util.exception.IdInvalidException;
 
 import java.util.List;
@@ -30,6 +31,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
+    @ApiMessage("Create a new user")
     public RestResponse createUser(@RequestBody User user) throws IdInvalidException {
         boolean isEmailExist = this.userService.isEmailExist(user.getEmail());
         if (isEmailExist) {
@@ -47,6 +49,7 @@ public class UserController {
     }
 
     @GetMapping("/users")
+    @ApiMessage("Fetch all users")
     public RestResponse fetchAllUser() {
         List<User> users = this.userService.fetchAllUser();
 
@@ -59,6 +62,7 @@ public class UserController {
     }
 
     @PutMapping("/users")
+    @ApiMessage("Update a user")
     public RestResponse updateUser(@RequestBody User user) throws IdInvalidException {
 
         User updateUser = this.userService.findUserById(user.getId());
@@ -84,6 +88,7 @@ public class UserController {
     }
 
     @DeleteMapping("users/{id}")
+    @ApiMessage("Delete a user")
     public RestResponse deleteUser(@PathVariable("id") Long id) throws IdInvalidException {
 
         User deleteUser = this.userService.findUserById(id);

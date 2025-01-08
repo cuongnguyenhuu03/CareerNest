@@ -16,4 +16,9 @@ public interface IUserService {
     boolean isEmailExist(String email);
 
     User findUserById(Long id);
+
+    User handleGetUserByUserName(String email);
+
+    void updateUserToken(String refreshToken, String email);
+
 }
