@@ -3,6 +3,7 @@ package com.nhc.CareerNest.domain;
 import java.sql.Date;
 
 import com.nhc.CareerNest.util.constant.GenderEnum;
+import com.nhc.CareerNest.util.constant.UserStatusEnum;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,6 +29,7 @@ public class User {
     private boolean isBlocked;
     private String phoneNumber;
     private String address;
+    private UserStatusEnum status;
 
     @Column(columnDefinition = "MEDIUMTEXT")
     private String refreshToken;
@@ -118,6 +120,14 @@ public class User {
 
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
+    }
+
+    public UserStatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(UserStatusEnum status) {
+        this.status = status;
     }
 
 }

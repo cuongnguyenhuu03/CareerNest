@@ -1,4 +1,4 @@
-package com.nhc.CareerNest.config;
+package com.nhc.CareerNest.config.security;
 
 import java.util.Collections;
 

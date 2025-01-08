@@ -1,4 +1,4 @@
-package com.nhc.CareerNest.config;
+package com.nhc.CareerNest.config.security;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -69,7 +69,6 @@ public class SecurityConfiguration {
 
         http
                 .csrf(c -> c.disable())
-                .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(
                         auth -> auth
                                 .requestMatchers(whiteList).permitAll()

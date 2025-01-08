@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.nhc.CareerNest.domain.User;
+import com.nhc.CareerNest.util.constant.UserStatusEnum;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -16,4 +17,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findActiveUsers();
 
     User findByEmail(String email);
+
+    List<User> findAllByStatus(UserStatusEnum status);
 }

@@ -21,4 +21,9 @@ public interface IUserService {
 
     void updateUserToken(String refreshToken, String email);
 
+    void updateStatus(User user);
+
+    void disconnect(User user);
+
+    List<User> findConnectedUsers();
 }

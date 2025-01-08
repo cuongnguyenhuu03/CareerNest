@@ -9,6 +9,7 @@ import com.nhc.CareerNest.domain.response.ResCreateUserDTO;
 import com.nhc.CareerNest.domain.response.ResUpdateUserDTO;
 import com.nhc.CareerNest.repository.UserRepository;
 import com.nhc.CareerNest.service.IUserService;
+import com.nhc.CareerNest.util.constant.UserStatusEnum;
 
 @Service
 public class UserService implements IUserService {
@@ -90,6 +91,27 @@ public class UserService implements IUserService {
             currentUser.setRefreshToken(refreshToken);
         }
         this.userRepository.save(currentUser);
+    }
+
+    @Override
+    public void updateStatus(User user) {
+        var storedUser = this.userRepository.findByEmail(user.getEmail());
+        storedUser.setStatus(UserStatusEnum.ONLINE);
+        this.userRepository.save(storedUser);
+    }
+
+    @Override
+    public void disconnect(User user) {
+        var storedUser = this.userRepository.findByEmail(user.getEmail());
+        if (storedUser != null) {
+            storedUser.setStatus(UserStatusEnum.OFFLINE);
+            this.userRepository.save(storedUser);
+        }
+    }
+
+    @Override
+    public List<User> findConnectedUsers() {
+        return this.userRepository.findAllByStatus(UserStatusEnum.OFFLINE);
     }
 
 }

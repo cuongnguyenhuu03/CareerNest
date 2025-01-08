@@ -1,0 +1,101 @@
+package com.nhc.CareerNest.controller;
+
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.nhc.CareerNest.domain.ChatMessage;
+import com.nhc.CareerNest.domain.User;
+import com.nhc.CareerNest.domain.request.ChatNotification;
+import com.nhc.CareerNest.domain.response.RestResponse;
+import com.nhc.CareerNest.service.impl.ChatMessageService;
+import com.nhc.CareerNest.service.impl.UserService;
+
+@Controller
+public class ChatController {
+
+    private final UserService userService;
+    private final ChatMessageService chatMessageService;
+    private final SimpMessagingTemplate messagingTemplate;
+
+    public ChatController(
+            UserService userService,
+            ChatMessageService chatMessageService,
+            SimpMessagingTemplate messagingTemplate) {
+        this.userService = userService;
+        this.chatMessageService = chatMessageService;
+        this.messagingTemplate = messagingTemplate;
+    }
+
+    // update status online/ offline
+    @MessageMapping("/user.addUser") // "/app/user.addUser"
+    @SendTo("/user/public") // subscribe
+    public User updateStatus(
+            @Payload User user) {
+        userService.updateStatus(user);
+        return user;
+    }
+
+    @MessageMapping("/user.disconnectUser")
+    @SendTo("/user/public")
+    public User disconnectUser(
+            @Payload User user) {
+        userService.disconnect(user);
+        return user;
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<RestResponse> findConnectedUsers() {
+
+        RestResponse e = new RestResponse();
+        e.setData(userService.findConnectedUsers());
+        e.setStatusCode(HttpStatus.OK.value());
+        e.setMessage("fetch connected user successfully");
+        return ResponseEntity.ok(e);
+    }
+
+    @MessageMapping("/chat")
+    public void processMessage(@Payload ChatMessage chatMessage) {
+
+        User sender = this.userService.findUserById(chatMessage.getSender().getId());
+        chatMessage.setSender(sender);
+
+        User receiver = this.userService.findUserById(chatMessage.getReceiver().getId());
+        chatMessage.setReceiver(receiver);
+
+        ChatMessage savedMsg = chatMessageService.save(chatMessage);
+
+        ChatNotification chatNotification = new ChatNotification();
+        chatNotification.setId(savedMsg.getId());
+        chatNotification.setContent(savedMsg.getContent());
+        chatNotification.setReceiverId(savedMsg.getReceiver().getId());
+        chatNotification.setSenderId(savedMsg.getSender().getId());
+
+        messagingTemplate.convertAndSendToUser(
+                chatMessage.getReceiver().getEmail(),
+                "/queue/messages",
+                chatNotification);
+    }
+
+    @GetMapping("/messages/{senderId}/{recipientId}")
+    public ResponseEntity<RestResponse> findChatMessages(
+            @PathVariable Long senderId,
+            @PathVariable Long recipientId) {
+        List<ChatMessage> chatList = chatMessageService.findChatMessages(senderId, recipientId);
+        RestResponse e = new RestResponse();
+        e.setData(chatList);
+        e.setStatusCode(HttpStatus.OK.value());
+        e.setMessage("fetch chat message successfully");
+        return ResponseEntity
+                .ok(e);
+    }
+
+}
