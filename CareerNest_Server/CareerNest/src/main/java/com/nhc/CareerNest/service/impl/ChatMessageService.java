@@ -3,10 +3,13 @@ package com.nhc.CareerNest.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.nhc.CareerNest.domain.ChatMessage;
+import org.springframework.stereotype.Service;
+
+import com.nhc.CareerNest.domain.entity.ChatMessage;
 import com.nhc.CareerNest.repository.ChatMessageRepository;
 import com.nhc.CareerNest.service.IChatMessageService;
 
+@Service
 public class ChatMessageService implements IChatMessageService {
 
     private final ChatMessageRepository chatMessageRepository;

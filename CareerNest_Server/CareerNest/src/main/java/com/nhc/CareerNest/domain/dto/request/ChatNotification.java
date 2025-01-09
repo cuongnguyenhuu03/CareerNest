@@ -1,4 +1,4 @@
-package com.nhc.CareerNest.domain.request;
+package com.nhc.CareerNest.domain.dto.request;
 
 import java.util.Date;
 

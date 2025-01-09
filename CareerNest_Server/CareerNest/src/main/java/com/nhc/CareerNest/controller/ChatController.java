@@ -8,18 +8,18 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.nhc.CareerNest.domain.ChatMessage;
-import com.nhc.CareerNest.domain.User;
-import com.nhc.CareerNest.domain.request.ChatNotification;
-import com.nhc.CareerNest.domain.response.RestResponse;
+import com.nhc.CareerNest.domain.dto.request.ChatNotification;
+import com.nhc.CareerNest.domain.dto.response.RestResponse;
+import com.nhc.CareerNest.domain.entity.ChatMessage;
+import com.nhc.CareerNest.domain.entity.User;
 import com.nhc.CareerNest.service.impl.ChatMessageService;
 import com.nhc.CareerNest.service.impl.UserService;
 
-@Controller
+@RestController
 public class ChatController {
 
     private final UserService userService;

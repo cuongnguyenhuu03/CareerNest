@@ -2,6 +2,7 @@ package com.nhc.CareerNest.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -12,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nhc.CareerNest.domain.User;
-import com.nhc.CareerNest.domain.request.ReqLoginDTO;
-import com.nhc.CareerNest.domain.response.ResLoginDTO;
-import com.nhc.CareerNest.domain.response.RestResponse;
+import com.nhc.CareerNest.domain.dto.request.ReqLoginDTO;
+import com.nhc.CareerNest.domain.dto.response.ResLoginDTO;
+import com.nhc.CareerNest.domain.dto.response.RestResponse;
+import com.nhc.CareerNest.domain.entity.User;
 import com.nhc.CareerNest.service.impl.UserService;
 import com.nhc.CareerNest.util.exception.IdInvalidException;
 import com.nhc.CareerNest.util.security.SecurityUtil;
@@ -33,6 +34,9 @@ public class AuthController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
+    @Value("${careernest.jwt.refresh-token-validity-in-seconds}")
+    private int refreshTokenExpiration;
+
     public AuthController(
             PasswordEncoder passwordEncoder,
             AuthenticationManagerBuilder authenticationManagerBuilder,
@@ -44,11 +48,8 @@ public class AuthController {
         this.userService = userService;
     }
 
-    @Value("${careernest.jwt.refresh-token-validity-in-seconds}")
-    private int refreshTokenExpiration;
-
     @PostMapping("/auth/login")
-    public RestResponse login(
+    public ResponseEntity<RestResponse> login(
             @RequestBody ReqLoginDTO loginDto,
             HttpServletResponse response) {
 
@@ -100,11 +101,11 @@ public class AuthController {
         res.setMessage("login success");
         res.setStatusCode(HttpStatus.OK.value());
 
-        return res;
+        return ResponseEntity.ok(res);
     }
 
     @PostMapping("/auth/register")
-    public RestResponse register(@Valid @RequestBody User RegisterUser) throws IdInvalidException {
+    public ResponseEntity<RestResponse> register(@Valid @RequestBody User RegisterUser) throws IdInvalidException {
         boolean isEmailExist = this.userService.isEmailExist(RegisterUser.getEmail());
         if (isEmailExist) {
             throw new IdInvalidException(
@@ -120,7 +121,7 @@ public class AuthController {
         res.setMessage("update user success");
         res.setStatusCode(HttpStatus.OK.value());
 
-        return res;
+        return ResponseEntity.ok(res);
     }
 
 }

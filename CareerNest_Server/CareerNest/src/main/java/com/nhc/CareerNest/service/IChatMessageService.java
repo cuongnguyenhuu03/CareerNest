@@ -2,7 +2,7 @@ package com.nhc.CareerNest.service;
 
 import java.util.List;
 
-import com.nhc.CareerNest.domain.ChatMessage;
+import com.nhc.CareerNest.domain.entity.ChatMessage;
 
 public interface IChatMessageService {
 

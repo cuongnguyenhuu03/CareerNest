@@ -2,7 +2,7 @@ package com.nhc.CareerNest.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import com.nhc.CareerNest.domain.ChatRoom;
+import com.nhc.CareerNest.domain.entity.ChatRoom;
 import com.nhc.CareerNest.repository.ChatRoomRepository;
 import com.nhc.CareerNest.repository.UserRepository;
 import com.nhc.CareerNest.service.IChatRoomService;

@@ -1,13 +1,11 @@
-package com.nhc.CareerNest.domain.response;
+package com.nhc.CareerNest.domain.dto.response;
 
 import java.sql.Date;
 import java.time.Instant;
 
 import com.nhc.CareerNest.util.constant.GenderEnum;
 
-public class ResCreateUserDTO {
-
-    private long id;
+public class ResUpdateUserDTO {
     private String firstName;
     private String lastName;
     private String email;
@@ -16,12 +14,20 @@ public class ResCreateUserDTO {
     private Date dateOfBirth;
     private Instant createdAt;
 
-    public long getId() {
-        return id;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -44,32 +50,8 @@ public class ResCreateUserDTO {
         return address;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
     }
 
     public Date getDateOfBirth() {
@@ -78,6 +60,14 @@ public class ResCreateUserDTO {
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
     }
 
 }

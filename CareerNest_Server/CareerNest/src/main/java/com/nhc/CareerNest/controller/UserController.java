@@ -2,8 +2,8 @@ package com.nhc.CareerNest.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nhc.CareerNest.domain.User;
-import com.nhc.CareerNest.domain.response.RestResponse;
+import com.nhc.CareerNest.domain.dto.response.RestResponse;
+import com.nhc.CareerNest.domain.entity.User;
 import com.nhc.CareerNest.service.impl.UserService;
 import com.nhc.CareerNest.util.anotation.ApiMessage;
 import com.nhc.CareerNest.util.exception.IdInvalidException;
@@ -11,6 +11,7 @@ import com.nhc.CareerNest.util.exception.IdInvalidException;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +33,7 @@ public class UserController {
 
     @PostMapping("/users")
     @ApiMessage("Create a new user")
-    public RestResponse createUser(@RequestBody User user) throws IdInvalidException {
+    public ResponseEntity<RestResponse> createUser(@RequestBody User user) throws IdInvalidException {
         boolean isEmailExist = this.userService.isEmailExist(user.getEmail());
         if (isEmailExist) {
             throw new IdInvalidException("Email Already Exists");
@@ -44,13 +45,13 @@ public class UserController {
         res.setData(this.userService.convertToResCreateUserDTO(createdUser));
         res.setMessage("Save user success");
         res.setStatusCode(HttpStatus.CREATED.value());
-        return res;
 
+        return ResponseEntity.ok(res);
     }
 
     @GetMapping("/users")
     @ApiMessage("Fetch all users")
-    public RestResponse fetchAllUser() {
+    public ResponseEntity<RestResponse> fetchAllUser() {
         List<User> users = this.userService.fetchAllUser();
 
         RestResponse res = new RestResponse();
@@ -58,12 +59,12 @@ public class UserController {
         res.setMessage("fetch all user success");
         res.setStatusCode(HttpStatus.OK.value());
 
-        return res;
+        return ResponseEntity.ok(res);
     }
 
     @PutMapping("/users")
     @ApiMessage("Update a user")
-    public RestResponse updateUser(@RequestBody User user) throws IdInvalidException {
+    public ResponseEntity<RestResponse> updateUser(@RequestBody User user) throws IdInvalidException {
 
         User updateUser = this.userService.findUserById(user.getId());
         if (updateUser == null) {
@@ -84,12 +85,12 @@ public class UserController {
         res.setMessage("update user success");
         res.setStatusCode(HttpStatus.OK.value());
 
-        return res;
+        return ResponseEntity.ok(res);
     }
 
     @DeleteMapping("users/{id}")
     @ApiMessage("Delete a user")
-    public RestResponse deleteUser(@PathVariable("id") Long id) throws IdInvalidException {
+    public ResponseEntity<RestResponse> deleteUser(@PathVariable("id") Long id) throws IdInvalidException {
 
         User deleteUser = this.userService.findUserById(id);
         if (deleteUser == null) {
@@ -103,6 +104,6 @@ public class UserController {
         res.setMessage("delete user success");
         res.setStatusCode(HttpStatus.OK.value());
 
-        return res;
+        return ResponseEntity.ok(res);
     }
 }

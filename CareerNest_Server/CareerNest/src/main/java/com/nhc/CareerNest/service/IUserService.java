@@ -2,7 +2,7 @@ package com.nhc.CareerNest.service;
 
 import java.util.List;
 
-import com.nhc.CareerNest.domain.User;
+import com.nhc.CareerNest.domain.entity.User;
 
 public interface IUserService {
     User handleSaveUser(User user);

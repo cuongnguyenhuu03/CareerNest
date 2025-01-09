@@ -1,4 +1,4 @@
-package com.nhc.CareerNest.domain;
+package com.nhc.CareerNest.domain.entity;
 
 import java.sql.Date;
 
@@ -7,14 +7,16 @@ import com.nhc.CareerNest.util.constant.UserStatusEnum;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "users")
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,10 +27,15 @@ public class User {
     private String lastName;
     private String password;
     private Date dateOfBirth;
+
+    @Enumerated(EnumType.STRING)
     private GenderEnum gender;
+
     private boolean isBlocked;
     private String phoneNumber;
     private String address;
+
+    @Enumerated(EnumType.STRING)
     private UserStatusEnum status;
 
     @Column(columnDefinition = "MEDIUMTEXT")
@@ -129,5 +136,4 @@ public class User {
     public void setStatus(UserStatusEnum status) {
         this.status = status;
     }
-
 }

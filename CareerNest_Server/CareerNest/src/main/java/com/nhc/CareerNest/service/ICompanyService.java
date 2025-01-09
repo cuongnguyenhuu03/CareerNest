@@ -2,7 +2,7 @@ package com.nhc.CareerNest.service;
 
 import java.util.List;
 
-import com.nhc.CareerNest.domain.Company;
+import com.nhc.CareerNest.domain.entity.Company;
 
 public interface ICompanyService {
 

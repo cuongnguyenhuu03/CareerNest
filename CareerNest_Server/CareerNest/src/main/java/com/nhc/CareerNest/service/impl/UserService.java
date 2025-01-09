@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.nhc.CareerNest.domain.User;
-import com.nhc.CareerNest.domain.response.ResCreateUserDTO;
-import com.nhc.CareerNest.domain.response.ResUpdateUserDTO;
+import com.nhc.CareerNest.domain.dto.response.ResCreateUserDTO;
+import com.nhc.CareerNest.domain.dto.response.ResUpdateUserDTO;
+import com.nhc.CareerNest.domain.entity.User;
 import com.nhc.CareerNest.repository.UserRepository;
 import com.nhc.CareerNest.service.IUserService;
 import com.nhc.CareerNest.util.constant.UserStatusEnum;

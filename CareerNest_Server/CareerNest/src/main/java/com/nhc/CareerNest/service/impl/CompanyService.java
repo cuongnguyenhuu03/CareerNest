@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.nhc.CareerNest.domain.Company;
+import com.nhc.CareerNest.domain.entity.Company;
 import com.nhc.CareerNest.repository.CompanyRepository;
 import com.nhc.CareerNest.service.ICompanyService;
 

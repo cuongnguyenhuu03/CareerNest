@@ -21,7 +21,7 @@ public class UserDetailCustom implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        com.nhc.CareerNest.domain.User user = this.userService.handleGetUserByUserName(username);
+        com.nhc.CareerNest.domain.entity.User user = this.userService.handleGetUserByUserName(username);
         if (user == null) {
             throw new UsernameNotFoundException("Invalid username/password");
         }

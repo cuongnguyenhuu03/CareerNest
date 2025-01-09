@@ -3,13 +3,14 @@ package com.nhc.CareerNest.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nhc.CareerNest.domain.Company;
-import com.nhc.CareerNest.domain.response.RestResponse;
+import com.nhc.CareerNest.domain.dto.response.RestResponse;
+import com.nhc.CareerNest.domain.entity.Company;
 import com.nhc.CareerNest.service.impl.CompanyService;
 import com.nhc.CareerNest.util.anotation.ApiMessage;
 import com.nhc.CareerNest.util.exception.IdInvalidException;
@@ -31,7 +32,7 @@ public class CompanyController {
 
     @PostMapping("/companies")
     @ApiMessage("create a new company")
-    public RestResponse handleCreateACompany(@RequestBody Company company) throws IdInvalidException {
+    public ResponseEntity<RestResponse> handleCreateACompany(@RequestBody Company company) throws IdInvalidException {
         Company newCompany = this.companyService.findByName(company.getName());
         if (newCompany != null) {
             throw new IdInvalidException("This Company name already exists");
@@ -42,53 +43,56 @@ public class CompanyController {
         res.setStatusCode(HttpStatus.CREATED.value());
         res.setData(newCompany);
         res.setMessage("create a new company successfully");
-        return res;
+
+        return ResponseEntity.ok(res);
     }
 
     @GetMapping("/companies/{id}")
     @ApiMessage("fetch a company")
-    public RestResponse fetchACompany(@PathVariable("id") Long id) {
+    public ResponseEntity<RestResponse> fetchACompany(@PathVariable("id") Long id) {
         Company company = this.companyService.getCompanyById(id);
 
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(company);
         res.setMessage("Fetch a new company successfully");
-        return res;
+
+        return ResponseEntity.ok(res);
     }
 
     @PutMapping("companies")
     @ApiMessage("Update a company")
-    public RestResponse handleUpdateCompany(@RequestBody Company company) {
+    public ResponseEntity<RestResponse> handleUpdateCompany(@RequestBody Company company) {
         Company updateCompany = this.companyService.handleUpdateCompany(company);
 
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(updateCompany);
         res.setMessage("Update a company successfully");
-        return res;
+
+        return ResponseEntity.ok(res);
     }
 
     @DeleteMapping("companies/{id}")
     @ApiMessage("Delete a company")
-    public RestResponse handleDeleteCompany(@PathVariable("id") Long id) {
+    public ResponseEntity<RestResponse> handleDeleteCompany(@PathVariable("id") Long id) {
         this.companyService.handleDeleteCompany(id);
 
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setMessage("Delete a company successfully");
-        return res;
+        return ResponseEntity.ok(res);
     }
 
     @GetMapping("/companies")
-    public RestResponse fetchAllCompany() {
+    public ResponseEntity<RestResponse> fetchAllCompany() {
         List<Company> companies = this.companyService.fetchAllCompany();
 
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(companies);
         res.setMessage("Fetch all company successfully");
-        return res;
+        return ResponseEntity.ok(res);
     }
 
 }
