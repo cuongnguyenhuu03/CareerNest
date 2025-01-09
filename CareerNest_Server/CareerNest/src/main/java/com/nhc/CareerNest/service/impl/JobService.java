@@ -2,13 +2,16 @@ package com.nhc.CareerNest.service.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import com.nhc.CareerNest.domain.entity.Company;
 import com.nhc.CareerNest.domain.entity.Job;
+import com.nhc.CareerNest.domain.entity.Skill;
 import com.nhc.CareerNest.repository.CompanyRepository;
 import com.nhc.CareerNest.repository.JobRepository;
+import com.nhc.CareerNest.repository.SkillRepository;
 import com.nhc.CareerNest.service.IJobService;
 
 @Service
@@ -16,10 +19,13 @@ public class JobService implements IJobService {
 
     private final JobRepository jobRepository;
     private final CompanyRepository companyRepository;
+    private final SkillRepository skillRepository;
 
     public JobService(
+            SkillRepository skillRepository,
             JobRepository jobRepository,
             CompanyRepository companyRepository) {
+        this.skillRepository = skillRepository;
         this.jobRepository = jobRepository;
         this.companyRepository = companyRepository;
     }
@@ -33,6 +39,17 @@ public class JobService implements IJobService {
             if (comOptional.isPresent()) {
                 job.setCompany(comOptional.get());
             }
+        }
+
+        // check skill
+        if (job.getSkills() != null) {
+            List<Long> SkillId = job.getSkills()
+                    .stream()
+                    .map(skill -> skill.getId())
+                    .collect(Collectors.toList());
+
+            List<Skill> skills = this.skillRepository.findByIdIn(SkillId);
+            job.setSkills(skills);
         }
 
         return this.jobRepository.save(job);
@@ -49,6 +66,17 @@ public class JobService implements IJobService {
             if (comOptional.isPresent()) {
                 job.setCompany(comOptional.get());
             }
+        }
+
+        // check skill
+        if (job.getSkills() != null) {
+            List<Long> SkillId = job.getSkills()
+                    .stream()
+                    .map(skill -> skill.getId())
+                    .collect(Collectors.toList());
+
+            List<Skill> skills = this.skillRepository.findByIdIn(SkillId);
+            job.setSkills(skills);
         }
 
         if (updateJob != null) {
