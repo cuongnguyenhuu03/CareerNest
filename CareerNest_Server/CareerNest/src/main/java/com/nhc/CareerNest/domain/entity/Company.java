@@ -10,9 +10,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapKeyColumn;
 import jakarta.persistence.OneToMany;
@@ -21,10 +18,6 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "companies")
 public class Company extends BaseEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     private String name;
 
@@ -65,14 +58,6 @@ public class Company extends BaseEntity {
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
     @JsonIgnore
     List<Job> jobs;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

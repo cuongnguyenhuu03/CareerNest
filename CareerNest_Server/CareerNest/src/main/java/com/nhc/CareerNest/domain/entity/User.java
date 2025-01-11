@@ -1,7 +1,9 @@
 package com.nhc.CareerNest.domain.entity;
 
 import java.sql.Date;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nhc.CareerNest.util.constant.GenderEnum;
 import com.nhc.CareerNest.util.constant.UserStatusEnum;
 
@@ -9,18 +11,13 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
 
     private String email;
     private String firstName;
@@ -41,6 +38,10 @@ public class User extends BaseEntity {
     @Column(columnDefinition = "MEDIUMTEXT")
     private String refreshToken;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @JsonIgnore
+    private List<OnlineResume> onlineResumes;
+
     public String getAddress() {
         return address;
     }
@@ -55,14 +56,6 @@ public class User extends BaseEntity {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getEmail() {
