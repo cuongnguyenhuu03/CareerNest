@@ -42,6 +42,10 @@ public class User extends BaseEntity {
     @JsonIgnore
     private List<OnlineResume> onlineResumes;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonIgnore
+    List<Resume> resumes;
+
     public String getAddress() {
         return address;
     }

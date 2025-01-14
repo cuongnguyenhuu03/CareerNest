@@ -3,8 +3,8 @@ package com.nhc.CareerNest.controller;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.nhc.CareerNest.domain.dto.response.ResUploadFileDTO;
 import com.nhc.CareerNest.domain.dto.response.RestResponse;
+import com.nhc.CareerNest.domain.dto.response.file.ResUploadFileDTO;
 import com.nhc.CareerNest.service.impl.FileService;
 import com.nhc.CareerNest.util.anotation.ApiMessage;
 import com.nhc.CareerNest.util.exception.StorageException;

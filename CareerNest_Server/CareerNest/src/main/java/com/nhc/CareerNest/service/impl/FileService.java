@@ -17,12 +17,15 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.nhc.CareerNest.service.IFileService;
+
 @Service
-public class FileService {
+public class FileService implements IFileService {
 
     @Value("${careernest.upload-file.base-uri}")
     private String baseUri;
 
+    @Override
     public void createDirectory(String folder) throws URISyntaxException {
         URI uri = new URI(folder);
         Path path = Paths.get(uri);
@@ -39,6 +42,7 @@ public class FileService {
         }
     }
 
+    @Override
     public String store(MultipartFile file, String folder) throws URISyntaxException,
             IOException {
         // create unique filename
@@ -52,6 +56,7 @@ public class FileService {
         return finalName;
     }
 
+    @Override
     public long getFileLength(String fileName, String folder) throws URISyntaxException {
         URI uri = new URI(baseUri + folder + "/" + fileName);
         Path path = Paths.get(uri);
@@ -64,6 +69,7 @@ public class FileService {
         return tmpDir.length();
     }
 
+    @Override
     public InputStreamResource getResource(String fileName, String folder)
             throws URISyntaxException, FileNotFoundException {
         URI uri = new URI(baseUri + folder + "/" + fileName);

@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nhc.CareerNest.domain.dto.request.ReqLoginDTO;
-import com.nhc.CareerNest.domain.dto.response.ResLoginDTO;
 import com.nhc.CareerNest.domain.dto.response.RestResponse;
+import com.nhc.CareerNest.domain.dto.response.auth.ResLoginDTO;
 import com.nhc.CareerNest.domain.entity.User;
 import com.nhc.CareerNest.service.impl.UserService;
 import com.nhc.CareerNest.util.exception.IdInvalidException;

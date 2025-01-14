@@ -1,4 +1,4 @@
-package com.nhc.CareerNest.domain.dto.response;
+package com.nhc.CareerNest.domain.dto.response.user;
 
 import java.sql.Date;
 import java.time.Instant;

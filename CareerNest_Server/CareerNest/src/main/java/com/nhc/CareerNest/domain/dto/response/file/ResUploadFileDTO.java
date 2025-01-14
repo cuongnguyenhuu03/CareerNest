@@ -1,4 +1,4 @@
-package com.nhc.CareerNest.domain.dto.response;
+package com.nhc.CareerNest.domain.dto.response.file;
 
 import java.time.Instant;
 

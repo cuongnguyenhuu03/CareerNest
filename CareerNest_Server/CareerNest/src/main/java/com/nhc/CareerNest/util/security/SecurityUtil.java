@@ -23,7 +23,7 @@ import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.stereotype.Service;
 
-import com.nhc.CareerNest.domain.dto.response.ResLoginDTO;
+import com.nhc.CareerNest.domain.dto.response.auth.ResLoginDTO;
 import com.nimbusds.jose.util.Base64;
 
 @Service
