@@ -1,6 +1,7 @@
 package com.nhc.CareerNest.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class CompanyService implements ICompanyService {
 
     @Override
     public Company handleUpdateCompany(Company company) {
-        Company updateCompany = this.getCompanyById(company.getId());
+        Company updateCompany = this.getCompanyById(company.getId()).get();
         if (updateCompany != null) {
             updateCompany.setName(company.getName());
             updateCompany.setIndustry(company.getIndustry());
@@ -52,8 +53,8 @@ public class CompanyService implements ICompanyService {
     }
 
     @Override
-    public Company getCompanyById(Long id) {
-        return this.companyRepository.findById(id).get();
+    public Optional<Company> getCompanyById(Long id) {
+        return this.companyRepository.findById(id);
     }
 
     @Override

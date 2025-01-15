@@ -12,6 +12,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -45,6 +47,14 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @JsonIgnore
     List<Resume> resumes;
+
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+
+    @ManyToOne
+    @JoinColumn(name = "company_id")
+    private Company company;
 
     public String getAddress() {
         return address;
@@ -133,4 +143,37 @@ public class User extends BaseEntity {
     public void setStatus(UserStatusEnum status) {
         this.status = status;
     }
+
+    public List<OnlineResume> getOnlineResumes() {
+        return onlineResumes;
+    }
+
+    public void setOnlineResumes(List<OnlineResume> onlineResumes) {
+        this.onlineResumes = onlineResumes;
+    }
+
+    public List<Resume> getResumes() {
+        return resumes;
+    }
+
+    public void setResumes(List<Resume> resumes) {
+        this.resumes = resumes;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
 }

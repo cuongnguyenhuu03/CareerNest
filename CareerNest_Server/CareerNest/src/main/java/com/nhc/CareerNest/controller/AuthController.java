@@ -70,8 +70,8 @@ public class AuthController {
                     currentUserDb.getId(),
                     currentUserDb.getEmail(),
                     currentUserDb.getFirstName(),
-                    currentUserDb.getLastName());
-            // currentUserDb.getRole());
+                    currentUserDb.getLastName(),
+                    currentUserDb.getRole());
 
             resLoginDTO.setUser(userLogin);
         }

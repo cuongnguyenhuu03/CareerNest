@@ -3,6 +3,8 @@ package com.nhc.CareerNest.domain.dto.response.user;
 import java.sql.Date;
 import java.time.Instant;
 
+import com.nhc.CareerNest.domain.entity.Company;
+import com.nhc.CareerNest.domain.entity.Role;
 import com.nhc.CareerNest.util.constant.GenderEnum;
 
 public class ResUpdateUserDTO {
@@ -12,7 +14,9 @@ public class ResUpdateUserDTO {
     private GenderEnum gender;
     private String address;
     private Date dateOfBirth;
-    private Instant createdAt;
+    private Instant updatedAt;
+    private Role role;
+    private Company company;
 
     public String getFirstName() {
         return firstName;
@@ -62,12 +66,28 @@ public class ResUpdateUserDTO {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Instant getCreatedAt() {
-        return createdAt;
+    public Instant getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
 }

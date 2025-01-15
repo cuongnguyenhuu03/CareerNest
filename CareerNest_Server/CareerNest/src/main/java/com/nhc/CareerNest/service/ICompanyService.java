@@ -1,6 +1,7 @@
 package com.nhc.CareerNest.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.nhc.CareerNest.domain.entity.Company;
 
@@ -12,7 +13,7 @@ public interface ICompanyService {
 
     List<Company> fetchAllCompany();
 
-    Company getCompanyById(Long id);
+    Optional<Company> getCompanyById(Long id);
 
     Company findByName(String name);
 

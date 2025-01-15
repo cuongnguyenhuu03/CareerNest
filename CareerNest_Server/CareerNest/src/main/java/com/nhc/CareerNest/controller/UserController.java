@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,10 +26,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class UserController {
 
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     public UserController(
+            PasswordEncoder passwordEncoder,
             UserService userService) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostMapping("/users")
@@ -38,6 +42,9 @@ public class UserController {
         if (isEmailExist) {
             throw new IdInvalidException("Email Already Exists");
         }
+
+        String hashPassword = this.passwordEncoder.encode(user.getPassword());
+        user.setPassword(hashPassword);
 
         User createdUser = this.userService.handleSaveUser(user);
 

@@ -1,6 +1,7 @@
 package com.nhc.CareerNest.domain.dto.response.auth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.nhc.CareerNest.domain.entity.Role;
 
 public class ResLoginDTO {
 
@@ -30,12 +31,14 @@ public class ResLoginDTO {
         private String email;
         private String firstName;
         private String lastName;
+        private Role role;
 
-        public UserLogin(long id, String email, String firstName, String lastName) {
+        public UserLogin(long id, String email, String firstName, String lastName, Role role) {
             this.id = id;
             this.email = email;
             this.firstName = firstName;
             this.lastName = lastName;
+            this.role = role;
         }
 
         public long getId() {
@@ -70,6 +73,13 @@ public class ResLoginDTO {
             this.lastName = lastName;
         }
 
+        public Role getRole() {
+            return role;
+        }
+
+        public void setRole(Role role) {
+            this.role = role;
+        }
     }
 
     public static class UserInsideToken {

@@ -50,7 +50,7 @@ public class CompanyController {
     @GetMapping("/companies/{id}")
     @ApiMessage("fetch a company")
     public ResponseEntity<RestResponse> fetchACompany(@PathVariable("id") Long id) {
-        Company company = this.companyService.getCompanyById(id);
+        Company company = this.companyService.getCompanyById(id).get();
 
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());

@@ -18,7 +18,6 @@ import com.nhc.CareerNest.domain.dto.response.resume.ResFetchResumeDTO;
 import com.nhc.CareerNest.domain.dto.response.resume.ResUpdateResumeDTO;
 import com.nhc.CareerNest.domain.entity.Resume;
 import com.nhc.CareerNest.service.impl.ResumeService;
-import com.nhc.CareerNest.service.impl.UserService;
 import com.nhc.CareerNest.util.anotation.ApiMessage;
 import com.nhc.CareerNest.util.exception.IdInvalidException;
 
@@ -29,13 +28,14 @@ import jakarta.validation.Valid;
 public class ResumeController {
 
     private final ResumeService resumeService;
-    private final UserService userService;
+    // private final UserService userService;
 
     public ResumeController(
-            ResumeService resumeService,
-            UserService userService) {
+            ResumeService resumeService
+    // UserService userService
+    ) {
         this.resumeService = resumeService;
-        this.userService = userService;
+        // this.userService = userService;
 
     }
 

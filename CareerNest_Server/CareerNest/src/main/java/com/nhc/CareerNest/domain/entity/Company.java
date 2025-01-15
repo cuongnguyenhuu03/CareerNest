@@ -59,6 +59,10 @@ public class Company extends BaseEntity {
     @JsonIgnore
     List<Job> jobs;
 
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
+    @JsonIgnore
+    List<User> users;
+
     public String getName() {
         return name;
     }
@@ -194,4 +198,13 @@ public class Company extends BaseEntity {
     public void setListImage(List<String> listImage) {
         this.listImage = listImage;
     }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
 }
