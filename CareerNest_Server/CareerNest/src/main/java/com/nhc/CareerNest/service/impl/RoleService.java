@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.nhc.CareerNest.domain.entity.Role;
 import com.nhc.CareerNest.repository.PermissionRepository;
 import com.nhc.CareerNest.repository.RoleRepository;
+import com.nhc.CareerNest.util.constant.RoleEnum;
 import com.nhc.CareerNest.domain.entity.Permission;
 
 @Service
@@ -24,7 +25,7 @@ public class RoleService {
         this.permissionRepository = permissionRepository;
     }
 
-    public boolean existByName(String name) {
+    public boolean existByName(RoleEnum name) {
         return this.roleRepository.existsByName(name);
     }
 
@@ -79,5 +80,9 @@ public class RoleService {
 
     public List<Role> getRoles() {
         return this.roleRepository.findAll();
+    }
+
+    public Role findByName(RoleEnum name) {
+        return this.roleRepository.findByName(name);
     }
 }

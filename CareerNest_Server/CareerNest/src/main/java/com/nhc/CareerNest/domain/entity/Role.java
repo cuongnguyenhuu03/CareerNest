@@ -4,8 +4,11 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.nhc.CareerNest.util.constant.RoleEnum;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -17,7 +20,8 @@ import jakarta.persistence.Table;
 @Table(name = "roles")
 public class Role extends BaseEntity {
 
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private RoleEnum name;
 
     private String description;
     private boolean active;
@@ -31,12 +35,8 @@ public class Role extends BaseEntity {
     @JsonIgnore
     List<User> users;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setName(RoleEnum admin) {
+        this.name = admin;
     }
 
     public String getDescription() {
@@ -69,6 +69,10 @@ public class Role extends BaseEntity {
 
     public void setUsers(List<User> users) {
         this.users = users;
+    }
+
+    public RoleEnum getName() {
+        return name;
     }
 
 }

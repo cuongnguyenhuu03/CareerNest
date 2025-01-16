@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.time.Instant;
 
 import com.nhc.CareerNest.util.constant.GenderEnum;
+import com.nhc.CareerNest.util.constant.RoleEnum;
 
 public class ResUserDTO {
     private long id;
@@ -131,7 +132,7 @@ public class ResUserDTO {
 
     public static class RoleUser {
         private long id;
-        private String name;
+        private RoleEnum name;
 
         public long getId() {
             return id;
@@ -141,13 +142,12 @@ public class ResUserDTO {
             this.id = id;
         }
 
-        public String getName() {
+        public RoleEnum getName() {
             return name;
         }
 
-        public void setName(String name) {
+        public void setName(RoleEnum name) {
             this.name = name;
         }
-
     }
 }

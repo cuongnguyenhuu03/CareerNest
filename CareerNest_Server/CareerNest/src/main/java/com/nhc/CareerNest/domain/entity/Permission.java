@@ -65,4 +65,14 @@ public class Permission extends BaseEntity {
         this.roles = roles;
     }
 
+    public Permission(String name, String apiPath, String method, String module) {
+        this.name = name;
+        this.apiPath = apiPath;
+        this.method = method;
+        this.module = module;
+    }
+
+    public Permission() {
+    }
+
 }

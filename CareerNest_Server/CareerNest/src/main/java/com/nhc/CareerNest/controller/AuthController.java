@@ -19,9 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nhc.CareerNest.domain.dto.request.ReqLoginDTO;
 import com.nhc.CareerNest.domain.dto.response.RestResponse;
 import com.nhc.CareerNest.domain.dto.response.auth.ResLoginDTO;
+import com.nhc.CareerNest.domain.entity.Role;
 import com.nhc.CareerNest.domain.entity.User;
+import com.nhc.CareerNest.service.impl.RoleService;
 import com.nhc.CareerNest.service.impl.UserService;
 import com.nhc.CareerNest.util.anotation.ApiMessage;
+import com.nhc.CareerNest.util.constant.RoleEnum;
 import com.nhc.CareerNest.util.exception.IdInvalidException;
 import com.nhc.CareerNest.util.security.SecurityUtil;
 
@@ -37,15 +40,18 @@ public class AuthController {
     private final SecurityUtil securityUtil;
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final RoleService roleService;
 
     @Value("${careernest.jwt.refresh-token-validity-in-seconds}")
     private int refreshTokenExpiration;
 
     public AuthController(
+            RoleService roleService,
             PasswordEncoder passwordEncoder,
             AuthenticationManagerBuilder authenticationManagerBuilder,
             SecurityUtil securityUtil,
             UserService userService) {
+        this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.securityUtil = securityUtil;
@@ -114,6 +120,12 @@ public class AuthController {
         if (isEmailExist) {
             throw new IdInvalidException(
                     "Email " + RegisterUser.getEmail() + " already exists.");
+        }
+
+        // set default role user
+        Role role = this.roleService.findByName(RoleEnum.USER);
+        if (role != null) {
+            RegisterUser.setRole(role);
         }
 
         String hashPassword = this.passwordEncoder.encode(RegisterUser.getPassword());
