@@ -19,4 +19,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmail(String email);
 
     List<User> findAllByStatus(UserStatusEnum status);
+
+    User findByRefreshTokenAndEmail(String token, String email);
 }

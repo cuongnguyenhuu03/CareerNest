@@ -8,6 +8,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +21,7 @@ import com.nhc.CareerNest.domain.dto.response.RestResponse;
 import com.nhc.CareerNest.domain.dto.response.auth.ResLoginDTO;
 import com.nhc.CareerNest.domain.entity.User;
 import com.nhc.CareerNest.service.impl.UserService;
+import com.nhc.CareerNest.util.anotation.ApiMessage;
 import com.nhc.CareerNest.util.exception.IdInvalidException;
 import com.nhc.CareerNest.util.security.SecurityUtil;
 
@@ -124,4 +128,89 @@ public class AuthController {
         return ResponseEntity.ok(res);
     }
 
+    @GetMapping("/auth/refresh")
+    @ApiMessage("Get User by refresh token")
+    public ResponseEntity<RestResponse> getRefreshToken(
+            @CookieValue(name = "refresh_token") String refresh_token,
+            HttpServletResponse response) throws IdInvalidException {
+
+        // check valid token
+        Jwt decodedToken = this.securityUtil.checkValidRefreshToken(refresh_token);
+        String email = decodedToken.getSubject();
+
+        // check user by token and email
+
+        User currentUser = this.userService.getUserByRefreshTokenAndEmail(refresh_token, email);
+        if (currentUser == null) {
+            throw new IdInvalidException("refresh token not valid");
+        }
+        // create a token
+        ResLoginDTO resLoginDTO = new ResLoginDTO();
+        User currentUserDB = this.userService.handleGetUserByUserName(email);
+        if (currentUserDB != null) {
+            ResLoginDTO.UserLogin userLogin = new ResLoginDTO.UserLogin(
+                    currentUserDB.getId(),
+                    currentUserDB.getEmail(),
+                    currentUserDB.getFirstName(),
+                    currentUserDB.getLastName(),
+                    currentUserDB.getRole());
+            resLoginDTO.setUser(userLogin);
+        }
+
+        String access_token = this.securityUtil.createAccessToken(email, resLoginDTO);
+        resLoginDTO.setAccessToken(access_token);
+
+        // create refresh token
+        String new_refresh_token = this.securityUtil.createRefreshToken(email, resLoginDTO);
+
+        // update user
+        this.userService.updateUserToken(new_refresh_token, email);
+
+        // set cookies
+        Cookie cookie = new Cookie("refresh_token", new_refresh_token);
+        cookie.setPath("/");
+        cookie.setSecure(true);
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(refreshTokenExpiration);
+
+        // add cookie to response
+        response.addCookie(cookie);
+
+        RestResponse res = new RestResponse();
+        res.setData(resLoginDTO);
+        res.setMessage("get refresh token successfully");
+        res.setStatusCode(HttpStatus.OK.value());
+
+        return ResponseEntity.ok(res);
+    }
+
+    @PostMapping("/auth/logout")
+    @ApiMessage("Log out")
+    public ResponseEntity<RestResponse> logout(
+            HttpServletResponse response) {
+
+        // get user from Security
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        String email = authentication.getName();
+
+        // update token
+        this.userService.updateUserToken(null, email);
+
+        // remove refresh token in cookie
+        Cookie cookie = new Cookie("refresh_token", null);
+        cookie.setPath("/");
+        cookie.setSecure(true);
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(refreshTokenExpiration);
+
+        // add cookie to response
+        response.addCookie(cookie);
+
+        RestResponse res = new RestResponse();
+        res.setMessage("logout successfully");
+        res.setStatusCode(HttpStatus.OK.value());
+
+        return ResponseEntity.ok(res);
+    }
 }

@@ -88,6 +88,10 @@ public class UserService implements IUserService {
         return this.userRepository.findById(id).get();
     }
 
+    public User getUserByRefreshTokenAndEmail(String token, String email) {
+        return this.userRepository.findByRefreshTokenAndEmail(token, email);
+    }
+
     public ResCreateUserDTO convertToResCreateUserDTO(User user) {
         ResCreateUserDTO res = new ResCreateUserDTO();
 
