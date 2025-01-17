@@ -106,6 +106,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             adminRole.setDescription("this account has full permissions");
             adminRole.setActive(true);
             adminRole.setPermissions(allPermissions);
+            adminRole.setCreatedBy("ADMIN SYSTEM");
             roles.add(adminRole);
 
             // recruiter role
@@ -114,6 +115,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             recruiterRole.setDescription("this account has recruiter's permissions");
             recruiterRole.setActive(true);
             recruiterRole.setPermissions(null);
+            recruiterRole.setCreatedBy("ADMIN SYSTEM");
             roles.add(recruiterRole);
 
             // user role
@@ -122,6 +124,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             userRole.setDescription("this account has user's permissions");
             userRole.setActive(true);
             userRole.setPermissions(null);
+            userRole.setCreatedBy("ADMIN SYSTEM");
             roles.add(userRole);
 
             this.roleRepository.saveAll(roles);

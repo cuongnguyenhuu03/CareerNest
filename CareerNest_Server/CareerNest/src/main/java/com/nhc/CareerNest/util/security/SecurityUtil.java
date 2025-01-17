@@ -2,8 +2,7 @@ package com.nhc.CareerNest.util.security;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Optional;
 
 import javax.crypto.SecretKey;
@@ -59,17 +58,17 @@ public class SecurityUtil {
         Instant validity = now.plus(this.accessTokenExpiration, ChronoUnit.SECONDS);
 
         // hardcode permission
-        List<String> listAuthority = new ArrayList<>();
+        // List<String> listAuthority = new ArrayList<>();
 
-        listAuthority.add("ROLE_USER_CREATE");
-        listAuthority.add("ROLE_USER_UPDATE");
+        // listAuthority.add("ROLE_USER_CREATE");
+        // listAuthority.add("ROLE_USER_UPDATE");
 
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuedAt(now)
                 .expiresAt(validity)
                 .subject(email) // email
                 .claim("user", userToken)
-                .claim("permission", listAuthority)
+                // .claim("permission", listAuthority)
                 .build();
         JwsHeader jwsHeader = JwsHeader.with(JWT_ALGORITHM).build();
         return this.jwtEncoder.encode(JwtEncoderParameters.from(jwsHeader,
