@@ -29,12 +29,11 @@ public class SkillController {
 
         // check skill exist
         if (skill.getName() != null && this.skillService.checkExistsName(skill.getName())) {
-            throw new IdInvalidException(skill.getName() + " already exists");
+            throw new IdInvalidException("This skill already exists");
         }
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(this.skillService.addSkill(skill));
-        res.setMessage("create skill successfully");
 
         return ResponseEntity.ok(res);
     }
@@ -42,17 +41,16 @@ public class SkillController {
     @PutMapping("/skills")
     public ResponseEntity<RestResponse> updateSkill(@RequestBody Skill skill) throws IdInvalidException {
         if (skill.getName() != null && this.skillService.checkExistsName(skill.getName())) {
-            throw new IdInvalidException("Skill name = " + skill.getName() + " already exists ");
+            throw new IdInvalidException("This skill already exists");
         }
 
         Skill updateSkill = this.skillService.updateSkill(skill);
         if (updateSkill == null) {
-            throw new IdInvalidException("Skill does not exist");
+            throw new IdInvalidException("skill not found");
         }
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(updateSkill);
-        res.setMessage("update skill successfully");
 
         return ResponseEntity.ok(res);
     }
@@ -62,7 +60,6 @@ public class SkillController {
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(this.skillService.fetchAllSkill());
-        res.setMessage("update skill successfully");
 
         return ResponseEntity.ok(res);
     }

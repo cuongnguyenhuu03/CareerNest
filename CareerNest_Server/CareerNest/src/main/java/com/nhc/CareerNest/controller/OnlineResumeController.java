@@ -34,7 +34,6 @@ public class OnlineResumeController {
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(this.onlineResumeService.handleSaveOnlineResume(onlineResume));
-        res.setMessage("create online resume successfully");
 
         return ResponseEntity.ok(res);
     }
@@ -44,7 +43,6 @@ public class OnlineResumeController {
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(this.onlineResumeService.handleUpdateOnlineResume(onlineResume));
-        res.setMessage("update online resume successfully");
 
         return ResponseEntity.ok(res);
     }
@@ -54,7 +52,6 @@ public class OnlineResumeController {
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(this.onlineResumeService.fetchById(id));
-        res.setMessage("fetch resume successfully");
 
         return ResponseEntity.ok(res);
     }
@@ -64,7 +61,6 @@ public class OnlineResumeController {
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(this.onlineResumeService.fetchByUserId(user));
-        res.setMessage("fetch resumes successfully");
 
         return ResponseEntity.ok(res);
     }
@@ -76,7 +72,6 @@ public class OnlineResumeController {
 
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
-        res.setMessage("fetch resumes successfully");
 
         return ResponseEntity.ok(res);
     }

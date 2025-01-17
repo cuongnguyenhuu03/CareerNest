@@ -32,13 +32,12 @@ public class RoleController {
     public ResponseEntity<RestResponse> create(@RequestBody Role r) throws IdInvalidException {
         // check name
         if (this.roleService.existByName(r.getName())) {
-            throw new IdInvalidException("Role with name = " + r.getName() + " already exist");
+            throw new IdInvalidException("This role already exists");
         }
 
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(this.roleService.create(r));
-        res.setMessage("create a new role successfully");
 
         return ResponseEntity.ok(res);
     }
@@ -48,13 +47,12 @@ public class RoleController {
     public ResponseEntity<RestResponse> update(@RequestBody Role r) throws IdInvalidException {
         // check id
         if (this.roleService.fetchById(r.getId()) == null) {
-            throw new IdInvalidException("Role with id = " + r.getId() + " not exist");
+            throw new IdInvalidException("Role not found");
         }
 
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(this.roleService.update(r));
-        res.setMessage("update a role successfully");
 
         return ResponseEntity.ok(res);
     }
@@ -64,13 +62,12 @@ public class RoleController {
     public ResponseEntity<RestResponse> delete(@PathVariable("id") long id) throws IdInvalidException {
         // check id
         if (this.roleService.fetchById(id) == null) {
-            throw new IdInvalidException("Role with id = " + id + " not exist");
+            throw new IdInvalidException("Role not found");
         }
         this.roleService.delete(id);
 
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
-        res.setMessage("delete a role successfully");
 
         return ResponseEntity.ok(res);
     }
@@ -82,7 +79,6 @@ public class RoleController {
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(roleService.getRoles());
-        res.setMessage("update a role successfully");
 
         return ResponseEntity.ok(res);
     }
@@ -93,13 +89,12 @@ public class RoleController {
 
         Role role = this.roleService.fetchById(id);
         if (role == null) {
-            throw new IdInvalidException("Resume with id = " + id + " not exist");
+            throw new IdInvalidException("Resume no found");
         }
 
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(role);
-        res.setMessage("fetch a role successfully");
 
         return ResponseEntity.ok(res);
     }

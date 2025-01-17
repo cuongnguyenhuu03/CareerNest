@@ -119,7 +119,7 @@ public class AuthController {
         boolean isEmailExist = this.userService.isEmailExist(RegisterUser.getEmail());
         if (isEmailExist) {
             throw new IdInvalidException(
-                    "Email " + RegisterUser.getEmail() + " already exists.");
+                    "This email already exists");
         }
 
         // set default role user
@@ -134,7 +134,6 @@ public class AuthController {
 
         RestResponse res = new RestResponse();
         res.setData(this.userService.convertToResUpdateUserDTO(newUser));
-        res.setMessage("update user success");
         res.setStatusCode(HttpStatus.OK.value());
 
         return ResponseEntity.ok(res);
@@ -190,7 +189,6 @@ public class AuthController {
 
         RestResponse res = new RestResponse();
         res.setData(resLoginDTO);
-        res.setMessage("get refresh token successfully");
         res.setStatusCode(HttpStatus.OK.value());
 
         return ResponseEntity.ok(res);

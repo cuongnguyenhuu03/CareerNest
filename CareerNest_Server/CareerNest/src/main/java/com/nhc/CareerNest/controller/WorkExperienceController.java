@@ -37,8 +37,6 @@ public class WorkExperienceController {
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(workExperiences);
-        res.setMessage("fetch all workExperiences successfully");
-
         return ResponseEntity.ok(res);
     }
 
@@ -49,8 +47,6 @@ public class WorkExperienceController {
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(workExperience);
-        res.setMessage("fetch workExperience successfully");
-
         return ResponseEntity.ok(res);
     }
 
@@ -61,8 +57,6 @@ public class WorkExperienceController {
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(workExperience);
-        res.setMessage("create workExperience successfully");
-
         return ResponseEntity.ok(res);
     }
 
@@ -73,8 +67,6 @@ public class WorkExperienceController {
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(workExperience);
-        res.setMessage("update workExperience successfully");
-
         return ResponseEntity.ok(res);
     }
 
@@ -84,8 +76,6 @@ public class WorkExperienceController {
 
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
-        res.setMessage("delete workExperience successfully");
-
         return ResponseEntity.ok(res);
     }
 

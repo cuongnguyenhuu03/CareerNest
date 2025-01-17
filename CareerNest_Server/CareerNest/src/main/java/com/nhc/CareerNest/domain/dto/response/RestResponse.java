@@ -3,7 +3,7 @@ package com.nhc.CareerNest.domain.dto.response;
 public class RestResponse {
 
     private int statusCode;
-    private Object message;
+    private Object message = "call API successfully";
     private String error;
     private Object data;
 

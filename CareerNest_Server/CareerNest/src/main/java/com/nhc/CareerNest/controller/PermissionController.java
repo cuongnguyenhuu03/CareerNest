@@ -32,13 +32,12 @@ public class PermissionController {
     public ResponseEntity<RestResponse> create(@RequestBody Permission p) throws IdInvalidException {
         // check exist
         if (this.permissionService.isPermissionExist(p)) {
-            throw new IdInvalidException("Permission already exists.");
+            throw new IdInvalidException("This permission already exists.");
         }
 
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.CREATED.value());
         res.setData(this.permissionService.create(p));
-        res.setMessage("create a new permission successfully");
 
         return ResponseEntity.ok(res);
     }
@@ -48,14 +47,14 @@ public class PermissionController {
     public ResponseEntity<RestResponse> update(@RequestBody Permission p) throws IdInvalidException {
         // check exist by id
         if (this.permissionService.fetchById(p.getId()) == null) {
-            throw new IdInvalidException("Permission with id = " + p.getId() + " not exist.");
+            throw new IdInvalidException("Permission not found");
         }
 
         // check exist by module, apiPath and method
         if (this.permissionService.isPermissionExist(p)) {
             // check name
             if (this.permissionService.isSameName(p)) {
-                throw new IdInvalidException("Permission already exists.");
+                throw new IdInvalidException("This permission already exists.");
             }
         }
 
@@ -64,7 +63,6 @@ public class PermissionController {
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(this.permissionService.update(p));
-        res.setMessage("update a permission successfully");
 
         return ResponseEntity.ok(res);
     }
@@ -74,13 +72,12 @@ public class PermissionController {
     public ResponseEntity<RestResponse> delete(@PathVariable("id") long id) throws IdInvalidException {
         // check exist by id
         if (this.permissionService.fetchById(id) == null) {
-            throw new IdInvalidException("Permission with id = " + id + " not exist.");
+            throw new IdInvalidException("Permission not found");
         }
         this.permissionService.delete(id);
 
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
-        res.setMessage("delete a permission successfully");
 
         return ResponseEntity.ok(res);
     }
@@ -91,7 +88,6 @@ public class PermissionController {
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.CREATED.value());
         res.setData(this.permissionService.getPermissions());
-        res.setMessage("fetch permissions successfully");
 
         return ResponseEntity.ok(res);
     }

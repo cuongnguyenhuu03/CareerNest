@@ -57,7 +57,7 @@ public class FileController {
 
         boolean isValid = allowedExtensions.stream().anyMatch(item -> fileName.toLowerCase().endsWith(item));
         if (!isValid) {
-            throw new StorageException("invalid file extension " + allowedExtensions.toString());
+            throw new StorageException("invalid file extension");
         }
 
         // create directory if not exist
@@ -89,7 +89,7 @@ public class FileController {
         // check file exist (and not a directory)
         long fileLength = this.fileService.getFileLength(fileName, folder);
         if (fileLength == 0) {
-            throw new StorageException("File with name = " + fileName + " not found.");
+            throw new StorageException("File name not found.");
         }
 
         // download a file

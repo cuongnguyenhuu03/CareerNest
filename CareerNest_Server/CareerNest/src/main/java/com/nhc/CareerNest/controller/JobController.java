@@ -36,7 +36,6 @@ public class JobController {
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(jobs);
-        res.setMessage("Fetch all jobs successfully");
 
         return ResponseEntity.ok(res);
     }
@@ -49,7 +48,6 @@ public class JobController {
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(job);
-        res.setMessage("Fetch all jobs successfully");
 
         return ResponseEntity.ok(res);
     }
@@ -62,7 +60,6 @@ public class JobController {
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(newJob);
-        res.setMessage("create a job successfully");
 
         return ResponseEntity.ok(res);
     }
@@ -74,7 +71,6 @@ public class JobController {
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(updateJob);
-        res.setMessage("update a job successfully");
 
         return ResponseEntity.ok(res);
     }
@@ -85,7 +81,6 @@ public class JobController {
 
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
-        res.setMessage("delete a job successfully");
 
         return ResponseEntity.ok(res);
     }
@@ -97,7 +92,6 @@ public class JobController {
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(jobs);
-        res.setMessage("Fetch jobs successfully");
 
         return ResponseEntity.ok(res);
     }

@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nhc.CareerNest.domain.dto.response.RestResponse;
-import com.nhc.CareerNest.domain.dto.response.resume.ResFetchResumeDTO;
-import com.nhc.CareerNest.domain.dto.response.resume.ResUpdateResumeDTO;
 import com.nhc.CareerNest.domain.entity.Resume;
 import com.nhc.CareerNest.service.impl.ResumeService;
 import com.nhc.CareerNest.util.anotation.ApiMessage;
@@ -45,38 +43,46 @@ public class ResumeController {
             throws IdInvalidException {
         boolean isExist = this.resumeService.checkResumeExistByUserAndJob(resume);
         if (!isExist) {
-            throw new IdInvalidException("Job/User not exist");
+            throw new IdInvalidException("Job/User not found");
         }
 
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(this.resumeService.createResume(resume));
-        res.setMessage("Fetch all jobs successfully");
 
         return ResponseEntity.ok(res);
     }
 
     @GetMapping("resumes/{id}")
     @ApiMessage("get a resume by id")
-    public ResponseEntity<ResFetchResumeDTO> fetchResume(@PathVariable Long id) throws IdInvalidException {
+    public ResponseEntity<RestResponse> fetchResume(@PathVariable Long id) throws IdInvalidException {
         Optional<Resume> optionalResume = this.resumeService.fetchResume(id);
         if (optionalResume.isEmpty()) {
-            throw new IdInvalidException("resume with id: " + id + " not exist");
+            throw new IdInvalidException("Resume not found");
         } else {
-            return ResponseEntity.ok().body(this.resumeService.getResume(optionalResume.get()));
+            RestResponse res = new RestResponse();
+            res.setStatusCode(HttpStatus.OK.value());
+            res.setData(this.resumeService.getResume(optionalResume.get()));
+
+            return ResponseEntity.ok(res);
         }
     }
 
     @PutMapping("resumes")
     @ApiMessage("update a resume")
-    public ResponseEntity<ResUpdateResumeDTO> updateResume(@RequestBody Resume resume) throws IdInvalidException {
+    public ResponseEntity<RestResponse> updateResume(@RequestBody Resume resume) throws IdInvalidException {
         Optional<Resume> optionalResume = this.resumeService.fetchResume(resume.getId());
         if (optionalResume.isEmpty()) {
-            throw new IdInvalidException("resume with id: " + resume.getId() + " not exist");
+            throw new IdInvalidException("Resume not found");
         } else {
             Resume updateResume = optionalResume.get();
             updateResume.setStatus(resume.getStatus());
-            return ResponseEntity.ok().body(this.resumeService.update(updateResume));
+
+            RestResponse res = new RestResponse();
+            res.setStatusCode(HttpStatus.OK.value());
+            res.setData(this.resumeService.update(updateResume));
+
+            return ResponseEntity.ok(res);
         }
     }
 
@@ -85,7 +91,7 @@ public class ResumeController {
     public void deleteResume(@PathVariable("id") long id) throws IdInvalidException {
         Optional<Resume> optionalResume = this.resumeService.fetchResume(id);
         if (optionalResume.isEmpty()) {
-            throw new IdInvalidException("resume with id: " + id + " not exist");
+            throw new IdInvalidException("Resume not found");
         } else {
             this.resumeService.deleteResume(id);
         }

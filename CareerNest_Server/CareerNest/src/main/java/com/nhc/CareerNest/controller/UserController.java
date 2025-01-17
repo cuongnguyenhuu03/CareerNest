@@ -40,7 +40,7 @@ public class UserController {
     public ResponseEntity<RestResponse> createUser(@RequestBody User user) throws IdInvalidException {
         boolean isEmailExist = this.userService.isEmailExist(user.getEmail());
         if (isEmailExist) {
-            throw new IdInvalidException("Email Already Exists");
+            throw new IdInvalidException("This email is already in use");
         }
 
         String hashPassword = this.passwordEncoder.encode(user.getPassword());
@@ -50,7 +50,6 @@ public class UserController {
 
         RestResponse res = new RestResponse();
         res.setData(this.userService.convertToResCreateUserDTO(createdUser));
-        res.setMessage("Save user success");
         res.setStatusCode(HttpStatus.CREATED.value());
 
         return ResponseEntity.ok(res);
@@ -63,7 +62,6 @@ public class UserController {
 
         RestResponse res = new RestResponse();
         res.setData(users);
-        res.setMessage("fetch all user success");
         res.setStatusCode(HttpStatus.OK.value());
 
         return ResponseEntity.ok(res);
@@ -75,7 +73,7 @@ public class UserController {
 
         User updateUser = this.userService.findUserById(user.getId());
         if (updateUser == null) {
-            throw new IdInvalidException("Can not find user with id: " + user.getId());
+            throw new IdInvalidException("User not found");
         }
 
         updateUser.setFirstName(user.getFirstName());
@@ -89,7 +87,6 @@ public class UserController {
 
         RestResponse res = new RestResponse();
         res.setData(this.userService.convertToResUpdateUserDTO(updateUser));
-        res.setMessage("update user success");
         res.setStatusCode(HttpStatus.OK.value());
 
         return ResponseEntity.ok(res);
@@ -101,14 +98,13 @@ public class UserController {
 
         User deleteUser = this.userService.findUserById(id);
         if (deleteUser == null) {
-            throw new IdInvalidException("Can not find user with id: " + id);
+            throw new IdInvalidException("User not found");
         }
 
         deleteUser.setBlocked(true);
         this.userService.handleSaveUser(deleteUser);
 
         RestResponse res = new RestResponse();
-        res.setMessage("delete user success");
         res.setStatusCode(HttpStatus.OK.value());
 
         return ResponseEntity.ok(res);

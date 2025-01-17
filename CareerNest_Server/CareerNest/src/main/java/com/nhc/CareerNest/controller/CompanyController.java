@@ -35,14 +35,13 @@ public class CompanyController {
     public ResponseEntity<RestResponse> handleCreateACompany(@RequestBody Company company) throws IdInvalidException {
         Company newCompany = this.companyService.findByName(company.getName());
         if (newCompany != null) {
-            throw new IdInvalidException("This Company name already exists");
+            throw new IdInvalidException("This Company already exists");
         }
         newCompany = this.companyService.handleSaveCompany(company);
 
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.CREATED.value());
         res.setData(newCompany);
-        res.setMessage("create a new company successfully");
 
         return ResponseEntity.ok(res);
     }
@@ -55,7 +54,6 @@ public class CompanyController {
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(company);
-        res.setMessage("Fetch a new company successfully");
 
         return ResponseEntity.ok(res);
     }
@@ -68,8 +66,6 @@ public class CompanyController {
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(updateCompany);
-        res.setMessage("Update a company successfully");
-
         return ResponseEntity.ok(res);
     }
 
@@ -80,7 +76,6 @@ public class CompanyController {
 
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
-        res.setMessage("Delete a company successfully");
         return ResponseEntity.ok(res);
     }
 
@@ -91,7 +86,6 @@ public class CompanyController {
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(companies);
-        res.setMessage("Fetch all company successfully");
         return ResponseEntity.ok(res);
     }
 

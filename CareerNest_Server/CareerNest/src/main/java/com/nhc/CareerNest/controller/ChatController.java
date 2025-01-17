@@ -58,7 +58,6 @@ public class ChatController {
         RestResponse e = new RestResponse();
         e.setData(userService.findConnectedUsers());
         e.setStatusCode(HttpStatus.OK.value());
-        e.setMessage("fetch connected user successfully");
         return ResponseEntity.ok(e);
     }
 
@@ -93,7 +92,6 @@ public class ChatController {
         RestResponse e = new RestResponse();
         e.setData(chatList);
         e.setStatusCode(HttpStatus.OK.value());
-        e.setMessage("fetch chat message successfully");
         return ResponseEntity
                 .ok(e);
     }
