@@ -12,6 +12,8 @@ import com.nhc.CareerNest.util.exception.IdInvalidException;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequestMapping("/api/v1")
 public class UserController {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final LocalizationUtils localizationUtils;
@@ -56,7 +59,7 @@ public class UserController {
         RestResponse res = new RestResponse();
         res.setData(this.userService.convertToResCreateUserDTO(createdUser));
         res.setStatusCode(HttpStatus.CREATED.value());
-
+        logger.info(String.format("created user with id: " + createdUser.getId()));
         return ResponseEntity.ok(res);
     }
 
