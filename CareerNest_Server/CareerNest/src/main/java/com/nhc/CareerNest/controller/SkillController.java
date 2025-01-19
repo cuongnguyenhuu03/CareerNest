@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nhc.CareerNest.config.language.LocalizationUtils;
 import com.nhc.CareerNest.domain.dto.response.RestResponse;
 import com.nhc.CareerNest.domain.entity.Skill;
 import com.nhc.CareerNest.service.impl.SkillService;
+import com.nhc.CareerNest.util.constant.MessageKeys;
 import com.nhc.CareerNest.util.exception.IdInvalidException;
 
 @RestController
@@ -19,8 +21,12 @@ import com.nhc.CareerNest.util.exception.IdInvalidException;
 public class SkillController {
 
     private final SkillService skillService;
+    private final LocalizationUtils localizationUtils;
 
-    public SkillController(SkillService skillService) {
+    public SkillController(
+            LocalizationUtils localizationUtils,
+            SkillService skillService) {
+        this.localizationUtils = localizationUtils;
         this.skillService = skillService;
     }
 
@@ -29,7 +35,7 @@ public class SkillController {
 
         // check skill exist
         if (skill.getName() != null && this.skillService.checkExistsName(skill.getName())) {
-            throw new IdInvalidException("This skill already exists");
+            throw new IdInvalidException(localizationUtils.getLocalizedMessage(MessageKeys.SKILL_ALREADY_EXIST));
         }
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
@@ -41,12 +47,12 @@ public class SkillController {
     @PutMapping("/skills")
     public ResponseEntity<RestResponse> updateSkill(@RequestBody Skill skill) throws IdInvalidException {
         if (skill.getName() != null && this.skillService.checkExistsName(skill.getName())) {
-            throw new IdInvalidException("This skill already exists");
+            throw new IdInvalidException(localizationUtils.getLocalizedMessage(MessageKeys.SKILL_ALREADY_EXIST));
         }
 
         Skill updateSkill = this.skillService.updateSkill(skill);
         if (updateSkill == null) {
-            throw new IdInvalidException("skill not found");
+            throw new IdInvalidException(localizationUtils.getLocalizedMessage(MessageKeys.SKILL_NOT_FOUND));
         }
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());

@@ -8,14 +8,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import com.nhc.CareerNest.config.language.LocalizationUtils;
 import com.nhc.CareerNest.service.impl.UserService;
+import com.nhc.CareerNest.util.constant.MessageKeys;
 
 @Component("userDetailsService")
 public class UserDetailCustom implements UserDetailsService {
 
     private final UserService userService;
+    private final LocalizationUtils localizationUtils;
 
-    public UserDetailCustom(UserService userService) {
+    public UserDetailCustom(
+            LocalizationUtils localizationUtils,
+            UserService userService) {
+        this.localizationUtils = localizationUtils;
         this.userService = userService;
     }
 
@@ -23,7 +29,8 @@ public class UserDetailCustom implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         com.nhc.CareerNest.domain.entity.User user = this.userService.handleGetUserByUserName(username);
         if (user == null) {
-            throw new UsernameNotFoundException("Invalid username/password");
+            throw new UsernameNotFoundException(
+                    localizationUtils.getLocalizedMessage(MessageKeys.LOGIN_FAILED));
         }
 
         return new org.springframework.security.core.userdetails.User(

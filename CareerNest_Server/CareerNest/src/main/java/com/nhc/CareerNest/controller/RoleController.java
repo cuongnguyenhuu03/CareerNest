@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nhc.CareerNest.config.language.LocalizationUtils;
 import com.nhc.CareerNest.domain.dto.response.RestResponse;
 import com.nhc.CareerNest.domain.entity.Role;
 import com.nhc.CareerNest.service.impl.RoleService;
 import com.nhc.CareerNest.util.anotation.ApiMessage;
+import com.nhc.CareerNest.util.constant.MessageKeys;
 import com.nhc.CareerNest.util.exception.IdInvalidException;
 
 @RestController
@@ -22,9 +24,13 @@ import com.nhc.CareerNest.util.exception.IdInvalidException;
 public class RoleController {
 
     private final RoleService roleService;
+    private final LocalizationUtils localizationUtils;
 
-    public RoleController(RoleService roleService) {
+    public RoleController(
+            RoleService roleService,
+            LocalizationUtils localizationUtils) {
         this.roleService = roleService;
+        this.localizationUtils = localizationUtils;
     }
 
     @PostMapping("/roles")
@@ -32,7 +38,7 @@ public class RoleController {
     public ResponseEntity<RestResponse> create(@RequestBody Role r) throws IdInvalidException {
         // check name
         if (this.roleService.existByName(r.getName())) {
-            throw new IdInvalidException("This role already exists");
+            throw new IdInvalidException(localizationUtils.getLocalizedMessage(MessageKeys.ROLE_ALREADY_EXIST));
         }
 
         RestResponse res = new RestResponse();
@@ -47,7 +53,7 @@ public class RoleController {
     public ResponseEntity<RestResponse> update(@RequestBody Role r) throws IdInvalidException {
         // check id
         if (this.roleService.fetchById(r.getId()) == null) {
-            throw new IdInvalidException("Role not found");
+            throw new IdInvalidException(localizationUtils.getLocalizedMessage(MessageKeys.ROLE_NOT_FOUND));
         }
 
         RestResponse res = new RestResponse();
@@ -62,7 +68,7 @@ public class RoleController {
     public ResponseEntity<RestResponse> delete(@PathVariable("id") long id) throws IdInvalidException {
         // check id
         if (this.roleService.fetchById(id) == null) {
-            throw new IdInvalidException("Role not found");
+            throw new IdInvalidException(localizationUtils.getLocalizedMessage(MessageKeys.ROLE_NOT_FOUND));
         }
         this.roleService.delete(id);
 
@@ -89,7 +95,7 @@ public class RoleController {
 
         Role role = this.roleService.fetchById(id);
         if (role == null) {
-            throw new IdInvalidException("Resume no found");
+            throw new IdInvalidException(localizationUtils.getLocalizedMessage(MessageKeys.ROLE_NOT_FOUND));
         }
 
         RestResponse res = new RestResponse();

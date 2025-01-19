@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nhc.CareerNest.config.language.LocalizationUtils;
 import com.nhc.CareerNest.domain.dto.response.RestResponse;
 import com.nhc.CareerNest.domain.entity.Permission;
 import com.nhc.CareerNest.service.impl.PermissionService;
 import com.nhc.CareerNest.util.anotation.ApiMessage;
+import com.nhc.CareerNest.util.constant.MessageKeys;
 import com.nhc.CareerNest.util.exception.IdInvalidException;
 
 @RestController
@@ -22,8 +24,12 @@ import com.nhc.CareerNest.util.exception.IdInvalidException;
 public class PermissionController {
 
     private final PermissionService permissionService;
+    private final LocalizationUtils localizationUtils;
 
-    public PermissionController(PermissionService permissionService) {
+    public PermissionController(
+            LocalizationUtils localizationUtils,
+            PermissionService permissionService) {
+        this.localizationUtils = localizationUtils;
         this.permissionService = permissionService;
     }
 
@@ -32,7 +38,7 @@ public class PermissionController {
     public ResponseEntity<RestResponse> create(@RequestBody Permission p) throws IdInvalidException {
         // check exist
         if (this.permissionService.isPermissionExist(p)) {
-            throw new IdInvalidException("This permission already exists.");
+            throw new IdInvalidException(localizationUtils.getLocalizedMessage(MessageKeys.PERMISSION_ALREADY_EXIST));
         }
 
         RestResponse res = new RestResponse();
@@ -47,14 +53,15 @@ public class PermissionController {
     public ResponseEntity<RestResponse> update(@RequestBody Permission p) throws IdInvalidException {
         // check exist by id
         if (this.permissionService.fetchById(p.getId()) == null) {
-            throw new IdInvalidException("Permission not found");
+            throw new IdInvalidException(localizationUtils.getLocalizedMessage(MessageKeys.PERMISSION_NOT_FOUND));
         }
 
         // check exist by module, apiPath and method
         if (this.permissionService.isPermissionExist(p)) {
             // check name
             if (this.permissionService.isSameName(p)) {
-                throw new IdInvalidException("This permission already exists.");
+                throw new IdInvalidException(
+                        localizationUtils.getLocalizedMessage(MessageKeys.PERMISSION_ALREADY_EXIST));
             }
         }
 
@@ -72,7 +79,7 @@ public class PermissionController {
     public ResponseEntity<RestResponse> delete(@PathVariable("id") long id) throws IdInvalidException {
         // check exist by id
         if (this.permissionService.fetchById(id) == null) {
-            throw new IdInvalidException("Permission not found");
+            throw new IdInvalidException(localizationUtils.getLocalizedMessage(MessageKeys.PERMISSION_NOT_FOUND));
         }
         this.permissionService.delete(id);
 

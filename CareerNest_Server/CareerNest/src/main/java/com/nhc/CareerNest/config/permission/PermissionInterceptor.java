@@ -7,10 +7,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.HandlerMapping;
 
+import com.nhc.CareerNest.config.language.LocalizationUtils;
 import com.nhc.CareerNest.domain.entity.Permission;
 import com.nhc.CareerNest.domain.entity.Role;
 import com.nhc.CareerNest.domain.entity.User;
 import com.nhc.CareerNest.service.impl.UserService;
+import com.nhc.CareerNest.util.constant.MessageKeys;
 import com.nhc.CareerNest.util.exception.PermissionException;
 import com.nhc.CareerNest.util.security.SecurityUtil;
 
@@ -21,6 +23,9 @@ public class PermissionInterceptor implements HandlerInterceptor {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    LocalizationUtils localizationUtils;
 
     @Override
     @Transactional
@@ -52,10 +57,11 @@ public class PermissionInterceptor implements HandlerInterceptor {
                             .anyMatch(item -> item.getApiPath()
                                     .equals(path) && item.getMethod().equals(httpMethod));
                     if (isAllowed == false) {
-                        throw new PermissionException("No access rights");
+                        throw new PermissionException(
+                                localizationUtils.getLocalizedMessage(MessageKeys.ERROR_PERMISSION));
                     }
                 } else {
-                    throw new PermissionException("No access rights");
+                    throw new PermissionException(localizationUtils.getLocalizedMessage(MessageKeys.ERROR_PERMISSION));
                 }
             }
         }

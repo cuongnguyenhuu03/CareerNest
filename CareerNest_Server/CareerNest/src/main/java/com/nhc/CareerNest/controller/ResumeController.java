@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nhc.CareerNest.config.language.LocalizationUtils;
 import com.nhc.CareerNest.domain.dto.response.RestResponse;
 import com.nhc.CareerNest.domain.entity.Resume;
 import com.nhc.CareerNest.service.impl.ResumeService;
 import com.nhc.CareerNest.util.anotation.ApiMessage;
+import com.nhc.CareerNest.util.constant.MessageKeys;
 import com.nhc.CareerNest.util.exception.IdInvalidException;
 
 import jakarta.validation.Valid;
@@ -26,12 +28,15 @@ import jakarta.validation.Valid;
 public class ResumeController {
 
     private final ResumeService resumeService;
+    private final LocalizationUtils localizationUtils;
     // private final UserService userService;
 
     public ResumeController(
-            ResumeService resumeService
+            ResumeService resumeService,
+            LocalizationUtils localizationUtils
     // UserService userService
     ) {
+        this.localizationUtils = localizationUtils;
         this.resumeService = resumeService;
         // this.userService = userService;
 
@@ -43,7 +48,7 @@ public class ResumeController {
             throws IdInvalidException {
         boolean isExist = this.resumeService.checkResumeExistByUserAndJob(resume);
         if (!isExist) {
-            throw new IdInvalidException("Job/User not found");
+            throw new IdInvalidException(localizationUtils.getLocalizedMessage(MessageKeys.RESUME_DATA_NOT_FOUND));
         }
 
         RestResponse res = new RestResponse();
@@ -58,7 +63,7 @@ public class ResumeController {
     public ResponseEntity<RestResponse> fetchResume(@PathVariable Long id) throws IdInvalidException {
         Optional<Resume> optionalResume = this.resumeService.fetchResume(id);
         if (optionalResume.isEmpty()) {
-            throw new IdInvalidException("Resume not found");
+            throw new IdInvalidException(localizationUtils.getLocalizedMessage(MessageKeys.RESUME_NOT_FOUND));
         } else {
             RestResponse res = new RestResponse();
             res.setStatusCode(HttpStatus.OK.value());
@@ -73,7 +78,7 @@ public class ResumeController {
     public ResponseEntity<RestResponse> updateResume(@RequestBody Resume resume) throws IdInvalidException {
         Optional<Resume> optionalResume = this.resumeService.fetchResume(resume.getId());
         if (optionalResume.isEmpty()) {
-            throw new IdInvalidException("Resume not found");
+            throw new IdInvalidException(localizationUtils.getLocalizedMessage(MessageKeys.RESUME_NOT_FOUND));
         } else {
             Resume updateResume = optionalResume.get();
             updateResume.setStatus(resume.getStatus());
@@ -91,7 +96,7 @@ public class ResumeController {
     public void deleteResume(@PathVariable("id") long id) throws IdInvalidException {
         Optional<Resume> optionalResume = this.resumeService.fetchResume(id);
         if (optionalResume.isEmpty()) {
-            throw new IdInvalidException("Resume not found");
+            throw new IdInvalidException(localizationUtils.getLocalizedMessage(MessageKeys.RESUME_NOT_FOUND));
         } else {
             this.resumeService.deleteResume(id);
         }

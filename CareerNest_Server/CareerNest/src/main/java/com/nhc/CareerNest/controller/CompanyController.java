@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nhc.CareerNest.config.language.LocalizationUtils;
 import com.nhc.CareerNest.domain.dto.response.RestResponse;
 import com.nhc.CareerNest.domain.entity.Company;
 import com.nhc.CareerNest.service.impl.CompanyService;
 import com.nhc.CareerNest.util.anotation.ApiMessage;
+import com.nhc.CareerNest.util.constant.MessageKeys;
 import com.nhc.CareerNest.util.exception.IdInvalidException;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,9 +27,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 public class CompanyController {
 
     private final CompanyService companyService;
+    private final LocalizationUtils localizationUtils;
 
-    public CompanyController(CompanyService companyService) {
+    public CompanyController(
+            LocalizationUtils localizationUtils,
+            CompanyService companyService) {
         this.companyService = companyService;
+        this.localizationUtils = localizationUtils;
     }
 
     @PostMapping("/companies")
@@ -35,7 +41,7 @@ public class CompanyController {
     public ResponseEntity<RestResponse> handleCreateACompany(@RequestBody Company company) throws IdInvalidException {
         Company newCompany = this.companyService.findByName(company.getName());
         if (newCompany != null) {
-            throw new IdInvalidException("This Company already exists");
+            throw new IdInvalidException(localizationUtils.getLocalizedMessage(MessageKeys.COMPANY_ALREADY_EXIST));
         }
         newCompany = this.companyService.handleSaveCompany(company);
 

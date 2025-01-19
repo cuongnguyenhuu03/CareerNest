@@ -3,10 +3,12 @@ package com.nhc.CareerNest.controller;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.nhc.CareerNest.config.language.LocalizationUtils;
 import com.nhc.CareerNest.domain.dto.response.RestResponse;
 import com.nhc.CareerNest.domain.dto.response.file.ResUploadFileDTO;
 import com.nhc.CareerNest.service.impl.FileService;
 import com.nhc.CareerNest.util.anotation.ApiMessage;
+import com.nhc.CareerNest.util.constant.MessageKeys;
 import com.nhc.CareerNest.util.exception.StorageException;
 
 import java.io.FileNotFoundException;
@@ -33,12 +35,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class FileController {
 
     private final FileService fileService;
+    private final LocalizationUtils localizationUtils;
 
     @Value("${careernest.upload-file.base-uri}")
     private String baseUri;
 
-    public FileController(FileService fileService) {
+    public FileController(
+            LocalizationUtils localizationUtils,
+            FileService fileService) {
         this.fileService = fileService;
+        this.localizationUtils = localizationUtils;
     }
 
     @PostMapping("files")
@@ -49,7 +55,7 @@ public class FileController {
 
         // validate
         if (file == null || file.isEmpty()) {
-            throw new StorageException("file is empty");
+            throw new StorageException(localizationUtils.getLocalizedMessage(MessageKeys.FILE_EMPTY));
         }
 
         String fileName = file.getOriginalFilename();
@@ -57,7 +63,7 @@ public class FileController {
 
         boolean isValid = allowedExtensions.stream().anyMatch(item -> fileName.toLowerCase().endsWith(item));
         if (!isValid) {
-            throw new StorageException("invalid file extension");
+            throw new StorageException(localizationUtils.getLocalizedMessage(MessageKeys.FILE_INVALID_EXTENSION));
         }
 
         // create directory if not exist
@@ -71,7 +77,7 @@ public class FileController {
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(resUploadFile);
-        res.setMessage("upload file successfully");
+        res.setMessage(localizationUtils.getLocalizedMessage(MessageKeys.FILE_UPLOAD_SUCCESSFULLY));
 
         return ResponseEntity.ok().body(res);
     }
@@ -83,13 +89,13 @@ public class FileController {
             @RequestParam(name = "folder", required = false) String folder)
             throws StorageException, URISyntaxException, FileNotFoundException {
         if (fileName == null || folder == null) {
-            throw new StorageException("Missing required params : (fileName or folder) in query params.");
+            throw new StorageException(localizationUtils.getLocalizedMessage(MessageKeys.FILE_MISS_PARAM));
         }
 
         // check file exist (and not a directory)
         long fileLength = this.fileService.getFileLength(fileName, folder);
         if (fileLength == 0) {
-            throw new StorageException("File name not found.");
+            throw new StorageException(localizationUtils.getLocalizedMessage(MessageKeys.FILE_NOT_FOUND));
         }
 
         // download a file

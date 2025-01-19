@@ -1,5 +1,6 @@
 package com.nhc.CareerNest.util.exception;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -7,10 +8,15 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
+import com.nhc.CareerNest.config.language.LocalizationUtils;
 import com.nhc.CareerNest.domain.dto.response.RestResponse;
+import com.nhc.CareerNest.util.constant.MessageKeys;
 
 @RestControllerAdvice
 public class GlobalException {
+
+    @Autowired
+    LocalizationUtils localizationUtils;
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<RestResponse> handleAllException(Exception ex) {
@@ -18,7 +24,7 @@ public class GlobalException {
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
         res.setMessage(ex.getMessage());
-        res.setError("Internal Server Error");
+        res.setError(localizationUtils.getLocalizedMessage(MessageKeys.ERROR_EXCEPTION));
 
         return ResponseEntity.badRequest().body(res);
     }
@@ -31,7 +37,7 @@ public class GlobalException {
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
         res.setMessage(ex.getMessage());
-        res.setError("Bad request");
+        res.setError(localizationUtils.getLocalizedMessage(MessageKeys.ERROR_BAD_CREDENTIAL));
 
         return ResponseEntity.badRequest().body(res);
     }
@@ -44,7 +50,20 @@ public class GlobalException {
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.BAD_REQUEST.value());
         res.setError(ex.getMessage());
-        res.setMessage("Exception upload file");
+        res.setMessage(localizationUtils.getLocalizedMessage(MessageKeys.ERROR_FILE_STORAGE));
+
+        return ResponseEntity.badRequest().body(res);
+    }
+
+    @ExceptionHandler(value = {
+            PermissionException.class
+    })
+    public ResponseEntity<RestResponse> handlePermissionException(Exception ex) {
+
+        RestResponse res = new RestResponse();
+        res.setStatusCode(HttpStatus.BAD_REQUEST.value());
+        res.setError(ex.getMessage());
+        res.setMessage(localizationUtils.getLocalizedMessage(MessageKeys.ERROR_PERMISSION));
 
         return ResponseEntity.badRequest().body(res);
     }
@@ -57,7 +76,7 @@ public class GlobalException {
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.NOT_FOUND.value());
         res.setError(ex.getMessage());
-        res.setMessage("404 Not Found. URL may not exist...");
+        res.setMessage(localizationUtils.getLocalizedMessage(MessageKeys.ERROR_NO_RESOURCE_FOUND));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(res);
     }
 

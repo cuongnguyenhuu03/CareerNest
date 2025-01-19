@@ -2,10 +2,12 @@ package com.nhc.CareerNest.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nhc.CareerNest.config.language.LocalizationUtils;
 import com.nhc.CareerNest.domain.dto.response.RestResponse;
 import com.nhc.CareerNest.domain.entity.User;
 import com.nhc.CareerNest.service.impl.UserService;
 import com.nhc.CareerNest.util.anotation.ApiMessage;
+import com.nhc.CareerNest.util.constant.MessageKeys;
 import com.nhc.CareerNest.util.exception.IdInvalidException;
 
 import java.util.List;
@@ -27,10 +29,13 @@ public class UserController {
 
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final LocalizationUtils localizationUtils;
 
     public UserController(
+            LocalizationUtils localizationUtils,
             PasswordEncoder passwordEncoder,
             UserService userService) {
+        this.localizationUtils = localizationUtils;
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
@@ -40,7 +45,7 @@ public class UserController {
     public ResponseEntity<RestResponse> createUser(@RequestBody User user) throws IdInvalidException {
         boolean isEmailExist = this.userService.isEmailExist(user.getEmail());
         if (isEmailExist) {
-            throw new IdInvalidException("This email is already in use");
+            throw new IdInvalidException(localizationUtils.getLocalizedMessage(MessageKeys.EMAIL_ALREADY_EXIST));
         }
 
         String hashPassword = this.passwordEncoder.encode(user.getPassword());
@@ -73,7 +78,7 @@ public class UserController {
 
         User updateUser = this.userService.findUserById(user.getId());
         if (updateUser == null) {
-            throw new IdInvalidException("User not found");
+            throw new IdInvalidException(localizationUtils.getLocalizedMessage(MessageKeys.USER_NOT_FOUND));
         }
 
         updateUser.setFirstName(user.getFirstName());
@@ -98,7 +103,7 @@ public class UserController {
 
         User deleteUser = this.userService.findUserById(id);
         if (deleteUser == null) {
-            throw new IdInvalidException("User not found");
+            throw new IdInvalidException(localizationUtils.getLocalizedMessage(MessageKeys.USER_NOT_FOUND));
         }
 
         deleteUser.setBlocked(true);

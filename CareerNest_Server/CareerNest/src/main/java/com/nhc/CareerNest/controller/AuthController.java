@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nhc.CareerNest.config.language.LocalizationUtils;
 import com.nhc.CareerNest.domain.dto.request.ReqLoginDTO;
 import com.nhc.CareerNest.domain.dto.response.RestResponse;
 import com.nhc.CareerNest.domain.dto.response.auth.ResLoginDTO;
@@ -24,6 +25,7 @@ import com.nhc.CareerNest.domain.entity.User;
 import com.nhc.CareerNest.service.impl.RoleService;
 import com.nhc.CareerNest.service.impl.UserService;
 import com.nhc.CareerNest.util.anotation.ApiMessage;
+import com.nhc.CareerNest.util.constant.MessageKeys;
 import com.nhc.CareerNest.util.constant.RoleEnum;
 import com.nhc.CareerNest.util.exception.IdInvalidException;
 import com.nhc.CareerNest.util.security.SecurityUtil;
@@ -41,6 +43,7 @@ public class AuthController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final RoleService roleService;
+    private final LocalizationUtils localizationUtils;
 
     @Value("${careernest.jwt.refresh-token-validity-in-seconds}")
     private int refreshTokenExpiration;
@@ -50,7 +53,9 @@ public class AuthController {
             PasswordEncoder passwordEncoder,
             AuthenticationManagerBuilder authenticationManagerBuilder,
             SecurityUtil securityUtil,
-            UserService userService) {
+            UserService userService,
+            LocalizationUtils localizationUtils) {
+        this.localizationUtils = localizationUtils;
         this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
@@ -108,7 +113,7 @@ public class AuthController {
 
         RestResponse res = new RestResponse();
         res.setData(resLoginDTO);
-        res.setMessage("login success");
+        res.setMessage(localizationUtils.getLocalizedMessage(MessageKeys.LOGIN_SUCCESSFULLY));
         res.setStatusCode(HttpStatus.OK.value());
 
         return ResponseEntity.ok(res);
@@ -119,7 +124,7 @@ public class AuthController {
         boolean isEmailExist = this.userService.isEmailExist(RegisterUser.getEmail());
         if (isEmailExist) {
             throw new IdInvalidException(
-                    "This email already exists");
+                    localizationUtils.getLocalizedMessage(MessageKeys.EMAIL_ALREADY_EXIST));
         }
 
         // set default role user
@@ -218,7 +223,7 @@ public class AuthController {
         response.addCookie(cookie);
 
         RestResponse res = new RestResponse();
-        res.setMessage("logout successfully");
+        res.setMessage(localizationUtils.getLocalizedMessage(MessageKeys.LOGOUT_SUCCESSFULLY));
         res.setStatusCode(HttpStatus.OK.value());
 
         return ResponseEntity.ok(res);
