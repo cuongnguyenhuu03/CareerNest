@@ -6,7 +6,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.LocaleResolver;
 
-import com.nhc.CareerNest.util.WebUtils;
+import com.nhc.CareerNest.util.common.WebUtils;
 
 import jakarta.servlet.http.HttpServletRequest;
 

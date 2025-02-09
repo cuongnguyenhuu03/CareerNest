@@ -1,4 +1,4 @@
-package com.nhc.CareerNest.domain.dto.response;
+package com.nhc.CareerNest.domain.dto.response.base;
 
 public class RestResponse {
 

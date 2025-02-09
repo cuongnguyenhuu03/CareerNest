@@ -2,7 +2,7 @@ package com.nhc.CareerNest.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nhc.CareerNest.domain.dto.response.RestResponse;
+import com.nhc.CareerNest.domain.dto.response.base.RestResponse;
 import com.nhc.CareerNest.domain.entity.WorkExperience;
 import com.nhc.CareerNest.service.impl.WorkExperienceService;
 

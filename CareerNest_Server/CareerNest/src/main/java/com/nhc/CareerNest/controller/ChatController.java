@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nhc.CareerNest.domain.dto.request.ChatNotification;
-import com.nhc.CareerNest.domain.dto.response.RestResponse;
+import com.nhc.CareerNest.domain.dto.response.base.RestResponse;
 import com.nhc.CareerNest.domain.entity.ChatMessage;
 import com.nhc.CareerNest.domain.entity.User;
 import com.nhc.CareerNest.service.impl.ChatMessageService;

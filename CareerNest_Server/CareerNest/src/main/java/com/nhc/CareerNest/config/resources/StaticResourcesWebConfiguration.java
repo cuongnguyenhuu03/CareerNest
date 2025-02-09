@@ -1,4 +1,4 @@
-package com.nhc.CareerNest.config;
+package com.nhc.CareerNest.config.resources;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

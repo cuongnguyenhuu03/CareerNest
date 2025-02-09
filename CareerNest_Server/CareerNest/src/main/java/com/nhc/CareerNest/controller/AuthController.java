@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nhc.CareerNest.config.language.LocalizationUtils;
 import com.nhc.CareerNest.domain.dto.request.ReqLoginDTO;
-import com.nhc.CareerNest.domain.dto.response.RestResponse;
 import com.nhc.CareerNest.domain.dto.response.auth.ResLoginDTO;
+import com.nhc.CareerNest.domain.dto.response.base.RestResponse;
 import com.nhc.CareerNest.domain.entity.Role;
 import com.nhc.CareerNest.domain.entity.User;
 import com.nhc.CareerNest.service.impl.RoleService;

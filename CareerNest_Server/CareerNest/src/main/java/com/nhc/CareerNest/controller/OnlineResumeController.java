@@ -2,7 +2,7 @@ package com.nhc.CareerNest.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nhc.CareerNest.domain.dto.response.RestResponse;
+import com.nhc.CareerNest.domain.dto.response.base.RestResponse;
 import com.nhc.CareerNest.domain.entity.OnlineResume;
 import com.nhc.CareerNest.domain.entity.User;
 import com.nhc.CareerNest.service.impl.OnlineResumeService;

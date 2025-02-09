@@ -3,7 +3,7 @@ package com.nhc.CareerNest.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nhc.CareerNest.domain.dto.response.RestResponse;
+import com.nhc.CareerNest.domain.dto.response.base.RestResponse;
 import com.nhc.CareerNest.domain.entity.Job;
 import com.nhc.CareerNest.service.impl.JobService;
 import com.nhc.CareerNest.util.anotation.ApiMessage;

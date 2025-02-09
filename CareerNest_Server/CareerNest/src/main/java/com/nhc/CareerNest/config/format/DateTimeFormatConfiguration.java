@@ -1,4 +1,4 @@
-package com.nhc.CareerNest.config;
+package com.nhc.CareerNest.config.format;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;

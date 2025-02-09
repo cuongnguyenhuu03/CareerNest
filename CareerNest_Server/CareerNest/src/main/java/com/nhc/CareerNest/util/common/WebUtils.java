@@ -1,4 +1,4 @@
-package com.nhc.CareerNest.util;
+package com.nhc.CareerNest.util.common;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;

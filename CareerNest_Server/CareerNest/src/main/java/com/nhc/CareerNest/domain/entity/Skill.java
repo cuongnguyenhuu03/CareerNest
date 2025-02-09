@@ -23,6 +23,10 @@ public class Skill extends BaseEntity {
     @JsonIgnore
     private List<OnlineResume> onlineResumes;
 
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "skills")
+    @JsonIgnore
+    private List<Subscriber> subscribers;
+
     public String getName() {
         return name;
     }
