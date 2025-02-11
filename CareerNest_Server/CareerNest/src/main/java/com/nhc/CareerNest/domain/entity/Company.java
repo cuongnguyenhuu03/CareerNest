@@ -14,31 +14,43 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapKeyColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "companies")
 public class Company extends BaseEntity {
 
+    @NotBlank(message = "{name.not.blank}")
     private String name;
 
+    @Size(min = 5, max = 50, message = "{short.content.size}")
     private String industry;
 
+    @Size(min = 100, message = "{long.content.size}")
     private String description;
 
+    @Size(min = 5, max = 50, message = "{short.content.size}")
     private String website;
 
+    @Email
     private String email;
 
     private String phone;
 
+    @Size(min = 5, max = 50, message = "{short.content.size}")
     private String address;
 
+    @Size(min = 5, max = 50, message = "{short.content.size}")
     private String country;
 
     private List<String> expertise;
 
+    @Size(min = 5, max = 50, message = "{short.content.size}")
     private String city;
 
+    @Size(min = 5, max = 50, message = "{short.content.size}")
     private String logoUrl;
 
     private String size;

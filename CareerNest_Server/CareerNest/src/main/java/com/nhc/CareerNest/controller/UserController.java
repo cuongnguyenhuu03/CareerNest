@@ -3,12 +3,14 @@ package com.nhc.CareerNest.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nhc.CareerNest.config.language.LocalizationUtils;
+import com.nhc.CareerNest.constant.MessageKeys;
 import com.nhc.CareerNest.domain.dto.response.base.RestResponse;
 import com.nhc.CareerNest.domain.entity.User;
+import com.nhc.CareerNest.exception.errors.IdInvalidException;
 import com.nhc.CareerNest.service.impl.UserService;
 import com.nhc.CareerNest.util.anotation.ApiMessage;
-import com.nhc.CareerNest.util.constant.MessageKeys;
-import com.nhc.CareerNest.util.exception.IdInvalidException;
+
+import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -45,7 +47,7 @@ public class UserController {
 
     @PostMapping("/users")
     @ApiMessage("Create a new user")
-    public ResponseEntity<RestResponse> createUser(@RequestBody User user) throws IdInvalidException {
+    public ResponseEntity<RestResponse> createUser(@Valid @RequestBody User user) throws IdInvalidException {
         boolean isEmailExist = this.userService.isEmailExist(user.getEmail());
         if (isEmailExist) {
             throw new IdInvalidException(localizationUtils.getLocalizedMessage(MessageKeys.EMAIL_ALREADY_EXIST));

@@ -17,17 +17,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nhc.CareerNest.config.language.LocalizationUtils;
+import com.nhc.CareerNest.constant.MessageKeys;
+import com.nhc.CareerNest.constant.RoleEnum;
 import com.nhc.CareerNest.domain.dto.request.ReqLoginDTO;
+import com.nhc.CareerNest.domain.dto.request.ReqRegisterDTO;
 import com.nhc.CareerNest.domain.dto.response.auth.ResLoginDTO;
 import com.nhc.CareerNest.domain.dto.response.base.RestResponse;
 import com.nhc.CareerNest.domain.entity.Role;
 import com.nhc.CareerNest.domain.entity.User;
+import com.nhc.CareerNest.exception.errors.IdInvalidException;
 import com.nhc.CareerNest.service.impl.RoleService;
 import com.nhc.CareerNest.service.impl.UserService;
 import com.nhc.CareerNest.util.anotation.ApiMessage;
-import com.nhc.CareerNest.util.constant.MessageKeys;
-import com.nhc.CareerNest.util.constant.RoleEnum;
-import com.nhc.CareerNest.util.exception.IdInvalidException;
 import com.nhc.CareerNest.util.security.SecurityUtil;
 
 import jakarta.servlet.http.Cookie;
@@ -120,7 +121,8 @@ public class AuthController {
     }
 
     @PostMapping("/auth/register")
-    public ResponseEntity<RestResponse> register(@Valid @RequestBody User RegisterUser) throws IdInvalidException {
+    public ResponseEntity<RestResponse> register(@Valid @RequestBody ReqRegisterDTO dto) throws IdInvalidException {
+        User RegisterUser = ReqRegisterDTO.registerDTOtoUser(dto);
         boolean isEmailExist = this.userService.isEmailExist(RegisterUser.getEmail());
         if (isEmailExist) {
             throw new IdInvalidException(

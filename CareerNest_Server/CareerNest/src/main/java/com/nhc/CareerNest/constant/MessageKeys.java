@@ -1,4 +1,4 @@
-package com.nhc.CareerNest.util.constant;
+package com.nhc.CareerNest.constant;
 
 public class MessageKeys {
     // auth

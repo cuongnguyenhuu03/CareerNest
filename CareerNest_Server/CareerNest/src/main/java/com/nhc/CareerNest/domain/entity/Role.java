@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.nhc.CareerNest.util.constant.RoleEnum;
+import com.nhc.CareerNest.constant.RoleEnum;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -15,6 +15,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "roles")
@@ -23,7 +24,9 @@ public class Role extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private RoleEnum name;
 
+    @Size(min = 5, max = 50, message = "{short.content.size}")
     private String description;
+
     private boolean active;
 
     @ManyToMany(fetch = FetchType.LAZY)

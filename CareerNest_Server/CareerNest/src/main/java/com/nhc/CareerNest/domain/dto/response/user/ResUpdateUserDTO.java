@@ -3,9 +3,9 @@ package com.nhc.CareerNest.domain.dto.response.user;
 import java.sql.Date;
 import java.time.Instant;
 
+import com.nhc.CareerNest.constant.GenderEnum;
 import com.nhc.CareerNest.domain.entity.Company;
 import com.nhc.CareerNest.domain.entity.Role;
-import com.nhc.CareerNest.util.constant.GenderEnum;
 
 public class ResUpdateUserDTO {
     private String firstName;

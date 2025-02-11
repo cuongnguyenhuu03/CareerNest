@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nhc.CareerNest.config.language.LocalizationUtils;
+import com.nhc.CareerNest.constant.MessageKeys;
 import com.nhc.CareerNest.domain.dto.response.base.RestResponse;
-import com.nhc.CareerNest.util.constant.MessageKeys;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -7,14 +7,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.nhc.CareerNest.constant.GenderEnum;
+import com.nhc.CareerNest.constant.RoleEnum;
 import com.nhc.CareerNest.domain.entity.Permission;
 import com.nhc.CareerNest.domain.entity.Role;
 import com.nhc.CareerNest.domain.entity.User;
 import com.nhc.CareerNest.repository.PermissionRepository;
 import com.nhc.CareerNest.repository.RoleRepository;
 import com.nhc.CareerNest.repository.UserRepository;
-import com.nhc.CareerNest.util.constant.GenderEnum;
-import com.nhc.CareerNest.util.constant.RoleEnum;
 
 @Service
 public class DatabaseInitializer implements CommandLineRunner {

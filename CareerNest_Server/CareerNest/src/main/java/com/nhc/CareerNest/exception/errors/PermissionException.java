@@ -1,4 +1,4 @@
-package com.nhc.CareerNest.util.exception;
+package com.nhc.CareerNest.exception.errors;
 
 public class PermissionException extends Exception {
     // Constructor that accepts a message

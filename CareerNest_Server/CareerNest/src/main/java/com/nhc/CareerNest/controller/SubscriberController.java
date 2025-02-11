@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nhc.CareerNest.domain.entity.Subscriber;
+import com.nhc.CareerNest.exception.errors.IdInvalidException;
 import com.nhc.CareerNest.service.impl.SubscriberService;
-import com.nhc.CareerNest.util.exception.IdInvalidException;
 
 import jakarta.validation.Valid;
 

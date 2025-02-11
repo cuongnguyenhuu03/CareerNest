@@ -1,4 +1,4 @@
-package com.nhc.CareerNest.util.constant;
+package com.nhc.CareerNest.constant;
 
 public enum RoleEnum {
     USER, RECRUITER, ADMIN

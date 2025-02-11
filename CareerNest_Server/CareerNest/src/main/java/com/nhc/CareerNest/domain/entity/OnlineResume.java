@@ -14,15 +14,21 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "online_Resumes")
 public class OnlineResume extends BaseEntity {
 
+    @NotBlank(message = "{content.not.blank}")
     private String title;
 
+    @NotBlank(message = "{name.not.blank}")
     private String fullName;
 
+    @NotBlank(message = "{email.not.blank}")
+    @Email
     private String email;
 
     private String phone;

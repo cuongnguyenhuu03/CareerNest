@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.nhc.CareerNest.constant.UserStatusEnum;
 import com.nhc.CareerNest.domain.dto.response.user.ResCreateUserDTO;
 import com.nhc.CareerNest.domain.dto.response.user.ResUpdateUserDTO;
 import com.nhc.CareerNest.domain.dto.response.user.ResUserDTO;
@@ -13,7 +14,6 @@ import com.nhc.CareerNest.domain.entity.Role;
 import com.nhc.CareerNest.domain.entity.User;
 import com.nhc.CareerNest.repository.UserRepository;
 import com.nhc.CareerNest.service.IUserService;
-import com.nhc.CareerNest.util.constant.UserStatusEnum;
 
 @Service
 public class UserService implements IUserService {

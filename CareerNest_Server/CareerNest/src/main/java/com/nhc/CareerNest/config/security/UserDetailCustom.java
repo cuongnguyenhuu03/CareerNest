@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import com.nhc.CareerNest.config.language.LocalizationUtils;
+import com.nhc.CareerNest.constant.MessageKeys;
 import com.nhc.CareerNest.service.impl.UserService;
-import com.nhc.CareerNest.util.constant.MessageKeys;
 
 @Component("userDetailsService")
 public class UserDetailCustom implements UserDetailsService {

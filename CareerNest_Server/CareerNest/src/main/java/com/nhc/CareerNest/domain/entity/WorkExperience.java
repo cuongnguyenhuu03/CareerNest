@@ -6,15 +6,21 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "work_experiences")
 public class WorkExperience extends BaseEntity {
 
+    @NotBlank(message = "{name.not.blank}")
     private String companyName;
+
     private Date startDate;
+
     private Date endDate;
+
     private String description;
+
     private String location;
 
     @ManyToOne

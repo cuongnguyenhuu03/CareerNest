@@ -1,6 +1,6 @@
 package com.nhc.CareerNest.domain.entity;
 
-import com.nhc.CareerNest.util.constant.ResumeStateEnum;
+import com.nhc.CareerNest.constant.ResumeStateEnum;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -8,13 +8,16 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "resumes")
 public class Resume extends BaseEntity {
 
+    @NotBlank(message = "{email.not.blank}")
     private String email;
 
+    @NotBlank(message = "{url.not.blank}")
     private String url;
 
     @ManyToOne

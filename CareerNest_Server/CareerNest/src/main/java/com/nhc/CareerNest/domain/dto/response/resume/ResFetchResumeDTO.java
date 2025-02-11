@@ -2,7 +2,7 @@ package com.nhc.CareerNest.domain.dto.response.resume;
 
 import java.time.Instant;
 
-import com.nhc.CareerNest.util.constant.ResumeStateEnum;
+import com.nhc.CareerNest.constant.ResumeStateEnum;
 
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

@@ -8,12 +8,12 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.HandlerMapping;
 
 import com.nhc.CareerNest.config.language.LocalizationUtils;
+import com.nhc.CareerNest.constant.MessageKeys;
 import com.nhc.CareerNest.domain.entity.Permission;
 import com.nhc.CareerNest.domain.entity.Role;
 import com.nhc.CareerNest.domain.entity.User;
+import com.nhc.CareerNest.exception.errors.PermissionException;
 import com.nhc.CareerNest.service.impl.UserService;
-import com.nhc.CareerNest.util.constant.MessageKeys;
-import com.nhc.CareerNest.util.exception.PermissionException;
 import com.nhc.CareerNest.util.security.SecurityUtil;
 
 import jakarta.servlet.http.HttpServletRequest;

@@ -8,11 +8,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "skills")
 public class Skill extends BaseEntity {
 
+    @NotBlank(message = "{name.not.blank}")
     private String name;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "skills")

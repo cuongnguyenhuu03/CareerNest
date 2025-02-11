@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.nhc.CareerNest.util.constant.LevelEnum;
+import com.nhc.CareerNest.constant.LevelEnum;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,13 +18,17 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "jobs")
 public class Job extends BaseEntity {
 
+    @NotBlank(message = "{name.not.blank}")
     private String name;
 
+    @Size(min = 5, max = 50, message = "short.content.size")
     private String location;
 
     private double salary;
@@ -41,8 +45,10 @@ public class Job extends BaseEntity {
 
     private Instant endDate;
 
+    @Size(min = 100, message = "{long.content.size}")
     private String requirements;
 
+    @Size(min = 100, message = "{long.content.size}")
     private String benefits;
 
     private boolean active;

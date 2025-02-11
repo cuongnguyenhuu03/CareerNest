@@ -4,11 +4,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "chat_rooms")
 public class ChatRoom extends BaseEntity {
 
+    @NotBlank(message = "{name.not.blank}")
     private String chatName;
 
     @ManyToOne
