@@ -1,13 +1,18 @@
 package com.nhc.CareerNest.service.impl;
 
-import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.nhc.CareerNest.domain.dto.request.CompanyCriteriaDTO;
+import com.nhc.CareerNest.domain.dto.response.base.ResultPaginationResponse;
 import com.nhc.CareerNest.domain.entity.Company;
 import com.nhc.CareerNest.repository.CompanyRepository;
 import com.nhc.CareerNest.service.ICompanyService;
+import com.nhc.CareerNest.util.specification.CompanySpecification;
 
 @Service
 public class CompanyService implements ICompanyService {
@@ -48,8 +53,46 @@ public class CompanyService implements ICompanyService {
     }
 
     @Override
-    public List<Company> fetchAllCompany() {
-        return this.companyRepository.findActiveCompany();
+    public ResultPaginationResponse fetchAllCompany(
+            Pageable pageable,
+            CompanyCriteriaDTO companyCriteriaDTO) {
+
+        ResultPaginationResponse rs = new ResultPaginationResponse();
+        ResultPaginationResponse.Meta mt = new ResultPaginationResponse.Meta();
+
+        Specification<Company> combinedSpec = CompanySpecification.isActiveMatch(true);
+
+        // filter city
+        if (companyCriteriaDTO.getCity() != null && companyCriteriaDTO.getCity().isPresent()) {
+            Specification<Company> currentSpec = CompanySpecification.cityListMatch(companyCriteriaDTO.getCity().get());
+            combinedSpec = combinedSpec.and(currentSpec);
+        }
+
+        // filter industry
+        if (companyCriteriaDTO.getIndustry() != null && companyCriteriaDTO.getIndustry().isPresent()) {
+            Specification<Company> currentSpec = CompanySpecification
+                    .industryListMatch(companyCriteriaDTO.getIndustry().get());
+            combinedSpec = combinedSpec.and(currentSpec);
+        }
+
+        // filter location
+        if (companyCriteriaDTO.getCountry() != null && companyCriteriaDTO.getCountry().isPresent()) {
+            Specification<Company> currentSpec = CompanySpecification
+                    .countryListMatch(companyCriteriaDTO.getCountry().get());
+            combinedSpec = combinedSpec.and(currentSpec);
+        }
+
+        Page<Company> companies = this.companyRepository.findAll(pageable, combinedSpec);
+
+        mt.setPage(pageable.getPageNumber() + 1);
+        mt.setPageSize(pageable.getPageSize());
+        mt.setPages(companies.getTotalPages());
+        mt.setTotal(companies.getTotalElements());
+
+        rs.setMeta(mt);
+        rs.setResult(companies.getContent());
+
+        return rs;
     }
 
     @Override

@@ -1,21 +1,26 @@
 package com.nhc.CareerNest.controller;
 
-import java.util.List;
-
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nhc.CareerNest.config.language.LocalizationUtils;
 import com.nhc.CareerNest.constant.MessageKeys;
+import com.nhc.CareerNest.domain.dto.request.CompanyCriteriaDTO;
 import com.nhc.CareerNest.domain.dto.response.base.RestResponse;
+import com.nhc.CareerNest.domain.dto.response.base.ResultPaginationResponse;
 import com.nhc.CareerNest.domain.entity.Company;
 import com.nhc.CareerNest.exception.errors.IdInvalidException;
 import com.nhc.CareerNest.service.impl.CompanyService;
 import com.nhc.CareerNest.util.anotation.ApiMessage;
+
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +43,8 @@ public class CompanyController {
 
     @PostMapping("/companies")
     @ApiMessage("create a new company")
-    public ResponseEntity<RestResponse> handleCreateACompany(@RequestBody Company company) throws IdInvalidException {
+    public ResponseEntity<RestResponse> handleCreateACompany(@Valid @RequestBody Company company)
+            throws IdInvalidException {
         Company newCompany = this.companyService.findByName(company.getName());
         if (newCompany != null) {
             throw new IdInvalidException(localizationUtils.getLocalizedMessage(MessageKeys.COMPANY_ALREADY_EXIST));
@@ -86,13 +92,13 @@ public class CompanyController {
     }
 
     @GetMapping("/companies")
-    public ResponseEntity<RestResponse> fetchAllCompany() {
-        List<Company> companies = this.companyService.fetchAllCompany();
+    public ResponseEntity<ResultPaginationResponse> fetchAllCompany(
+            CompanyCriteriaDTO companyCriteriaDTO,
+            @RequestParam(defaultValue = "1", name = "page") int page) {
+        Pageable pageable = PageRequest.of(page - 1, 6);
 
-        RestResponse res = new RestResponse();
-        res.setStatusCode(HttpStatus.OK.value());
-        res.setData(companies);
-        return ResponseEntity.ok(res);
+        ResultPaginationResponse result = this.companyService.fetchAllCompany(pageable, companyCriteriaDTO);
+
+        return ResponseEntity.ok(result);
     }
-
 }

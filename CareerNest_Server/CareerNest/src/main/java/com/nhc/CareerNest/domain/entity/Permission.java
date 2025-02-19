@@ -9,7 +9,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+//import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "permissions")
@@ -18,13 +18,13 @@ public class Permission extends BaseEntity {
     @NotBlank(message = "{name.not.blank}")
     private String name;
 
-    @Size(min = 5, max = 50, message = "{short.content.size}")
+    // @Size(min = 5, max = 50, message = "{short.content.size}")
     private String apiPath;
 
-    @Size(min = 5, max = 50, message = "{short.content.size}")
+    // @Size(min = 5, max = 50, message = "{short.content.size}")
     private String method;
 
-    @Size(min = 5, max = 50, message = "{short.content.size}")
+    // @Size(min = 5, max = 50, message = "{short.content.size}")
     private String module;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "permissions")

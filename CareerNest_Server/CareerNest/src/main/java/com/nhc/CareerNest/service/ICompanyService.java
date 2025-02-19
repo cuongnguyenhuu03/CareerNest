@@ -1,8 +1,11 @@
 package com.nhc.CareerNest.service;
 
-import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Pageable;
+
+import com.nhc.CareerNest.domain.dto.request.CompanyCriteriaDTO;
+import com.nhc.CareerNest.domain.dto.response.base.ResultPaginationResponse;
 import com.nhc.CareerNest.domain.entity.Company;
 
 public interface ICompanyService {
@@ -11,7 +14,8 @@ public interface ICompanyService {
 
     Company handleUpdateCompany(Company company);
 
-    List<Company> fetchAllCompany();
+    ResultPaginationResponse fetchAllCompany(
+            Pageable pageable, CompanyCriteriaDTO companyCriteriaDTO);
 
     Optional<Company> getCompanyById(Long id);
 

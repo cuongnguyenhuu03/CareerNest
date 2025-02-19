@@ -22,13 +22,14 @@ import jakarta.validation.constraints.Size;
 @Table(name = "companies")
 public class Company extends BaseEntity {
 
-    @NotBlank(message = "{name.not.blank}")
+    @NotBlank(message = "{email.not.blank}")
     private String name;
 
     @Size(min = 5, max = 50, message = "{short.content.size}")
     private String industry;
 
     @Size(min = 100, message = "{long.content.size}")
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String description;
 
     @Size(min = 5, max = 50, message = "{short.content.size}")

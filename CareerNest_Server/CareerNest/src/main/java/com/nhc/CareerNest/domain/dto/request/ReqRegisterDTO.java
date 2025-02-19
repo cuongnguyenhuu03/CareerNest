@@ -4,7 +4,7 @@ import com.nhc.CareerNest.domain.entity.User;
 import com.nhc.CareerNest.validator.register.RegisterChecked;
 import com.nhc.CareerNest.validator.strongPassword.StrongPassword;
 
-import jakarta.validation.constraints.Email;
+//import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -16,8 +16,8 @@ public class ReqRegisterDTO {
     @Size(min = 3, max = 20, message = "The last name must be between 3 and 20 characters")
     private String lastName;
 
-    @Email
-    @NotBlank(message = "{email.not .blank}")
+    // @Email
+    @NotBlank(message = "{email.not.blank}")
     private String email;
 
     @StrongPassword

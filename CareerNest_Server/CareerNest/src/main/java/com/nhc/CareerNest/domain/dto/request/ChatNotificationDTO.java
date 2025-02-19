@@ -2,7 +2,7 @@ package com.nhc.CareerNest.domain.dto.request;
 
 import java.util.Date;
 
-public class ChatNotification {
+public class ChatNotificationDTO {
     private Long id;
     private Long senderId;
     private Long receiverId;

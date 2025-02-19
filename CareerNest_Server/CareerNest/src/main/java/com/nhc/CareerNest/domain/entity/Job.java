@@ -28,7 +28,7 @@ public class Job extends BaseEntity {
     @NotBlank(message = "{name.not.blank}")
     private String name;
 
-    @Size(min = 5, max = 50, message = "short.content.size")
+    @Size(min = 5, max = 50, message = "{short.content.size}")
     private String location;
 
     private double salary;

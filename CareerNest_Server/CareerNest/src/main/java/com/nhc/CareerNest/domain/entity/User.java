@@ -29,7 +29,7 @@ public class User extends BaseEntity {
     @NotBlank(message = "{name.not.blank}")
     private String firstName;
 
-    @NotBlank(message = "{name.not.blank}")
+    // @NotBlank(message = "{name.not.blank}")
     private String lastName;
 
     private String password;

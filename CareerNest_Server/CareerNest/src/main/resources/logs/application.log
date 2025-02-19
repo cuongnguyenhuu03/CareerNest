@@ -597,3 +597,611 @@ Caused by: org.hibernate.HibernateException: Unable to determine Dialect without
 2025-02-11 08:56:00.918 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
 2025-02-11 08:56:00.920 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/register
 2025-02-11 08:56:27.388 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2025-02-17 08:55:51.710 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-02-17 08:55:51.776 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - Starting CareerNestApplication using Java 17.0.9 with PID 15680 (C:\Users\Huu Cuong\OneDrive - Industrial University of HoChiMinh City\Desktop\workspace\Java\CareerNest\CareerNest_Server\CareerNest\target\classes started by Huu Cuong in C:\Users\Huu Cuong\OneDrive - Industrial University of HoChiMinh City\Desktop\workspace\Java\CareerNest\CareerNest_Server\CareerNest)
+2025-02-17 08:55:51.776 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - No active profile set, falling back to 1 default profile: "default"
+2025-02-17 08:55:51.858 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-17 08:55:51.859 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-17 08:55:54.018 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-17 08:55:54.207 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 174 ms. Found 12 JPA repository interfaces.
+2025-02-17 08:55:55.704 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-02-17 08:55:55.740 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-17 08:55:55.745 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-02-17 08:55:55.746 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-17 08:55:55.880 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-02-17 08:55:55.883 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4022 ms
+2025-02-17 08:55:56.249 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-17 08:55:56.450 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-02-17 08:55:56.586 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-02-17 08:55:57.318 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-17 08:55:57.397 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-02-17 08:55:58.014 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@28a47397
+2025-02-17 08:55:58.014 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-02-17 08:55:59.938 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-17 08:56:00.714 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-17 08:56:01.631 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-02-17 08:56:02.110 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-17 08:56:03.058 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2025-02-17 08:56:03.564 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, BearerTokenAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-02-17 08:56:04.024 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-02-17 08:56:04.073 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-17 08:56:04.106 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-02-17 08:56:04.110 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2025-02-17 08:56:04.111 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@7ca7bfb3]]
+2025-02-17 08:56:04.112 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2025-02-17 08:56:04.128 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - Started CareerNestApplication in 12.852 seconds (process running for 13.808)
+2025-02-17 08:57:04.060 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2025-02-17 15:49:35.301 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-02-17 15:49:35.366 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - Starting CareerNestApplication using Java 17.0.9 with PID 15724 (C:\Users\Huu Cuong\OneDrive - Industrial University of HoChiMinh City\Desktop\workspace\Java\CareerNest\CareerNest_Server\CareerNest\target\classes started by Huu Cuong in C:\Users\Huu Cuong\OneDrive - Industrial University of HoChiMinh City\Desktop\workspace\Java\CareerNest\CareerNest_Server\CareerNest)
+2025-02-17 15:49:35.366 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - No active profile set, falling back to 1 default profile: "default"
+2025-02-17 15:49:35.466 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-17 15:49:35.467 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-17 15:49:37.070 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-17 15:49:37.261 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 171 ms. Found 12 JPA repository interfaces.
+2025-02-17 15:49:38.532 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-02-17 15:49:38.564 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-17 15:49:38.567 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-02-17 15:49:38.569 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-17 15:49:38.681 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-02-17 15:49:38.685 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3212 ms
+2025-02-17 15:49:38.983 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-17 15:49:39.095 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-02-17 15:49:39.196 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-02-17 15:49:39.800 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-17 15:49:39.931 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-02-17 15:49:40.541 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7e3ca0c4
+2025-02-17 15:49:40.541 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-02-17 15:49:42.281 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-17 15:49:42.836 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-17 15:49:43.358 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-02-17 15:49:43.815 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-17 15:49:44.470 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2025-02-17 15:49:44.953 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, BearerTokenAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-02-17 15:49:45.422 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-02-17 15:49:45.457 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-17 15:49:45.492 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-02-17 15:49:45.497 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2025-02-17 15:49:45.497 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@4a33039c]]
+2025-02-17 15:49:45.501 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2025-02-17 15:49:45.512 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - Started CareerNestApplication in 10.586 seconds (process running for 11.451)
+2025-02-17 15:50:45.481 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2025-02-17 15:51:50.209 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-17 15:51:50.214 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-02-17 15:51:50.322 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 107 ms
+2025-02-17 15:51:50.418 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/jobs
+2025-02-17 15:51:50.645 [http-nio-8080-exec-2] DEBUG o.s.s.o.s.r.a.JwtAuthenticationProvider - Authenticated token
+2025-02-17 15:51:50.670 [http-nio-8080-exec-2] DEBUG o.s.s.o.s.r.w.a.BearerTokenAuthenticationFilter - Set SecurityContextHolder to JwtAuthenticationToken [Principal=org.springframework.security.oauth2.jwt.Jwt@3cf7aa51, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[]]
+2025-02-17 15:51:50.692 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/jobs
+2025-02-17 15:51:51.527 [http-nio-8080-exec-2] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `com.nhc.CareerNest.constant.LevelEnum` from String "JUNIER": not one of the values accepted for Enum class: [SENIOR, JUNIOR, INTERN, FRESHER, MIDDLE]]
+2025-02-17 15:52:21.480 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/jobs
+2025-02-17 15:52:21.483 [http-nio-8080-exec-4] DEBUG o.s.s.o.s.r.a.JwtAuthenticationProvider - Authenticated token
+2025-02-17 15:52:21.484 [http-nio-8080-exec-4] DEBUG o.s.s.o.s.r.w.a.BearerTokenAuthenticationFilter - Set SecurityContextHolder to JwtAuthenticationToken [Principal=org.springframework.security.oauth2.jwt.Jwt@3cf7aa51, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[]]
+2025-02-17 15:52:21.485 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/jobs
+2025-02-17 15:52:21.926 [http-nio-8080-exec-4] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [jakarta.validation.ConstraintViolationException: Validation failed for classes [com.nhc.CareerNest.domain.entity.Job] during persist time for groups [jakarta.validation.groups.Default, ]<EOL>List of constraint violations:[<EOL>?ConstraintViolationImpl{interpolatedMessage='short.content.size', propertyPath=location, rootBeanClass=class com.nhc.CareerNest.domain.entity.Job, messageTemplate='short.content.size'}<EOL>?ConstraintViolationImpl{interpolatedMessage='{long.content.size}', propertyPath=requirements, rootBeanClass=class com.nhc.CareerNest.domain.entity.Job, messageTemplate='{long.content.size}'}<EOL>]]
+2025-02-17 15:53:27.323 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/jobs
+2025-02-17 15:53:27.327 [http-nio-8080-exec-9] DEBUG o.s.s.o.s.r.a.JwtAuthenticationProvider - Authenticated token
+2025-02-17 15:53:27.328 [http-nio-8080-exec-9] DEBUG o.s.s.o.s.r.w.a.BearerTokenAuthenticationFilter - Set SecurityContextHolder to JwtAuthenticationToken [Principal=org.springframework.security.oauth2.jwt.Jwt@3cf7aa51, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[]]
+2025-02-17 15:53:27.328 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/jobs
+2025-02-17 15:53:27.377 [http-nio-8080-exec-9] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [jakarta.validation.ConstraintViolationException: Validation failed for classes [com.nhc.CareerNest.domain.entity.Job] during persist time for groups [jakarta.validation.groups.Default, ]<EOL>List of constraint violations:[<EOL>?ConstraintViolationImpl{interpolatedMessage='{long.content.size}', propertyPath=requirements, rootBeanClass=class com.nhc.CareerNest.domain.entity.Job, messageTemplate='{long.content.size}'}<EOL>?ConstraintViolationImpl{interpolatedMessage='short.content.size', propertyPath=location, rootBeanClass=class com.nhc.CareerNest.domain.entity.Job, messageTemplate='short.content.size'}<EOL>]]
+2025-02-17 15:54:24.057 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/jobs
+2025-02-17 15:54:24.059 [http-nio-8080-exec-8] DEBUG o.s.s.o.s.r.a.JwtAuthenticationProvider - Authenticated token
+2025-02-17 15:54:24.059 [http-nio-8080-exec-8] DEBUG o.s.s.o.s.r.w.a.BearerTokenAuthenticationFilter - Set SecurityContextHolder to JwtAuthenticationToken [Principal=org.springframework.security.oauth2.jwt.Jwt@3cf7aa51, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[]]
+2025-02-17 15:54:24.060 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/jobs
+2025-02-17 15:54:24.105 [http-nio-8080-exec-8] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [jakarta.validation.ConstraintViolationException: Validation failed for classes [com.nhc.CareerNest.domain.entity.Job] during persist time for groups [jakarta.validation.groups.Default, ]<EOL>List of constraint violations:[<EOL>?ConstraintViolationImpl{interpolatedMessage='{long.content.size}', propertyPath=requirements, rootBeanClass=class com.nhc.CareerNest.domain.entity.Job, messageTemplate='{long.content.size}'}<EOL>]]
+2025-02-17 15:56:08.986 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/jobs
+2025-02-17 15:56:08.991 [http-nio-8080-exec-7] DEBUG o.s.s.o.s.r.a.JwtAuthenticationProvider - Authenticated token
+2025-02-17 15:56:08.992 [http-nio-8080-exec-7] DEBUG o.s.s.o.s.r.w.a.BearerTokenAuthenticationFilter - Set SecurityContextHolder to JwtAuthenticationToken [Principal=org.springframework.security.oauth2.jwt.Jwt@3cf7aa51, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[]]
+2025-02-17 15:56:08.993 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/jobs
+2025-02-17 15:56:09.416 [http-nio-8080-exec-7] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 1406, SQLState: 22001
+2025-02-17 15:56:09.419 [http-nio-8080-exec-7] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - Data truncation: Data too long for column 'requirements' at row 1
+2025-02-17 15:56:09.434 [http-nio-8080-exec-7] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.dao.DataIntegrityViolationException: could not execute statement [Data truncation: Data too long for column 'requirements' at row 1] [insert into jobs (active,benefits,company_id,created_at,created_by,description,end_date,level,location,name,quantity,requirements,salary,start_date,updated_at,updated_by) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)]; SQL [insert into jobs (active,benefits,company_id,created_at,created_by,description,end_date,level,location,name,quantity,requirements,salary,start_date,updated_at,updated_by) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)]]
+2025-02-17 15:56:18.767 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/jobs
+2025-02-17 15:56:18.769 [http-nio-8080-exec-2] DEBUG o.s.s.o.s.r.a.JwtAuthenticationProvider - Authenticated token
+2025-02-17 15:56:18.769 [http-nio-8080-exec-2] DEBUG o.s.s.o.s.r.w.a.BearerTokenAuthenticationFilter - Set SecurityContextHolder to JwtAuthenticationToken [Principal=org.springframework.security.oauth2.jwt.Jwt@3cf7aa51, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[]]
+2025-02-17 15:56:18.771 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/jobs
+2025-02-17 15:56:30.649 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/jobs
+2025-02-17 15:56:30.651 [http-nio-8080-exec-3] DEBUG o.s.s.o.s.r.a.JwtAuthenticationProvider - Authenticated token
+2025-02-17 15:56:30.652 [http-nio-8080-exec-3] DEBUG o.s.s.o.s.r.w.a.BearerTokenAuthenticationFilter - Set SecurityContextHolder to JwtAuthenticationToken [Principal=org.springframework.security.oauth2.jwt.Jwt@3cf7aa51, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[]]
+2025-02-17 15:56:30.653 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/jobs
+2025-02-17 15:56:39.011 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/jobs
+2025-02-17 15:56:39.016 [http-nio-8080-exec-4] DEBUG o.s.s.o.s.r.a.JwtAuthenticationProvider - Authenticated token
+2025-02-17 15:56:39.017 [http-nio-8080-exec-4] DEBUG o.s.s.o.s.r.w.a.BearerTokenAuthenticationFilter - Set SecurityContextHolder to JwtAuthenticationToken [Principal=org.springframework.security.oauth2.jwt.Jwt@3cf7aa51, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[]]
+2025-02-17 15:56:39.018 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/jobs
+2025-02-17 15:56:48.937 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/jobs
+2025-02-17 15:56:48.940 [http-nio-8080-exec-5] DEBUG o.s.s.o.s.r.a.JwtAuthenticationProvider - Authenticated token
+2025-02-17 15:56:48.940 [http-nio-8080-exec-5] DEBUG o.s.s.o.s.r.w.a.BearerTokenAuthenticationFilter - Set SecurityContextHolder to JwtAuthenticationToken [Principal=org.springframework.security.oauth2.jwt.Jwt@3cf7aa51, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[]]
+2025-02-17 15:56:48.941 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/jobs
+2025-02-17 15:56:56.732 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/jobs
+2025-02-17 15:56:56.734 [http-nio-8080-exec-9] DEBUG o.s.s.o.s.r.a.JwtAuthenticationProvider - Authenticated token
+2025-02-17 15:56:56.735 [http-nio-8080-exec-9] DEBUG o.s.s.o.s.r.w.a.BearerTokenAuthenticationFilter - Set SecurityContextHolder to JwtAuthenticationToken [Principal=org.springframework.security.oauth2.jwt.Jwt@3cf7aa51, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[]]
+2025-02-17 15:56:56.736 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/jobs
+2025-02-17 15:57:11.224 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/jobs
+2025-02-17 15:57:11.226 [http-nio-8080-exec-10] DEBUG o.s.s.o.s.r.a.JwtAuthenticationProvider - Authenticated token
+2025-02-17 15:57:11.227 [http-nio-8080-exec-10] DEBUG o.s.s.o.s.r.w.a.BearerTokenAuthenticationFilter - Set SecurityContextHolder to JwtAuthenticationToken [Principal=org.springframework.security.oauth2.jwt.Jwt@3cf7aa51, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[]]
+2025-02-17 15:57:11.227 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/jobs
+2025-02-17 15:57:28.856 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/v1/jobs
+2025-02-17 15:57:28.897 [http-nio-8080-exec-8] DEBUG o.s.s.o.s.r.a.JwtAuthenticationProvider - Authenticated token
+2025-02-17 15:57:28.898 [http-nio-8080-exec-8] DEBUG o.s.s.o.s.r.w.a.BearerTokenAuthenticationFilter - Set SecurityContextHolder to JwtAuthenticationToken [Principal=org.springframework.security.oauth2.jwt.Jwt@9faa3ee3, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[]]
+2025-02-17 15:57:28.899 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/v1/jobs
+2025-02-17 15:57:29.139 [http-nio-8080-exec-8] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.nhc.CareerNest.exception.errors.PermissionException: No access right]
+2025-02-17 15:57:36.165 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-02-17 15:57:36.167 [http-nio-8080-exec-7] DEBUG o.s.s.o.s.r.a.JwtAuthenticationProvider - Authenticated token
+2025-02-17 15:57:36.168 [http-nio-8080-exec-7] DEBUG o.s.s.o.s.r.w.a.BearerTokenAuthenticationFilter - Set SecurityContextHolder to JwtAuthenticationToken [Principal=org.springframework.security.oauth2.jwt.Jwt@55526605, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[]]
+2025-02-17 15:57:36.171 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-02-17 15:57:36.526 [http-nio-8080-exec-7] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+2025-02-17 15:57:36.682 [http-nio-8080-exec-7] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.transaction.TransactionSystemException: Could not commit JPA transaction]
+2025-02-17 15:57:52.670 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-02-17 15:57:52.675 [http-nio-8080-exec-2] DEBUG o.s.s.o.s.r.a.JwtAuthenticationProvider - Authenticated token
+2025-02-17 15:57:52.676 [http-nio-8080-exec-2] DEBUG o.s.s.o.s.r.w.a.BearerTokenAuthenticationFilter - Set SecurityContextHolder to JwtAuthenticationToken [Principal=org.springframework.security.oauth2.jwt.Jwt@55526605, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[]]
+2025-02-17 15:57:52.678 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-02-17 15:57:52.869 [http-nio-8080-exec-2] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+2025-02-17 15:57:52.890 [http-nio-8080-exec-2] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.transaction.TransactionSystemException: Could not commit JPA transaction]
+2025-02-17 15:58:38.638 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/register
+2025-02-17 15:58:38.641 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-02-17 15:58:38.642 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/register
+2025-02-17 15:58:39.110 [http-nio-8080-exec-4] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [jakarta.validation.ConstraintViolationException: Validation failed for classes [com.nhc.CareerNest.domain.entity.User] during persist time for groups [jakarta.validation.groups.Default, ]<EOL>List of constraint violations:[<EOL>?ConstraintViolationImpl{interpolatedMessage='{name.not.blank}', propertyPath=lastName, rootBeanClass=class com.nhc.CareerNest.domain.entity.User, messageTemplate='{name.not.blank}'}<EOL>]]
+2025-02-17 16:02:10.777 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/register
+2025-02-17 16:02:10.791 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-02-17 16:02:10.792 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/register
+2025-02-17 16:02:11.058 [http-nio-8080-exec-5] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [jakarta.validation.ConstraintViolationException: Validation failed for classes [com.nhc.CareerNest.domain.entity.User] during persist time for groups [jakarta.validation.groups.Default, ]<EOL>List of constraint violations:[<EOL>?ConstraintViolationImpl{interpolatedMessage='{name.not.blank}', propertyPath=lastName, rootBeanClass=class com.nhc.CareerNest.domain.entity.User, messageTemplate='{name.not.blank}'}<EOL>]]
+2025-02-17 16:08:28.791 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-02-17 16:08:28.869 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - Starting CareerNestApplication using Java 17.0.9 with PID 12852 (C:\Users\Huu Cuong\OneDrive - Industrial University of HoChiMinh City\Desktop\workspace\Java\CareerNest\CareerNest_Server\CareerNest\target\classes started by Huu Cuong in C:\Users\Huu Cuong\OneDrive - Industrial University of HoChiMinh City\Desktop\workspace\Java\CareerNest\CareerNest_Server\CareerNest)
+2025-02-17 16:08:28.873 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - No active profile set, falling back to 1 default profile: "default"
+2025-02-17 16:08:28.993 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-17 16:08:28.994 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-17 16:08:31.076 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-17 16:08:31.331 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 240 ms. Found 12 JPA repository interfaces.
+2025-02-17 16:08:32.773 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-02-17 16:08:32.803 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-17 16:08:32.815 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-02-17 16:08:32.816 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-17 16:08:32.927 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-02-17 16:08:32.929 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3933 ms
+2025-02-17 16:08:33.245 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-17 16:08:33.386 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-02-17 16:08:33.496 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-02-17 16:08:34.181 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-17 16:08:34.257 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-02-17 16:08:34.979 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@508747fe
+2025-02-17 16:08:34.984 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-02-17 16:08:38.448 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-17 16:08:39.106 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-17 16:08:39.957 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-02-17 16:08:40.717 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-17 16:08:41.832 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2025-02-17 16:08:42.583 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, BearerTokenAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-02-17 16:08:43.364 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-02-17 16:08:43.461 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-17 16:08:43.638 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-02-17 16:08:43.646 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2025-02-17 16:08:43.657 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@698d2938]]
+2025-02-17 16:08:43.658 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2025-02-17 16:08:43.689 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - Started CareerNestApplication in 15.393 seconds (process running for 16.638)
+2025-02-17 16:08:54.796 [http-nio-8080-exec-3] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-17 16:08:54.796 [http-nio-8080-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-02-17 16:08:54.799 [http-nio-8080-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-02-17 16:08:54.841 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-02-17 16:08:54.860 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-02-17 16:08:54.863 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-02-17 16:09:06.876 [http-nio-8080-exec-3] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+2025-02-17 16:09:43.437 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2025-02-17 16:10:28.684 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-02-17 16:10:28.685 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-02-17 16:10:28.686 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-02-17 16:10:36.853 [http-nio-8080-exec-2] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+2025-02-17 16:11:14.581 [http-nio-8080-exec-2] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.transaction.TransactionSystemException: Could not commit JPA transaction]
+2025-02-17 16:11:18.741 [http-nio-8080-exec-3] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.transaction.TransactionSystemException: Could not commit JPA transaction]
+2025-02-17 16:13:38.668 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-02-17 16:13:38.749 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - Starting CareerNestApplication using Java 17.0.9 with PID 14132 (C:\Users\Huu Cuong\OneDrive - Industrial University of HoChiMinh City\Desktop\workspace\Java\CareerNest\CareerNest_Server\CareerNest\target\classes started by Huu Cuong in C:\Users\Huu Cuong\OneDrive - Industrial University of HoChiMinh City\Desktop\workspace\Java\CareerNest\CareerNest_Server\CareerNest)
+2025-02-17 16:13:38.749 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - No active profile set, falling back to 1 default profile: "default"
+2025-02-17 16:13:38.834 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-17 16:13:38.836 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-17 16:13:41.147 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-17 16:13:41.426 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 255 ms. Found 12 JPA repository interfaces.
+2025-02-17 16:13:42.959 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-02-17 16:13:42.992 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-17 16:13:42.992 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-02-17 16:13:43.000 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-17 16:13:43.133 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-02-17 16:13:43.136 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4298 ms
+2025-02-17 16:13:44.085 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-17 16:13:47.029 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-02-17 16:13:47.825 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-02-17 16:13:48.425 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-17 16:13:48.505 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-02-17 16:13:48.944 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5a363c7f
+2025-02-17 16:13:48.956 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-02-17 16:13:50.950 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-17 16:13:51.693 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-17 16:13:52.395 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-02-17 16:13:53.145 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-17 16:13:54.063 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2025-02-17 16:13:54.726 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, BearerTokenAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-02-17 16:13:55.613 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-02-17 16:13:55.679 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-17 16:13:55.742 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-02-17 16:13:55.754 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2025-02-17 16:13:55.759 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@31023b55]]
+2025-02-17 16:13:55.761 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2025-02-17 16:13:55.794 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - Started CareerNestApplication in 17.612 seconds (process running for 20.303)
+2025-02-17 16:14:06.185 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-17 16:14:06.186 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-02-17 16:14:06.191 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2025-02-17 16:14:06.273 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/register
+2025-02-17 16:14:06.329 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-02-17 16:14:06.337 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/register
+2025-02-17 16:14:14.149 [http-nio-8080-exec-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [jakarta.validation.ConstraintViolationException: Validation failed for classes [com.nhc.CareerNest.domain.entity.User] during persist time for groups [jakarta.validation.groups.Default, ]<EOL>List of constraint violations:[<EOL>?ConstraintViolationImpl{interpolatedMessage='{name.not.blank}', propertyPath=lastName, rootBeanClass=class com.nhc.CareerNest.domain.entity.User, messageTemplate='{name.not.blank}'}<EOL>]]
+2025-02-17 16:14:55.669 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2025-02-17 16:14:59.143 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/register
+2025-02-17 16:14:59.145 [http-nio-8080-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-02-17 16:14:59.145 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/register
+2025-02-17 16:15:37.172 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-02-17 16:15:37.173 [http-nio-8080-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-02-17 16:15:37.174 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-02-17 16:15:40.507 [http-nio-8080-exec-7] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+2025-02-17 16:17:09.528 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-02-17 16:17:09.530 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-02-17 16:17:09.530 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-02-17 16:17:13.484 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-02-17 16:17:13.485 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-02-17 16:17:13.486 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-02-17 16:17:17.465 [http-nio-8080-exec-4] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+2025-02-17 16:17:48.634 [http-nio-8080-exec-4] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.transaction.TransactionSystemException: Could not commit JPA transaction]
+2025-02-17 16:17:52.689 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-02-17 16:17:52.689 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-02-17 16:17:52.689 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-02-17 16:17:55.476 [http-nio-8080-exec-1] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+2025-02-17 16:18:14.923 [http-nio-8080-exec-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.transaction.TransactionSystemException: Could not commit JPA transaction]
+2025-02-17 16:21:29.010 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-02-17 16:21:29.101 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - Starting CareerNestApplication using Java 17.0.9 with PID 5776 (C:\Users\Huu Cuong\OneDrive - Industrial University of HoChiMinh City\Desktop\workspace\Java\CareerNest\CareerNest_Server\CareerNest\target\classes started by Huu Cuong in C:\Users\Huu Cuong\OneDrive - Industrial University of HoChiMinh City\Desktop\workspace\Java\CareerNest\CareerNest_Server\CareerNest)
+2025-02-17 16:21:29.103 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - No active profile set, falling back to 1 default profile: "default"
+2025-02-17 16:21:29.199 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-17 16:21:29.200 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-17 16:21:31.074 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-17 16:21:31.436 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 318 ms. Found 12 JPA repository interfaces.
+2025-02-17 16:21:59.267 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-02-17 16:21:59.333 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - Starting CareerNestApplication using Java 17.0.9 with PID 12564 (C:\Users\Huu Cuong\OneDrive - Industrial University of HoChiMinh City\Desktop\workspace\Java\CareerNest\CareerNest_Server\CareerNest\target\classes started by Huu Cuong in C:\Users\Huu Cuong\OneDrive - Industrial University of HoChiMinh City\Desktop\workspace\Java\CareerNest\CareerNest_Server\CareerNest)
+2025-02-17 16:21:59.333 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - No active profile set, falling back to 1 default profile: "default"
+2025-02-17 16:21:59.412 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-17 16:21:59.413 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-17 16:22:00.921 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-17 16:22:01.216 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 254 ms. Found 12 JPA repository interfaces.
+2025-02-17 16:22:02.361 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-02-17 16:22:02.392 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-17 16:22:02.395 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-02-17 16:22:02.397 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-17 16:22:02.518 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-02-17 16:22:02.524 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3105 ms
+2025-02-17 16:22:02.811 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-17 16:22:02.889 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-02-17 16:22:02.945 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-02-17 16:22:03.422 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-17 16:22:03.483 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-02-17 16:22:03.958 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@d24519f
+2025-02-17 16:22:03.969 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-02-17 16:22:05.640 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-17 16:22:10.925 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-17 16:22:11.683 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-02-17 16:22:12.298 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-17 16:22:13.311 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2025-02-17 16:22:13.979 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, BearerTokenAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-02-17 16:22:14.709 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-02-17 16:22:14.766 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-17 16:22:14.811 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-02-17 16:22:14.818 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2025-02-17 16:22:14.821 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@55e8b481]]
+2025-02-17 16:22:14.822 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2025-02-17 16:22:14.843 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - Started CareerNestApplication in 15.907 seconds (process running for 16.86)
+2025-02-17 16:22:15.924 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-02-17 16:22:15.975 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
+jakarta.validation.ConstraintViolationException: Validation failed for classes [com.nhc.CareerNest.domain.entity.User] during persist time for groups [jakarta.validation.groups.Default, ]
+List of constraint violations:[
+	ConstraintViolationImpl{interpolatedMessage='{name.not.blank}', propertyPath=lastName, rootBeanClass=class com.nhc.CareerNest.domain.entity.User, messageTemplate='{name.not.blank}'}
+]
+	at org.hibernate.boot.beanvalidation.BeanValidationEventListener.validate(BeanValidationEventListener.java:151)
+	at org.hibernate.boot.beanvalidation.BeanValidationEventListener.onPreInsert(BeanValidationEventListener.java:81)
+	at org.hibernate.action.internal.EntityIdentityInsertAction.preInsert(EntityIdentityInsertAction.java:201)
+	at org.hibernate.action.internal.EntityIdentityInsertAction.execute(EntityIdentityInsertAction.java:79)
+	at org.hibernate.engine.spi.ActionQueue.execute(ActionQueue.java:671)
+	at org.hibernate.engine.spi.ActionQueue.addResolvedEntityInsertAction(ActionQueue.java:292)
+	at org.hibernate.engine.spi.ActionQueue.addInsertAction(ActionQueue.java:273)
+	at org.hibernate.engine.spi.ActionQueue.addAction(ActionQueue.java:323)
+	at org.hibernate.event.internal.AbstractSaveEventListener.addInsertAction(AbstractSaveEventListener.java:391)
+	at org.hibernate.event.internal.AbstractSaveEventListener.performSaveOrReplicate(AbstractSaveEventListener.java:305)
+	at org.hibernate.event.internal.AbstractSaveEventListener.performSave(AbstractSaveEventListener.java:224)
+	at org.hibernate.event.internal.AbstractSaveEventListener.saveWithGeneratedId(AbstractSaveEventListener.java:137)
+	at org.hibernate.event.internal.DefaultPersistEventListener.entityIsTransient(DefaultPersistEventListener.java:175)
+	at org.hibernate.event.internal.DefaultPersistEventListener.persist(DefaultPersistEventListener.java:93)
+	at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:77)
+	at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:54)
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:127)
+	at org.hibernate.internal.SessionImpl.firePersist(SessionImpl.java:757)
+	at org.hibernate.internal.SessionImpl.persist(SessionImpl.java:741)
+	at jdk.internal.reflect.GeneratedMethodAccessor41.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler.invoke(SharedEntityManagerCreator.java:319)
+	at jdk.proxy4/jdk.proxy4.$Proxy146.persist(Unknown Source)
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.save(SimpleJpaRepository.java:632)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:355)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker$RepositoryFragmentMethodInvoker.lambda$new$0(RepositoryMethodInvoker.java:277)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:170)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158)
+	at org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments.invoke(RepositoryComposition.java:516)
+	at org.springframework.data.repository.core.support.RepositoryComposition.invoke(RepositoryComposition.java:285)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$ImplementationMethodExecutionInterceptor.invoke(RepositoryFactorySupport.java:628)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:173)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:148)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:70)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:379)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:165)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:223)
+	at jdk.proxy4/jdk.proxy4.$Proxy153.save(Unknown Source)
+	at com.nhc.CareerNest.config.DatabaseInitializer.run(DatabaseInitializer.java:146)
+	at org.springframework.boot.SpringApplication.lambda$callRunner$5(SpringApplication.java:790)
+	at org.springframework.util.function.ThrowingConsumer$1.acceptWithException(ThrowingConsumer.java:82)
+	at org.springframework.util.function.ThrowingConsumer.accept(ThrowingConsumer.java:60)
+	at org.springframework.util.function.ThrowingConsumer$1.accept(ThrowingConsumer.java:86)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:798)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:789)
+	at org.springframework.boot.SpringApplication.lambda$callRunners$3(SpringApplication.java:774)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+	at java.base/java.util.stream.SortedOps$SizedRefSortingSink.end(SortedOps.java:357)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:510)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:774)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:342)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at com.nhc.CareerNest.CareerNestApplication.main(CareerNestApplication.java:12)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2025-02-17 16:22:16.006 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2025-02-17 16:22:16.008 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@55e8b481]]
+2025-02-17 16:22:16.012 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2025-02-17 16:22:16.577 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-17 16:22:16.585 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-02-17 16:22:16.599 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-02-17 16:24:35.845 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-02-17 16:24:35.911 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - Starting CareerNestApplication using Java 17.0.9 with PID 14820 (C:\Users\Huu Cuong\OneDrive - Industrial University of HoChiMinh City\Desktop\workspace\Java\CareerNest\CareerNest_Server\CareerNest\target\classes started by Huu Cuong in C:\Users\Huu Cuong\OneDrive - Industrial University of HoChiMinh City\Desktop\workspace\Java\CareerNest\CareerNest_Server\CareerNest)
+2025-02-17 16:24:35.913 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - No active profile set, falling back to 1 default profile: "default"
+2025-02-17 16:24:35.999 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-17 16:24:36.000 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-17 16:24:37.978 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-17 16:24:38.216 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 222 ms. Found 12 JPA repository interfaces.
+2025-02-17 16:24:39.597 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-02-17 16:24:39.639 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-17 16:24:39.646 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-02-17 16:24:39.647 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-17 16:24:39.776 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-02-17 16:24:39.781 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3776 ms
+2025-02-17 16:24:40.172 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-17 16:24:40.350 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-02-17 16:24:40.463 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-02-17 16:24:41.412 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-17 16:24:41.478 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-02-17 16:24:42.032 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@20c10710
+2025-02-17 16:24:42.035 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-02-17 16:24:44.050 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-17 16:24:49.011 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-17 16:24:49.646 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-02-17 16:24:50.237 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-17 16:24:51.065 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2025-02-17 16:24:51.593 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, BearerTokenAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-02-17 16:24:52.115 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-02-17 16:24:52.159 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-17 16:24:52.198 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-02-17 16:24:52.207 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2025-02-17 16:24:52.209 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@3a031084]]
+2025-02-17 16:24:52.211 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2025-02-17 16:24:52.231 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - Started CareerNestApplication in 16.768 seconds (process running for 17.733)
+2025-02-17 16:25:15.450 [http-nio-8080-exec-3] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-17 16:25:15.453 [http-nio-8080-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-02-17 16:25:15.457 [http-nio-8080-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2025-02-17 16:25:15.521 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-02-17 16:25:15.538 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-02-17 16:25:15.542 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-02-17 16:25:16.031 [http-nio-8080-exec-3] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+2025-02-17 16:25:44.711 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/v1/jobs
+2025-02-17 16:25:44.783 [http-nio-8080-exec-4] DEBUG o.s.s.o.s.r.a.JwtAuthenticationProvider - Authenticated token
+2025-02-17 16:25:44.786 [http-nio-8080-exec-4] DEBUG o.s.s.o.s.r.w.a.BearerTokenAuthenticationFilter - Set SecurityContextHolder to JwtAuthenticationToken [Principal=org.springframework.security.oauth2.jwt.Jwt@58e1cf84, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[]]
+2025-02-17 16:25:44.789 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/v1/jobs
+2025-02-17 16:25:44.945 [http-nio-8080-exec-4] WARN  o.s.d.w.c.SpringDataJacksonConfiguration$PageModule$WarningLoggingModifier - Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
+	For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO))
+	or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
+
+2025-02-17 16:25:52.160 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2025-02-17 16:26:03.066 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/jobs
+2025-02-17 16:26:03.069 [http-nio-8080-exec-2] DEBUG o.s.s.o.s.r.a.JwtAuthenticationProvider - Authenticated token
+2025-02-17 16:26:03.069 [http-nio-8080-exec-2] DEBUG o.s.s.o.s.r.w.a.BearerTokenAuthenticationFilter - Set SecurityContextHolder to JwtAuthenticationToken [Principal=org.springframework.security.oauth2.jwt.Jwt@58e1cf84, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[]]
+2025-02-17 16:26:03.070 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/jobs
+2025-02-17 16:26:03.223 [http-nio-8080-exec-2] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 1452, SQLState: 23000
+2025-02-17 16:26:03.224 [http-nio-8080-exec-2] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - Cannot add or update a child row: a foreign key constraint fails (`careernest`.`jobs`, CONSTRAINT `FKrtmqcrktb6s7xq8djbs2a2war` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`))
+2025-02-17 16:26:03.279 [http-nio-8080-exec-2] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.dao.DataIntegrityViolationException: could not execute statement [Cannot add or update a child row: a foreign key constraint fails (`careernest`.`jobs`, CONSTRAINT `FKrtmqcrktb6s7xq8djbs2a2war` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`))] [insert into jobs (active,benefits,company_id,created_at,created_by,description,end_date,level,location,name,quantity,requirements,salary,start_date,updated_at,updated_by) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)]; SQL [insert into jobs (active,benefits,company_id,created_at,created_by,description,end_date,level,location,name,quantity,requirements,salary,start_date,updated_at,updated_by) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)]; constraint [null]]
+2025-02-17 16:27:26.269 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/companies
+2025-02-17 16:27:26.272 [http-nio-8080-exec-6] DEBUG o.s.s.o.jwt.JwtTimestampValidator - Jwt expired at 2025-01-08T02:24:21Z
+2025-02-17 16:27:26.273 [http-nio-8080-exec-6] DEBUG o.s.s.o.s.r.a.JwtAuthenticationProvider - Failed to authenticate since the JWT was invalid
+2025-02-17 16:27:38.569 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/companies
+2025-02-17 16:27:38.570 [http-nio-8080-exec-7] DEBUG o.s.s.o.s.r.a.JwtAuthenticationProvider - Authenticated token
+2025-02-17 16:27:38.571 [http-nio-8080-exec-7] DEBUG o.s.s.o.s.r.w.a.BearerTokenAuthenticationFilter - Set SecurityContextHolder to JwtAuthenticationToken [Principal=org.springframework.security.oauth2.jwt.Jwt@58e1cf84, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[]]
+2025-02-17 16:27:38.571 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/companies
+2025-02-17 16:27:38.638 [http-nio-8080-exec-7] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [jakarta.validation.ConstraintViolationException: Validation failed for classes [com.nhc.CareerNest.domain.entity.Company] during persist time for groups [jakarta.validation.groups.Default, ]<EOL>List of constraint violations:[<EOL>?ConstraintViolationImpl{interpolatedMessage='{long.content.size}', propertyPath=description, rootBeanClass=class com.nhc.CareerNest.domain.entity.Company, messageTemplate='{long.content.size}'}<EOL>?ConstraintViolationImpl{interpolatedMessage='{short.content.size}', propertyPath=country, rootBeanClass=class com.nhc.CareerNest.domain.entity.Company, messageTemplate='{short.content.size}'}<EOL>]]
+2025-02-18 07:44:10.389 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-02-18 07:44:10.472 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - Starting CareerNestApplication using Java 17.0.9 with PID 6732 (C:\Users\Huu Cuong\OneDrive - Industrial University of HoChiMinh City\Desktop\workspace\Java\CareerNest\CareerNest_Server\CareerNest\target\classes started by Huu Cuong in C:\Users\Huu Cuong\OneDrive - Industrial University of HoChiMinh City\Desktop\workspace\Java\CareerNest\CareerNest_Server\CareerNest)
+2025-02-18 07:44:10.476 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - No active profile set, falling back to 1 default profile: "default"
+2025-02-18 07:44:10.585 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-18 07:44:10.586 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-18 07:44:12.726 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-18 07:44:13.091 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 337 ms. Found 12 JPA repository interfaces.
+2025-02-18 07:44:16.065 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-02-18 07:44:16.096 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-18 07:44:16.100 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-02-18 07:44:16.100 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-18 07:44:16.201 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-02-18 07:44:16.201 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5612 ms
+2025-02-18 07:44:16.608 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-18 07:44:16.796 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-02-18 07:44:16.937 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-02-18 07:44:17.570 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-18 07:44:17.648 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-02-18 07:44:19.043 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1f6a2ba9
+2025-02-18 07:44:19.048 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-02-18 07:44:21.583 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-18 07:44:22.508 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-18 07:44:23.407 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-02-18 07:44:24.288 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-18 07:44:25.592 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2025-02-18 07:44:26.724 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, BearerTokenAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-02-18 07:44:27.949 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-02-18 07:44:28.033 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-18 07:44:28.121 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-02-18 07:44:28.128 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2025-02-18 07:44:28.129 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@6bc1d4f9]]
+2025-02-18 07:44:28.133 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2025-02-18 07:44:28.159 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - Started CareerNestApplication in 18.193 seconds (process running for 19.589)
+2025-02-18 07:45:28.030 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2025-02-18 07:46:09.331 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-18 07:46:09.333 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-02-18 07:46:09.337 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2025-02-18 07:46:09.465 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-02-18 07:46:09.512 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-02-18 07:46:09.518 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-02-18 07:46:10.234 [http-nio-8080-exec-1] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+2025-02-18 07:47:09.051 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/companies
+2025-02-18 07:47:09.089 [http-nio-8080-exec-3] DEBUG o.s.s.o.s.r.a.JwtAuthenticationProvider - Authenticated token
+2025-02-18 07:47:09.091 [http-nio-8080-exec-3] DEBUG o.s.s.o.s.r.w.a.BearerTokenAuthenticationFilter - Set SecurityContextHolder to JwtAuthenticationToken [Principal=org.springframework.security.oauth2.jwt.Jwt@58e1cf84, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[]]
+2025-02-18 07:47:09.091 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/companies
+2025-02-18 07:47:09.311 [http-nio-8080-exec-3] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [jakarta.validation.ConstraintViolationException: Validation failed for classes [com.nhc.CareerNest.domain.entity.Company] during persist time for groups [jakarta.validation.groups.Default, ]<EOL>List of constraint violations:[<EOL>?ConstraintViolationImpl{interpolatedMessage='{long.content.size}', propertyPath=description, rootBeanClass=class com.nhc.CareerNest.domain.entity.Company, messageTemplate='{long.content.size}'}<EOL>?ConstraintViolationImpl{interpolatedMessage='{short.content.size}', propertyPath=country, rootBeanClass=class com.nhc.CareerNest.domain.entity.Company, messageTemplate='{short.content.size}'}<EOL>]]
+2025-02-18 07:48:21.354 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/companies
+2025-02-18 07:48:21.357 [http-nio-8080-exec-6] DEBUG o.s.s.o.s.r.a.JwtAuthenticationProvider - Authenticated token
+2025-02-18 07:48:21.357 [http-nio-8080-exec-6] DEBUG o.s.s.o.s.r.w.a.BearerTokenAuthenticationFilter - Set SecurityContextHolder to JwtAuthenticationToken [Principal=org.springframework.security.oauth2.jwt.Jwt@58e1cf84, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[]]
+2025-02-18 07:48:21.360 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/companies
+2025-02-18 07:48:21.375 [http-nio-8080-exec-6] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [jakarta.validation.ConstraintViolationException: Validation failed for classes [com.nhc.CareerNest.domain.entity.Company] during persist time for groups [jakarta.validation.groups.Default, ]<EOL>List of constraint violations:[<EOL>?ConstraintViolationImpl{interpolatedMessage='{short.content.size}', propertyPath=country, rootBeanClass=class com.nhc.CareerNest.domain.entity.Company, messageTemplate='{short.content.size}'}<EOL>?ConstraintViolationImpl{interpolatedMessage='{long.content.size}', propertyPath=description, rootBeanClass=class com.nhc.CareerNest.domain.entity.Company, messageTemplate='{long.content.size}'}<EOL>]]
+2025-02-19 09:59:13.128 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-02-19 09:59:13.220 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - Starting CareerNestApplication using Java 17.0.9 with PID 4832 (C:\Users\Huu Cuong\OneDrive - Industrial University of HoChiMinh City\Desktop\workspace\Java\CareerNest\CareerNest_Server\CareerNest\target\classes started by Huu Cuong in C:\Users\Huu Cuong\OneDrive - Industrial University of HoChiMinh City\Desktop\workspace\Java\CareerNest\CareerNest_Server\CareerNest)
+2025-02-19 09:59:13.222 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - No active profile set, falling back to 1 default profile: "default"
+2025-02-19 09:59:13.309 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-19 09:59:13.310 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-19 09:59:15.355 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-19 09:59:15.580 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 208 ms. Found 12 JPA repository interfaces.
+2025-02-19 09:59:17.384 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-02-19 09:59:17.419 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-19 09:59:17.432 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-02-19 09:59:17.436 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-19 09:59:17.703 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-02-19 09:59:17.709 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4394 ms
+2025-02-19 09:59:18.249 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-19 09:59:18.415 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-02-19 09:59:18.502 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-02-19 09:59:19.186 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-19 09:59:19.256 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-02-19 09:59:19.912 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@36bb2a23
+2025-02-19 09:59:19.917 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-02-19 09:59:21.982 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-19 09:59:22.964 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-19 09:59:23.605 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-02-19 09:59:24.292 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-19 09:59:25.222 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2025-02-19 09:59:25.782 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, BearerTokenAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-02-19 09:59:26.275 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-02-19 09:59:26.314 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-19 09:59:26.374 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-02-19 09:59:26.379 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2025-02-19 09:59:26.380 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@7c58089a]]
+2025-02-19 09:59:26.383 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2025-02-19 09:59:26.419 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - Started CareerNestApplication in 13.767 seconds (process running for 14.718)
+2025-02-19 10:00:26.322 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2025-02-19 10:00:53.136 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-19 10:00:53.139 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-02-19 10:00:53.143 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+2025-02-19 10:00:53.215 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-02-19 10:00:53.251 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-02-19 10:00:53.256 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-02-19 10:00:54.013 [http-nio-8080-exec-1] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+2025-02-19 10:01:39.300 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-02-19 10:01:39.370 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - Starting CareerNestApplication using Java 17.0.9 with PID 9004 (C:\Users\Huu Cuong\OneDrive - Industrial University of HoChiMinh City\Desktop\workspace\Java\CareerNest\CareerNest_Server\CareerNest\target\classes started by Huu Cuong in C:\Users\Huu Cuong\OneDrive - Industrial University of HoChiMinh City\Desktop\workspace\Java\CareerNest\CareerNest_Server\CareerNest)
+2025-02-19 10:01:39.372 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - No active profile set, falling back to 1 default profile: "default"
+2025-02-19 10:01:39.466 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-19 10:01:39.467 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-19 10:01:41.409 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-19 10:01:41.621 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 194 ms. Found 12 JPA repository interfaces.
+2025-02-19 10:01:43.321 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-02-19 10:01:43.360 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-02-19 10:01:43.373 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-02-19 10:01:43.375 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-19 10:01:43.523 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-02-19 10:01:43.529 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4058 ms
+2025-02-19 10:01:43.969 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-19 10:01:44.111 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-02-19 10:01:44.203 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-02-19 10:01:44.898 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-19 10:01:44.981 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-02-19 10:01:45.861 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6b184072
+2025-02-19 10:01:45.870 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-02-19 10:01:48.667 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-19 10:01:49.331 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-19 10:01:50.067 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-02-19 10:01:50.803 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-19 10:01:51.793 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2025-02-19 10:01:52.411 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, BearerTokenAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-02-19 10:01:53.051 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-02-19 10:01:53.129 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-02-19 10:01:53.191 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-02-19 10:01:53.195 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2025-02-19 10:01:53.196 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@701f7f08]]
+2025-02-19 10:01:53.197 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2025-02-19 10:01:53.220 [restartedMain] INFO  c.n.CareerNest.CareerNestApplication - Started CareerNestApplication in 14.264 seconds (process running for 15.386)
+2025-02-19 10:02:29.767 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-19 10:02:29.767 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-02-19 10:02:29.772 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2025-02-19 10:02:29.870 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/v1/jobs?
+2025-02-19 10:02:30.040 [http-nio-8080-exec-2] DEBUG o.s.s.o.s.r.a.JwtAuthenticationProvider - Authenticated token
+2025-02-19 10:02:30.041 [http-nio-8080-exec-2] DEBUG o.s.s.o.s.r.w.a.BearerTokenAuthenticationFilter - Set SecurityContextHolder to JwtAuthenticationToken [Principal=org.springframework.security.oauth2.jwt.Jwt@e60cc290, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[]]
+2025-02-19 10:02:30.047 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/v1/jobs?
+2025-02-19 10:02:45.404 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/v1/jobs?paze=2
+2025-02-19 10:02:45.406 [http-nio-8080-exec-5] DEBUG o.s.s.o.s.r.a.JwtAuthenticationProvider - Authenticated token
+2025-02-19 10:02:45.406 [http-nio-8080-exec-5] DEBUG o.s.s.o.s.r.w.a.BearerTokenAuthenticationFilter - Set SecurityContextHolder to JwtAuthenticationToken [Principal=org.springframework.security.oauth2.jwt.Jwt@e60cc290, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[]]
+2025-02-19 10:02:45.406 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/v1/jobs?paze=2
+2025-02-19 10:02:51.021 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/v1/jobs?page=2
+2025-02-19 10:02:51.021 [http-nio-8080-exec-8] DEBUG o.s.s.o.s.r.a.JwtAuthenticationProvider - Authenticated token
+2025-02-19 10:02:51.021 [http-nio-8080-exec-8] DEBUG o.s.s.o.s.r.w.a.BearerTokenAuthenticationFilter - Set SecurityContextHolder to JwtAuthenticationToken [Principal=org.springframework.security.oauth2.jwt.Jwt@e60cc290, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[]]
+2025-02-19 10:02:51.025 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/v1/jobs?page=2
+2025-02-19 10:02:53.114 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2025-02-19 10:03:10.283 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/v1/jobs?name=java
+2025-02-19 10:03:10.283 [http-nio-8080-exec-9] DEBUG o.s.s.o.s.r.a.JwtAuthenticationProvider - Authenticated token
+2025-02-19 10:03:10.283 [http-nio-8080-exec-9] DEBUG o.s.s.o.s.r.w.a.BearerTokenAuthenticationFilter - Set SecurityContextHolder to JwtAuthenticationToken [Principal=org.springframework.security.oauth2.jwt.Jwt@e60cc290, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[]]
+2025-02-19 10:03:10.283 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/v1/jobs?name=java
+2025-02-19 10:32:53.153 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 2, active threads = 1, queued tasks = 0, completed tasks = 1]
+2025-02-19 11:02:53.193 [MessageBroker-2] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 3, active threads = 1, queued tasks = 0, completed tasks = 2]
+2025-02-19 11:32:53.236 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 4, active threads = 1, queued tasks = 0, completed tasks = 3]
+2025-02-19 12:02:53.263 [MessageBroker-3] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 5, active threads = 1, queued tasks = 0, completed tasks = 4]
+2025-02-19 12:32:53.286 [MessageBroker-3] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 6, active threads = 1, queued tasks = 0, completed tasks = 5]
+2025-02-19 13:02:53.307 [MessageBroker-3] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 7, active threads = 1, queued tasks = 0, completed tasks = 6]
+2025-02-19 13:32:53.335 [MessageBroker-3] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 8, active threads = 1, queued tasks = 0, completed tasks = 7]
+2025-02-19 14:02:53.361 [MessageBroker-3] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 8, active threads = 1, queued tasks = 0, completed tasks = 8]
+2025-02-19 14:32:53.385 [MessageBroker-3] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 8, active threads = 1, queued tasks = 0, completed tasks = 9]
+2025-02-19 15:02:53.406 [MessageBroker-3] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 8, active threads = 1, queued tasks = 0, completed tasks = 10]
+2025-02-19 15:32:53.419 [MessageBroker-3] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 8, active threads = 1, queued tasks = 0, completed tasks = 11]

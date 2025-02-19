@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nhc.CareerNest.domain.dto.request.ChatNotification;
+import com.nhc.CareerNest.domain.dto.request.ChatNotificationDTO;
 import com.nhc.CareerNest.domain.dto.response.base.RestResponse;
 import com.nhc.CareerNest.domain.entity.ChatMessage;
 import com.nhc.CareerNest.domain.entity.User;
@@ -72,7 +72,7 @@ public class ChatController {
 
         ChatMessage savedMsg = chatMessageService.save(chatMessage);
 
-        ChatNotification chatNotification = new ChatNotification();
+        ChatNotificationDTO chatNotification = new ChatNotificationDTO();
         chatNotification.setId(savedMsg.getId());
         chatNotification.setContent(savedMsg.getContent());
         chatNotification.setReceiverId(savedMsg.getReceiver().getId());

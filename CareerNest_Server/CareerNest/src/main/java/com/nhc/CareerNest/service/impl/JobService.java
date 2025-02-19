@@ -1,11 +1,17 @@
 package com.nhc.CareerNest.service.impl;
 
 import java.util.List;
+
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.nhc.CareerNest.domain.dto.request.JobCriteriaDTO;
+import com.nhc.CareerNest.domain.dto.response.base.ResultPaginationResponse;
 import com.nhc.CareerNest.domain.entity.Company;
 import com.nhc.CareerNest.domain.entity.Job;
 import com.nhc.CareerNest.domain.entity.Skill;
@@ -13,6 +19,7 @@ import com.nhc.CareerNest.repository.CompanyRepository;
 import com.nhc.CareerNest.repository.JobRepository;
 import com.nhc.CareerNest.repository.SkillRepository;
 import com.nhc.CareerNest.service.IJobService;
+import com.nhc.CareerNest.util.specification.JobSpecification;
 
 @Service
 public class JobService implements IJobService {
@@ -28,6 +35,44 @@ public class JobService implements IJobService {
         this.skillRepository = skillRepository;
         this.jobRepository = jobRepository;
         this.companyRepository = companyRepository;
+    }
+
+    public ResultPaginationResponse findAllWithSpec(Pageable pageable, JobCriteriaDTO jobCriteriaDTO) {
+
+        ResultPaginationResponse rs = new ResultPaginationResponse();
+        ResultPaginationResponse.Meta mt = new ResultPaginationResponse.Meta();
+
+        Specification<Job> combinedSpec = Specification.where(null);
+
+        // filter name
+        if (jobCriteriaDTO.getName() != null && jobCriteriaDTO.getName().isPresent()) {
+            Specification<Job> currentSpec = JobSpecification.nameLike(jobCriteriaDTO.getName().get());
+            combinedSpec = combinedSpec.and(currentSpec);
+        }
+
+        // filter level
+        if (jobCriteriaDTO.getLevel() != null && jobCriteriaDTO.getLevel().isPresent()) {
+            Specification<Job> currentSpec = JobSpecification.levelListMatch(jobCriteriaDTO.getLevel().get());
+            combinedSpec = combinedSpec.and(currentSpec);
+        }
+
+        // filter location
+        if (jobCriteriaDTO.getLocation() != null && jobCriteriaDTO.getLocation().isPresent()) {
+            Specification<Job> currentSpec = JobSpecification.locationListMatch(jobCriteriaDTO.getLevel().get());
+            combinedSpec = combinedSpec.and(currentSpec);
+        }
+
+        Page<Job> pageUser = this.jobRepository.findAll(combinedSpec, pageable);
+
+        mt.setPage(pageable.getPageNumber() + 1);
+        mt.setPageSize(pageable.getPageSize());
+        mt.setPages(pageUser.getTotalPages());
+        mt.setTotal(pageUser.getTotalElements());
+
+        rs.setMeta(mt);
+        rs.setResult(pageUser.getContent());
+
+        return rs;
     }
 
     @Override

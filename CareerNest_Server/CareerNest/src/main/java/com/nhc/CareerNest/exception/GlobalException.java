@@ -102,14 +102,18 @@ public class GlobalException {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(res);
     }
 
-    // @ExceptionHandler(ConstraintViolationException.class)
-    // public ResponseEntity<Map<String, String>>
-    // handleConstraintViolationException(ConstraintViolationException ex) {
-    // Map<String, String> errors = new HashMap<>();
-    // ex.getConstraintViolations()
-    // .forEach(violation -> errors.put(violation.getPropertyPath().toString(),
-    // violation.getMessage()));
-    // return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
-    // }
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<RestResponse> handleConstraintViolationException(ConstraintViolationException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getConstraintViolations()
+                .forEach(violation -> errors.put(violation.getPropertyPath().toString(),
+                        violation.getMessage()));
+
+        RestResponse res = new RestResponse();
+        res.setStatusCode(HttpStatus.BAD_REQUEST.value());
+        res.setError(ex.getMessage());
+        res.setMessage(errors);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(res);
+    }
 
 }
