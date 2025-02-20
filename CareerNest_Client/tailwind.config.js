@@ -1,10 +1,12 @@
 /** @type {import('tailwindcss').Config} */
-
 import defaultTheme from 'tailwindcss/defaultTheme';
+const flowbite = require("flowbite-react/tailwind");
+
 export default {
     darkMode: 'class',
     content: [
         "./src/**/*.{js,ts,jsx,tsx}",
+        flowbite.content(),
     ],
     theme: {
         // nếu custom smaller breakpoint thì dùng cách này (không thêm được vào extend)
@@ -121,6 +123,8 @@ export default {
                 'scale-down-image': 'scale-down-image 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;',
             },
         },
-        plugins: [],
+        plugins: [
+            flowbite.plugin(),
+        ],
     }
 }

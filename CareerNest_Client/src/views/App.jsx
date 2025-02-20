@@ -1,12 +1,26 @@
+import AppRoute from '../routes/AppRoute'
 import './App.scss'
+import { ToastContainer } from 'react-toastify'
 
 function App() {
 
-  console.log(import.meta.env.VITE_PORT)
 
   return (
     <>
-      Hello world
+      <AppRoute />
+
+      <ToastContainer position="top-right"
+        autoClose={1800}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={true}
+        theme="light"
+        className={'col-6 col-sm-3'}
+      />
     </>
   )
 }
