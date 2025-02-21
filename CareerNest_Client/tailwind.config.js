@@ -19,10 +19,14 @@ export default {
                 sora: ["Sora", 'sans-serif'],
             },
             colors: {
-                '0F': '#0F7070',
+                primary: { "50": "#eff6ff", "100": "#dbeafe", "200": "#bfdbfe", "300": "#93c5fd", "400": "#60a5fa", "500": "#3b82f6", "600": "#2563eb", "700": "#1d4ed8", "800": "#1e40af", "900": "#1e3a8a", "950": "#172554" },
+                coffee: {
+                    200: '#C89F94',
+                }
             },
             backgroundColor: {
                 'CE': '#CED9D9',
+                'E7': '#E7ECEC',
                 'overlay-30': 'rgba(0,0,0,0.3)',
             },
             boxShadow: {
@@ -122,6 +126,10 @@ export default {
                 'scale-up-image': 'scale-up-image 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;',
                 'scale-down-image': 'scale-down-image 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;',
             },
+            backgroundImage: {
+                'slider-bg': `url('/slider-img.jpg')`,
+                'bg-parallax': `url('/parallax.jpg')`,
+            }
         },
         plugins: [
             flowbite.plugin(),

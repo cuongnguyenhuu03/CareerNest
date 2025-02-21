@@ -11,8 +11,6 @@ import { PersistGate } from 'redux-persist/integration/react'; // đảm bảo �
 // vào redux thành công (nếu chưa có data thì k chạy).
 
 import 'react-toastify/dist/ReactToastify.css';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import 'nprogress/nprogress.css';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
@@ -21,7 +19,7 @@ const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
-  <QueryClientProvider client={queryClient}>
+  <QueryClientProvider client={queryClient} >
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
