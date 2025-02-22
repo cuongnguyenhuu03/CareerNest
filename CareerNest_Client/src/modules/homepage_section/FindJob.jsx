@@ -17,7 +17,7 @@ const FindJob = () => {
 
                         <form className="basis-1/4 max-w-sm mx-auto">
                             <select id="countries" className="bg-gray-50 border text-xs lg:text-sm border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option selected>Chọn cấp bậc</option>
+                                <option defaultValue={''}>Chọn cấp bậc</option>
                                 <option value="US">United States</option>
                                 <option value="CA">Canada</option>
                                 <option value="FR">France</option>
@@ -27,7 +27,7 @@ const FindJob = () => {
 
                         <form className="basis-1/4  max-w-sm mx-auto">
                             <select id="countries" className="bg-gray-50 border text-xs lg:text-sm border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option selected>Chọn tỉnh thành</option>
+                                <option defaultValue={''}>Chọn tỉnh thành</option>
                                 <option value="US">United States</option>
                                 <option value="CA">Canada</option>
                                 <option value="FR">France</option>

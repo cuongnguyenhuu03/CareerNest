@@ -5,6 +5,7 @@ import { path } from '../utils/constant';
 import DefaultLayout from '../layout/DefaultLayout';
 
 const HomePage = lazy(() => import('../pages/homepage/HomePage'));
+const RegisterPage = lazy(() => import('../pages/auth/RegisterPage'));
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
 
 const AppRoute = () => {
@@ -16,8 +17,8 @@ const AppRoute = () => {
                     <Route path='resume' element={< > Profile... </>} />
                 </Route>
 
-                {/* <Route path="sign-in" element={<SignInPage />} /> */}
-                {/* <Route path="sign-up" element={<SignUpPage />} /> */}
+                <Route path={path.LOGIN__RECRUITMENT} element={< > Nhà tuyển dụng</>} />
+                <Route path={path.REGISTER__CANDIDATE} element={<RegisterPage />} />
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
         </Suspense>
