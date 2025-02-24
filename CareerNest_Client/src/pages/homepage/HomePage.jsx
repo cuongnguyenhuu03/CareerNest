@@ -1,7 +1,5 @@
 import React from 'react';
-import { FloatButton } from "antd";
 import Parallax from '../../modules/homepage_section/Parallax';
-import Footer from '../../components/footer/Footer';
 import FindJob from '../../modules/homepage_section/FindJob';
 import SliderBanner from '../../modules/homepage_section/SliderBanner';
 import CVSection from '../../modules/homepage_section/CVSection';
@@ -34,9 +32,6 @@ const Homepage = () => {
             {/* Parallax */}
             <Parallax />
 
-            <Footer />
-
-            <FloatButton.BackTop tooltip={<div>Scrolling to Top</div>} />
         </div >
     );
 };

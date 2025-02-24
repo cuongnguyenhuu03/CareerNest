@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { headerMenu } from "../../utils/menu";
 import { Button } from "flowbite-react";
 import { LoginPage } from "../../pages/auth/LoginPage";
+import { path } from "../../utils/constant";
 
 const Header = () => {
     const navigate = useNavigate();
@@ -10,6 +11,7 @@ const Header = () => {
     const [openModalLogin, setOpenModalLogin] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
+    const location = useLocation();
 
     // Xử lý khi click ra ngoài dropdown
     useEffect(() => {
@@ -34,13 +36,15 @@ const Header = () => {
                             <img src="https://flowbite.com/docs/images/logo.svg" className="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
                             <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">CareerNest</span>
                         </Link>
-                        <div className="flex items-center lg:order-2 gap-5">
+                        <div className="flex items-center lg:order-2 gap-3 sm:gap-5">
                             <Button color="light" onClick={() => setOpenModalLogin(true)}>Đăng nhập</Button>
-                            <Button color="blue" className="uppercase"
-                                onClick={() => navigate('/login-recruitment')}
-                            >
-                                Nhà tuyển dụng
-                            </Button>
+                            {!location.pathname.includes(path.RECRUITMENT) &&
+                                <Button color="blue" className="uppercase hidden sm:inline-flex"
+                                    onClick={() => navigate(path.RECRUITMENT)}
+                                >
+                                    Nhà tuyển dụng
+                                </Button>
+                            }
                             <button
                                 onClick={() => setIsOpen(!isOpen)}
                                 className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
@@ -57,50 +61,53 @@ const Header = () => {
                                 }
                             </button>
                         </div>
-                        <div className={`${isOpen ? "block" : "hidden"} justify-between items-center w-full lg:flex lg:w-auto lg:order-1`} id="mobile-menu-2">
-                            <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-                                {headerMenu?.length > 0 && headerMenu.map(item => (
-                                    <li key={item.path} className="relative">
-                                        {item.path === '/resume' ? (
-                                            <div ref={dropdownRef} className="relative">
-                                                <button
-                                                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                                                    className="ct-header-dropdown ct-hover-transition flex items-center"
+                        {!location.pathname.includes(path.RECRUITMENT) &&
+                            <div className={`${isOpen ? "block" : "hidden"} justify-between items-center w-full lg:flex lg:w-auto lg:order-1`} id="mobile-menu-2">
+                                <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                                    {headerMenu?.length > 0 && headerMenu.map(item => (
+                                        <li key={item.path} className="relative">
+                                            {item.path === '/resume' ? (
+                                                <div ref={dropdownRef} className="relative">
+                                                    <button
+                                                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                                        className="ct-header-dropdown ct-hover-transition flex items-center"
+                                                    >
+                                                        {item.text}
+                                                        <svg className="w-4 h-4 ml-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414L10 13.414l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                                                        </svg>
+                                                    </button>
+                                                    {isDropdownOpen &&
+                                                        <ul className="z-50 absolute left-0 mt-2 w-48 bg-white border rounded-md shadow-lg dark:bg-gray-700">
+                                                            <li>
+                                                                <Link to="/resume/edit" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-white">
+                                                                    Chỉnh sửa CV
+                                                                </Link>
+                                                            </li>
+                                                            <li>
+                                                                <Link to="/resume/view" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-white">
+                                                                    Xem CV
+                                                                </Link>
+                                                            </li>
+                                                        </ul>
+                                                    }
+                                                </div>
+                                            ) :
+                                                <NavLink
+                                                    to={item.path}
+                                                    className={({ isActive }) => `ct-header-dropdown ct-hover-transition 
+                                                    ${(item.path === path.RECRUITMENT) && 'sm:hidden block'}
+                                             ${isActive && 'text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white'}`
+                                                    }
                                                 >
                                                     {item.text}
-                                                    <svg className="w-4 h-4 ml-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414L10 13.414l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                                                    </svg>
-                                                </button>
-                                                {isDropdownOpen &&
-                                                    <ul className="z-50 absolute left-0 mt-2 w-48 bg-white border rounded-md shadow-lg dark:bg-gray-700">
-                                                        <li>
-                                                            <Link to="/resume/edit" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-white">
-                                                                Chỉnh sửa CV
-                                                            </Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="/resume/view" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-white">
-                                                                Xem CV
-                                                            </Link>
-                                                        </li>
-                                                    </ul>
-                                                }
-                                            </div>
-                                        ) : (
-                                            <NavLink
-                                                to={item.path}
-                                                className={({ isActive }) => `ct-header-dropdown ct-hover-transition
-                                                ${isActive && 'text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white'}`
-                                                }
-                                            >
-                                                {item.text}
-                                            </NavLink>
-                                        )}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
+                                                </NavLink>
+                                            }
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        }
                     </div>
                 </nav>
             </header>

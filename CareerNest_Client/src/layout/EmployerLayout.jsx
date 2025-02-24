@@ -1,10 +1,11 @@
 import React from 'react';
 import Header from '../components/header/Header';
+import { Outlet } from 'react-router-dom';
+import { FloatButton } from 'antd';
 import Footer from '../components/footer/Footer';
-import { FloatButton } from "antd";
-import { Outlet } from 'react-router-dom'
 
-const DefaultLayout = () => {
+//cho nhà tuyển dụng
+const EmployerLayout = () => {
     return (
         <>
             <Header />
@@ -15,4 +16,4 @@ const DefaultLayout = () => {
     );
 };
 
-export default DefaultLayout;
+export default EmployerLayout;

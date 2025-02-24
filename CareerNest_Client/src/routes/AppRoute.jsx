@@ -2,11 +2,13 @@ import { Routes, Route } from 'react-router-dom';
 import React, { Suspense, lazy } from 'react';
 import Loading from '../components/loading/Loading';
 import { path } from '../utils/constant';
-import DefaultLayout from '../layout/DefaultLayout';
 
 const HomePage = lazy(() => import('../pages/homepage/HomePage'));
 const RegisterPage = lazy(() => import('../pages/auth/RegisterPage'));
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
+const DefaultLayout = lazy(() => import('../layout/DefaultLayout'));
+const EmployerLayout = lazy(() => import('../layout/EmployerLayout'));
+const RecruitmentPage = lazy(() => import('../pages/recruitment/RecruitmentPage'));
 
 const AppRoute = () => {
     return (
@@ -17,7 +19,10 @@ const AppRoute = () => {
                     <Route path='resume' element={< > Profile... </>} />
                 </Route>
 
-                <Route path={path.LOGIN__RECRUITMENT} element={< > Nhà tuyển dụng</>} />
+                <Route path={path.RECRUITMENT} element={<EmployerLayout />} >
+                    <Route index element={<RecruitmentPage />} />
+                </Route>
+
                 <Route path={path.REGISTER__CANDIDATE} element={<RegisterPage />} />
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>

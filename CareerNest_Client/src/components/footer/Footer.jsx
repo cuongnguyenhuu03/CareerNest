@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return (
-        <footer className="bg-white antialiased dark:bg-gray-800">
+        <footer className="w-full bg-white antialiased dark:bg-gray-800">
             <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
                 <div className="border-b border-gray-100 py-6 dark:border-gray-700 md:py-8 lg:py-16">
                     <div className="items-start gap-6 md:gap-8 lg:flex 2xl:gap-24">
@@ -12,16 +12,16 @@ const Footer = () => {
                                 <h6 className="mb-4 text-sm font-semibold uppercase text-gray-900 dark:text-white">Về CareerNest</h6>
                                 <ul className="space-y-3">
                                     <li>
-                                        <a href="#"  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"> Giới thiệu </a>
+                                        <a href="#" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"> Giới thiệu </a>
                                     </li>
                                     <li>
-                                        <a href="#"  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"> Liên hệ hợp tác </a>
+                                        <a href="#" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"> Liên hệ hợp tác </a>
                                     </li>
                                     <li>
-                                        <a href="#"  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"> Điều khoản dịch vụ </a>
+                                        <a href="#" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"> Điều khoản dịch vụ </a>
                                     </li>
                                     <li>
-                                        <a href="#"  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"> Chính sách bảo mật </a>
+                                        <a href="#" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"> Chính sách bảo mật </a>
                                     </li>
 
                                 </ul>
@@ -30,19 +30,19 @@ const Footer = () => {
                                 <h6 className="mb-4 text-sm font-semibold uppercase text-gray-900 dark:text-white">Dịch vụ</h6>
                                 <ul className="space-y-3">
                                     <li>
-                                        <a href="#"  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Quản lý CV</a>
+                                        <a href="#" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Quản lý CV</a>
                                     </li>
                                     <li>
-                                        <a href="#"  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Tìm kiếm việc làm</a>
+                                        <a href="#" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Tìm kiếm việc làm</a>
                                     </li>
                                     <li>
-                                        <a href="#"  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Bí quyết tìm việc</a>
+                                        <a href="#" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Bí quyết tìm việc</a>
                                     </li>
                                     <li>
-                                        <a href="#"  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Tuyển dụng nhân sự</a>
+                                        <a href="#" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Tuyển dụng nhân sự</a>
                                     </li>
                                     <li>
-                                        <a href="#"  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Review CV</a>
+                                        <a href="#" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Review CV</a>
                                     </li>
                                 </ul>
                             </div>
@@ -50,19 +50,19 @@ const Footer = () => {
                                 <h6 className="mb-4 text-sm font-semibold uppercase text-gray-900 dark:text-white">Xây dựng sự nghiệp</h6>
                                 <ul className="space-y-3">
                                     <li>
-                                        <a href="#"  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Việc làm tốt nhất</a>
+                                        <a href="#" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Việc làm tốt nhất</a>
                                     </li>
                                     <li>
-                                        <a href="#"  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Việc làm lương cao</a>
+                                        <a href="#" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Việc làm lương cao</a>
                                     </li>
                                     <li>
-                                        <a href="#"  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Việc làm IT</a>
+                                        <a href="#" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Việc làm IT</a>
                                     </li>
                                     <li>
-                                        <a href="#"  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Việc làm Senior</a>
+                                        <a href="#" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Việc làm Senior</a>
                                     </li>
                                     <li>
-                                        <a href="#"  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Việc làm bán thời gian</a>
+                                        <a href="#" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Việc làm bán thời gian</a>
                                     </li>
                                 </ul>
                             </div>
@@ -70,12 +70,12 @@ const Footer = () => {
                                 <h6 className="mb-4 text-sm font-semibold uppercase text-gray-900 dark:text-white">Liên hệ</h6>
                                 <ul className="space-y-3">
                                     <li>
-                                        <span className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white text-nowrap">
+                                        <span className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
                                             Hotline: <span className='text-black font-medium'>0377 586 305 (Giờ hành chính)</span>
                                         </span>
                                     </li>
                                     <li>
-                                        <span className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white text-nowrap">
+                                        <span className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
                                             Email: <span className='text-black font-medium'>careernest@gmail.com</span>
                                         </span>
                                     </li>
@@ -84,7 +84,7 @@ const Footer = () => {
                         </div>
                         <div className="mt-6 w-full md:mt-8 lg:mt-0 lg:max-w-lg">
                             <div className="space-y-5 rounded-lg bg-gray-100 p-6 dark:bg-gray-700">
-                                <a href="#"  className="text-base font-medium text-primary-700 no-underline hover:underline dark:text-primary-500"> Đăng nhập hoặc Tạo tài khoản mới ? </a>
+                                <a href="#" className="text-base font-medium text-primary-700 no-underline hover:underline dark:text-primary-500"> Đăng nhập hoặc Tạo tài khoản mới ? </a>
                                 <hr className="border-gray-200 dark:border-gray-600" />
                                 <form action="#">
                                     <div className="items-end space-y-4 sm:flex sm:space-y-0">
@@ -160,10 +160,10 @@ const Footer = () => {
                             <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">CareerNest</span>
                         </Link>
                         <ul className="flex flex-wrap items-center gap-4 text-sm text-gray-900 dark:text-white xl:justify-center">
-                            <li><a href="#"  className="font-medium hover:underline"> Flowbite Express </a></li>
-                            <li><a href="#"  className="font-medium hover:underline"> Legal Notice </a></li>
-                            <li><a href="#"  className="font-medium hover:underline"> Product Listing Policy </a></li>
-                            <li><a href="#"  className="font-medium hover:underline"> Terms of Use </a></li>
+                            <li><a href="#" className="font-medium hover:underline"> Flowbite Express </a></li>
+                            <li><a href="#" className="font-medium hover:underline"> Legal Notice </a></li>
+                            <li><a href="#" className="font-medium hover:underline"> Product Listing Policy </a></li>
+                            <li><a href="#" className="font-medium hover:underline"> Terms of Use </a></li>
                         </ul>
                         <p className="text-sm text-gray-500 dark:text-gray-400">© 2025 <a href="#" className="hover:underline">CareerNest</a>, Inc. All rights reserved.</p>
                     </div>

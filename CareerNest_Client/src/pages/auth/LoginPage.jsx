@@ -65,7 +65,7 @@ export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
             <Modal.Header />
             <Modal.Body>
                 <form className="space-y-4" onSubmit={handleSubmit}>
-                    <h3 className="text-xl font-medium text-gray-900 dark:text-white">Đăng nhập dành cho ứng viên</h3>
+                    <h3 className="text-xl text-center font-medium text-gray-900 dark:text-white">Đăng nhập dành cho ứng viên</h3>
 
                     {/* Input Email */}
                     <div>
