@@ -82,7 +82,7 @@ public class CompanyService implements ICompanyService {
             combinedSpec = combinedSpec.and(currentSpec);
         }
 
-        Page<Company> companies = this.companyRepository.findAll(pageable, combinedSpec);
+        Page<Company> companies = this.companyRepository.findAll(combinedSpec, pageable);
 
         mt.setPage(pageable.getPageNumber() + 1);
         mt.setPageSize(pageable.getPageSize());
