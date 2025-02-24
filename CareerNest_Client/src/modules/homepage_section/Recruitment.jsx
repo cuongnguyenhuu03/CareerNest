@@ -1,10 +1,12 @@
 import React from 'react';
 import icons from '../../utils/icons';
+import slugify from "slugify";
+import { useNavigate } from 'react-router-dom';
 
 const { FaMoneyCheckDollar, FaRegBuilding, GrLocation, GrNetworkDrive } = icons;
 
-
 const Recruitment = () => {
+    const navigate = useNavigate();
     return (
         <div className='w-full py-10 bg-gray-100 mb-6 md:mb-16 px-6 md:px-10 lg:px-[150px]'>
             <h1 className='text-2xl mb-10 text-center text-slate-800 font-bold uppercase'>Tin tuyển dụng mới nhất</h1>
@@ -20,7 +22,9 @@ const Recruitment = () => {
                         </div>
                     </div>
                     <div className='flex flex-auto flex-col gap-1'>
-                        <div className={`text-sm md:text-base lg:text-lg xl:text-base font-medium uppercase`}>
+                        <div className={`text-sm md:text-base lg:text-lg xl:text-base font-medium uppercase`}
+                            onClick={() => navigate(`/job/detail/1/${slugify('Lập trình viên Python', { lower: true, strict: true })}`)}
+                        >
                             Lập trình viên Python
                         </div>
                         <div className='flex gap-2 items-center text-xs md:text-sm font-light'>
