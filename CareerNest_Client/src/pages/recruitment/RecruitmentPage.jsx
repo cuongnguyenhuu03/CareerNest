@@ -168,6 +168,11 @@ const RecruitmentPage = () => {
                 </div>
 
                 <div className='hidden w-full sm:flex items-center rounded-lg bg-white gap-2 p-10'>
+                    <div className='basis-1/2'>
+                        <img src={serviceLogo6} alt=""
+                            className='w-[85%] min-h-[200px] object-contain rounded-md'
+                        />
+                    </div>
                     <div className='basis-1/2 text-left'>
                         <div className='font-semibold text-lg sm:text-xl md:text-3xl mb-6'>Thương hiệu tuyển dụng</div>
                         <div className='text-justify text-xs sm:text-sm md:text-base mb-8'>
@@ -190,11 +195,6 @@ const RecruitmentPage = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className='basis-1/2'>
-                        <img src={serviceLogo6} alt=""
-                            className='w-[85%] min-h-[200px] object-contain rounded-md'
-                        />
                     </div>
                 </div>
                 <div className='w-full sm:hidden rounded-lg bg-white gap-2 p-5'>

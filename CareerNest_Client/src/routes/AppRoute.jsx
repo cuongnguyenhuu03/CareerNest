@@ -6,9 +6,11 @@ import { path } from '../utils/constant';
 const HomePage = lazy(() => import('../pages/homepage/HomePage'));
 const RegisterPage = lazy(() => import('../pages/auth/RegisterPage'));
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
+const RecruitmentPage = lazy(() => import('../pages/recruitment/RecruitmentPage'));
 const DefaultLayout = lazy(() => import('../layout/DefaultLayout'));
 const EmployerLayout = lazy(() => import('../layout/EmployerLayout'));
-const RecruitmentPage = lazy(() => import('../pages/recruitment/RecruitmentPage'));
+const JobLayout = lazy(() => import('../layout/JobLayout'));
+const DetailJobPage = lazy(() => import('../pages/job/DetailJobPage'));
 
 const AppRoute = () => {
     return (
@@ -21,6 +23,10 @@ const AppRoute = () => {
 
                 <Route path={path.RECRUITMENT} element={<EmployerLayout />} >
                     <Route index element={<RecruitmentPage />} />
+                </Route>
+
+                <Route path={path.JOB} element={<JobLayout />} >
+                    <Route path={path.DETAIL__JOB} element={< DetailJobPage />} />
                 </Route>
 
                 <Route path={path.REGISTER__CANDIDATE} element={<RegisterPage />} />
