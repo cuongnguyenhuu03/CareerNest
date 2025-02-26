@@ -26,6 +26,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({
     reducer: persistedReducer,
+    devTools: import.meta.env.VITE_ENV !== 'production', // Tắt DevTools khi production
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: {
