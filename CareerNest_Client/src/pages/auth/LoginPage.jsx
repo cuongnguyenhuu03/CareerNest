@@ -111,9 +111,9 @@ export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
                             <Checkbox id="remember" checked={formData.remember} onChange={handleChange} />
                             <Label htmlFor="remember">Nhớ mật khẩu</Label>
                         </div>
-                        <a href="#" className="text-sm text-cyan-700 hover:underline dark:text-cyan-500">
+                        <Link to={path.FORGOT__PASSWORD} className="text-sm text-cyan-700 hover:underline dark:text-cyan-500">
                             Quên mật khẩu?
-                        </a>
+                        </Link>
                     </div>
 
                     {/* Submit Button */}
