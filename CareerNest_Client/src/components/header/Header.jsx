@@ -4,6 +4,7 @@ import { headerMenu } from "../../utils/menu";
 import { Button } from "flowbite-react";
 import { LoginPage } from "../../pages/auth/LoginPage";
 import { path } from "../../utils/constant";
+import DropdownAccount from "../../modules/account/DropdownAccount";
 
 const Header = () => {
     const navigate = useNavigate();
@@ -12,6 +13,7 @@ const Header = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
     const location = useLocation();
+    const user = {};
 
     // Xử lý khi click ra ngoài dropdown
     useEffect(() => {
@@ -37,13 +39,19 @@ const Header = () => {
                             <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">CareerNest</span>
                         </Link>
                         <div className="flex items-center lg:order-2 gap-3 sm:gap-5">
-                            <Button color="light" onClick={() => setOpenModalLogin(true)}>Đăng nhập</Button>
-                            {!location.pathname.includes(path.RECRUITMENT) &&
-                                <Button color="blue" className="uppercase hidden sm:inline-flex"
-                                    onClick={() => navigate(path.RECRUITMENT)}
-                                >
-                                    Nhà tuyển dụng
-                                </Button>
+                            {user?._id ?
+                                <>
+                                    <Button color="light" onClick={() => setOpenModalLogin(true)}>Đăng nhập</Button>
+                                    {!location.pathname.includes(path.RECRUITMENT) &&
+                                        <Button color="blue" className="uppercase hidden sm:inline-flex"
+                                            onClick={() => navigate(path.RECRUITMENT)}
+                                        >
+                                            Nhà tuyển dụng
+                                        </Button>
+                                    }
+                                </>
+                                :
+                                <DropdownAccount />
                             }
                             <button
                                 onClick={() => setIsOpen(!isOpen)}

@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { path } from '../../utils/constant';
 import Breadcrumbs from '../../components/breadcrumb/Breadcrumbs';
 import UpdateAccount from '../../modules/account/UpdateAccount';
+import { ChangePasswordModal } from '../../modules/account/ChangePasswordModal';
 
 const data = [
     { text: "Trang chủ", path: path.HOME },
@@ -13,6 +14,8 @@ const ProfilePage = () => {
     const navigate = useNavigate();
     const ref = useRef(null);
     const [isOpenModal, setOpenModal] = useState(false);
+    const [openChangePasswordModal, setOpenChangePasswordModal] = useState(false);
+
 
     useEffect(() => {
         if (ref?.current)
@@ -31,7 +34,10 @@ const ProfilePage = () => {
                 <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-8">
                     <div className="mx-auto max-w-screen-lg px-4 2xl:px-0">
                         <Breadcrumbs data={data} />
-                        <h2 className="mb-4 text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl md:mb-6">Thông tin tài khoản</h2>
+                        <div className='flex items-center justify-between mb-4'>
+                            <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Thông tin tài khoản</h2>
+                            <span onClick={() => setOpenChangePasswordModal(true)} className=' text-xs xs:text-sm text-gray-500 cursor-pointer hover:underline hover:transition-all'>Đổi mật khẩu</span>
+                        </div>
                         <div className="grid grid-cols-2 gap-6 border-b border-t border-gray-200 py-4 dark:border-gray-700 md:py-8 lg:grid-cols-4 xl:gap-16">
                             <div>
                                 <svg className="mb-2 h-8 w-8 text-gray-400 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width={24} height={24} fill="none" viewBox="0 0 24 24">
@@ -194,6 +200,7 @@ const ProfilePage = () => {
             </div>
             {/* Account Information Modal */}
             <UpdateAccount isOpen={isOpenModal} setOpenModal={setOpenModal} />
+            <ChangePasswordModal isOpen={openChangePasswordModal} setOpenModal={setOpenChangePasswordModal} />
         </>
 
     );
