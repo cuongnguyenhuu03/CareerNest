@@ -31,7 +31,7 @@ const DetailJobPage = ({ jobData = {} }) => {
                         <FaMoneyCheckDollar /> Lương thỏa thuận
                     </div>
                     <div className='flex gap-2 items-center text-xs md:text-sm font-light'>
-                        <IoMdTime /> Hạn nộp: 25/02/2025
+                        <IoMdTime /> Hạn nộp: 25/02/2025 10:30:00
                     </div>
                 </div>
 

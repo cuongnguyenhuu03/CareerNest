@@ -14,6 +14,7 @@ const JobLayout = lazy(() => import('../layout/JobLayout'));
 const DetailJobPage = lazy(() => import('../pages/job/DetailJobPage'));
 const AccountLayout = lazy(() => import('../layout/AccountLayout'));
 const ProfilePage = lazy(() => import('../pages/account/ProfilePage'));
+const MyJobPage = lazy(() => import('../pages/account/MyJobPage'));
 
 const AppRoute = () => {
     return (
@@ -34,6 +35,8 @@ const AppRoute = () => {
 
                 <Route path={path.ACCOUNT} element={<AccountLayout />} >
                     <Route path={path.ACCOUNT__PROFILE} element={< ProfilePage />} />
+                    <Route path={path.ACCOUNT__MY__JOB} element={< MyJobPage />} />
+
                 </Route>
 
                 <Route path={path.REGISTER__CANDIDATE} element={<RegisterPage />} />
