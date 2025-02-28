@@ -7,6 +7,10 @@ export const path = {
     ACCOUNT__PROFILE: 'profile/:id',
     ACCOUNT__MY__JOB: 'my-job',
 
+    CV: '/cv',
+    CV__MANAGE: 'management',
+    CV__CREATE: 'create',
+
     RECRUITMENT: '/recruitment',
     JOB: '/job',
     DETAIL__JOB: 'detail/:id/:slug',

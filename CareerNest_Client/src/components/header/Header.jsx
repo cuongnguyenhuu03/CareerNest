@@ -88,13 +88,13 @@ const Header = () => {
                                                     {isDropdownOpen &&
                                                         <ul className="z-50 absolute left-0 mt-2 w-48 bg-white border rounded-md shadow-lg dark:bg-gray-700">
                                                             <li>
-                                                                <Link to="/resume/edit" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-white">
-                                                                    Chỉnh sửa CV
+                                                                <Link to={`${path.CV}/${path.CV__MANAGE}`} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-white">
+                                                                    Quản lý CV
                                                                 </Link>
                                                             </li>
                                                             <li>
-                                                                <Link to="/resume/view" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-white">
-                                                                    Xem CV
+                                                                <Link to={`${path.CV}/${path.CV__CREATE}`} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-white">
+                                                                    Tạo CV
                                                                 </Link>
                                                             </li>
                                                         </ul>

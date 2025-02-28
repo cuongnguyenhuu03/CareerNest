@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import React, { Suspense, lazy } from 'react';
 import Loading from '../components/loading/Loading';
 import { path } from '../utils/constant';
+import PrivateRoute from './PrivateRoute';
 
 const HomePage = lazy(() => import('../pages/homepage/HomePage'));
 const RegisterPage = lazy(() => import('../pages/auth/RegisterPage'));
@@ -15,8 +16,12 @@ const DetailJobPage = lazy(() => import('../pages/job/DetailJobPage'));
 const AccountLayout = lazy(() => import('../layout/AccountLayout'));
 const ProfilePage = lazy(() => import('../pages/account/ProfilePage'));
 const MyJobPage = lazy(() => import('../pages/account/MyJobPage'));
+const CVLayout = lazy(() => import('../layout/CVLayout'));
+const CVManagementPage = lazy(() => import('../pages/cv/CVManagementPage'));
+const CVCreatePage = lazy(() => import('../pages/cv/CVCreatePage'));
 
 const AppRoute = () => {
+
     return (
         <Suspense fallback={<Loading />}>
             <Routes>
@@ -33,10 +38,14 @@ const AppRoute = () => {
                     <Route path={path.DETAIL__JOB} element={< DetailJobPage />} />
                 </Route>
 
+                <Route path={path.CV} element={<CVLayout />} >
+                    <Route path={path.CV__MANAGE} element={< CVManagementPage />} />
+                    <Route path={path.CV__CREATE} element={< CVCreatePage />} />
+                </Route>
+
                 <Route path={path.ACCOUNT} element={<AccountLayout />} >
                     <Route path={path.ACCOUNT__PROFILE} element={< ProfilePage />} />
                     <Route path={path.ACCOUNT__MY__JOB} element={< MyJobPage />} />
-
                 </Route>
 
                 <Route path={path.REGISTER__CANDIDATE} element={<RegisterPage />} />

@@ -13,6 +13,7 @@ import { PersistGate } from 'redux-persist/integration/react'; // đảm bảo �
 import 'react-toastify/dist/ReactToastify.css';
 import 'nprogress/nprogress.css';
 import 'react-perfect-scrollbar/dist/css/styles.css';
+import 'react-markdown-editor-lite/lib/index.css';
 
 // Create a client
 const queryClient = new QueryClient()
