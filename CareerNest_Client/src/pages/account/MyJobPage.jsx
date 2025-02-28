@@ -23,7 +23,7 @@ const MyJobPage = () => {
     }, []);
 
     return (
-        <div ref={ref} className='w-full mt-20 px-6 md:px-10 lg:px-[150px] bg-[#f7f7f7]'>
+        <div ref={ref} className='w-full py-4 mt-20 px-6 md:px-10 lg:px-[150px] bg-[#f7f7f7]'>
             <Breadcrumbs data={data} />
             <div className='bg-[#fff] px-6 py-3 rounded-lg'>
                 <h1 className='font-semibold text-xl mb-3'>Việc làm của tôi</h1>

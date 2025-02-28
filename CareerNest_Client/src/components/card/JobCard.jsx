@@ -10,7 +10,7 @@ const JobCard = ({ className = '', isApplied = false, isSaved = false }) => {
     const navigate = useNavigate();
 
     return (
-        <div className={`${className} w-full flex gap-3 md:gap-6 p-[12px] items-center justify-between cursor-pointer hover:rounded-md ct-hover-transition text-black hover:bg-white`}>
+        <div className={`${className} rounded-lg w-full flex gap-3 md:gap-6 p-[12px] items-center justify-between cursor-pointer hover:rounded-md ct-hover-transition text-black hover:bg-white`}>
             <div className='flex flex-col gap-2'>
                 <img
                     src={'/company_logo.jpg'} alt="thumbnail"
@@ -65,7 +65,7 @@ const JobCard = ({ className = '', isApplied = false, isSaved = false }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className='sm:hidden'>
+                            <div className='sm:hidden mb-4'>
                                 <div className='flex flex-col gap-y-2'>
                                     <div className='flex gap-x-2'>
                                         <span className='text-xs md:text-sm'>Đăng 1 ngày trước</span>
