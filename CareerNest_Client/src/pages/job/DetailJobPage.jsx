@@ -14,7 +14,7 @@ const DetailJobPage = ({ jobData = {} }) => {
     }, []);
 
     return (
-        <div ref={ref} className='w-full flex flex-col gap-8 mt-20 px-6 md:px-10 lg:px-[150px]'>
+        <div ref={ref} className='ct-container flex flex-col gap-8 mt-20 '>
             <div className='w-full shadow-md flex items-center justify-between py-3 gap-3 xs:gap-6 rounded-lg'>
                 <img
                     src={'/company_logo.jpg'} alt="thumbnail"

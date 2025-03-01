@@ -6,7 +6,7 @@ import { path } from '../../utils/constant';
 const CVSection = () => {
     const navigate = useNavigate();
     return (
-        <div className="main-cv tracking-wider mb-6 md:mb-16 px-6 md:px-10 lg:px-[150px]">
+        <div className="main-cv tracking-wider ct-container">
             <div className="flex flex-nowrap gap-8">
                 <div className="basis-1/2 rounded-md flex items-center bg-gradient-to-r from-[#86add4] to-white h-[230px] md:h-[260px] pl-6" >
                     <div className="basis-1/2 md:basis-2/3 flex flex-col gap-3 md:gap-6">

@@ -50,7 +50,7 @@ const RecruitmentPage = () => {
             </div>
 
             {/* Section giới thiệu */}
-            <div className='w-full text-center flex flex-col gap-y-8 mb-6 md:mb-16 px-6 md:px-10 lg:px-[150px]'>
+            <div className='ct-container text-center flex flex-col gap-y-8 '>
                 <div className='font-semibold text-2xl sm:text-4xl'>
                     Điều gì tạo nên sự khác biệt ở CareerNest ?
                 </div>
@@ -98,7 +98,7 @@ const RecruitmentPage = () => {
             </div>
 
             {/* Section Dịch vụ */}
-            <div className="w-full flex flex-col gap-y-10 py-14 bg-gradient-to-b from-blue-700 to-blue-300 mb-6 md:mb-16 px-6 md:px-10 lg:px-[150px]">
+            <div className="ct-container flex flex-col gap-y-10 py-14 bg-gradient-to-b from-blue-700 to-blue-300">
                 <div className='font-semibold uppercase text-center text-white text-xl sm:text-2xl md:text-3xl'>
                     Dịch vụ chất lượng cao dành cho Nhà tuyển dụng IT
                 </div>

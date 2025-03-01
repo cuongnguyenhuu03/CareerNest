@@ -1,6 +1,6 @@
 
 import { GrLocation, GrNetworkDrive } from "react-icons/gr";
-import { FaRegBuilding, FaRegCalendarAlt, FaHeart } from "react-icons/fa";
+import { FaRegBuilding, FaRegCalendarAlt, FaHeart, FaFileDownload } from "react-icons/fa";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { IoMdTime } from "react-icons/io";
 import { IoPeople } from "react-icons/io5";
@@ -10,7 +10,7 @@ import { CiCirclePlus } from "react-icons/ci";
 
 const icons = {
     FaRegBuilding, FaMoneyCheckDollar, GrLocation, GrNetworkDrive, IoMdTime, IoPeople, FaCircleInfo,
-    HiCheckCircle, FaRegCalendarAlt, FaHeart, CiCirclePlus
+    HiCheckCircle, FaRegCalendarAlt, FaHeart, CiCirclePlus, FaFileDownload
 };
 
 export default icons;
