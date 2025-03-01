@@ -19,6 +19,7 @@ const MyJobPage = lazy(() => import('../pages/account/MyJobPage'));
 const CVLayout = lazy(() => import('../layout/CVLayout'));
 const CVManagementPage = lazy(() => import('../pages/cv/CVManagementPage'));
 const CVCreatePage = lazy(() => import('../pages/cv/CVCreatePage'));
+const CVDetailPage = lazy(() => import('../pages/cv/CVDetailPage'));
 
 const AppRoute = () => {
 
@@ -27,7 +28,6 @@ const AppRoute = () => {
             <Routes>
                 <Route path={path.HOME} element={<DefaultLayout />}>
                     <Route index element={<HomePage />} />
-                    <Route path='resume' element={< > Profile... </>} />
                 </Route>
 
                 <Route path={path.RECRUITMENT} element={<EmployerLayout />} >
@@ -41,6 +41,7 @@ const AppRoute = () => {
                 <Route path={path.CV} element={<CVLayout />} >
                     <Route path={path.CV__MANAGE} element={< CVManagementPage />} />
                     <Route path={path.CV__CREATE} element={< CVCreatePage />} />
+                    <Route path={path.CV__DETAIL} element={< CVDetailPage />} />
                 </Route>
 
                 <Route path={path.ACCOUNT} element={<AccountLayout />} >

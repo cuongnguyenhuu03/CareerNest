@@ -119,7 +119,7 @@ const Header = () => {
                     </div>
                 </nav>
             </header>
-            <LoginPage isOpen={openModalLogin} setOpenModal={setOpenModalLogin} />
+            {openModalLogin && <LoginPage isOpen={openModalLogin} setOpenModal={setOpenModalLogin} />}
         </>
 
     );

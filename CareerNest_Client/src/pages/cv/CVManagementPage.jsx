@@ -23,7 +23,7 @@ const CVManagementPage = () => {
         document.title = 'Quản lý CV';
     }, []);
     return (
-        <div ref={ref} className='w-full py-4 mt-20 px-6 md:px-10 lg:px-[150px] bg-[#f7f7f7]'>
+        <div ref={ref} className='ct-container py-4 mt-20 bg-[#f7f7f7]'>
             <Breadcrumbs data={data} />
             <div className='bg-[#fff] px-6 py-3 rounded-lg'>
                 <Badge className='py-2 rounded-md' color="gray" size='sm'>Danh sách CV của bạn</Badge>

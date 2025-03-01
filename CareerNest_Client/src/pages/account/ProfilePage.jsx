@@ -198,11 +198,11 @@ const ProfilePage = () => {
                     </div>
                 </section>
             </div>
-            {/* Account Information Modal */}
-            <UpdateAccount isOpen={isOpenModal} setOpenModal={setOpenModal} />
-            <ChangePasswordModal isOpen={openChangePasswordModal} setOpenModal={setOpenChangePasswordModal} />
-        </>
 
+            {/* Account Information Modal */}
+            {isOpenModal && <UpdateAccount isOpen={isOpenModal} setOpenModal={setOpenModal} />}
+            {openChangePasswordModal && <ChangePasswordModal isOpen={openChangePasswordModal} setOpenModal={setOpenChangePasswordModal} />}
+        </>
     );
 };
 

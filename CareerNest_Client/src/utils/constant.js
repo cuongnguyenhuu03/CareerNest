@@ -10,6 +10,7 @@ export const path = {
     CV: '/cv',
     CV__MANAGE: 'management',
     CV__CREATE: 'create',
+    CV__DETAIL: 'detail',
 
     RECRUITMENT: '/recruitment',
     JOB: '/job',
