@@ -1,10 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import icons from '../../utils/icons';
 import { List } from "flowbite-react";
+import { useNavigate } from 'react-router-dom';
+import { path } from '../../utils/constant';
+import slugify from 'slugify';
 
 const { FaRegBuilding, FaMoneyCheckDollar, IoMdTime, IoPeople, GrLocation, FaCircleInfo, HiCheckCircle } = icons;
 
 const DetailJobPage = ({ jobData = {} }) => {
+    const navigate = useNavigate();
     const ref = useRef(null);
 
     useEffect(() => {
@@ -14,7 +18,7 @@ const DetailJobPage = ({ jobData = {} }) => {
     }, []);
 
     return (
-        <div ref={ref} className='ct-container flex flex-col gap-8 mt-20 '>
+        <div ref={ref} className='ct-container flex flex-col gap-8 mt-20'>
             <div className='w-full shadow-md flex items-center justify-between py-3 gap-3 xs:gap-6 rounded-lg'>
                 <img
                     src={'/company_logo.jpg'} alt="thumbnail"
@@ -24,7 +28,9 @@ const DetailJobPage = ({ jobData = {} }) => {
                     <div className={`text-sm md:text-base lg:text-lg xl:text-xl font-medium uppercase`} >
                         Lập trình viên Python
                     </div>
-                    <div className='flex gap-2 items-center text-sm md:text-base font-medium text-[#23527c]'>
+                    <div className='flex gap-2 items-center text-sm md:text-base font-medium text-[#23527c] cursor-pointer hover:underline'
+                        onClick={() => navigate(`${path.RECRUITMENT}/detail/2/${slugify('Công ty TNHH Lumos Việt nam', { lower: true, strict: true })}`)}
+                    >
                         <FaRegBuilding size={15} /> Công ty TNHH Lumos Việt nam
                     </div>
                     <div className='flex mb-6 gap-2 text-orange-600 items-center text-xs md:text-sm font-light'>
@@ -40,7 +46,9 @@ const DetailJobPage = ({ jobData = {} }) => {
             <div className='hidden w-full sm:flex gap-6'>
                 <div className='basis-2/5 h-fit rounded-lg flex flex-col gap-3 bg-[#ebeeef] p-4'>
                     <h1 className='flex items-center gap-2 text-lg font-medium'> <FaCircleInfo className='text-gray-500' size={15} /> Nhà tuyển dụng:</h1>
-                    <div className='flex gap-2 text-base font-semibold text-[#23527c]'>
+                    <div className='flex gap-2 text-base font-semibold text-[#23527c] cursor-pointer hover:underline'
+                        onClick={() => navigate(`${path.RECRUITMENT}/detail/2/${slugify('Công ty TNHH Lumos Việt nam', { lower: true, strict: true })}`)}
+                    >
                         <FaRegBuilding size={15} /> Công ty TNHH Lumos Việt nam
                     </div>
                     <div className='text-justify text-sm px-3 font-light'>
@@ -102,7 +110,9 @@ const DetailJobPage = ({ jobData = {} }) => {
             <div className='w-full sm:hidden flex flex-col gap-6'>
                 <div className='h-fit rounded-lg flex flex-col gap-3 bg-[#ebeeef] p-4'>
                     <h1 className='flex items-center gap-2 text-lg font-medium'> <FaCircleInfo className='text-gray-500' size={15} /> Nhà tuyển dụng:</h1>
-                    <div className='flex gap-2 text-base font-semibold text-[#23527c]'>
+                    <div className='flex gap-2 text-base font-semibold text-[#23527c] cursor-pointer hover:underline'
+                        onClick={() => navigate(`${path.RECRUITMENT}/detail/2/${slugify('Công ty TNHH Lumos Việt nam', { lower: true, strict: true })}`)}
+                    >
                         <FaRegBuilding size={15} /> Công ty TNHH Lumos Việt nam
                     </div>
                     <div className='text-justify text-sm px-3 font-light'>

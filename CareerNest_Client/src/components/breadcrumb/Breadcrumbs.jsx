@@ -9,7 +9,10 @@ const Breadcrumbs = ({ data = [] }) => {
     return (
         <Breadcrumb aria-label="Default breadcrumb example" className='cursor-pointer mb-6'>
             {data?.length > 0 && data.map(item => (
-                <Breadcrumb.Item key={item?.path} onClick={() => navigate(item?.path)} icon={HiHome}>
+                <Breadcrumb.Item
+                    key={item?.path}
+                    onClick={() => navigate(item?.path)}
+                    icon={item?.path === '/' ? HiHome : undefined}>
                     {item?.text}
                 </Breadcrumb.Item>
             ))}

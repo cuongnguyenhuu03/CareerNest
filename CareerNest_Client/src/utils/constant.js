@@ -13,6 +13,8 @@ export const path = {
     CV__DETAIL: 'detail',
 
     RECRUITMENT: '/recruitment',
+    RECRUITMENT__DETAIL: 'detail/:id/:slug',
+
     JOB: '/job',
     DETAIL__JOB: 'detail/:id/:slug',
 }

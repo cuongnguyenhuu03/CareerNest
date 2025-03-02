@@ -3,6 +3,7 @@ import { Avatar, Dropdown } from "flowbite-react";
 import { IoIosArrowDown } from "react-icons/io";
 import { Link } from 'react-router';
 import { path } from '../../utils/constant';
+import { dropdownAccount } from '../../utils/menu';
 
 const DropdownAccount = ({ account = {} }) => {
     return (
@@ -18,13 +19,11 @@ const DropdownAccount = ({ account = {} }) => {
                     </div>
                 }
             >
-                <Dropdown.Item >
-                    <Link to={`${path.ACCOUNT}/${path.ACCOUNT__PROFILE}`}>Thông tin cá nhân</Link>
-                </Dropdown.Item>
-                <Dropdown.Item>
-                    <Link to={`${path.ACCOUNT}/${path.ACCOUNT__MY__JOB}`}>Việc làm của tôi</Link>
-                </Dropdown.Item>
-                <Dropdown.Item>Việc làm phù hợp</Dropdown.Item>
+                {dropdownAccount?.length > 0 && dropdownAccount.map(item => (
+                    <Dropdown.Item key={item?.path}>
+                        <Link to={item?.path}>{item?.text ?? ''}</Link>
+                    </Dropdown.Item>
+                ))}
                 <Dropdown.Divider />
                 <Dropdown.Item>Đăng xuất</Dropdown.Item>
             </Dropdown>

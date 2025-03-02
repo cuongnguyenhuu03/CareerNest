@@ -5,7 +5,7 @@ const EmployerLogoCard = () => {
 
     return (
         <div style={{ backgroundImage: `url(/employer-1.png)` }}
-            className='w-full border border-gray-300 h-[130px] md:h-[170px] xl:h-[200px] rounded-md relative bg-contain  bg-no-repeat bg-center cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110'
+            className='w-full border border-gray-300 h-[130px] md:h-[170px] xl:h-[200px] rounded-md relative bg-contain bg-no-repeat bg-center cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110'
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}
         >

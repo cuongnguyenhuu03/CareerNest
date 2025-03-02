@@ -6,3 +6,9 @@ export const headerMenu = [
     { path: '/find-job', text: 'Tìm việc làm' },
     { path: path.RECRUITMENT, text: 'Nhà tuyển dụng' },
 ];
+
+export const dropdownAccount = [
+    { path: `${path.ACCOUNT}/${path.ACCOUNT__PROFILE}`, text: 'Thông tin cá nhân' },
+    { path: `${path.ACCOUNT}/${path.ACCOUNT__MY__JOB}`, text: 'Việc làm của tôi' },
+    { path: '#', text: 'Việc làm phù hợp' },
+];
