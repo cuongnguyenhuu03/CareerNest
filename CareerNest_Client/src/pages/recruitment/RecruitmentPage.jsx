@@ -30,7 +30,7 @@ const RecruitmentPage = () => {
 
     return (
         <div className='w-full'>
-            <div ref={ref} className={`w-full h-[380px] md:h-[500px] mt-12  bg-slider-bg bg-cover bg-no-repeat bg-bottom mb-6 md:mb-16`}>
+            <div ref={ref} className={`w-full h-[380px] md:h-[500px] mt-12 bg-slider-bg bg-cover bg-no-repeat bg-bottom mb-6 md:mb-16`}>
                 <div className='w-full h-full px-6 md:px-10 lg:px-[150px] gap-6 flex items-center bg-gray-900 bg-opacity-60'>
                     <div className='basis-1/2 text-white text-left'>
                         <div className='font-semibold text-lg sm:text-xl md:text-3xl mb-6'>Tuyển dụng Nhân tài IT tại Việt Nam cùng CareerNest.</div>

@@ -24,9 +24,7 @@ const CVCard = ({ className = '' }) => {
                 </div>
                 <div className='flex flex-auto flex-col gap-1'>
                     <div className='hidden sm:flex items-center justify-between'>
-                        <div className={`text-sm md:text-base lg:text-lg xl:text-base font-medium uppercase`}
-                            onClick={() => navigate(`/job/detail/1/${slugify('Lập trình viên Python', { lower: true, strict: true })}`)}
-                        >
+                        <div className={`text-sm md:text-base lg:text-lg xl:text-base font-medium uppercase`}>
                             Fresher Backend NodeJS
                         </div>
                         <div className='text-right flex flex-col gap-y-4'>
@@ -49,7 +47,7 @@ const CVCard = ({ className = '' }) => {
                                     <Button color="gray" size='xs' pill> <FaRegEdit size={15} /> </Button>
                                 </Tooltip>
                                 <Tooltip content="Xóa hồ sơ" style="light">
-                                    <Button color="gray" size='xs' pill> <MdDelete size={15} /> </Button>
+                                    <Button color="gray" size='xs' pill> <MdDelete size={15} onClick={() => setOpenDeleteModal(true)} /> </Button>
                                 </Tooltip>
                             </div>
                         </div>

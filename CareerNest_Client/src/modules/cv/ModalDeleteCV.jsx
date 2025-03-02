@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 const ModalDeleteCV = ({ openModal = false, setOpenModal = () => { }, cvId = '' }) => {
 
     return (
-        <Modal show={openModal} size="md" onClose={() => setOpenModal(false)} popup>
+        <Modal show={openModal} className="pt-40 md:pt-0" size="md" onClose={() => setOpenModal(false)} popup>
             <Modal.Header />
             <Modal.Body>
                 <div className="text-center">

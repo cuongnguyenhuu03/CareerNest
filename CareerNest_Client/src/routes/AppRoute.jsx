@@ -9,6 +9,7 @@ const RegisterPage = lazy(() => import('../pages/auth/RegisterPage'));
 const ForgotPasswordPage = lazy(() => import('../pages/auth/ForgotPasswordPage'));
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
 const RecruitmentPage = lazy(() => import('../pages/recruitment/RecruitmentPage'));
+const DetailRecruitmentPage = lazy(() => import('../pages/recruitment/DetailRecruitmentPage'));
 const DefaultLayout = lazy(() => import('../layout/DefaultLayout'));
 const EmployerLayout = lazy(() => import('../layout/EmployerLayout'));
 const JobLayout = lazy(() => import('../layout/JobLayout'));
@@ -32,6 +33,7 @@ const AppRoute = () => {
 
                 <Route path={path.RECRUITMENT} element={<EmployerLayout />} >
                     <Route index element={<RecruitmentPage />} />
+                    <Route path={path.RECRUITMENT__DETAIL} element={< DetailRecruitmentPage />} />
                 </Route>
 
                 <Route path={path.JOB} element={<JobLayout />} >

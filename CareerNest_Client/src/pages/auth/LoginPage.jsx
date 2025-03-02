@@ -61,7 +61,7 @@ export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
     };
 
     return (
-        <Modal show={isOpen} size="md" popup onClose={() => setOpenModal(false)} className="mt-[130px] md:mt-0">
+        <Modal show={isOpen} size="md" popup onClose={() => setOpenModal(false)} className="pt-28 md:pt-0">
             <Modal.Header />
             <Modal.Body>
                 <form className="space-y-4" onSubmit={handleSubmit}>
