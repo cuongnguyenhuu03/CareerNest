@@ -21,7 +21,7 @@ const UpdateAccount = ({ isOpen = false, setOpenModal = () => { } }) => {
 
     return (
         <>
-            <Modal show={isOpen} size="xl" className='pt-20' popup onClose={() => setOpenModal(false)} >
+            <Modal show={isOpen} size="3xl" className='pt-20' popup onClose={() => setOpenModal(false)} >
                 <Modal.Header />
                 <Modal.Body>
                     <form >
@@ -83,7 +83,7 @@ const UpdateAccount = ({ isOpen = false, setOpenModal = () => { } }) => {
                                 </select>
                             </div>
                             <div className="col-span-2 sm:col-span-1">
-                                <label htmlFor="company_name" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Company name </label>
+                                <label htmlFor="company_name" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Porfolio (nếu có) </label>
                                 <input type="text" id="company_name" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="Flowbite LLC" />
                             </div>
                         </div>
