@@ -13,13 +13,13 @@ const JobCard = ({ className = '', isApplied = false, isSaved = false }) => {
 
     return (
         <>
-            <div className={`${className} rounded-lg w-full flex gap-3 md:gap-6 p-[12px] items-center justify-between cursor-pointer hover:rounded-md ct-hover-transition text-black hover:bg-white`}>
+            <div className={`${className} rounded-lg w-full flex gap-4 md:gap-6 p-[12px] items-center justify-between cursor-pointer hover:rounded-md ct-hover-transition text-black hover:bg-white`}>
                 <div className='flex flex-col gap-2'>
                     <img
                         src={'/company_logo.jpg'} alt="thumbnail"
-                        className={`w-12 h-12 border border-gray-300  sm:w-[60px] sm:h-[60px] md:w-[80px] md:h-[80px] xl:w-[100px] xl:h-[100px] object-cover rounded-md`}
+                        className={`w-14 h-14 border border-gray-300  sm:w-[60px] sm:h-[60px] md:w-[80px] md:h-[80px] xl:w-[100px] xl:h-[100px] object-cover rounded-md`}
                     />
-                    <div className="w-full py-1 text-[9px] md:text-xs flex gap-1 items-center justify-center text-white font-semibold rounded bg-red-500">
+                    <div className="w-full py-1 text-[8px] md:text-xs flex gap-1 items-center justify-center text-white font-semibold rounded bg-red-500">
                         <GrLocation size={18} /> Hà Nội
                     </div>
                 </div>
