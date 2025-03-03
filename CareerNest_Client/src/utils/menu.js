@@ -8,7 +8,7 @@ export const headerMenu = [
 ];
 
 export const dropdownAccount = [
-    { path: `${path.ACCOUNT}/${path.ACCOUNT__PROFILE}`, text: 'Thông tin cá nhân' },
+    { path: `${path.ACCOUNT}/${path.ACCOUNT__OVERVIEW}`, text: 'Tổng quan hồ sơ' },
     { path: `${path.ACCOUNT}/${path.ACCOUNT__MY__JOB}`, text: 'Việc làm của tôi' },
     { path: '#', text: 'Việc làm phù hợp' },
 ];

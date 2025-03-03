@@ -2,10 +2,9 @@ import React from 'react';
 import { Avatar, Dropdown } from "flowbite-react";
 import { IoIosArrowDown } from "react-icons/io";
 import { Link } from 'react-router';
-import { path } from '../../utils/constant';
 import { dropdownAccount } from '../../utils/menu';
 
-const DropdownAccount = ({ account = {} }) => {
+const DropdownAccount = () => {
     return (
         <>
             <Dropdown

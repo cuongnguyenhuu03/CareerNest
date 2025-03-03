@@ -4,6 +4,7 @@ export const path = {
     FORGOT__PASSWORD: '/forgot-password',
 
     ACCOUNT: '/account',
+    ACCOUNT__OVERVIEW: 'overview',
     ACCOUNT__PROFILE: 'profile/:id',
     ACCOUNT__MY__JOB: 'my-job',
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { path } from '../../utils/constant';
 import Breadcrumbs from '../../components/breadcrumb/Breadcrumbs';
 import { Tabs, Badge, Dropdown } from "flowbite-react";
@@ -12,9 +12,12 @@ const data = [
     { text: "Việc làm của tôi", path: "#" }
 ]
 const MyJobPage = () => {
+    const location = useLocation();
     const ref = useRef(null);
-    const [activeTab, setActiveTab] = useState(0);
+    const [activeTab, setActiveTab] = useState(location?.state === 'saved' ? 1 : 0);
     const [selected, setSelected] = useState("Ngày ứng tuyển gần nhất");
+
+    console.log(activeTab)
 
     useEffect(() => {
         if (ref?.current)
@@ -40,7 +43,7 @@ const MyJobPage = () => {
                     }}
                 >
                     <Tabs.Item
-                        active
+                        active={activeTab === 0}
                         title={
                             <div className='flex items-center gap-2'>
                                 Đã ứng tuyển
@@ -52,6 +55,7 @@ const MyJobPage = () => {
                     </Tabs.Item>
 
                     <Tabs.Item
+                        active={activeTab === 1}
                         title={
                             <div className='flex items-center gap-2'>
                                 Đã lưu
