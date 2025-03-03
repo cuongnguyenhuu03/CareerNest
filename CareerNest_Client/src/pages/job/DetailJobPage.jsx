@@ -1,11 +1,16 @@
 import React, { useEffect, useRef } from 'react';
 import icons from '../../utils/icons';
-import { List } from "flowbite-react";
+import { Button, List, Tooltip } from "flowbite-react";
 import { useNavigate } from 'react-router-dom';
 import { path } from '../../utils/constant';
 import slugify from 'slugify';
+import Breadcrumbs from '../../components/breadcrumb/Breadcrumbs';
 
-const { FaRegBuilding, FaMoneyCheckDollar, IoMdTime, IoPeople, GrLocation, FaCircleInfo, HiCheckCircle } = icons;
+const { FaRegBuilding, FaMoneyCheckDollar, IoMdTime, IoPeople, GrLocation, FaCircleInfo, HiCheckCircle, FaHeart } = icons;
+const data = [
+    { text: "Trang chủ", path: path.HOME },
+    { text: "Chi tiết công việc", path: "#" }
+]
 
 const DetailJobPage = ({ jobData = {} }) => {
     const navigate = useNavigate();
@@ -19,14 +24,34 @@ const DetailJobPage = ({ jobData = {} }) => {
 
     return (
         <div ref={ref} className='ct-container flex flex-col gap-8 mt-20'>
+            <Breadcrumbs data={data} />
             <div className='w-full shadow-md flex items-center justify-between py-3 gap-3 xs:gap-6 rounded-lg'>
                 <img
                     src={'/company_logo.jpg'} alt="thumbnail"
                     className={`w-[100px] h-[100px] sm:w-[120px] sm:h-[120px] lg:w-[150px] lg:h-[150px] object-cover rounded-md`}
                 />
                 <div className='flex flex-auto flex-col gap-1'>
-                    <div className={`text-sm md:text-base lg:text-lg xl:text-xl font-medium uppercase`} >
-                        Lập trình viên Python
+                    <div className='flex flex-col gap-y-4 md:gap-y-0 md:flex-row md:items-center md:justify-between md:pr-6'>
+                        <div className='text-sm order-2 md:order-1 md:text-base lg:text-lg xl:text-xl font-medium uppercase' >
+                            Lập trình viên Python
+                        </div>
+                        <div className='flex order-1 md:order-2 items-center gap-4'>
+                            <Button size='xs' className="block sm:hidden" gradientDuoTone="pinkToOrange" onClick={() => setOpenModal(true)}>
+                                Ứng tuyển
+                            </Button>
+                            <Button size='sm' className="hidden sm:block" gradientDuoTone="pinkToOrange" onClick={() => setOpenModal(true)}>
+                                Ứng tuyển
+                            </Button>
+
+                            <Button size='xs' className="block sm:hidden" gradientDuoTone="pinkToOrange" onClick={() => setOpenModal(true)}>
+                                <FaHeart size={18} className='mr-2' />
+                                Lưu tin
+                            </Button>
+                            <Button size='sm' className="hidden sm:block" gradientDuoTone="pinkToOrange" onClick={() => setOpenModal(true)}>
+                                <FaHeart size={18} className='mr-2' />
+                                Lưu tin
+                            </Button>
+                        </div>
                     </div>
                     <div className='flex gap-2 items-center text-sm md:text-base font-medium text-[#23527c] cursor-pointer hover:underline'
                         onClick={() => navigate(`${path.RECRUITMENT}/detail/2/${slugify('Công ty TNHH Lumos Việt nam', { lower: true, strict: true })}`)}

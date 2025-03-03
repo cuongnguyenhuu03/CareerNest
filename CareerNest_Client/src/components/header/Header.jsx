@@ -29,6 +29,14 @@ const Header = () => {
         };
     }, []);
 
+    const handleOpenLogin = () => {
+        if (location.pathname !== path.RECRUITMENT)
+            setOpenModalLogin(true);
+        else {
+            navigate(`${path.RECRUITMENT}/${path.RECRUITMENT__LOGIN}`);
+        }
+    }
+
     return (
         <>
             <header>
@@ -41,7 +49,7 @@ const Header = () => {
                         <div className="flex items-center lg:order-2 gap-3 sm:gap-5">
                             {user?._id ?
                                 <>
-                                    <Button color="light" onClick={() => setOpenModalLogin(true)}>Đăng nhập</Button>
+                                    <Button color="light" onClick={handleOpenLogin}>Đăng nhập</Button>
                                     {!location.pathname.includes(path.RECRUITMENT) &&
                                         <Button color="blue" className="uppercase hidden sm:inline-flex"
                                             onClick={() => navigate(path.RECRUITMENT)}

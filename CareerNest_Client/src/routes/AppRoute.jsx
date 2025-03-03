@@ -3,6 +3,7 @@ import React, { Suspense, lazy } from 'react';
 import Loading from '../components/loading/Loading';
 import { path } from '../utils/constant';
 import PrivateRoute from './PrivateRoute';
+import LoginRecruitmentPage from '../pages/recruitment/LoginRecruitmentPage';
 
 const HomePage = lazy(() => import('../pages/homepage/HomePage'));
 const RegisterPage = lazy(() => import('../pages/auth/RegisterPage'));
@@ -52,6 +53,7 @@ const AppRoute = () => {
                 </Route>
 
                 <Route path={path.REGISTER__CANDIDATE} element={<RegisterPage />} />
+                <Route path={`${path.RECRUITMENT}/${path.RECRUITMENT__LOGIN}`} element={< LoginRecruitmentPage />} />
                 <Route path={path.FORGOT__PASSWORD} element={<ForgotPasswordPage />} />
 
                 <Route path="*" element={<NotFoundPage />} />
