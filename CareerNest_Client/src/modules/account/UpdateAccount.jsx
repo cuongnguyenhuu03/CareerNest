@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Datepicker } from "flowbite-react";
+import { Modal, Datepicker, Select } from "flowbite-react";
 import { getBase64 } from '../../utils/getBase64';
 import { Button, Upload, Image } from "antd";
 import { UploadOutlined } from '@ant-design/icons';
@@ -50,9 +50,20 @@ const UpdateAccount = ({ isOpen = false, setOpenModal = () => { } }) => {
                                 <label htmlFor="email_info_modal" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Email </label>
                                 <input type="text" id="email_info_modal" className="outline-none block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="Enter your email here" required />
                             </div>
+                            <div className="col-span-2 ">
+                                <label htmlFor="title_info_modal" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Chức danh công việc </label>
+                                <input type="text" id="title_info_modal" className="outline-none block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="ex: Business Analysist" required />
+                            </div>
                             <div className="col-span-2 sm:col-span-1">
                                 <label htmlFor="birthDay_info_modal" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Ngày sinh </label>
                                 <Datepicker value={dob} onChange={(date) => setDOB(date)} language='vi' placeholder='Chọn ngày sinh' />
+                            </div>
+                            <div className="col-span-2 sm:col-span-1">
+                                <label htmlFor="gender_info_modal" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Giới tính </label>
+                                <Select id="gender_info_modal" defaultValue={'male'} required>
+                                    <option value={'male'}>Nam</option>
+                                    <option value={'female'}>Nữ</option>
+                                </Select>
                             </div>
                             <div className="col-span-2">
                                 <label htmlFor="phone-input_billing_modal" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Số điện thoại </label>

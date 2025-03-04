@@ -5,6 +5,7 @@ import { Badge, Button } from 'flowbite-react';
 import icons from '../../utils/icons';
 import { useNavigate } from 'react-router-dom';
 import CVCard from '../../components/card/CVCard';
+import AttachedCV from '../../modules/account/overview/AttachedCV';
 
 const data = [
     { text: "Trang chủ", path: path.HOME },
@@ -27,12 +28,15 @@ const CVManagementPage = () => {
             <Breadcrumbs data={data} />
             <div className='bg-[#fff] px-6 py-3 rounded-lg'>
                 <Badge className='py-2 rounded-md' color="gray" size='sm'>Danh sách CV của bạn</Badge>
-                <Button className='mt-4' size='sm' gradientDuoTone="cyanToBlue" onClick={() => navigate(`${path.CV}/${path.CV__CREATE}`)}>
+                <Button className='my-4' size='sm' gradientDuoTone="cyanToBlue" onClick={() => navigate(`${path.CV}/${path.CV__CREATE}`)}>
                     <CiCirclePlus className='mr-2' size={22} />  Tạo mới
                 </Button>
+
+                <AttachedCV />
+
+                <Badge className='w-fit mt-20 text-sm sm:text-lg' color="success" size='sm'>CV online của bạn trên CareerNest</Badge>
                 {/* danh sách cv đã tạo */}
-                <div className='w-full mt-6 flex flex-col gap-y-4'>
-                    <CVCard className='shadow-md' />
+                <div className='w-full mt-4 flex flex-col gap-y-4'>
                     <CVCard className='shadow-md' />
                     <CVCard className='shadow-md' />
                 </div>
