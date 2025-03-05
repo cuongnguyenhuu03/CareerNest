@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.nhc.CareerNest.config.language.LocalizationUtils;
 import com.nhc.CareerNest.constant.MessageKeys;
 import com.nhc.CareerNest.domain.dto.request.CompanyCriteriaDTO;
@@ -17,6 +18,7 @@ import com.nhc.CareerNest.domain.dto.response.base.RestResponse;
 import com.nhc.CareerNest.domain.dto.response.base.ResultPaginationResponse;
 import com.nhc.CareerNest.domain.entity.Company;
 import com.nhc.CareerNest.exception.errors.IdInvalidException;
+import com.nhc.CareerNest.service.impl.CompanyRedisService;
 import com.nhc.CareerNest.service.impl.CompanyService;
 import com.nhc.CareerNest.util.anotation.ApiMessage;
 
@@ -33,10 +35,13 @@ public class CompanyController {
 
     private final CompanyService companyService;
     private final LocalizationUtils localizationUtils;
+    private final CompanyRedisService companyRedisService;
 
     public CompanyController(
+            CompanyRedisService companyRedisService,
             LocalizationUtils localizationUtils,
             CompanyService companyService) {
+        this.companyRedisService = companyRedisService;
         this.companyService = companyService;
         this.localizationUtils = localizationUtils;
     }
@@ -94,10 +99,15 @@ public class CompanyController {
     @GetMapping("/companies")
     public ResponseEntity<ResultPaginationResponse> fetchAllCompany(
             CompanyCriteriaDTO companyCriteriaDTO,
-            @RequestParam(defaultValue = "1", name = "page") int page) {
+            @RequestParam(defaultValue = "1", name = "page") int page) throws JsonProcessingException {
         Pageable pageable = PageRequest.of(page - 1, 6);
 
-        ResultPaginationResponse result = this.companyService.fetchAllCompany(pageable, companyCriteriaDTO);
+        ResultPaginationResponse result = this.companyRedisService.fetchAllCompanies(pageable, companyCriteriaDTO);
+
+        if (result == null) {
+            result = this.companyService.fetchAllCompany(pageable, companyCriteriaDTO);
+            this.companyRedisService.saveAllCompanies(result, companyCriteriaDTO, pageable);
+        }
 
         return ResponseEntity.ok(result);
     }

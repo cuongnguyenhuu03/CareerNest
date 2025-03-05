@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nhc.CareerNest.domain.listener.CompanyListener;
 
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapKeyColumn;
@@ -20,6 +22,7 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "companies")
+@EntityListeners(CompanyListener.class)
 public class Company extends BaseEntity {
 
     @NotBlank(message = "{email.not.blank}")
