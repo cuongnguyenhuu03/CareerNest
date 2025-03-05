@@ -3,6 +3,9 @@ import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
 import { HiMail, HiEye, HiEyeOff } from "react-icons/hi";
 import { path } from '../../utils/constant';
 import { Link } from "react-router-dom";
+import { useMutation } from '@tanstack/react-query';
+import { postLogin } from '../../services/userService';
+import { toast } from 'react-toastify';
 
 export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
     const [formData, setFormData] = useState({
@@ -10,6 +13,21 @@ export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
         password: "",
         remember: false,
         errors: {}
+    });
+
+    const mutation = useMutation({
+        mutationFn: postLogin,
+        onSuccess: async (res) => {
+            if (+res?.statusCode === 200) {
+                toast.success(res?.message ?? 'Login success!');
+            } else {
+                toast.error(res?.error ?? 'Login failed!');
+            }
+        },
+        onError: (error) => {
+            console.error('Error:', error);
+            toast.error(error.message || 'Something wrong in Server');
+        },
     });
 
     const [showPassword, setShowPassword] = useState(false);
@@ -32,32 +50,30 @@ export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         let errors = {};
 
         if (!formData.email) {
             errors.email = "Vui lòng nhập email";
+
         } else if (!validate("email", formData.email)) {
             errors.email = "Email không đúng định dạng";
         }
 
         if (!formData.password) {
             errors.password = "Vui lòng nhập mật khẩu";
-        } else if (!validate("password", formData.password)) {
-            errors.password = "Mật khẩu phải có ít nhất một chữ hoa, một chữ thường, một số và một ký tự đặc biệt.";
         }
+        // else if (!validate("password", formData.password)) {
+        //     errors.password = "Mật khẩu phải có ít nhất một chữ hoa, một chữ thường, một số và một ký tự đặc biệt.";
+        // }
 
         if (Object.keys(errors).length > 0) {
             setFormData((prev) => ({ ...prev, errors }));
             return;
         }
 
-        console.log({
-            email: formData.email,
-            password: formData.password,
-            remember: formData.remember
-        });
+        await mutation.mutateAsync({ username: formData.email, password: formData.password });
     };
 
     return (
