@@ -62,6 +62,10 @@ public class Job extends BaseEntity {
     @JoinTable(name = "job_skill", joinColumns = @JoinColumn(name = "job_id"), inverseJoinColumns = @JoinColumn(name = "skill_id"))
     private List<Skill> skills;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "job_user", joinColumns = @JoinColumn(name = "job_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> users;
+
     @OneToMany(mappedBy = "job", fetch = FetchType.LAZY)
     @JsonIgnore
     List<Resume> resumes;
@@ -169,4 +173,21 @@ public class Job extends BaseEntity {
     public void setSkills(List<Skill> skills) {
         this.skills = skills;
     }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public List<Resume> getResumes() {
+        return resumes;
+    }
+
+    public void setResumes(List<Resume> resumes) {
+        this.resumes = resumes;
+    }
+
 }

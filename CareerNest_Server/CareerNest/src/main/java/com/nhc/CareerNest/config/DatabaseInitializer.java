@@ -79,6 +79,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             arr.add(new Permission("Delete a user", "/api/v1/users/{id}", "DELETE", "USERS"));
             arr.add(new Permission("Get a user by id", "/api/v1/users/{id}", "GET", "USERS"));
             arr.add(new Permission("Get users", "/api/v1/users", "GET", "USERS"));
+            arr.add(new Permission("save job", "/api/v1/users/saveJob/{userId}/{jobId}", "POST", "USERS"));
 
             arr.add(new Permission("Create a subscriber", "/api/v1/subscribers", "POST", "SUBSCRIBERS"));
             arr.add(new Permission("Update a subscriber", "/api/v1/subscribers", "PUT", "SUBSCRIBERS"));

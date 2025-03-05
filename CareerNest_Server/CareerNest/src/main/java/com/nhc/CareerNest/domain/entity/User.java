@@ -13,6 +13,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -68,6 +69,9 @@ public class User extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "company_id")
     private Company company;
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
+    private List<Job> savedJob;
 
     public String getAddress() {
         return address;
@@ -187,6 +191,14 @@ public class User extends BaseEntity {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public List<Job> getSavedJob() {
+        return savedJob;
+    }
+
+    public void setSavedJob(List<Job> savedJob) {
+        this.savedJob = savedJob;
     }
 
 }

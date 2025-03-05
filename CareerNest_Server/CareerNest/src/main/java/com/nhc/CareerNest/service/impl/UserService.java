@@ -1,5 +1,6 @@
 package com.nhc.CareerNest.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +13,8 @@ import com.nhc.CareerNest.domain.dto.response.user.ResUserDTO;
 import com.nhc.CareerNest.domain.entity.Company;
 import com.nhc.CareerNest.domain.entity.Role;
 import com.nhc.CareerNest.domain.entity.User;
+import com.nhc.CareerNest.domain.entity.Job;
+import com.nhc.CareerNest.repository.JobRepository;
 import com.nhc.CareerNest.repository.UserRepository;
 import com.nhc.CareerNest.service.IUserService;
 
@@ -21,11 +24,14 @@ public class UserService implements IUserService {
     private final UserRepository userRepository;
     private final RoleService roleService;
     private final CompanyService companyService;
+    private final JobRepository jobRepository;
 
     public UserService(
+            JobRepository jobRepository,
             RoleService roleService,
             CompanyService companyService,
             UserRepository userRepository) {
+        this.jobRepository = jobRepository;
         this.userRepository = userRepository;
         this.companyService = companyService;
         this.roleService = roleService;
@@ -188,6 +194,33 @@ public class UserService implements IUserService {
     @Override
     public List<User> findConnectedUsers() {
         return this.userRepository.findAllByStatus(UserStatusEnum.OFFLINE);
+    }
+
+    public List<Job> saveJob(Long userId, Long jobId) {
+
+        List<Job> savedJob = new ArrayList<>();
+        List<User> users = new ArrayList<>();
+
+        User currentUser = this.userRepository.findById(userId).get();
+        Job currentJob = this.jobRepository.findById(jobId).get();
+
+        if (currentUser.getSavedJob() != null) {
+            savedJob = currentUser.getSavedJob();
+        }
+
+        if (currentJob.getUsers() != null) {
+            users = currentJob.getUsers();
+        }
+
+        savedJob.add(currentJob);
+        users.add(currentUser);
+
+        currentJob.setUsers(users);
+        currentUser.setSavedJob(savedJob);
+
+        currentUser = this.userRepository.save(currentUser);
+        currentJob = this.jobRepository.save(currentJob);
+        return currentUser.getSavedJob();
     }
 
 }

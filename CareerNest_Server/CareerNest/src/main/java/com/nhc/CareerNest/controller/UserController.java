@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nhc.CareerNest.config.language.LocalizationUtils;
 import com.nhc.CareerNest.constant.MessageKeys;
 import com.nhc.CareerNest.domain.dto.response.base.RestResponse;
+import com.nhc.CareerNest.domain.entity.Job;
 import com.nhc.CareerNest.domain.entity.User;
 import com.nhc.CareerNest.exception.errors.IdInvalidException;
 import com.nhc.CareerNest.service.impl.UserService;
@@ -22,7 +23,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -102,22 +102,18 @@ public class UserController {
         return ResponseEntity.ok(res);
     }
 
-    @DeleteMapping("users/{id}")
-    @ApiMessage("Delete a user")
-    public ResponseEntity<RestResponse> deleteUser(@PathVariable("id") Long id) throws IdInvalidException {
+    @PostMapping("users/saveJob/{userId}/{jobId}")
+    @ApiMessage("save job")
+    public ResponseEntity<RestResponse> save(
+            @PathVariable("userId") Long userId,
+            @PathVariable("jobId") Long jobId)
+            throws IdInvalidException {
 
-        User deleteUser = this.userService.findUserById(id);
-        if (deleteUser == null) {
-            throw new IdInvalidException(localizationUtils.getLocalizedMessage(MessageKeys.USER_NOT_FOUND));
-        }
-
-        deleteUser.setBlocked(true);
-        this.userService.handleSaveUser(deleteUser);
-
+        List<Job> savedJobs = this.userService.saveJob(userId, jobId);
         RestResponse res = new RestResponse();
+        res.setData(savedJobs);
         res.setStatusCode(HttpStatus.OK.value());
 
         return ResponseEntity.ok(res);
     }
-
 }
