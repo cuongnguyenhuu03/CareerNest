@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { useMutation } from '@tanstack/react-query';
 import { postLogin } from '../../services/userService';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { updateUserInfo } from "../../redux/slices/userSlice";
 
 export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
     const [formData, setFormData] = useState({
@@ -14,12 +16,16 @@ export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
         remember: false,
         errors: {}
     });
+    const dispatch = useDispatch();
 
     const mutation = useMutation({
         mutationFn: postLogin,
         onSuccess: async (res) => {
             if (+res?.statusCode === 200) {
+                dispatch(updateUserInfo({ ...res?.data }));
                 toast.success(res?.message ?? 'Login success!');
+                setOpenModal(false);
+                mutation.reset();
             } else {
                 toast.error(res?.error ?? 'Login failed!');
             }
@@ -64,9 +70,9 @@ export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
         if (!formData.password) {
             errors.password = "Vui lòng nhập mật khẩu";
         }
-        // else if (!validate("password", formData.password)) {
-        //     errors.password = "Mật khẩu phải có ít nhất một chữ hoa, một chữ thường, một số và một ký tự đặc biệt.";
-        // }
+        else if (!validate("password", formData.password)) {
+            errors.password = "Mật khẩu phải có ít nhất một chữ hoa, một chữ thường, một số và một ký tự đặc biệt.";
+        }
 
         if (Object.keys(errors).length > 0) {
             setFormData((prev) => ({ ...prev, errors }));

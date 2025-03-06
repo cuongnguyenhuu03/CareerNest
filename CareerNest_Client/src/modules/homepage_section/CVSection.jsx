@@ -8,7 +8,7 @@ const CVSection = () => {
     return (
         <div className="main-cv tracking-wider ct-container">
             <div className="flex flex-nowrap gap-8">
-                <div className="basis-1/2 rounded-md flex items-center bg-gradient-to-r from-[#86add4] to-white h-[230px] md:h-[260px] pl-6" >
+                <div className="basis-1/2 rounded-md flex items-center bg-blue-100 h-[230px] md:h-[260px] pl-6" >
                     <div className="basis-1/2 md:basis-2/3 flex flex-col gap-3 md:gap-6">
                         <h2 className='text-base md:text-xl font-semibold text-slate-800'>Tạo CV</h2>
                         <h3 className='mb-3 md:mb-8 text-[10px] sm:text-xs md:text-sm'>Giúp bạn tạo CV xin việc trực tiếp trên hệ thống nhanh chóng, tiện lợi hơn bao giờ hết...</h3>
@@ -26,7 +26,7 @@ const CVSection = () => {
                     />
                 </div>
 
-                <div className="basis-1/2 rounded-md flex items-center bg-gradient-to-r from-[#86add4] to-white h-[230px] md:h-[260px] pl-6">
+                <div className="basis-1/2 rounded-md flex items-center bg-blue-100 h-[230px] md:h-[260px] pl-6">
                     <div className="basis-1/2 md:basis-2/3 flex flex-col gap-3 md:gap-6">
                         <h2 className='text-base md:text-xl font-semibold text-slate-800'>Sử dụng CV sẵn có</h2>
                         <h3 className='mb-3 md:mb-8 text-[10px] sm:text-xs md:text-sm'>Nếu bạn đã có CV của riêng mình, hãy tải lên cho nhà tuyển dụng nhìn thấy</h3>
