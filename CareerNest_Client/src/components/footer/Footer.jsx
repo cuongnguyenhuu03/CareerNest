@@ -84,8 +84,6 @@ const Footer = () => {
                         </div>
                         <div className="mt-6 w-full md:mt-8 lg:mt-0 lg:max-w-lg">
                             <div className="space-y-5 rounded-lg bg-gray-100 p-6 dark:bg-gray-700">
-                                <a href="#" className="text-base font-medium text-primary-700 no-underline hover:underline dark:text-primary-500"> Đăng nhập hoặc Tạo tài khoản mới ? </a>
-                                <hr className="border-gray-200 dark:border-gray-600" />
                                 <form action="#">
                                     <div className="items-end space-y-4 sm:flex sm:space-y-0">
                                         <div className="relative mr-3 w-full sm:w-96 lg:w-full">

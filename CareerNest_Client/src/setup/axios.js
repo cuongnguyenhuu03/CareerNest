@@ -1,6 +1,7 @@
 import axios from 'axios';
 import NProgress from "nprogress";
 import { toast } from "react-toastify";
+import { store } from '../redux/store';
 
 NProgress.configure({
     showSpinner: false,
@@ -17,10 +18,9 @@ const instance = axios.create({
 instance.interceptors.request.use(
     async function (config) {
         NProgress.start();
-        // const store = require('../redux/store').store;
-        // const access_token = store?.getState()?.user?.account?.access_token ?? '';
-        // if (access_token)
-        //     config.headers['Authorization'] = `Bearer ${access_token}`;  //gán access_token mỗi lần gọi API
+        const access_token = store?.getState()?.user?.access_token ?? '';
+        if (access_token)
+            config.headers['Authorization'] = `Bearer ${access_token}`;  //gán access_token mỗi lần gọi API
         return config;
     },
     function (error) {

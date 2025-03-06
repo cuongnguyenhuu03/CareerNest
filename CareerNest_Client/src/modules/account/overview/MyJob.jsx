@@ -2,8 +2,11 @@ import { Avatar, Badge } from 'flowbite-react';
 import React from 'react';
 import { path } from '../../../utils/constant';
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+import { useNavigate } from 'react-router-dom';
 
 const MyJob = () => {
+    const navigate = useNavigate();
+
     return (
         <div className='w-full flex flex-col gap-y-4 shadow-md p-4 rounded-lg'>
             <Badge className='w-fit text-base sm:text-lg' color="warning" size='sm'>Hoạt động của bạn</Badge>
