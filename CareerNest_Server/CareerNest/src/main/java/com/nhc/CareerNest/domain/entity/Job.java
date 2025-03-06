@@ -64,6 +64,7 @@ public class Job extends BaseEntity {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "job_user", joinColumns = @JoinColumn(name = "job_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @JsonIgnore
     private List<User> users;
 
     @OneToMany(mappedBy = "job", fetch = FetchType.LAZY)
