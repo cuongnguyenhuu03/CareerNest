@@ -3,16 +3,29 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import _ from 'lodash';
 import { Button, Result } from 'antd';
 import { path } from '../utils/constant';
+import { useEffect, useState } from 'react';
+import Loading from '../components/loading/Loading';
 
 const PrivateRoute = ({ children }) => {
     const navigate = useNavigate();
     const location = useLocation();
-    const userInfo = useSelector(state => state?.user?.info);
+    const user = useSelector(state => state?.user?.info);
+    const [isDelay, setIsDelay] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsDelay(false);
+        }, 70);
+
+        return () => clearTimeout(timer); // Cleanup tránh memory leak
+    }, []);
+
+    if (isDelay) return <Loading />;
 
     if (location.pathname === path.ACCOUNT || location.pathname === path.CV || location.pathname === path.JOB)
         return children;
 
-    if (_.isEmpty(userInfo) && !userInfo?._id) {
+    if (_.isEmpty(user) && !user?.id) {
         return (
             <Result
                 status="403"
@@ -24,7 +37,7 @@ const PrivateRoute = ({ children }) => {
     }
     else {
         if (location.pathname.startsWith('/system')) {
-            if (userInfo?.isAdmin)
+            if (user?.isAdmin)
                 return children;
             else {
                 return (

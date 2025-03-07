@@ -1,8 +1,11 @@
+import useAppLogic from '../hooks/useAppLogic'
 import AppRoute from '../routes/AppRoute'
 import './App.scss'
 import { ToastContainer } from 'react-toastify'
 
 function App() {
+
+  useAppLogic();
 
   return (
     <>

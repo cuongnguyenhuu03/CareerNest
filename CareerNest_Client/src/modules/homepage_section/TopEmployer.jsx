@@ -6,6 +6,7 @@ import slugify from 'slugify';
 import './TopEmployer.scss';
 import { path } from '../../utils/constant';
 import { getAllRecruitment } from '../../services/recruitmentService';
+import withErrorBoundary from '../../hoc/withErrorBoundary';
 
 const TopEmployer = () => {
     const navigate = useNavigate();
@@ -51,4 +52,4 @@ const TopEmployer = () => {
     );
 };
 
-export default TopEmployer;
+export default withErrorBoundary(TopEmployer);

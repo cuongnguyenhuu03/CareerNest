@@ -1,7 +1,9 @@
 import axios from '../setup/axios';
 
-const getAllJobs = () => {
-    return axios.get(`/jobs`);
+const getAllJobs = (page) => {
+    if (page && page > 1)
+        return axios.get(`/jobs?page=${page}`);
+    return axios.get('/jobs?page=1');
 }
 
 const getDetailJob = (id) => {

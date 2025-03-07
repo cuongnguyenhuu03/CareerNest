@@ -2,11 +2,11 @@ import { useState } from "react";
 import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
 import { HiMail, HiEye, HiEyeOff } from "react-icons/hi";
 import { path } from '../../utils/constant';
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useMutation } from '@tanstack/react-query';
 import { postLogin } from '../../services/userService';
 import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateUserInfo } from "../../redux/slices/userSlice";
 
 export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
@@ -16,14 +16,16 @@ export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
         remember: false,
         errors: {}
     });
+    const user = useSelector(state => state?.user?.info);
     const dispatch = useDispatch();
+
 
     const mutation = useMutation({
         mutationFn: postLogin,
         onSuccess: async (res) => {
             if (+res?.statusCode === 200) {
                 dispatch(updateUserInfo({ ...res?.data }));
-                toast.success(res?.message ?? 'Login success!');
+                toast.success('Đăng nhập thành công')
                 setOpenModal(false);
                 mutation.reset();
             } else {
@@ -82,6 +84,8 @@ export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
         await mutation.mutateAsync({ username: formData.email, password: formData.password });
     };
 
+    if (user?.id)
+        return <Navigate to={'/'} />
     return (
         <Modal show={isOpen} size="md" popup onClose={() => setOpenModal(false)} className="pt-28 md:pt-0">
             <Modal.Header />
