@@ -11,8 +11,9 @@ import { getDetailRecruitment } from '../../services/recruitmentService';
 import { useQuery } from '@tanstack/react-query';
 import { HiInformationCircle } from "react-icons/hi";
 import { getJobsByCompany } from '../../services/jobService';
+import withErrorBoundary from '../../hoc/withErrorBoundary';
 
-const { IoPeople, GrLocation, FaCircleInfo, HiCheckCircle } = icons;
+const { IoPeople, GrLocation, FaCircleInfo } = icons;
 
 const data = [
     { text: "Trang chủ", path: path.HOME },
@@ -200,4 +201,4 @@ const DetailRecruitmentPage = () => {
     );
 };
 
-export default DetailRecruitmentPage;
+export default withErrorBoundary(DetailRecruitmentPage);

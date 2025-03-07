@@ -20,10 +20,6 @@ const getDetailUser = (id) => {
     return axios.get(`/users/${id}`);
 }
 
-const getRefreshToken = (refreshToken) => {
-    return axios.get(`/refresh-token/${refreshToken}`);
-}
-
 const putUpdateUser = (data) => {
     return axios.put(`/users/update`, { ...data })
 };
@@ -32,4 +28,4 @@ const deleteUser = (userId) => {
     return axios.delete(`/users/delete`, { data: { id: userId } })
 };
 
-export { postLogin, postRegister, postLogout, getAllUsers, getDetailUser, getRefreshToken, putUpdateUser, deleteUser };
+export { postLogin, postRegister, postLogout, getAllUsers, getDetailUser, putUpdateUser, deleteUser };

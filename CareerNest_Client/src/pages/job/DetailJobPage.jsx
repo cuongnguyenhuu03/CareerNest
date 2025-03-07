@@ -11,6 +11,7 @@ import _ from 'lodash';
 import { convertTimeStampToString } from '../../utils/convertTimeStampToString';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { HiInformationCircle } from "react-icons/hi";
+import withErrorBoundary from '../../hoc/withErrorBoundary';
 
 const { FaRegBuilding, FaMoneyCheckDollar, IoMdTime, IoPeople, GrLocation, FaCircleInfo, HiCheckCircle, FaHeart } = icons;
 const data = [
@@ -252,4 +253,4 @@ const DetailJobPage = () => {
     );
 };
 
-export default DetailJobPage;
+export default withErrorBoundary(DetailJobPage);

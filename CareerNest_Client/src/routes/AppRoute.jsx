@@ -42,13 +42,13 @@ const AppRoute = () => {
                     <Route path={path.DETAIL__JOB} element={< DetailJobPage />} />
                 </Route>
 
-                <Route path={path.CV} element={<CVLayout />} >
+                <Route path={path.CV} element={<PrivateRoute><CVLayout /></PrivateRoute>} >
                     <Route path={path.CV__MANAGE} element={< CVManagementPage />} />
                     <Route path={path.CV__CREATE} element={< CVCreatePage />} />
                     <Route path={path.CV__DETAIL} element={< CVDetailPage />} />
                 </Route>
 
-                <Route path={path.ACCOUNT} element={<AccountLayout />} >
+                <Route path={path.ACCOUNT} element={<PrivateRoute><AccountLayout /></PrivateRoute>} >
                     <Route path={path.ACCOUNT__OVERVIEW} element={< OverviewPage />} />
                     <Route path={path.ACCOUNT__PROFILE} element={< ProfilePage />} />
                     <Route path={path.ACCOUNT__MY__JOB} element={< MyJobPage />} />

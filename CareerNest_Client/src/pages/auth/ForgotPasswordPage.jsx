@@ -1,7 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
+import { useSelector } from 'react-redux';
 
 const ForgotPasswordPage = () => {
+    const user = useSelector(state => state?.user?.info);
+
+    if (user?.id)
+        return <Navigate to={'/'} />
     return (
         <section className="bg-gray-50 dark:bg-gray-900">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
