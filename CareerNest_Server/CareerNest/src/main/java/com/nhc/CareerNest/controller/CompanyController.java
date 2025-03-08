@@ -99,8 +99,9 @@ public class CompanyController {
     @GetMapping("/companies")
     public ResponseEntity<ResultPaginationResponse> fetchAllCompany(
             CompanyCriteriaDTO companyCriteriaDTO,
-            @RequestParam(defaultValue = "1", name = "page") int page) throws JsonProcessingException {
-        Pageable pageable = PageRequest.of(page - 1, 6);
+            @RequestParam(defaultValue = "1", name = "page") int page,
+            @RequestParam(defaultValue = "6", name = "pageSize") int pageSize) throws JsonProcessingException {
+        Pageable pageable = PageRequest.of(page - 1, pageSize);
 
         ResultPaginationResponse result = this.companyRedisService.fetchAllCompanies(pageable, companyCriteriaDTO);
 

@@ -43,7 +43,6 @@ public class Company extends BaseEntity {
 
     private String phone;
 
-    @Size(min = 5, max = 50, message = "{short.content.size}")
     private String address;
 
     @Size(min = 5, max = 50, message = "{short.content.size}")

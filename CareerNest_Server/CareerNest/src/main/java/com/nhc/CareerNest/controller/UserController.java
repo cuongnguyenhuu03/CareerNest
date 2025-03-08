@@ -45,6 +45,18 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @GetMapping("/users/{id}")
+    @ApiMessage("get user by id")
+    public ResponseEntity<RestResponse> fetchUser(@PathVariable("id") Long userId) {
+        User user = this.userService.findUserById(userId);
+
+        RestResponse res = new RestResponse();
+        res.setData(this.userService.convertToResCreateUserDTO(user));
+        res.setStatusCode(HttpStatus.OK.value());
+        logger.info(String.format("fetch user with id: " + user.getId()));
+        return ResponseEntity.ok(res);
+    }
+
     @PostMapping("/users")
     @ApiMessage("Create a new user")
     public ResponseEntity<RestResponse> createUser(@Valid @RequestBody User user) throws IdInvalidException {

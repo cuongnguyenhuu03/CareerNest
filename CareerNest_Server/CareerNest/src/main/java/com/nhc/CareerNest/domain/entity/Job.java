@@ -46,9 +46,11 @@ public class Job extends BaseEntity {
     private Instant endDate;
 
     @Size(min = 100, message = "{long.content.size}")
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String requirements;
 
     @Size(min = 100, message = "{long.content.size}")
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String benefits;
 
     private boolean active;

@@ -8,6 +8,7 @@ import com.nhc.CareerNest.constant.RoleEnum;
 
 public class ResUserDTO {
     private long id;
+    private String avatar;
     private String email;
     private String firstName;
     private String lastName;
@@ -16,6 +17,7 @@ public class ResUserDTO {
     private Date dateOfBirth;
     private Instant updatedAt;
     private Instant createdAt;
+    private String phoneNumber;
 
     private CompanyUser company;
     private RoleUser roleUser;
@@ -149,5 +151,13 @@ public class ResUserDTO {
         public void setName(RoleEnum name) {
             this.name = name;
         }
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

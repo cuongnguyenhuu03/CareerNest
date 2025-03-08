@@ -40,8 +40,9 @@ public class JobController {
     @ApiMessage("fetch all jobs")
     public ResponseEntity<ResultPaginationResponse> fetchAllJobs(
             JobCriteriaDTO jobCriteriaDTO,
-            @RequestParam(defaultValue = "1", name = "page") int page) {
-        Pageable pageable = PageRequest.of(page - 1, 6);
+            @RequestParam(defaultValue = "1", name = "page") int page,
+            @RequestParam(defaultValue = "6", name = "pageSize") int pageSize) {
+        Pageable pageable = PageRequest.of(page - 1, pageSize);
 
         ResultPaginationResponse result = this.jobService.findAllWithSpec(pageable, jobCriteriaDTO);
         return ResponseEntity.ok(result);

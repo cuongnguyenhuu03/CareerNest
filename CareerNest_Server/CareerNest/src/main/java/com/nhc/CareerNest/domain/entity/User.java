@@ -33,6 +33,8 @@ public class User extends BaseEntity {
     // @NotBlank(message = "{name.not.blank}")
     private String lastName;
 
+    private String avatar;
+
     private String password;
 
     private Date dateOfBirth;
@@ -199,6 +201,14 @@ public class User extends BaseEntity {
 
     public void setSavedJob(List<Job> savedJob) {
         this.savedJob = savedJob;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
 }
