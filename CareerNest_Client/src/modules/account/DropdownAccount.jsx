@@ -15,7 +15,11 @@ const DropdownAccount = () => {
                 inline
                 label={
                     <div className='flex items-center gap-2'>
-                        <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
+                        <Avatar
+                            alt="User settings"
+                            img={user?.avatar ?? ''}
+                            rounded
+                        />
                         <span className='hidden xs:inline-block text-gray-800 font-medium'>{`${user?.lastName ?? ''} ${user?.firstName ?? ''}`}</span>
                         <IoIosArrowDown size={13} />
                     </div>

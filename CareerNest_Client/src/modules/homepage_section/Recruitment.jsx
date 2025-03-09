@@ -36,11 +36,11 @@ const Recruitment = () => {
             </div>
         );
     return (
-        <div className='ct-container py-10 bg-gray-100'>
-            <h1 className='text-2xl mb-10 text-center text-slate-800 font-bold uppercase'>Tin tuyển dụng mới nhất</h1>
-            <div className='w-full flex flex-nowrap overflow-x-auto xs:grid xs:grid-cols-2 xl:grid-cols-3 xs:gap-4 xl:gap-8'>
+        <div className='ct-container py-10 bg-[#f7f7f7] flex flex-col items-center'>
+            <h1 className='text-lg xs:text-2xl mb-10 text-slate-800 font-bold uppercase'>Tin tuyển dụng mới nhất</h1>
+            <div className='w-full xs:w-2/3 border border-gray-300 rounded-lg sm:border-none sm:w-full flex flex-nowrap overflow-x-auto sm:grid sm:grid-cols-2 xl:grid-cols-3 xs:gap-4 xl:gap-8'>
                 {listJobs.length > 0 && listJobs.map(item => (
-                    <JobCard key={item?.id} data={item} className="min-w-full xs:min-w-0" />
+                    <JobCard key={item?.id} data={item} className="min-w-full sm:min-w-0" />
                 ))}
             </div>
             {hasNextPage && (
