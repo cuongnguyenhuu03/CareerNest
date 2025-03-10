@@ -2,6 +2,9 @@ package com.nhc.CareerNest.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.nhc.CareerNest.domain.entity.Job;
 
 public interface IJobService {
@@ -12,7 +15,7 @@ public interface IJobService {
 
     List<Job> fetchAllJob();
 
-    List<Job> fetchJobByCompany(Long id);
+    Page<Job> fetchJobByCompany(Long id, Pageable pageable);
 
     Job fetchJobById(Long id);
 

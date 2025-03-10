@@ -149,9 +149,8 @@ public class JobService implements IJobService {
     }
 
     @Override
-    public List<Job> fetchJobByCompany(Long companyId) {
-        Company company = this.companyRepository.findById(companyId).get();
-        return this.jobRepository.findByCompany(company);
+    public Page<Job> fetchJobByCompany(Long companyId, Pageable pageable) {
+        return this.jobRepository.findByCompany(companyId, pageable);
     }
 
     @Override

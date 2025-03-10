@@ -16,8 +16,10 @@ import jakarta.validation.Valid;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -111,8 +113,20 @@ public class JobController {
     }
 
     @GetMapping("/jobs/company/{companyId}")
-    public ResponseEntity<RestResponse> getJobByCompany(@PathVariable("companyId") Long companyId) {
-        List<Job> jobs = this.jobService.fetchJobByCompany(companyId);
+    public ResponseEntity<RestResponse> getJobByCompany(
+            @PathVariable("companyId") Long companyId,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "4") int size,
+            @RequestParam(defaultValue = "createdAt") String sortBy,
+            @RequestParam(defaultValue = "desc") String direction) {
+
+        Sort sort = direction.equalsIgnoreCase("asc")
+                ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(page - 1, size, sort);
+
+        Page<Job> jobs = this.jobService.fetchJobByCompany(companyId, pageable);
 
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
