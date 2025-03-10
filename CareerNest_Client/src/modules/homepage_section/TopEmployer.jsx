@@ -31,7 +31,7 @@ const TopEmployer = () => {
     if (listCompanies.length <= 0) return null;
     return (
         <div className='ct-container'>
-            <h1 className='text-2xl mb-10 text-center text-slate-800 font-bold uppercase'>Top nhà tuyển dụng hàng đầu</h1>
+            <h1 className='text-lg xs:text-2xl mb-10 text-center text-slate-800 font-bold uppercase'>Top nhà tuyển dụng hàng đầu</h1>
             <div className='w-full hidden sm:grid sm:grid-cols-3 xl:grid-cols-4 gap-8 lg:gap-10'>
                 {listCompanies?.length > 0 && listCompanies.map(item => (
                     <EmployerLogoCard key={item?.id} data={item} />

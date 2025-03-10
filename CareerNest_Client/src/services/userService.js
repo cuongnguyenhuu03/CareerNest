@@ -5,7 +5,7 @@ const postLogin = (data) => {
 }
 
 const postRegister = (data) => {
-    return axios.post('/register', { ...data });
+    return axios.post('/auth/register', { ...data });
 }
 
 const postLogout = () => {

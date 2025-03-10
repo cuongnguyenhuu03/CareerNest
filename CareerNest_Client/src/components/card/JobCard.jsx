@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import icons from '../../utils/icons';
 import slugify from 'slugify';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Badge, Button, Tooltip } from "flowbite-react";
 import ModalApplyCV from '../../modules/cv/ModalApplyCV';
 import { convertTimeStampToString } from '../../utils/convertTimeStampToString';
 import { getDetailJob } from '../../services/jobService';
+import { path } from '../../utils/constant';
 
 const { FaMoneyCheckDollar, FaRegBuilding, GrLocation, GrNetworkDrive, FaRegCalendarAlt, HiCheckCircle, FaHeart } = icons;
 
 const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false }) => {
+    const location = useLocation();
     const navigate = useNavigate();
     const [isOpenModal, setOpenModal] = useState(false);
     const queryClient = useQueryClient()
@@ -118,12 +120,19 @@ const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false
                             <div className={`text-sm md:text-base lg:text-lg xl:text-base font-medium uppercase`}
                                 onClick={() => navigate(`/job/detail/${data?.id}/${slugify(data?.name, { lower: true, strict: true })}`)}
                             >
-                                {data?.name?.length > 24 ? data.name.slice(0, 23) + "..." : data.name}
+                                {(location.pathname === path.HOME && data?.name?.length > 22) ?
+                                    data?.name?.slice(0, 22) + "..."
+                                    : data?.name
+                                }
                             </div>
                     }
 
                     <div className='flex gap-2 items-center text-xs md:text-sm font-light'>
-                        <FaRegBuilding size={15} /> {data?.company?.name}
+                        <FaRegBuilding size={15} />
+                        {(location.pathname === path.HOME && data?.company?.name?.length > 24) ?
+                            data?.company?.name?.slice(0, 25) + "..."
+                            : data?.company?.name
+                        }
                     </div>
                     <div className='flex gap-2 items-center text-xs md:text-sm font-light'>
                         <FaRegCalendarAlt /> Ngày đăng: {convertTimeStampToString(data?.createdAt)}
