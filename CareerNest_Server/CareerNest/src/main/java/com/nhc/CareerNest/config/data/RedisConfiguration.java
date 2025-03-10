@@ -1,4 +1,4 @@
-package com.nhc.CareerNest.config;
+package com.nhc.CareerNest.config.data;
 
 import java.time.Instant;
 import java.time.LocalDateTime;

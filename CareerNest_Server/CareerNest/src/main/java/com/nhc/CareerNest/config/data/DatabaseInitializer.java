@@ -1,4 +1,4 @@
-package com.nhc.CareerNest.config;
+package com.nhc.CareerNest.config.data;
 
 import java.util.ArrayList;
 import java.util.List;

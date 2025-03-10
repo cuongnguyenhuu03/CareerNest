@@ -160,4 +160,12 @@ public class ResUserDTO {
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 }
