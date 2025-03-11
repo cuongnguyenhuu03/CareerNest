@@ -1,13 +1,11 @@
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { path } from "../../utils/constant";
-import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useMutation } from '@tanstack/react-query';
 import { postRegister } from "../../services/userService";
 import { toast } from "react-toastify";
 
 const RegisterPage = () => {
-    const user = useSelector(state => state?.user?.info);
     const [form, setForm] = useState({
         fullName: "",
         email: "",
@@ -69,8 +67,6 @@ const RegisterPage = () => {
         }
     };
 
-    if (user?.id)
-        return <Navigate to={'/'} />
     return (
         <section className="bg-gray-50 dark:bg-gray-900">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
