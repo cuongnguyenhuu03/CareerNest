@@ -18,7 +18,7 @@ const AttachedCV = () => {
                 />
                 <div className='flex flex-col gap-y-3 sm:order-2 order-1'>
                     <Link
-                        className='text-[#414042] underline text- xs:text-xs sm:text-lg font-medium'
+                        className='text-[#414042] underline text-[11px] xs:text-xs sm:text-lg font-medium'
                         to={'#'}
                     >
                         {fileName}

@@ -11,7 +11,7 @@ import {
     BugOutlined,
     ScheduleOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu, Dropdown, Space, message, Avatar, Button, FloatButton } from 'antd';
+import { Layout, Menu, Dropdown, Space, message, Avatar, Button } from 'antd';
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -138,12 +138,11 @@ const AdminLayout = () => {
                         </Dropdown>
                     </div>
 
-                    <Content style={{ padding: '15px' }}>
+                    <Content className='p-4 max-h-[600px] overflow-y-auto'>
                         <Outlet />
                     </Content>
                 </Layout>
             </Layout>
-            <FloatButton.BackTop tooltip={<div>Scrolling to Top</div>} />
         </>
     );
 };

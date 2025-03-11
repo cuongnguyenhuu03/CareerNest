@@ -18,6 +18,7 @@ const AdminLayout = lazy(() => import('../layout/AdminLayout'));
 const DetailJobPage = lazy(() => import('../pages/job/DetailJobPage'));
 const AccountLayout = lazy(() => import('../layout/AccountLayout'));
 const OverviewPage = lazy(() => import('../pages/account/OverviewPage'));
+const JobViaEmail = lazy(() => import('../pages/account/JobViaEmail'));
 const ProfilePage = lazy(() => import('../pages/account/ProfilePage'));
 const MyJobPage = lazy(() => import('../pages/account/MyJobPage'));
 const CVLayout = lazy(() => import('../layout/CVLayout'));
@@ -56,6 +57,7 @@ const AppRoute = () => {
                     <Route path={path.ACCOUNT__OVERVIEW} element={< OverviewPage />} />
                     <Route path={path.ACCOUNT__PROFILE} element={< ProfilePage />} />
                     <Route path={path.ACCOUNT__MY__JOB} element={< MyJobPage />} />
+                    <Route path={path.ACCOUNT__GET__JOB__VIA__MAIL} element={< JobViaEmail />} />
                 </Route>
 
                 <Route path={path.SYSTEM} element={<PrivateRoute><AdminLayout /></PrivateRoute>} >

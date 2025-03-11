@@ -26,7 +26,7 @@ const CVManagementPage = () => {
     return (
         <div ref={ref} className='ct-container py-4 mt-20 bg-[#f7f7f7]'>
             <Breadcrumbs data={data} />
-            <div className='bg-[#fff] px-6 py-3 rounded-lg'>
+            <div className='bg-[#fff] px-3 xs:px-6 py-4 rounded-lg'>
                 <Badge className='py-2 rounded-md' color="gray" size='sm'>Danh sách CV của bạn</Badge>
                 <Button className='my-4' size='sm' gradientDuoTone="cyanToBlue" onClick={() => navigate(`${path.CV}/${path.CV__CREATE}`)}>
                     <CiCirclePlus className='mr-2' size={22} />  Tạo mới
