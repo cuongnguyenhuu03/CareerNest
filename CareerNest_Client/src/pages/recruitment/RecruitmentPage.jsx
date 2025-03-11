@@ -1,9 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import bannerImg from '../../assets/recruitmentpage/banner.jpg'
 import { Link } from 'react-router-dom';
-import { useSpring, animated } from 'react-spring';
-
-
+import CountUp from 'react-countup';
 import aboutLogo1 from '../../assets/recruitmentpage/about_1.svg'
 import aboutLogo2 from '../../assets/recruitmentpage/about_2.svg'
 import aboutLogo3 from '../../assets/recruitmentpage/about_3.svg'
@@ -18,9 +16,6 @@ import TopEmployer from '../../modules/homepage_section/TopEmployer';
 
 const RecruitmentPage = () => {
     const ref = useRef(null);
-    const value1 = useSpring({ value: 100, from: { value: 0 } });
-    const value2 = useSpring({ value: 1000, from: { value: 0 } });
-    const value3 = useSpring({ value: 500, from: { value: 0 } });
 
     useEffect(() => {
         if (ref?.current)
@@ -57,43 +52,24 @@ const RecruitmentPage = () => {
                 <div className='tracking-wide text-sm sm:text-lg lg:text-base'>
                     CareerNest là trang tuyển dụng và cơ sở dữ liệu hàng đầu về các chuyên gia IT tại Việt Nam.
                 </div>
+
                 <div className='w-full grid grid-cols-1 sm:grid-cols-3 gap-y-6 sm:gap-x-8'>
-                    <div className='w-full flex flex-col gap-5 items-center py-6 rounded-md shadow-md'>
-                        <div>
-                            <img src={aboutLogo1} alt="" className='object-cover' />
+                    {[
+                        { logo: aboutLogo1, value: 100, label: 'Công ty và Doanh nghiệp IT' },
+                        { logo: aboutLogo2, value: 1000, label: 'Hồ sơ được gửi đến nhà tuyển dụng' },
+                        { logo: aboutLogo3, value: 500, label: 'Hồ sơ Ứng viên kinh nghiệm cao' }
+                    ].map((item, index) => (
+                        <div key={index} className='w-full flex flex-col gap-5 items-center py-6 rounded-md shadow-md'>
+                            <div>
+                                <img src={item.logo} alt="" className='object-cover' />
+                            </div>
+                            <h1 className='text-[40px] text-[#ed1b2f] leading-10 font-bold flex'>
+                                <CountUp start={0} end={item.value} duration={2} />
+                                <span>+</span>
+                            </h1>
+                            <div className='text-[#121212] text-lg'>{item.label}</div>
                         </div>
-                        <h1 className='text-[40px] text-[#ed1b2f] leading-10 font-bold flex'>
-                            <animated.div className={'text-[40px] text-[#ed1b2f] leading-10 font-bold'}>
-                                {value1?.value.to((val) => Math.floor(val))}
-                            </animated.div>
-                            <span>+</span>
-                        </h1>
-                        <div className='text-[#121212] text-lg'>Công ty và Doanh nghiệp IT</div>
-                    </div>
-                    <div className='w-full flex flex-col gap-5 items-center py-6 rounded-md shadow-md'>
-                        <div>
-                            <img src={aboutLogo2} alt="" className='object-cover' />
-                        </div>
-                        <h1 className='text-[40px] text-[#ed1b2f] leading-10 font-bold flex'>
-                            <animated.div className={'text-[40px] text-[#ed1b2f] leading-10 font-bold'}>
-                                {value2?.value.to((val) => Math.floor(val))}
-                            </animated.div>
-                            <span>+</span>
-                        </h1>
-                        <div className='text-[#121212] text-lg'>Hồ sơ được gửi đến nhà tuyển dụng</div>
-                    </div>
-                    <div className='w-full flex flex-col gap-5 items-center py-6 rounded-md shadow-md'>
-                        <div>
-                            <img src={aboutLogo3} alt="" className='object-cover' />
-                        </div>
-                        <h1 className='text-[40px] text-[#ed1b2f] leading-10 font-bold flex'>
-                            <animated.div className={'text-[40px] text-[#ed1b2f] leading-10 font-bold'}>
-                                {value3?.value.to((val) => Math.floor(val))}
-                            </animated.div>
-                            <span>+</span>
-                        </h1>
-                        <div className='text-[#121212] text-lg'>Hồ sơ Ứng viên kinh nghiệm cao</div>
-                    </div>
+                    ))}
                 </div>
             </div>
 
