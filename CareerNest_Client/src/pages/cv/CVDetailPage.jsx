@@ -39,7 +39,7 @@ const CVDetailPage = () => {
             const pdf = new jsPDF('p', 'mm', 'a4');
             const [pageWidth, pageHeight] = [pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight()];
             const [imgWidth, imgHeight] = [canvas.width * 0.264583, canvas.height * 0.264583];
-            const scale = Math.min(pageWidth / imgWidth, pageHeight / imgHeight) * 1.25;
+            const scale = Math.min(pageWidth / imgWidth, pageHeight / imgHeight) * 1.0;
 
             pdf.addImage(imgData, 'JPEG', (pageWidth - imgWidth * scale) / 2, 0, imgWidth * scale, imgHeight * scale);
             pdf.save('my-cv.pdf');

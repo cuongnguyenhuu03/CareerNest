@@ -5,6 +5,7 @@ import { Button } from "flowbite-react";
 import { LoginPage } from "../../pages/auth/LoginPage";
 import { path } from "../../utils/constant";
 import DropdownAccount from "../../modules/account/DropdownAccount";
+import DropdownAdmin from "../../modules/system/DropdownAdmin";
 import { useSelector } from "react-redux";
 
 const Header = () => {
@@ -60,7 +61,9 @@ const Header = () => {
                                     }
                                 </>
                                 :
-                                <DropdownAccount />
+                                <>
+                                    {+user?.role?.id === 1 ? <DropdownAdmin /> : <DropdownAccount />}
+                                </>
                             }
                             <button
                                 onClick={() => setIsOpen(!isOpen)}

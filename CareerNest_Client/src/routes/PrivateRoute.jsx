@@ -37,9 +37,9 @@ const PrivateRoute = ({ children }) => {
     }
     else {
         if (location.pathname.startsWith('/system')) {
-            if (user?.isAdmin)
+            if (+user?.role?.id === 1)// is ADMIN
                 return children;
-            else {
+            else
                 return (
                     <Result
                         status="403"
@@ -48,7 +48,6 @@ const PrivateRoute = ({ children }) => {
                         extra={<Button type="primary" onClick={() => navigate('/')}>Quay về trang chủ</Button>}
                     />
                 )
-            }
         }
         else
             return <>{children}</>;

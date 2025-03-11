@@ -12,3 +12,7 @@ export const dropdownAccount = [
     { path: `${path.ACCOUNT}/${path.ACCOUNT__MY__JOB}`, text: 'Việc làm của tôi' },
     { path: '#', text: 'Việc làm phù hợp' },
 ];
+
+export const dropdownAdmin = [
+    { path: `${path.SYSTEM}/${path.SYSTEM__DASHBOARD}`, text: 'Trang quản trị' },
+];

@@ -3,7 +3,6 @@ import React, { Suspense, lazy } from 'react';
 import Loading from '../components/loading/Loading';
 import { path } from '../utils/constant';
 import PrivateRoute from './PrivateRoute';
-import LoginRecruitmentPage from '../pages/recruitment/LoginRecruitmentPage';
 
 const HomePage = lazy(() => import('../pages/homepage/HomePage'));
 const RegisterPage = lazy(() => import('../pages/auth/RegisterPage'));
@@ -14,6 +13,8 @@ const DetailRecruitmentPage = lazy(() => import('../pages/recruitment/DetailRecr
 const DefaultLayout = lazy(() => import('../layout/DefaultLayout'));
 const EmployerLayout = lazy(() => import('../layout/EmployerLayout'));
 const JobLayout = lazy(() => import('../layout/JobLayout'));
+const AuthLayout = lazy(() => import('../layout/AuthLayout'));
+const AdminLayout = lazy(() => import('../layout/AdminLayout'));
 const DetailJobPage = lazy(() => import('../pages/job/DetailJobPage'));
 const AccountLayout = lazy(() => import('../layout/AccountLayout'));
 const OverviewPage = lazy(() => import('../pages/account/OverviewPage'));
@@ -23,6 +24,9 @@ const CVLayout = lazy(() => import('../layout/CVLayout'));
 const CVManagementPage = lazy(() => import('../pages/cv/CVManagementPage'));
 const CVCreatePage = lazy(() => import('../pages/cv/CVCreatePage'));
 const CVDetailPage = lazy(() => import('../pages/cv/CVDetailPage'));
+const LoginRecruitmentPage = lazy(() => import('../pages/recruitment/LoginRecruitmentPage'));
+const LoginAdminPage = lazy(() => import('../pages/system/LoginAdminPage'));
+const DashboardPage = lazy(() => import('../pages/system/DashboardPage'));
 
 const AppRoute = () => {
 
@@ -54,9 +58,14 @@ const AppRoute = () => {
                     <Route path={path.ACCOUNT__MY__JOB} element={< MyJobPage />} />
                 </Route>
 
-                <Route path={path.REGISTER__CANDIDATE} element={<RegisterPage />} />
-                <Route path={`${path.RECRUITMENT}/${path.RECRUITMENT__LOGIN}`} element={< LoginRecruitmentPage />} />
-                <Route path={path.FORGOT__PASSWORD} element={<ForgotPasswordPage />} />
+                <Route path={path.SYSTEM} element={<PrivateRoute><AdminLayout /></PrivateRoute>} >
+                    <Route path={path.SYSTEM__DASHBOARD} element={< DashboardPage />} />
+                </Route>
+
+                <Route path={path.REGISTER__CANDIDATE} element={<AuthLayout><RegisterPage /></AuthLayout>} />
+                <Route path={`${path.RECRUITMENT}/${path.RECRUITMENT__LOGIN}`} element={<AuthLayout>< LoginRecruitmentPage /></AuthLayout>} />
+                <Route path={`${path.SYSTEM}/${path.SYSTEM__LOGIN}`} element={<AuthLayout>< LoginAdminPage /></AuthLayout>} />
+                <Route path={path.FORGOT__PASSWORD} element={<AuthLayout><ForgotPasswordPage /></AuthLayout>} />
 
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>

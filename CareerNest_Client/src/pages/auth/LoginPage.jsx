@@ -2,11 +2,11 @@ import { useState } from "react";
 import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
 import { HiMail, HiEye, HiEyeOff } from "react-icons/hi";
 import { path } from '../../utils/constant';
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useMutation } from '@tanstack/react-query';
 import { postLogin } from '../../services/userService';
 import { toast } from 'react-toastify';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { updateUserInfo } from "../../redux/slices/userSlice";
 
 export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
@@ -16,7 +16,6 @@ export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
         remember: false,
         errors: {}
     });
-    const user = useSelector(state => state?.user?.info);
     const dispatch = useDispatch();
 
 
@@ -72,9 +71,9 @@ export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
         if (!formData.password) {
             errors.password = "Vui lòng nhập mật khẩu";
         }
-        else if (!validate("password", formData.password)) {
-            errors.password = "Mật khẩu phải có ít nhất một chữ hoa, một chữ thường, một số và một ký tự đặc biệt.";
-        }
+        // else if (!validate("password", formData.password)) {
+        //     errors.password = "Mật khẩu phải có ít nhất một chữ hoa, một chữ thường, một số và một ký tự đặc biệt.";
+        // }
 
         if (Object.keys(errors).length > 0) {
             setFormData((prev) => ({ ...prev, errors }));
@@ -84,8 +83,6 @@ export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
         await mutation.mutateAsync({ username: formData.email, password: formData.password });
     };
 
-    if (user?.id)
-        return <Navigate to={'/'} />
     return (
         <Modal show={isOpen} size="md" popup onClose={() => setOpenModal(false)} className="pt-28 md:pt-0">
             <Modal.Header />
