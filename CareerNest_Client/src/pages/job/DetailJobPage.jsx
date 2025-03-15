@@ -8,6 +8,7 @@ import Breadcrumbs from '../../components/breadcrumb/Breadcrumbs';
 import { getDetailJob } from '../../services/jobService';
 import { getDetailRecruitment } from '../../services/recruitmentService';
 import _ from 'lodash';
+import './DetailJobPage.scss';
 import { convertTimeStampToString } from '../../utils/convertTimeStampToString';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { HiInformationCircle } from "react-icons/hi";
@@ -93,10 +94,10 @@ const DetailJobPage = () => {
     return (
         <div ref={ref} className='ct-container flex flex-col gap-8 mt-20'>
             <Breadcrumbs data={data} />
-            <div className='w-full shadow-md flex items-center justify-between py-3 gap-3 xs:gap-6 rounded-lg'>
+            <div className='w-full shadow-md flex items-center justify-between py-3 gap-3 xs:gap-6 rounded-lg pl-2'>
                 <img
                     src={detailJob?.company?.logoUrl} alt="thumbnail"
-                    className={`w-[100px] h-[100px] sm:w-[120px] sm:h-[120px] lg:w-[150px] lg:h-[150px] object-cover rounded-md`}
+                    className={`w-[100px] h-[100px] sm:w-[120px] sm:h-[120px] lg:w-[150px] lg:h-[150px] object-contain rounded-md`}
                 />
                 <div className='flex flex-auto flex-col gap-1'>
                     <div className='flex flex-col gap-y-4 md:gap-y-0 md:flex-row md:items-center md:justify-between md:pr-6'>
@@ -174,11 +175,11 @@ const DetailJobPage = () => {
                                     <List.Item icon={HiCheckCircle} >Địa điểm làm việc: {detailJob?.location}</List.Item>
                                 </List>
                             </List.Item>
-                            <div className='flex flex-col'>
+                            <div className='flex flex-col job-description'>
                                 <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
                                     2. Mô tả công việc
                                 </div>
-                                <div dangerouslySetInnerHTML={{ __html: detailJob?.description?.replace(/\*/g, '<br>•') }}></div>
+                                <div dangerouslySetInnerHTML={{ __html: detailJob?.description }}></div>
 
                             </div>
 
@@ -231,7 +232,7 @@ const DetailJobPage = () => {
 
                                 </List>
                             </List.Item>
-                            <div className='flex flex-col'>
+                            <div className='flex flex-col job-description'>
                                 <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
                                     2. Mô tả công việc
                                 </div>

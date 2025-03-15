@@ -36,7 +36,7 @@ const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false
                 <div className='flex flex-col gap-2'>
                     <img
                         src={data?.company?.logoUrl} alt="thumbnail"
-                        className={`w-14 h-14 border border-gray-300  sm:w-[60px] sm:h-[60px] md:w-[80px] md:h-[80px] xl:w-[100px] xl:h-[100px] object-cover rounded-md`}
+                        className={`w-14 h-14 border border-gray-300  sm:w-[60px] sm:h-[60px] md:w-[80px] md:h-[80px] xl:w-[100px] xl:h-[100px] object-contain rounded-md`}
                     />
                     <div className="w-full py-1 text-[8px] md:text-[10px] flex gap-1 items-center justify-center text-white font-semibold rounded bg-red-500">
                         <GrLocation size={18} /> {data?.location}
