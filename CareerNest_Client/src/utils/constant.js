@@ -24,6 +24,8 @@ export const path = {
 
     JOB: '/job',
     DETAIL__JOB: 'detail/:id/:slug',
+
+    FIND__JOB: '/find-job',
 }
 
 export const ALL_PERMISSIONS = {
