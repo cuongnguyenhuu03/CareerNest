@@ -29,7 +29,7 @@ const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false
     return (
         <>
             <div
-                className={`${className} rounded-lg w-full flex gap-4 md:gap-6 p-[12px] items-center justify-between cursor-pointer hover:rounded-md ct-hover-transition text-black hover:bg-white`}
+                className={`${className} rounded-lg w-full flex gap-4 md:gap-6 p-[12px] items-center justify-between cursor-pointer hover:rounded-md ct-hover-transition text-black hover:bg-white dark:hover:bg-gray-700`}
                 onMouseEnter={() => handlePrefetchJob(+data?.id)}
                 onTouchStart={() => handlePrefetchJob(+data?.id)}
             >

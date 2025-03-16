@@ -13,11 +13,11 @@ const Homepage = () => {
     useEffect(() => {
         if (ref?.current)
             ref.current.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
-        document.title = 'Trang chủ'
+        document.title = 'Trang chủ';
     }, []);
 
     return (
-        <div ref={ref} className='w-full'>
+        <div ref={ref} className='w-full dark:bg-gray-800'>
             {/* Section tìm việc */}
             <FindJob />
 

@@ -3,8 +3,8 @@ import { Card } from "flowbite-react";
 
 const OutstandingPost = () => {
     return (
-        <div className='ct-container py-10 bg-gray-100'>
-            <h1 className='text-xl mb-10 text-center text-slate-800 font-bold uppercase'>Bài viết nổi bật</h1>
+        <div className='ct-container py-10 bg-gray-100 dark:bg-gray-800'>
+            <h1 className='text-xl mb-10 text-center text-slate-800 font-bold uppercase dark:text-white'>Bài viết nổi bật</h1>
             <div className='w-full grid grid-cols-2 sm:grid-cols-3 gap-6 md:gap-10'>
                 <Card
                     className="max-w-sm"
@@ -17,7 +17,7 @@ const OutstandingPost = () => {
                     <p className="text-[10px] md:text-xs tracking-wide lg:text-sm font-normal text-gray-700 dark:text-gray-400">
                         SQL là một kỹ năng quan trọng trong ngành công nghệ thông tin, đặc biệt khi làm việc với cơ sở dữ liệu. Việc chuẩn bị các câu hỏi phỏng vấn SQL là yếu tố then chốt giúp bạn thành…
                     </p>
-                    <a href="#">Xem thêm</a>
+                    <a href="#" className='dark:text-white'>Xem thêm</a>
                 </Card>
                 <Card
                     className="max-w-sm"
@@ -29,7 +29,7 @@ const OutstandingPost = () => {
                     </h5>
                     <p className="text-[10px] md:text-xs tracking-wide lg:text-sm font-normal text-gray-700 dark:text-gray-400">
                         Trong bài viết này, ITviec tổng hợp 50+ câu hỏi phỏng vấn HTML CSS dành cho HTML/CSS  Developer từ cấp độ đầu vào (Junior) cho đến cấp cao (Senior). Hãy cùng cập nhật bộ câu hỏi và thử trả lời…                    </p>
-                    <a href="#">Xem thêm</a>
+                    <a href="#" className='dark:text-white'>Xem thêm</a>
                 </Card>
                 <Card
                     className="max-w-sm"
@@ -41,7 +41,7 @@ const OutstandingPost = () => {
                     </h5>
                     <p className="text-[10px] md:text-xs tracking-wide lg:text-sm font-normal text-gray-700 dark:text-gray-400">
                         Cuộc thi viết “Là IT Thì Mình Cứ Viết Đi” do ITviec tổ chức từ ngày 26/04/2023 đến 26/06/2023, nhân dịp kỷ niệm 10 năm thành lập. Cuộc thi là sân chơi hấp dẫn cổ vũ tất cả anh em…                    </p>
-                    <a href="#">Xem thêm</a>
+                    <a href="#" className='dark:text-white'>Xem thêm</a>
                 </Card>
             </div>
         </div>

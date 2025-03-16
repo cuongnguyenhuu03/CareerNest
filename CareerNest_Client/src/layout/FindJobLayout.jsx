@@ -19,13 +19,13 @@ const FindJobLayout = () => {
     if (location.pathname === path.FIND__JOB)
         return null;
     return (
-        <>
+        <div className='dark:bg-gray-800'>
             <Header />
             <FindJob />
             <Outlet />
             <Footer />
             <FloatButton.BackTop tooltip={<div>Scrolling to Top</div>} />
-        </>
+        </div>
     );
 };
 

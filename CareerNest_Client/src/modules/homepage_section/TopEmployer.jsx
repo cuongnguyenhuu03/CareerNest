@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import EmployerLogoCard from '../../components/card/EmployerLogoCard';
-import { Carousel } from 'flowbite-react';
 import slugify from 'slugify';
 import './TopEmployer.scss';
 import { path } from '../../utils/constant';
@@ -28,26 +27,16 @@ const TopEmployer = () => {
         fetchAllCompanies();
     }, []);
 
-    if (listCompanies.length <= 0) return null;
+    // if (listCompanies.length <= 0) return null;
     return (
         <div className='ct-container'>
-            <h1 className='text-base sm:text-lg xs:text-2xl mb-10 text-center text-slate-800 font-bold uppercase'>Top nhà tuyển dụng hàng đầu</h1>
-            <div className='w-full hidden sm:grid sm:grid-cols-3 xl:grid-cols-4 gap-8 lg:gap-10'>
-                {listCompanies?.length > 0 && listCompanies.map(item => (
+            <h1 className='text-base sm:text-lg xs:text-2xl mb-10 text-center text-slate-800 font-bold uppercase dark:text-white'>Top nhà tuyển dụng hàng đầu</h1>
+            <div className='w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-7'>
+                <EmployerLogoCard />  <EmployerLogoCard />  <EmployerLogoCard /> <EmployerLogoCard />
+                {/* {listCompanies?.length > 0 && listCompanies.map(item => (
                     <EmployerLogoCard key={item?.id} data={item} />
-                ))}
+                ))} */}
             </div>
-            {/* Carousel for Mobile */}
-            <Carousel slideInterval={2000} className="sm:hidden carousel w-full h-64 z-0">
-                {listCompanies?.length > 0 && listCompanies.map(item => (
-                    <img key={item?.id}
-                        src={item?.logoUrl}
-                        alt="company_logo"
-                        className="w-2/3 rounded-lg h-44 object-contain"
-                        onClick={() => navigate(`${path.RECRUITMENT}/detail/${item?.id}/${slugify(item?.name, { lower: true, strict: true })}`)}
-                    />
-                ))}
-            </Carousel>
         </div>
     );
 };
