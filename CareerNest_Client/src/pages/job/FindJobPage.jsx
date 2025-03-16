@@ -70,8 +70,8 @@ const FindJobPage = () => {
     return (
         <>
             <div ref={ref} className='ct-container flex flex-col gap-y-6'>
-                <div className='font-semibold text-lg md:text-2xl tracking-wide'>10 việc làm <span className='text-red-500'>nodejs</span> tại TP Hồ Chí Minh</div>
-                <div className="hidden w-full md:flex items-center justify-between rounded-md shadow-md p-4">
+                <div className='font-semibold text-lg md:text-2xl tracking-wide dark:text-white'>10 việc làm <span className='text-red-500'>nodejs</span> tại TP Hồ Chí Minh</div>
+                <div className="hidden w-full md:flex items-center justify-between rounded-md shadow-md dark:shadow-lg p-4">
                     <div className='flex items-center gap-4'>
                         {/* Cấp bậc */}
                         <Dropdown label="Cấp bậc" color='gray' className="border-gray-300">
@@ -125,15 +125,15 @@ const FindJobPage = () => {
 
                 {/* Hiển thị danh sách jobs và detail job */}
                 <div className='hidden w-full md:flex gap-6'>
-                    <div>
+                    <div className='flex flex-col gap-7'>
                         {jobs.map((job) => (
                             <div
                                 key={job?.id}
-                                className={`shadow-lg rounded-lg p-4 cursor-pointer ${selectedJob === job.id ? "border border-red-300 bg-red-50 transition-all" : ""}`}
+                                className={`shadow-lg dark:bg-gray-700 rounded-lg p-4 cursor-pointer ${selectedJob === job.id ? "border border-red-300 bg-red-50 transition-all" : ""}`}
                                 onClick={() => handleSelectJob(job?.id)} // Cập nhật job được chọn
                             >
-                                <p className="text-gray-500 text-sm">Đăng 18 ngày trước</p>
-                                <h2 className="text-lg font-bold mt-1">{job.title}</h2>
+                                <p className="text-gray-500 text-sm ">Đăng 18 ngày trước</p>
+                                <h2 className="text-lg font-bold mt-1 dark:text-white">{job.title}</h2>
 
                                 <div className="flex items-center gap-2 mt-2">
                                     <img
@@ -148,8 +148,8 @@ const FindJobPage = () => {
                                     <FaDollarSign className="text-xl" /> {job.salary}
                                 </p>
 
-                                <div className="mt-2 text-gray-600 space-y-1">
-                                    <p className="flex items-center gap-2">
+                                <div className="mt-2 text-gray-600 space-y-1 dark:text-gray-400">
+                                    <p className="flex items-center gap-2 ">
                                         <FaLaptop className="text-gray-500" /> Làm từ xa
                                     </p>
                                     <p className="flex items-center gap-2">
@@ -167,19 +167,21 @@ const FindJobPage = () => {
                             </div>
                         ))}
                     </div>
-                    <div ref={detailRef} className="h-fit bg-white rounded-lg shadow-md p-6 border overflow-hidden">
+                    <div ref={detailRef}
+                        className="h-fit bg-white rounded-lg shadow-md p-6 border overflow-hidden dark:bg-gray-700"
+                    >
                         {/* Header */}
                         <div className="flex items-start justify-between">
                             <div className="flex items-start gap-4">
                                 <img src="https://plus.unsplash.com/premium_photo-1670426500778-80d177da0973?q=80&w=2056&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Company Logo" className="w-16 h-16 object-contain" />
                                 <div>
-                                    <h2 className="text-xl font-semibold text-gray-800 flex items-center gap-1">
+                                    <h2 className="text-xl font-semibold text-gray-800 flex items-center gap-1 dark:text-white">
                                         Technical Leader (Java)
                                         <Tooltip content="Mở trong tab khác" style="dark">
                                             <a href="/" target='_blank' className="text-blue-500 text-md hover:underline">↗</a>
                                         </Tooltip>
                                     </h2>
-                                    <Link to={'#'} className="text-gray-600 hover:underline hover:text-red-500 hover:transition-all">Esoft Vietnam, Ltd</Link>
+                                    <Link to={'#'} className="text-gray-600 hover:underline dark:text-gray-400 hover:text-red-500 hover:transition-all">Esoft Vietnam, Ltd</Link>
                                     <p className="text-green-600 font-medium mt-1">$ 2,500 - 3,000 USD</p>
                                 </div>
                             </div>
@@ -189,13 +191,13 @@ const FindJobPage = () => {
                         </div>
 
                         {/* Apply Button */}
-                        <button className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-2 rounded-lg mt-4">
+                        <button className="w-full bg-red-500 hover:bg-red-600 hover:transition-colors text-white font-semibold py-2 rounded-lg mt-4">
                             Ứng tuyển
                         </button>
                         <hr className='mt-4' />
                         <div className="max-h-96 overflow-y-auto border-t px-6 py-4 space-y-4">
                             {/* Info */}
-                            <div className="mt-4 space-y-2 text-sm text-gray-700">
+                            <div className="mt-4 space-y-2 text-sm text-gray-700 dark:text-gray-400">
                                 <div className="flex items-center gap-2">
                                     <FaMapMarkerAlt className="text-gray-500" />
                                     <span>
@@ -223,7 +225,7 @@ const FindJobPage = () => {
                             {/* 3 lý do */}
                             <div className="mt-6">
                                 <h3 className="font-bold text-gray-800 mb-2">3 Lý do để gia nhập công ty</h3>
-                                <ul className="list-disc list-inside text-gray-700 text-sm space-y-1">
+                                <ul className="list-disc list-inside text-gray-700 text-sm space-y-1 dark:text-gray-400">
                                     <li><span className="text-red-500">•</span> Competitive salary & benefit package</li>
                                     <li><span className="text-red-500">•</span> Recognition & respect the diversity culture</li>
                                     <li><span className="text-red-500">•</span> Dynamic & international working environment</li>
@@ -232,7 +234,7 @@ const FindJobPage = () => {
                             {/* 3 lý do */}
                             <div className="mt-6">
                                 <h3 className="font-bold text-gray-800 mb-2">3 Lý do để gia nhập công ty</h3>
-                                <ul className="list-disc list-inside text-gray-700 text-sm space-y-1">
+                                <ul className="list-disc list-inside text-gray-700 text-sm space-y-1 dark:text-gray-400">
                                     <li><span className="text-red-500">•</span> Competitive salary & benefit package</li>
                                     <li><span className="text-red-500">•</span> Recognition & respect the diversity culture</li>
                                     <li><span className="text-red-500">•</span> Dynamic & international working environment</li>
@@ -241,7 +243,7 @@ const FindJobPage = () => {
                             {/* 3 lý do */}
                             <div className="mt-6">
                                 <h3 className="font-bold text-gray-800 mb-2">3 Lý do để gia nhập công ty</h3>
-                                <ul className="list-disc list-inside text-gray-700 text-sm space-y-1">
+                                <ul className="list-disc list-inside text-gray-700 text-sm space-y-1 dark:text-gray-400">
                                     <li><span className="text-red-500">•</span> Competitive salary & benefit package</li>
                                     <li><span className="text-red-500">•</span> Recognition & respect the diversity culture</li>
                                     <li><span className="text-red-500">•</span> Dynamic & international working environment</li>
@@ -250,6 +252,7 @@ const FindJobPage = () => {
                         </div>
                     </div>
                 </div>
+
                 <div className='md:hidden flex flex-col gap-8'>
                     {jobs.map((job) => (
                         <div
@@ -258,7 +261,7 @@ const FindJobPage = () => {
                             onClick={() => handleSelectJob(job?.id)} // Cập nhật job được chọn
                         >
                             <p className="text-gray-500 text-sm">Đăng 18 ngày trước</p>
-                            <h2 className="text-lg font-bold mt-1">{job.title}</h2>
+                            <h2 className="text-lg font-bold mt-1 dark:text-white">{job.title}</h2>
 
                             <div className="flex items-center gap-2 mt-2">
                                 <img
@@ -266,15 +269,15 @@ const FindJobPage = () => {
                                     alt={job.company}
                                     className="w-10 h-10 rounded"
                                 />
-                                <p className="text-gray-700 font-medium">{job.company}</p>
+                                <p className="text-gray-700 font-medium dark:text-gray-400">{job.company}</p>
                             </div>
 
                             <p className="flex items-center gap-2 text-green-600 font-semibold mt-2">
                                 <FaDollarSign className="text-xl" /> {job.salary}
                             </p>
 
-                            <div className="mt-2 text-gray-600 space-y-1">
-                                <p className="flex items-center gap-2">
+                            <div className="mt-2 text-gray-600 space-y-1 dark:text-gray-400">
+                                <p className="flex items-center gap-2 ">
                                     <FaLaptop className="text-gray-500" /> Làm từ xa
                                 </p>
                                 <p className="flex items-center gap-2">
@@ -293,7 +296,7 @@ const FindJobPage = () => {
                     ))}
                 </div>
             </div>
-            <div className="flex overflow-x-auto sm:justify-center">
+            <div className="flex overflow-x-auto sm:justify-center mb-8">
                 <Pagination currentPage={currentPage} totalPages={6} onPageChange={onPageChange} showIcons />
             </div>
             {openModalFilter && <FilterJobModal isOpen={openModalFilter} setOpenModal={setOpenModalFilter} />}
