@@ -1,41 +1,55 @@
 import { Button } from 'flowbite-react';
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { path } from '../../utils/constant';
+import { FiMapPin } from "react-icons/fi";
 
 const FindJob = () => {
+    const navigate = useNavigate();
+    const [keyword, setKeyword] = useState('');
+    const [location, setLocation] = useState('all');
+
+    const handleSearch = () => {
+        if (keyword)
+            navigate(`${path.FIND__JOB}/${location}/${keyword.toLowerCase()}`);
+        else
+            navigate(`${path.FIND__JOB}/${location}`);
+    };
+
+
     return (
         <div className={`w-full h-[500px] bg-slider-bg bg-cover bg-no-repeat bg-bottom mb-6 md:mb-16`}>
             <div className='w-full h-full flex justify-center items-center bg-gray-900 bg-opacity-60'>
                 <div className='mx-16 text-white text-center'>
                     <div className='mt-14 sm:mt-0 font-medium text-xl sm:text-3xl md:text-4xl mb-6'>Tìm việc làm nhanh 24h, việc làm mới nhất trên toàn quốc.</div>
-                    <div className='font-medium text-sm sm:text-lg lg:text-base mb-8'>Tiếp cận 40,000+ tin tuyển dụng việc làm mỗi ngày từ hàng nghìn doanh nghiệp uy tín tại Việt Nam</div>
+                    <div className='font-medium text-xs sm:text-lg lg:text-base mb-8'>Tiếp cận 40,000+ tin tuyển dụng việc làm mỗi ngày từ hàng nghìn doanh nghiệp uy tín tại Việt Nam</div>
                     <div className='hidden sm:flex gap-x-4 lg:gap-x-8 mb-8'>
-                        <div className="basis-2/4">
-                            <input type="text" id="default-input" placeholder="Từ khóa công việc..."
+                        <div className="basis-2/3">
+                            <input
+                                type="text"
+                                id="default-input"
+                                placeholder="Từ khóa công việc..."
+                                value={keyword}
+                                onChange={(e) => setKeyword(e.target.value)}
                                 className="outline-none bg-gray-50 border border-gray-300 text-gray-900 text-xs lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             />
                         </div>
 
-                        <form className="basis-1/4 max-w-sm mx-auto">
-                            <select id="countries" className="bg-gray-50 border text-xs lg:text-sm border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option defaultValue={''}>Chọn cấp bậc</option>
-                                <option value="US">United States</option>
-                                <option value="CA">Canada</option>
-                                <option value="FR">France</option>
-                                <option value="DE">Germany</option>
+                        <form className="basis-1/3 max-w-sm mx-auto relative">
+                            <FiMapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-lg" />
+                            <select
+                                value={location}
+                                onChange={(e) => setLocation(e.target.value)}
+                                className="bg-gray-50 border text-xs lg:text-sm border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pl-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            >
+                                <option value="all">Tất cả tỉnh thành</option>
+                                <option value="hcm">Hồ Chí Minh</option>
+                                <option value="hn">Hà Nội</option>
+                                <option value="dn">Đà Nẵng</option>
                             </select>
                         </form>
 
-                        <form className="basis-1/4  max-w-sm mx-auto">
-                            <select id="countries" className="bg-gray-50 border text-xs lg:text-sm border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option defaultValue={''}>Chọn tỉnh thành</option>
-                                <option value="US">United States</option>
-                                <option value="CA">Canada</option>
-                                <option value="FR">France</option>
-                                <option value="DE">Germany</option>
-                            </select>
-                        </form>
-
-                        <Button className="w-fit" gradientMonochrome="info">
+                        <Button className="w-fit" gradientMonochrome="info" onClick={handleSearch}>
                             <span className='flex items-center justify-center' >
                                 <svg className="text-gray-300 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width={20} height={20} fill="none" viewBox="0 0 24 24"> <path stroke="currentColor" strokeLinecap="round" strokeWidth={2} d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" /> </svg>
                             </span>
@@ -45,31 +59,28 @@ const FindJob = () => {
                         <div className="w-full">
                             <input type="text" id="default-input" placeholder="Từ khóa công việc..."
                                 className="outline-none bg-gray-50 border border-gray-300 text-gray-900 text-xs lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                value={keyword}
+                                onChange={(e) => setKeyword(e.target.value)}
                             />
                         </div>
-                        <div className='flex gap-3'>
-                            <form className="w-full max-w-sm">
-                                <select id="countries" className="bg-gray-50 border text-xs lg:text-sm border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option defaultValue={''}>Chọn cấp bậc</option>
-                                    <option value="US">United States</option>
-                                    <option value="CA">Canada</option>
-                                    <option value="FR">France</option>
-                                    <option value="DE">Germany</option>
-                                </select>
-                            </form>
-
-                            <form className="w-full max-w-sm">
-                                <select id="countries" className="bg-gray-50 border text-xs lg:text-sm border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option defaultValue={''}>Chọn tỉnh thành</option>
-                                    <option value="US">Hồ Chí Minh</option>
-                                    <option value="CA">Hà Nội</option>
-                                    <option value="FR">Đà Nẵng</option>
-                                    <option value="DE">Cần Thơ</option>
+                        <div className='flex justify-center'>
+                            <form className="w-[50%] relative">
+                                <FiMapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-lg" />
+                                <select
+                                    value={location}
+                                    onChange={(e) => setLocation(e.target.value)}
+                                    id="countries"
+                                    className="bg-gray-50 border text-xs lg:text-sm border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pl-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                >
+                                    <option value="all">Tất cả tỉnh thành</option>
+                                    <option value="hcm">Hồ Chí Minh</option>
+                                    <option value="hn">Hà Nội</option>
+                                    <option value="dn">Đà Nẵng</option>
                                 </select>
                             </form>
                         </div>
                         <div className='w-full mt-3 flex justify-center'>
-                            <Button className="w-fit" gradientMonochrome="info">
+                            <Button className="w-fit" gradientMonochrome="info" onClick={handleSearch}>
                                 <span className='flex items-center justify-center gap-2' >
                                     Tìm kiếm
                                     <svg className="text-gray-300 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width={20} height={20} fill="none" viewBox="0 0 24 24"> <path stroke="currentColor" strokeLinecap="round" strokeWidth={2} d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" /> </svg>

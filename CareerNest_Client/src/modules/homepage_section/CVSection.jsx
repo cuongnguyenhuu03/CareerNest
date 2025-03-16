@@ -1,50 +1,90 @@
-import { Button } from 'flowbite-react';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { path } from '../../utils/constant';
+
+const cards = [
+    {
+        id: 1,
+        image: "https://itviec.com/assets/homepage/user-profile-704fabd6761d6f9a4efc54371bc6cc0bef771ff9ae1dce97b2cb137aa74732d6.svg", // Thay bằng đường dẫn icon thực tế
+        title: "Hồ sơ cá nhân",
+        description: "Kiến tạo hồ sơ ITviec với cấu trúc chuẩn mục cùng các gợi ý chi tiết",
+        buttonText: "Cập nhật hồ sơ",
+        isNew: false,
+        path: `${path.ACCOUNT}/${path.ACCOUNT__OVERVIEW}`
+    },
+    {
+        id: 2,
+        image: "https://itviec.com/assets/homepage/cv-template-c6f6a4b0c4211ea345421e77c4e1ce22c2392cfebee8993324eee7015ea44d89.svg",
+        title: "Quản lý CV",
+        description: "Nâng cấp CV với các mẫu CV IT chuyên nghiệp - được nhà tuyển dụng đề xuất",
+        buttonText: "Xem CV",
+        isNew: true,
+        path: `${path.CV}/${path.CV__MANAGE}`
+
+    },
+    {
+        id: 3,
+        image: "https://itviec.com/assets/homepage/blog-a0cee7c69f270172e8c4470bde32d5c15e0a113cb4c3aa92f9d8bfc9ab92c8c7.svg",
+        title: "Blog về IT",
+        description: "Cập nhật thông tin lương thưởng, nghề nghiệp và kiến thức ngành IT",
+        buttonText: "Khám phá blog",
+        isNew: false,
+        path: '/blog'
+
+    },
+];
 
 const CVSection = () => {
     const navigate = useNavigate();
     return (
         <div className="main-cv tracking-wider ct-container">
-            <div className="flex flex-nowrap gap-8">
-                <div className="basis-1/2 rounded-md flex items-center bg-gradient-to-r from-blue-100 to-blue-300 h-[230px] md:h-[260px] pl-6" >
-                    <div className="basis-1/2 md:basis-2/3 flex flex-col gap-3 md:gap-6">
-                        <h2 className='text-base md:text-xl font-semibold text-slate-800'>Tạo CV</h2>
-                        <h3 className='mb-3 md:mb-8 text-[10px] sm:text-xs md:text-sm'>Giúp bạn tạo CV xin việc trực tiếp trên hệ thống nhanh chóng, tiện lợi hơn bao giờ hết...</h3>
-                        <Button gradientMonochrome="failure" className='w-fit h-10 sm:h-auto' onClick={() => navigate(`${path.CV}/${path.CV__CREATE}`)}>
-                            <span className='flex uppercase gap-2 items-center text-[10px] md:text-sm'>
-                                <svg className="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width={24} height={24} fill="none" viewBox="0 0 24 24">
-                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                </svg>
-                                Tạo CV
-                            </span>
-                        </Button>
-                    </div>
-                    <div className="basis-1/2 md:basis-1/3 h-[180px] bg-contain bg-no-repeat bg-center"
-                        style={{ backgroundImage: `url('/create_cv.png')` }}
-                    />
-                </div>
+            <h1 className='text-center text-base sm:text-lg xs:text-xl mb-10 text-slate-800 font-bold uppercase'>Công cụ tốt nhất cho hành trang ứng tuyển của bạn</h1>
+            <div className="hidden lg:flex justify-center gap-6">
+                {cards.map((card) => (
+                    <div key={card.id} className="flex items-center gap-3 p-3 border rounded-lg shadow-md w-96 bg-white">
+                        {/* Icon bên trái */}
+                        <div className="w-14 h-14 flex-shrink-0">
+                            <img src={card.image} alt={card.title} className="w-full h-full object-contain" />
+                        </div>
 
-                <div className="basis-1/2 rounded-md flex items-center bg-gradient-to-r from-blue-100 to-blue-300 h-[230px] md:h-[260px] pl-6">
-                    <div className="basis-1/2 md:basis-2/3 flex flex-col gap-3 md:gap-6">
-                        <h2 className='text-base md:text-xl font-semibold text-slate-800'>Sử dụng CV sẵn có</h2>
-                        <h3 className='mb-3 md:mb-8 text-[10px] sm:text-xs md:text-sm'>Nếu bạn đã có CV của riêng mình, hãy tải lên cho nhà tuyển dụng nhìn thấy</h3>
-                        <Button gradientMonochrome="failure" className='w-fit h-10 sm:h-auto'>
-                            <span className='flex uppercase gap-2 items-center text-[10px] md:text-sm'>
-                                <svg className="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width={24} height={24} fill="none" viewBox="0 0 24 24">
-                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01" />
-                                </svg>
-                                Upload CV
-                            </span>
-                        </Button>
+                        {/* Nội dung bên phải */}
+                        <div className="flex flex-col gap-y-3">
+                            <div className="flex items-center gap-2">
+                                <h3 className="font-bold text-lg">{card.title}</h3>
+                                {card?.isNew && <span className="bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">Mới</span>
+                                }
+                            </div>
+                            <p className="text-gray-600 text-sm">{card.description}</p>
+                            <Link to={card?.path} className="w-2/3 text-center mt-3 p-2 border border-red-500 text-red-500 font-semibold rounded-md hover:bg-red-500 hover:text-white transition">
+                                {card.buttonText}
+                            </Link>
+                        </div>
                     </div>
-                    <div className="basis-1/2 md:basis-1/3 h-[180px] bg-contain bg-no-repeat bg-center"
-                        style={{ backgroundImage: `url('/upload_cv.png')` }}
-                    />
-                </div>
+                ))}
             </div>
+            <div className="lg:hidden flex flex-col gap-6">
+                {cards.map((card) => (
+                    <div key={card.id} className="flex items-center justify-center gap-3 p-6 border rounded-lg w-full bg-white">
+                        {/* Icon bên trái */}
+                        <div className="w-16 h-16 flex-shrink-0">
+                            <img src={card.image} alt={card.title} className="w-full h-full object-contain" />
+                        </div>
 
+                        {/* Nội dung bên phải */}
+                        <div className="flex flex-col gap-y-3">
+                            <div className="flex items-center gap-2">
+                                <h3 className="font-bold text-lg">{card.title}</h3>
+                                {card?.isNew && <span className="bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">Mới</span>
+                                }
+                            </div>
+                            <p className="text-gray-600 text-sm">{card.description}</p>
+                            <Link to={card?.path} className="w-2/3 text-center mt-3 p-2 border border-red-500 text-red-500 font-semibold rounded-md hover:bg-red-500 hover:text-white transition">
+                                {card.buttonText}
+                            </Link>
+                        </div>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };

@@ -13,9 +13,11 @@ const DetailRecruitmentPage = lazy(() => import('../pages/recruitment/DetailRecr
 const DefaultLayout = lazy(() => import('../layout/DefaultLayout'));
 const EmployerLayout = lazy(() => import('../layout/EmployerLayout'));
 const JobLayout = lazy(() => import('../layout/JobLayout'));
+const FindJobLayout = lazy(() => import('../layout/FindJobLayout'));
 const AuthLayout = lazy(() => import('../layout/AuthLayout'));
 const AdminLayout = lazy(() => import('../layout/AdminLayout'));
 const DetailJobPage = lazy(() => import('../pages/job/DetailJobPage'));
+const FindJobPage = lazy(() => import('../pages/job/FindJobPage'));
 const AccountLayout = lazy(() => import('../layout/AccountLayout'));
 const OverviewPage = lazy(() => import('../pages/account/OverviewPage'));
 const JobViaEmail = lazy(() => import('../pages/account/JobViaEmail'));
@@ -45,6 +47,10 @@ const AppRoute = () => {
 
                 <Route path={path.JOB} element={<JobLayout />} >
                     <Route path={path.DETAIL__JOB} element={< DetailJobPage />} />
+                </Route>
+
+                <Route path={path.FIND__JOB} element={<FindJobLayout />}>
+                    <Route path=":city?/:keyword?" element={<FindJobPage />} />
                 </Route>
 
                 <Route path={path.CV} element={<PrivateRoute><CVLayout /></PrivateRoute>} >
