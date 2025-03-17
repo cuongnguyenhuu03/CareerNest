@@ -9,7 +9,7 @@ const postRegister = (data) => {
 }
 
 const postLogout = () => {
-    return axios.post('/logout');
+    return axios.post('/auth/logout');
 }
 
 const getAllUsers = () => {

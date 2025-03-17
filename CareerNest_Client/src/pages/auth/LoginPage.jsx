@@ -71,9 +71,9 @@ export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
         if (!formData.password) {
             errors.password = "Vui lòng nhập mật khẩu";
         }
-        // else if (!validate("password", formData.password)) {
-        //     errors.password = "Mật khẩu phải có ít nhất một chữ hoa, một chữ thường, một số và một ký tự đặc biệt.";
-        // }
+        else if (!validate("password", formData.password)) {
+            errors.password = "Mật khẩu phải có ít nhất một chữ hoa, một chữ thường, một số và một ký tự đặc biệt.";
+        }
 
         if (Object.keys(errors).length > 0) {
             setFormData((prev) => ({ ...prev, errors }));

@@ -117,7 +117,7 @@ const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false
                                 </div>
                             </>
                             :
-                            <div className={`text-sm md:text-base lg:text-lg xl:text-base font-medium uppercase`}
+                            <div className={`text-sm md:text-base lg:text-lg xl:text-base font-medium uppercase dark:text-white`}
                                 onClick={() => navigate(`/job/detail/${data?.id}/${slugify(data?.name, { lower: true, strict: true })}`)}
                             >
                                 {(location.pathname === path.HOME && data?.name?.length > 22) ?
@@ -127,20 +127,20 @@ const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false
                             </div>
                     }
 
-                    <div className='flex gap-2 items-center text-xs md:text-sm font-light'>
+                    <div className='flex gap-2 items-center text-xs md:text-sm font-light dark:text-gray-400'>
                         <FaRegBuilding size={15} />
                         {(location.pathname === path.HOME && data?.company?.name?.length > 24) ?
                             data?.company?.name?.slice(0, 25) + "..."
                             : data?.company?.name
                         }
                     </div>
-                    <div className='flex gap-2 items-center text-xs md:text-sm font-light'>
+                    <div className='flex gap-2 items-center text-xs md:text-sm font-light dark:text-gray-400'>
                         <FaRegCalendarAlt /> Ngày đăng: {convertTimeStampToString(data?.createdAt)}
                     </div>
                     <div className='flex mb-6 gap-2 text-orange-600 items-center text-xs md:text-sm font-light'>
                         <FaMoneyCheckDollar /> Lương: {data?.salary} $
                     </div>
-                    <div className='flex gap-2 items-center text-xs md:text-sm font-light'>
+                    <div className='flex gap-2 items-center text-xs md:text-sm font-light dark:text-gray-400'>
                         <GrNetworkDrive /> Làm việc từ xa
                     </div>
                 </div>

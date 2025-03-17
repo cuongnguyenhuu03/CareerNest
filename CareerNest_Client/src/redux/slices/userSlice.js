@@ -22,7 +22,7 @@ export const userSlice = createSlice({
     reducers: {
         updateUserInfo: (state, action) => {
             const { access_token, ...rest } = action.payload;
-            state.info = rest?.user;
+            state.info = rest?.user ?? rest?.info;
             state.access_token = access_token;
         },
     },

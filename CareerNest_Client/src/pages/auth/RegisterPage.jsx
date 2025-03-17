@@ -139,7 +139,7 @@ const RegisterPage = () => {
                                     onChange={handleChange}
                                     className="mr-2"
                                 />
-                                Tôi đồng ý với <Link to="#">Điều khoản</Link>
+                                <span className="dark:text-gray-400">Tôi đồng ý với <Link to="#">Điều khoản</Link></span>
                                 {errors.terms && <p className="text-red-500 text-sm">{errors.terms}</p>}
                             </div>
                             <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Tạo tài khoản</button>

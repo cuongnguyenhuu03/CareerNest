@@ -32,10 +32,10 @@ const TopEmployer = () => {
         <div className='ct-container'>
             <h1 className='text-base sm:text-lg xs:text-2xl mb-10 text-center text-slate-800 font-bold uppercase dark:text-white'>Top nhà tuyển dụng hàng đầu</h1>
             <div className='w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-7'>
-                <EmployerLogoCard />  <EmployerLogoCard />  <EmployerLogoCard /> <EmployerLogoCard />
-                {/* {listCompanies?.length > 0 && listCompanies.map(item => (
+                {/* <EmployerLogoCard />  <EmployerLogoCard />  <EmployerLogoCard /> <EmployerLogoCard /> */}
+                {listCompanies?.length > 0 && listCompanies.map(item => (
                     <EmployerLogoCard key={item?.id} data={item} />
-                ))} */}
+                ))}
             </div>
         </div>
     );

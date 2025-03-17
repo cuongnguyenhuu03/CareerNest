@@ -257,7 +257,7 @@ const FindJobPage = () => {
                     {jobs.map((job) => (
                         <div
                             key={job?.id}
-                            className={`shadow-lg rounded-lg p-4 cursor-pointer ${selectedJob === job.id ? "border border-red-300 bg-red-50 transition-all" : ""}`}
+                            className={`shadow-lg dark:bg-gray-700 rounded-lg p-4 cursor-pointer ${selectedJob === job.id ? "border border-red-300 bg-red-50 transition-all" : ""}`}
                             onClick={() => handleSelectJob(job?.id)} // Cập nhật job được chọn
                         >
                             <p className="text-gray-500 text-sm">Đăng 18 ngày trước</p>

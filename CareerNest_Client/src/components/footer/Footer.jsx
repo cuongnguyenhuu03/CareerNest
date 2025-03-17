@@ -71,12 +71,12 @@ const Footer = () => {
                                 <ul className="space-y-3">
                                     <li>
                                         <span className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
-                                            Hotline: <span className='text-black font-medium'>0377 586 305 (Giờ hành chính)</span>
+                                            Hotline: <span className='text-black font-medium dark:text-gray-400'>+84 377 586 305</span>
                                         </span>
                                     </li>
                                     <li>
                                         <span className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
-                                            Email: <span className='text-black font-medium'>careernest@gmail.com</span>
+                                            Email: <span className='text-black font-medium dark:text-gray-400'>careernest@gmail.com</span>
                                         </span>
                                     </li>
                                 </ul>

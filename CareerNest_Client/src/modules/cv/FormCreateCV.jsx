@@ -41,6 +41,8 @@ const FormCreateCV = () => {
         // TODO: Gửi formData lên API hoặc xử lý dữ liệu
     };
 
+    console.log(formRef.current.careerObjective);
+
     return (
         <>
             <div className="mb-5 grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">

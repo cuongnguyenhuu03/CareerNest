@@ -43,9 +43,9 @@ const FindJob = () => {
                                 className="bg-gray-50 border text-xs lg:text-sm border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pl-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             >
                                 <option value="all">Tất cả tỉnh thành</option>
-                                <option value="hcm">Hồ Chí Minh</option>
-                                <option value="hn">Hà Nội</option>
-                                <option value="dn">Đà Nẵng</option>
+                                <option value="ho chi minh">Hồ Chí Minh</option>
+                                <option value="ha noi">Hà Nội</option>
+                                <option value="da nang">Đà Nẵng</option>
                             </select>
                         </form>
 
@@ -73,9 +73,9 @@ const FindJob = () => {
                                     className="bg-gray-50 border text-xs lg:text-sm border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pl-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 >
                                     <option value="all">Tất cả tỉnh thành</option>
-                                    <option value="hcm">Hồ Chí Minh</option>
-                                    <option value="hn">Hà Nội</option>
-                                    <option value="dn">Đà Nẵng</option>
+                                    <option value="ho chi minh">Hồ Chí Minh</option>
+                                    <option value="ha noi">Hà Nội</option>
+                                    <option value="da nang">Đà Nẵng</option>
                                 </select>
                             </form>
                         </div>
@@ -90,19 +90,30 @@ const FindJob = () => {
                     </div>
                     <div className='hidden w-full sm:flex items-center gap-x-4'>
                         <span className='text-base'>Gợi ý cho bạn: </span>
-                        <span className='text-white px-4 py-2 rounded-full border border-gray-400 hover:bg-gray-500 ct-hover-transition hover:cursor-pointer'>ReactJS</span>
-                        <span className='text-white px-4 py-2 rounded-full border border-gray-400 hover:bg-gray-500 ct-hover-transition hover:cursor-pointer'>NodeJS</span>
-                        <span className='text-white px-4 py-2 rounded-full border border-gray-400 hover:bg-gray-500 ct-hover-transition hover:cursor-pointer'>Java</span>
-                        <span className='text-white px-4 py-2 rounded-full border border-gray-400 hover:bg-gray-500 ct-hover-transition hover:cursor-pointer'>Python</span>
+                        <span onClick={() => setKeyword("ReactJS")} className='text-white px-4 py-2 rounded-full border border-gray-400 hover:bg-gray-500 ct-hover-transition hover:cursor-pointer'>ReactJS</span>
+                        <span onClick={() => setKeyword("NodeJS")} className='text-white px-4 py-2 rounded-full border border-gray-400 hover:bg-gray-500 ct-hover-transition hover:cursor-pointer'>NodeJS</span>
+                        <span onClick={() => setKeyword("Java")} className='text-white px-4 py-2 rounded-full border border-gray-400 hover:bg-gray-500 ct-hover-transition hover:cursor-pointer'>Java</span>
+                        <span onClick={() => setKeyword("Python")} className='text-white px-4 py-2 rounded-full border border-gray-400 hover:bg-gray-500 ct-hover-transition hover:cursor-pointer'>Python</span>
                     </div>
                     <div className='sm:hidden w-full flex flex-col gap-y-4'>
                         <span className='text-base'>Gợi ý cho bạn: </span>
                         <div className='flex gap-x-2 xs:gap-x-4 items-center justify-center'>
-                            <span className='text-white px-4 py-2 rounded-full border border-gray-400 hover:bg-gray-500 ct-hover-transition hover:cursor-pointer'>ReactJS</span>
-                            <span className='text-white px-4 py-2 rounded-full border border-gray-400 hover:bg-gray-500 ct-hover-transition hover:cursor-pointer'>NodeJS</span>
-                            <span className='text-white px-4 py-2 rounded-full border border-gray-400 hover:bg-gray-500 ct-hover-transition hover:cursor-pointer'>Java</span>
-                            <span className='text-white px-4 py-2 rounded-full border border-gray-400 hover:bg-gray-500 ct-hover-transition hover:cursor-pointer'>Python</span>
-
+                            <span className='text-white px-4 py-2 rounded-full border border-gray-400 hover:bg-gray-500 ct-hover-transition hover:cursor-pointer'
+                                onClick={() => setKeyword("ReactJS")}>
+                                ReactJS
+                            </span>
+                            <span className='text-white px-4 py-2 rounded-full border border-gray-400 hover:bg-gray-500 ct-hover-transition hover:cursor-pointer'
+                                onClick={() => setKeyword("NodeJS")}>
+                                NodeJS
+                            </span>
+                            <span className='text-white px-4 py-2 rounded-full border border-gray-400 hover:bg-gray-500 ct-hover-transition hover:cursor-pointer'
+                                onClick={() => setKeyword("Java")}>
+                                Java
+                            </span>
+                            <span className='text-white px-4 py-2 rounded-full border border-gray-400 hover:bg-gray-500 ct-hover-transition hover:cursor-pointer'
+                                onClick={() => setKeyword("Python")}>
+                                Python
+                            </span>
                         </div>
                     </div>
                 </div>
