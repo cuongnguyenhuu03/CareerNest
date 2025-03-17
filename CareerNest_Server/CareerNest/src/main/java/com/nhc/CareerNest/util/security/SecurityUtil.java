@@ -1,5 +1,6 @@
 package com.nhc.CareerNest.util.security;
 
+import java.security.Key;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
@@ -23,7 +24,13 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.stereotype.Service;
 
 import com.nhc.CareerNest.domain.dto.response.auth.ResLoginDTO;
+import com.nhc.CareerNest.domain.entity.User;
 import com.nimbusds.jose.util.Base64;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 
 @Service
 public class SecurityUtil {
@@ -68,6 +75,7 @@ public class SecurityUtil {
                 .expiresAt(validity)
                 .subject(email) // email
                 .claim("user", userToken)
+                .claim("id", userToken.getId())
                 // .claim("permission", listAuthority)
                 .build();
         JwsHeader jwsHeader = JwsHeader.with(JWT_ALGORITHM).build();
@@ -111,6 +119,24 @@ public class SecurityUtil {
             System.out.println();
             throw e;
         }
+    }
+
+    // get claim
+
+    private static Key getSigningKey() {
+        byte[] keyBytes = Decoders.BASE64
+                .decode("lr6oMx+b7FdLf4ulDdD3+0zCVcJKh3BItDYeTtXgdkmDveNHIhm5oHg/P2eJBVVD2Zs1LJs9KdDamgm/B35I9g==");
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    public static Long extractClaim(String token) {
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        return claims.get("id", Long.class);
     }
 
     /**

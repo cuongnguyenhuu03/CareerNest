@@ -14,8 +14,6 @@ import com.nhc.CareerNest.util.converter.JobMessageConverter;
 
 import jakarta.validation.Valid;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -35,13 +33,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class JobController {
 
     private final JobService jobService;
-    private final KafkaTemplate<String, Object> kafkaTemplate;
+    // private final KafkaTemplate<String, Object> kafkaTemplate;
 
     public JobController(
-            KafkaTemplate<String, Object> kafkaTemplate,
+            // KafkaTemplate<String, Object> kafkaTemplate,
             JobService jobService) {
         this.jobService = jobService;
-        this.kafkaTemplate = kafkaTemplate;
+        // this.kafkaTemplate = kafkaTemplate;
     }
 
     @GetMapping("/jobs")
@@ -77,14 +75,16 @@ public class JobController {
         res.setStatusCode(HttpStatus.OK.value());
         res.setData(newJob);
 
-        this.kafkaTemplate.setMessageConverter(new JobMessageConverter());
-        this.kafkaTemplate.send("create-a-job", newJob).whenComplete((result, ex) -> {
-            if (ex == null) {
-                System.out.println("+++ Message sent successfully to topic: " + result.getRecordMetadata().topic());
-            } else {
-                System.err.println("+++ Message sending failed: " + ex.getMessage());
-            }
-        });
+        // this.kafkaTemplate.setMessageConverter(new JobMessageConverter());
+        // this.kafkaTemplate.send("create-a-job", newJob).whenComplete((result, ex) ->
+        // {
+        // if (ex == null) {
+        // System.out.println("+++ Message sent successfully to topic: " +
+        // result.getRecordMetadata().topic());
+        // } else {
+        // System.err.println("+++ Message sending failed: " + ex.getMessage());
+        // }
+        // });
 
         System.out.println("nguyen huu cuogn");
 

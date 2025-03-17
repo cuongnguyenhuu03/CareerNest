@@ -10,6 +10,7 @@ import com.nhc.CareerNest.domain.entity.User;
 import com.nhc.CareerNest.exception.errors.IdInvalidException;
 import com.nhc.CareerNest.service.impl.UserService;
 import com.nhc.CareerNest.util.anotation.ApiMessage;
+import com.nhc.CareerNest.util.security.SecurityUtil;
 
 import jakarta.validation.Valid;
 
@@ -22,6 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -91,27 +93,36 @@ public class UserController {
 
     @PutMapping("/users")
     @ApiMessage("Update a user")
-    public ResponseEntity<RestResponse> updateUser(@RequestBody User user) throws IdInvalidException {
+    public ResponseEntity<RestResponse> updateUser(
+            @RequestBody User user,
+            @RequestHeader(name = "Authorization") String accessToken) throws IdInvalidException {
 
-        User updateUser = this.userService.findUserById(user.getId());
-        if (updateUser == null) {
+        if (user.getId() == SecurityUtil.extractClaim(accessToken.substring(7))) {
+            User updateUser = this.userService.findUserById(user.getId());
+            if (updateUser == null) {
+                throw new IdInvalidException(localizationUtils.getLocalizedMessage(MessageKeys.USER_NOT_FOUND));
+            }
+
+            updateUser.setFirstName(user.getFirstName());
+            updateUser.setLastName(user.getLastName());
+            updateUser.setAddress(user.getAddress());
+            updateUser.setDateOfBirth(user.getDateOfBirth());
+            updateUser.setGender(user.getGender());
+            updateUser.setPhoneNumber(user.getPhoneNumber());
+            updateUser.setAvatar(user.getAvatar());
+            updateUser.setCompany(user.getCompany());
+
+            updateUser = this.userService.handleSaveUser(updateUser);
+
+            RestResponse res = new RestResponse();
+            res.setData(this.userService.convertToResUpdateUserDTO(updateUser));
+            res.setStatusCode(HttpStatus.OK.value());
+
+            return ResponseEntity.ok(res);
+        } else {
             throw new IdInvalidException(localizationUtils.getLocalizedMessage(MessageKeys.USER_NOT_FOUND));
         }
 
-        updateUser.setFirstName(user.getFirstName());
-        updateUser.setLastName(user.getLastName());
-        updateUser.setAddress(user.getAddress());
-        updateUser.setDateOfBirth(user.getDateOfBirth());
-        updateUser.setGender(user.getGender());
-        updateUser.setPhoneNumber(user.getPhoneNumber());
-
-        updateUser = this.userService.handleSaveUser(updateUser);
-
-        RestResponse res = new RestResponse();
-        res.setData(this.userService.convertToResUpdateUserDTO(updateUser));
-        res.setStatusCode(HttpStatus.OK.value());
-
-        return ResponseEntity.ok(res);
     }
 
     @PostMapping("users/saveJob/{userId}/{jobId}")

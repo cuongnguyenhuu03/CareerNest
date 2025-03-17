@@ -137,7 +137,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             adminUser.setAddress("VIETNAM");
             adminUser.setGender(GenderEnum.MALE);
             adminUser.setFirstName("super admin");
-            adminUser.setPassword(this.passwordEncoder.encode("1234"));
+            adminUser.setPassword(this.passwordEncoder.encode("Admin@1234"));
 
             Role adminRole = this.roleRepository.findByName(RoleEnum.ADMIN);
             if (adminRole != null) {
