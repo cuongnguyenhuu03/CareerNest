@@ -53,7 +53,7 @@ public class Company extends BaseEntity {
     @Size(min = 5, max = 50, message = "{short.content.size}")
     private String city;
 
-    @Size(min = 5, max = 50, message = "{short.content.size}")
+    @Size(min = 5, max = 500, message = "{short.content.size}")
     private String logoUrl;
 
     private String size;

@@ -70,7 +70,7 @@ public class SecurityConfiguration {
                 "/api/v1/auth/register",
                 "/api/v1/auth/refresh",
                 "/api/v1/emails",
-                "/jobs/company/**",
+                "/api/v1/jobs/company/**",
                 "/storage/**"
         };
 
