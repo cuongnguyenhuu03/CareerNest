@@ -10,15 +10,15 @@ const AttachedCV = () => {
     const location = useLocation();
 
     return (
-        <div className='w-full flex flex-col gap-y-4 shadow-md p-3 sm:p-4 rounded-lg mb-6'>
+        <div className='w-full flex flex-col gap-y-4 shadow-md dark:shadow-lg p-3 sm:p-4 rounded-lg mb-6'>
             <Badge className='w-fit text-base sm:text-lg' color="info" size='sm'>CV đính kèm của bạn</Badge>
-            <div className='w-full flex gap-x-4 rounded-lg bg-[#f7f7f7] p-2 sm:p-6 border border-gray-200'>
+            <div className='w-full flex gap-x-4 rounded-lg bg-[#f7f7f7] dark:bg-gray-700 p-2 sm:p-6 border border-gray-200 dark:border-gray-600'>
                 <Avatar size='lg' className='sm:order-1 order-2'
                     img={'https://itviec.com/assets/profile/uploaded-resume-f70bd4d24afa0fa12412353a2fe8c4deaa8bdc1a9ffef1cdb2b8638adb24a5ac.svg'}
                 />
                 <div className='flex flex-col gap-y-3 sm:order-2 order-1'>
                     <Link
-                        className='text-[#414042] underline text-[11px] xs:text-xs sm:text-lg font-medium'
+                        className='text-[#414042] dark:text-gray-400 underline text-[11px] xs:text-xs sm:text-lg font-medium'
                         to={'#'}
                     >
                         {fileName}

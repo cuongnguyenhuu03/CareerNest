@@ -4,20 +4,23 @@ import { UploadOutlined } from "@ant-design/icons";
 import { getBase64 } from "../../utils/getBase64";
 import ReactQuill from "react-quill";
 import withErrorBoundary from "../../hoc/withErrorBoundary";
+import { useSelector } from 'react-redux';
+import { postCreateOnlineCV } from "../../services/resumeService";
 
 const FormCreateCV = () => {
+    const user = useSelector(state => state?.user?.info);
     const formRef = useRef({
-        CV_name: "",
+        title: "",
+        summary: "",
         porfolio: "",
+        languages: "",
+        educations: "",
+        certifications: "",
         level: "",
         major: "",
         jobType: "",
-        careerObjective: "",
         experience: "",
         skills: "",
-        education: "",
-        softSkills: "",
-        awards: "",
     });
 
     const [avatar, setAvatar] = useState("");
@@ -35,13 +38,34 @@ const FormCreateCV = () => {
         setAvatar(file?.preview);
     };
 
-    const handleSubmit = () => {
+    const apiCreateOnlineCV = async (data) => {
+        try {
+            let res = await postCreateOnlineCV(data);
+            console.log(res);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handleSubmit = async () => {
         const formData = { ...formRef.current, avatar };
-        console.log("Submitted Data:", formData);
+        let data = {
+            user: {
+                id: user?.id
+            },
+            title: formData.title,
+            summary: formData.summary,
+            phone: "0377586305",
+            languages: formData.languages,
+            fullName: user.lastName + " " + user?.firstName,
+            email: user?.email,
+            educations: formData.educations,
+            address: "Dang Lo street, Tan Binh dist, Ho Chi Minh city",
+        }
+        console.log("Submitted Data:", data);
+        await apiCreateOnlineCV(data)
         // TODO: Gửi formData lên API hoặc xử lý dữ liệu
     };
-
-    console.log(formRef.current.careerObjective);
 
     return (
         <>
@@ -73,7 +97,7 @@ const FormCreateCV = () => {
 
                 {/* Input Fields */}
                 {[
-                    { label: "Tên hồ sơ", field: "CV_name" },
+                    { label: "Tên hồ sơ", field: "title" },
                     { label: "Portfolio", field: "porfolio" },
                 ].map(({ label, field }) => (
                     <div key={field} className="col-span-2 sm:col-span-1">
@@ -112,11 +136,11 @@ const FormCreateCV = () => {
 
                 {/* ReactQuill Fields */}
                 {[
-                    { label: "Mục tiêu nghề nghiệp", field: "careerObjective" },
+                    { label: "Giới thiệu", field: "summary" },
+                    { label: "Ngoại ngữ", field: "languages" },
+                    { label: "Học vấn", field: "educations" },
                     { label: "Kinh nghiệm", field: "experience" },
                     { label: "Kỹ năng", field: "skills" },
-                    { label: "Học vấn", field: "education" },
-                    { label: "Kỹ năng mềm", field: "softSkills" },
                     { label: "Giải thưởng đạt được", field: "awards" },
                 ].map(({ label, field }) => (
                     <div key={field} className="col-span-2 mb-8">

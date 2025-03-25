@@ -5,6 +5,7 @@ import _ from 'lodash';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { Button } from 'flowbite-react';
 import withErrorBoundary from '../../hoc/withErrorBoundary';
+import JobCardSkeleton from '../../components/skeleton/JobCardSkeleton';
 
 const Recruitment = () => {
     const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } = useInfiniteQuery({
@@ -15,7 +16,8 @@ const Recruitment = () => {
                 return allPages.length + 1;
             return undefined;
         },
-        refetchOnWindowFocus: false,
+        staleTime: 10000,
+        refetchOnWindowFocus: true,
     });
 
     const listJobs = _.orderBy(data?.pages?.flatMap(page => page.result) ?? [], ['createdAt'], ['desc']);
@@ -23,15 +25,9 @@ const Recruitment = () => {
     if (listJobs.length <= 0) return null;
     if (isLoading)
         return (
-            <div className='ct-container flex flex-col gap-8 mt-20'>
-                <div role="status" className="w-full animate-pulse">
-                    <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4" />
-                    <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5" />
-                    <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5" />
-                    <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5" />
-                    <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5" />
-                    <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]" />
-                    <span className="sr-only">Loading...</span>
+            <div className='ct-container mt-20'>
+                <div className='w-full border border-gray-300 rounded-lg sm:border-none sm:w-full flex flex-nowrap overflow-x-auto sm:grid sm:grid-cols-2 xl:grid-cols-3 xs:gap-4 xl:gap-8'>
+                    <JobCardSkeleton />   <JobCardSkeleton />   <JobCardSkeleton />
                 </div>
             </div>
         );

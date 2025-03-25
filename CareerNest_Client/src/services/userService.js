@@ -21,7 +21,7 @@ const getDetailUser = (id) => {
 }
 
 const putUpdateUser = (data) => {
-    return axios.put(`/users/update`, { ...data })
+    return axios.put(`/users`, { ...data })
 };
 
 const deleteUser = (userId) => {
