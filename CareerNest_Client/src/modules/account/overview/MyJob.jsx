@@ -8,10 +8,10 @@ const MyJob = () => {
     const navigate = useNavigate();
 
     return (
-        <div className='w-full flex flex-col gap-y-4 shadow-md p-4 rounded-lg'>
+        <div className='w-full flex flex-col gap-y-4 shadow-md dark:shadow-lg p-4 rounded-lg dark:bg-gray-700'>
             <Badge className='w-fit text-base sm:text-lg' color="warning" size='sm'>Hoạt động của bạn</Badge>
             <div className='w-full flex gap-4'>
-                <div className='basis-1/2 bg-[#eaf0fa] flex rounded-lg cursor-pointer hover:border hover:border-blue-500 ct-hover-transition'
+                <div className='basis-1/2 bg-[#eaf0fa] dark:bg-gray-300 flex rounded-lg cursor-pointer hover:border hover:border-blue-500 ct-hover-transition'
                     onClick={() => navigate(`${path.ACCOUNT}/${path.ACCOUNT__MY__JOB}`, { state: 'applied' })}
                 >
                     <div className='basis-2/3 flex flex-col gap-y-4 p-3'>
@@ -29,7 +29,7 @@ const MyJob = () => {
                         />
                     </div>
                 </div>
-                <div className='basis-1/2 bg-[#fff5f5] flex rounded-lg cursor-pointer hover:border hover:border-red-500 ct-hover-transition'
+                <div className='basis-1/2 bg-[#fff5f5] dark:bg-gray-300 flex rounded-lg cursor-pointer hover:border hover:border-red-500 ct-hover-transition'
                     onClick={() => navigate(`${path.ACCOUNT}/${path.ACCOUNT__MY__JOB}`, { state: 'saved' })}
                 >
                     <div className='basis-2/3 flex flex-col gap-y-4 p-3'>

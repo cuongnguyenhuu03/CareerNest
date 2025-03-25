@@ -18,12 +18,12 @@ const AccountLayout = () => {
     if (location.pathname === path.ACCOUNT)
         return null;
     return (
-        <>
+        <div className='dark:bg-gray-800'>
             <Header />
             <Outlet />
             <Footer />
             <FloatButton.BackTop tooltip={<div>Scrolling to Top</div>} />
-        </>
+        </div>
     );
 };
 

@@ -1,22 +1,77 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Modal, Datepicker, Select } from "flowbite-react";
-import { getBase64 } from '../../utils/getBase64';
-import { Button, Upload, Image } from "antd";
-import { UploadOutlined } from '@ant-design/icons';
-import './UploadAccount.scss';
+import { db } from "../../firebase/configFirebase";
+import { useSelector } from 'react-redux';
+import { useMutation } from '@tanstack/react-query';
+import { putUpdateUser } from '../../services/userService';
+import { toast } from 'react-toastify';
+import { useDetailUser } from '../../hooks/useDetailUer';
+import useFirebaseImage from "../../hooks/useFireBaseImage";
+import ImageUpload from '../../components/image/ImageUpload';
+import { getFirebaseImageUrl } from '../../utils/getFirebaseImageURL';
 
 const UpdateAccount = ({ isOpen = false, setOpenModal = () => { } }) => {
-    const [avatar, setAvatar] = useState('');
-    const [dob, setDOB] = useState(null);
+    const user = useSelector(state => state?.user?.info);
+    const { refetch } = useDetailUser(user?.id);
 
-    const handleOnchangeAvatar = async ({ fileList }) => {
-        if (fileList?.length <= 0)
-            return;
-        const file = fileList[0];
-        if (!file?.url && !file?.preview) {
-            file.preview = await getBase64(file.originFileObj);
-        }
-        setAvatar(file?.preview)
+    const [dob, setDOB] = useState(user?.dateOfBirth ? new Date(user.dateOfBirth) : null);
+    const [avatar, setAvatar] = useState(user?.avatar ? getFirebaseImageUrl(user.avatar, 'users') : '');
+    const [imageNameState, setImageName] = useState('');
+
+    const imageRegex = /%2F(\S+)\?/gm.exec(avatar);
+    const imageName = imageRegex?.length > 0 ? imageRegex[1] : "";
+    const { imageURL, progress, handleOnchangeImage, handleDeleteImage } = useFirebaseImage(setImageName, imageNameState, imageName);
+
+    const fullNameRef = useRef(user?.fullName || '');
+    const genderRef = useRef(user?.gender || 'MALE');
+    const phoneRef = useRef(user?.phone || '');
+    const addressRef = useRef(user?.address || '');
+    const [city, setCity] = useState('');
+
+    useEffect(() => {
+        if (imageURL)
+            setAvatar(imageURL);
+    }, [imageURL, setAvatar]);
+
+    const splitName = (fullName) => {
+        const parts = fullName.trim().split(/\s+/);
+        const firstName = parts.pop();
+        const lastName = parts.join(' ');
+        return { firstName, lastName };
+    }
+
+    const mutation = useMutation({
+        mutationFn: putUpdateUser,
+        onSuccess: (res) => {
+            if (res?.statusCode === 200) {
+                toast.success("Sửa hồ sơ thành công");
+                refetch();
+                mutation.reset();
+                setOpenModal(false);
+            } else {
+                console.log(res?.data);
+                toast.error(res?.data?.error);
+            }
+        },
+        onError: (error) => {
+            console.error('Error:', error);
+            toast.error(error?.message || 'Something wrong in Server');
+        },
+    });
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const updatedUser = {
+            id: user?.id,
+            firstName: splitName(fullNameRef.current.value).firstName,
+            lastName: splitName(fullNameRef.current.value).lastName,
+            dateOfBirth: dob,
+            gender: genderRef.current.value,
+            phoneNumber: `0${phoneRef.current.value}`,
+            address: `${addressRef.current.value} ${city}`,
+            avatar: imageName,
+        };
+        await mutation.mutateAsync(updatedUser);
     };
 
     return (
@@ -24,45 +79,66 @@ const UpdateAccount = ({ isOpen = false, setOpenModal = () => { } }) => {
             <Modal show={isOpen} size="3xl" className='pt-20' popup onClose={() => setOpenModal(false)} >
                 <Modal.Header />
                 <Modal.Body>
-                    <form >
+                    <form onSubmit={handleSubmit}>
                         <div className="mb-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div className="col-span-2">
                                 <label htmlFor="avatar" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Avatar </label>
-                                <div className='flex items-center gap-x-6 xs:gap-x-10'>
-                                    <Upload onChange={handleOnchangeAvatar} maxCount={1}>
-                                        <Button icon={<UploadOutlined />}>Tải ảnh lên</Button>
-                                    </Upload>
-                                    {avatar &&
-                                        <Image
-                                            src={avatar}
-                                            style={{ height: '90px', width: '90px', borderRadius: '50%', objectFit: 'cover', border: '1px solid gray' }}
-                                            alt="avatar"
-                                        />
-                                    }
+                                <div className="w-[200px] h-[200px] mx-auto rounded-full mb-10">
+                                    <ImageUpload
+                                        className="!rounded-full h-full"
+                                        onChange={handleOnchangeImage}
+                                        handleDeleteImage={handleDeleteImage}
+                                        progress={progress}
+                                        image={imageURL ?? avatar}
+                                        imageName={imageName}
+                                    />
                                 </div>
 
                             </div>
                             <div className="col-span-2 sm:col-span-1">
                                 <label htmlFor="full_name_info_modal" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Họ và tên </label>
-                                <input type="text" id="full_name_info_modal" className="outline-none block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="Enter your first name" required />
+                                <input
+                                    type="text"
+                                    defaultValue={`${user?.lastName} ${user?.firstName}` || ''}
+                                    ref={fullNameRef}
+                                    id="full_name_info_modal"
+                                    className="outline-none block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
+                                    placeholder="Nhập họ và tên"
+                                    required
+                                />
                             </div>
                             <div className="col-span-2 sm:col-span-1">
                                 <label htmlFor="email_info_modal" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Email </label>
-                                <input type="text" id="email_info_modal" className="outline-none block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="Enter your email here" required />
+                                <input
+                                    type="text"
+                                    readOnly
+                                    defaultValue={user?.email || ''}
+                                    id="email_info_modal"
+                                    className="outline-none cursor-not-allowed block w-full rounded-lg border border-gray-300 bg-gray-200 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="Enter your email here" />
                             </div>
-                            <div className="col-span-2 ">
+                            {/* <div className="col-span-2 ">
                                 <label htmlFor="title_info_modal" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Chức danh công việc </label>
                                 <input type="text" id="title_info_modal" className="outline-none block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="ex: Business Analysist" required />
-                            </div>
+                            </div> */}
                             <div className="col-span-2 sm:col-span-1">
                                 <label htmlFor="birthDay_info_modal" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Ngày sinh </label>
-                                <Datepicker value={dob} onChange={(date) => setDOB(date)} language='vi' placeholder='Chọn ngày sinh' />
+                                <Datepicker
+                                    value={dob}
+                                    onChange={(date) => setDOB(date)}
+                                    language='vi'
+                                    placeholder='Chọn ngày sinh'
+                                />
                             </div>
                             <div className="col-span-2 sm:col-span-1">
                                 <label htmlFor="gender_info_modal" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Giới tính </label>
-                                <Select id="gender_info_modal" defaultValue={'male'} required>
-                                    <option value={'male'}>Nam</option>
-                                    <option value={'female'}>Nữ</option>
+                                <Select
+                                    id="gender_info_modal"
+                                    defaultValue={user?.gender || 'FEMALE'}
+                                    ref={genderRef}
+                                    required
+                                >
+                                    <option value={'MALE'}>Nam</option>
+                                    <option value={'FEMALE'}>Nữ</option>
                                 </Select>
                             </div>
                             <div className="col-span-2">
@@ -73,24 +149,41 @@ const UpdateAccount = ({ isOpen = false, setOpenModal = () => { } }) => {
                                         +84
                                     </button>
                                     <div className="relative w-full">
-                                        <input type="text" id="phone-input" className="z-20 outline-none block w-full rounded-e-lg border border-s-0 border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:border-s-gray-700  dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="0123 456 789" required />
+                                        <input
+                                            type="text"
+                                            defaultValue={user?.phone || ''}
+                                            ref={phoneRef}
+                                            id="phone-input"
+                                            className="z-20 outline-none block w-full rounded-e-lg border border-s-0 border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:border-s-gray-700  dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500" placeholder="0123 456 789" required />
                                     </div>
                                 </div>
                             </div>
                             <div className="col-span-2">
                                 <label htmlFor="address_billing_modal" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Địa chỉ </label>
-                                <textarea id="address_billing_modal" rows={3} className="block w-full outline-none rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="Enter here your address" defaultValue={""} />
+                                <input
+                                    type='text'
+                                    id="address_billing_modal"
+                                    defaultValue={user?.address ?? ''}
+                                    ref={addressRef}
+                                    rows={3}
+                                    className="block w-full outline-none rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="Enter here your address" />
                             </div>
                             <div className="col-span-2 sm:col-span-1">
                                 <div className="mb-2 flex items-center gap-2">
                                     <label htmlFor="select_city_input_billing_modal" className="block text-sm font-medium text-gray-900 dark:text-white"> Tỉnh thành </label>
                                 </div>
-                                <select id="select_city_input_billing_modal" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500">
-                                    <option selected>Hồ Chí Minh</option>
-                                    <option value="NY">Hà Nội</option>
-                                    <option value="LA">Đà Nẵng</option>
-                                    <option value="CH">Cần Thơ</option>
-                                    <option value="HU">Đồng Tháp</option>
+                                <select
+                                    id="select_city_input_billing_modal"
+                                    defaultValue={city}
+                                    onChange={(e) => setCity(e.target.value)}
+                                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500">
+                                    <option value="">Chọn tỉnh thành</option>
+                                    <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                                    <option value="Hà Nội">Hà Nội</option>
+                                    <option value="Huế">Huế</option>
+                                    <option value="Đà Nẵng">Đà Nẵng</option>
+                                    <option value="Cần Thơ">Cần Thơ</option>
+                                    <option value="Đồng Tháp">Đồng Tháp</option>
                                 </select>
                             </div>
                             <div className="col-span-2 sm:col-span-1">
@@ -99,8 +192,8 @@ const UpdateAccount = ({ isOpen = false, setOpenModal = () => { } }) => {
                             </div>
                         </div>
                         <div className="text-right border-t border-gray-200 pt-4 dark:border-gray-700 md:pt-5">
-                            <button type="submit" className="me-2 inline-flex items-center rounded-lg bg-primary-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Save information</button>
-                            <button type="button" data-modal-toggle="accountInformationModal2" className="me-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700">Cancel</button>
+                            <button type="submit" className="me-2 inline-flex items-center rounded-lg bg-primary-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Lưu</button>
+                            <button type="button" data-modal-toggle="accountInformationModal2" className="me-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700">Hủy bỏ</button>
                         </div>
                     </form>
                 </Modal.Body>

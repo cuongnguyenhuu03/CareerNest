@@ -9,7 +9,7 @@ const postRegister = (data) => {
 }
 
 const postLogout = () => {
-    return axios.post('/logout');
+    return axios.post('/auth/logout');
 }
 
 const getAllUsers = () => {
@@ -21,7 +21,7 @@ const getDetailUser = (id) => {
 }
 
 const putUpdateUser = (data) => {
-    return axios.put(`/users/update`, { ...data })
+    return axios.put(`/users`, { ...data })
 };
 
 const deleteUser = (userId) => {

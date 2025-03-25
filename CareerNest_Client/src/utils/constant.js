@@ -5,7 +5,7 @@ export const path = {
 
     ACCOUNT: '/account',
     ACCOUNT__OVERVIEW: 'overview',
-    ACCOUNT__PROFILE: 'profile/:id',
+    ACCOUNT__PROFILE: 'profile',
     ACCOUNT__MY__JOB: 'my-job',
     ACCOUNT__GET__JOB__VIA__MAIL: 'get-job-via-email',
 

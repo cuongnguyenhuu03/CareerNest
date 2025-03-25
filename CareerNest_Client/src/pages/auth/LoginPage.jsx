@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
 import { HiMail, HiEye, HiEyeOff } from "react-icons/hi";
 import { path } from '../../utils/constant';
@@ -8,6 +8,7 @@ import { postLogin } from '../../services/userService';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { updateUserInfo } from "../../redux/slices/userSlice";
+import { useDetailUser } from "../../hooks/useDetailUer";
 
 export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
     const [formData, setFormData] = useState({
@@ -16,26 +17,36 @@ export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
         remember: false,
         errors: {}
     });
-    const dispatch = useDispatch();
+    const [userId, setUserId] = useState('');
+    const [accessToken, setAccessToken] = useState('');
 
+    const dispatch = useDispatch();
+    const { res } = useDetailUser(userId || undefined);
 
     const mutation = useMutation({
         mutationFn: postLogin,
         onSuccess: async (res) => {
             if (+res?.statusCode === 200) {
                 dispatch(updateUserInfo({ ...res?.data }));
-                toast.success('Đăng nhập thành công')
-                setOpenModal(false);
+                setUserId(res?.data?.user?.id);
+                setAccessToken(res?.data?.access_token);
                 mutation.reset();
-            } else {
+            } else
                 toast.error(res?.error ?? 'Login failed!');
-            }
         },
         onError: (error) => {
             console.error('Error:', error);
             toast.error(error.message || 'Something wrong in Server');
         },
     });
+
+    useEffect(() => {
+        if (userId && accessToken && res) {
+            dispatch(updateUserInfo({ info: res?.data, access_token: accessToken }));
+            toast.success('Đăng nhập thành công')
+            setOpenModal(false);
+        }
+    }, [userId, accessToken, res]);
 
     const [showPassword, setShowPassword] = useState(false);
 
@@ -71,9 +82,9 @@ export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
         if (!formData.password) {
             errors.password = "Vui lòng nhập mật khẩu";
         }
-        // else if (!validate("password", formData.password)) {
-        //     errors.password = "Mật khẩu phải có ít nhất một chữ hoa, một chữ thường, một số và một ký tự đặc biệt.";
-        // }
+        else if (!validate("password", formData.password)) {
+            errors.password = "Mật khẩu phải có ít nhất một chữ hoa, một chữ thường, một số và một ký tự đặc biệt.";
+        }
 
         if (Object.keys(errors).length > 0) {
             setFormData((prev) => ({ ...prev, errors }));

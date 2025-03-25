@@ -53,7 +53,7 @@ const DetailJobPage = () => {
     if (!params?.id) return null;
     if (isLoading || isFetching)
         return (
-            <div className='ct-container flex flex-col gap-8 mt-20'>
+            <div className='ct-container flex flex-col gap-8 mt-20 dark:text-gray-800'>
                 <div>
                     <div role="status" className="space-y-8 animate-pulse md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center">
                         <div className="flex items-center justify-center w-full h-48 bg-gray-300 rounded-sm sm:w-96 dark:bg-gray-700">
@@ -92,7 +92,7 @@ const DetailJobPage = () => {
         );
     }
     return (
-        <div ref={ref} className='ct-container flex flex-col gap-8 mt-20'>
+        <div ref={ref} className='ct-container flex flex-col gap-8 mt-[61px]'>
             <Breadcrumbs data={data} />
             <div className='w-full shadow-md flex items-center justify-between py-3 gap-3 xs:gap-6 rounded-lg pl-2'>
                 <img
@@ -101,7 +101,7 @@ const DetailJobPage = () => {
                 />
                 <div className='flex flex-auto flex-col gap-1'>
                     <div className='flex flex-col gap-y-4 md:gap-y-0 md:flex-row md:items-center md:justify-between md:pr-6'>
-                        <div className='text-sm order-2 md:order-1 md:text-base lg:text-lg xl:text-xl font-medium uppercase' >
+                        <div className='text-sm order-2 md:order-1 md:text-base lg:text-lg xl:text-xl font-medium uppercase dark:text-white' >
                             {detailJob?.name}
                         </div>
                         <div className='flex order-1 md:order-2 items-center gap-4'>
@@ -122,7 +122,7 @@ const DetailJobPage = () => {
                             </Button>
                         </div>
                     </div>
-                    <div className='flex gap-2 items-center text-sm md:text-base font-medium text-[#23527c] cursor-pointer hover:underline'
+                    <div className='flex gap-2 items-center text-sm md:text-base font-medium text-[#23527c] dark:text-blue-500 cursor-pointer hover:underline'
                         onClick={() => navigate(`${path.RECRUITMENT}/detail/${detailJob?.company?.id}/${slugify(detailJob?.company?.name, { lower: true, strict: true })}`)}
                         onMouseEnter={() => handlePrefetchRecruitment(+detailJob?.company?.id)}
                         onTouchStart={() => handlePrefetchRecruitment(+detailJob?.company?.id)}
@@ -132,16 +132,16 @@ const DetailJobPage = () => {
                     <div className='flex mb-6 gap-2 text-orange-600 items-center text-xs md:text-sm font-light'>
                         <FaMoneyCheckDollar /> Lương: {detailJob?.salary}$
                     </div>
-                    <div className='flex gap-2 items-center text-xs md:text-sm font-light'>
+                    <div className='flex gap-2 items-center text-xs md:text-sm font-light dark:text-white dark:tracking-wide'>
                         <IoMdTime /> Hạn nộp: {convertTimeStampToString(detailJob?.endDate, true)}
                     </div>
                 </div>
             </div>
 
             <div className='hidden w-full sm:flex gap-6'>
-                <div className='basis-2/5 h-fit rounded-lg flex flex-col gap-3 bg-[#ebeeef] p-4'>
-                    <h1 className='flex items-center gap-2 text-lg font-medium'> <FaCircleInfo className='text-gray-500' size={15} /> Nhà tuyển dụng:</h1>
-                    <div className='flex gap-2 text-base font-semibold text-[#23527c] cursor-pointer hover:underline'
+                <div className='basis-2/5 h-fit rounded-lg flex flex-col gap-3 bg-[#ebeeef] p-4 dark:bg-gray-700'>
+                    <h1 className='flex items-center gap-2 text-lg font-medium dark:text-white'> <FaCircleInfo className='text-gray-500 ' size={15} /> Nhà tuyển dụng:</h1>
+                    <div className='flex gap-2 text-base font-semibold text-[#23527c] dark:text-blue-500 cursor-pointer hover:underline'
                         onClick={() => navigate(`${path.RECRUITMENT}/detail/${detailJob?.company?.id}/${slugify(detailJob?.company?.name, { lower: true, strict: true })}`)}
                         onMouseEnter={() => handlePrefetchRecruitment(+detailJob?.company?.id)}
                         onTouchStart={() => handlePrefetchRecruitment(+detailJob?.company?.id)}
@@ -149,18 +149,18 @@ const DetailJobPage = () => {
                         <FaRegBuilding size={15} /> {detailJob?.company?.name}
                     </div>
                     <div className='text-justify text-sm px-3 font-light'>
-                        {detailJob?.company?.description}
+                        <div className='dark:text-gray-400 text-justify' dangerouslySetInnerHTML={{ __html: detailJob?.company?.description }}></div>
                     </div>
                     <div className='flex gap-2 items-center'>
                         <IoPeople className='text-[#23527c]' size={15} />
-                        <span className='font-medium'> Quy mô:</span> {detailJob?.company?.size}  nhân viên
+                        <span className='font-medium dark:text-white'> Quy mô:</span> <span className='dark:text-white dark:font-light'>{detailJob?.company?.size}  nhân viên</span>
                     </div>
                     <div className='flex gap-2 items-center '>
                         <GrLocation className='text-[#23527c]' size={15} />
-                        <span className='font-medium'> Địa chỉ:</span> {detailJob?.company?.address}
+                        <span className='font-medium dark:text-white'> Địa chỉ:</span> <span className='dark:text-white dark:font-light'>{detailJob?.company?.address}</span>
                     </div>
                 </div>
-                <div className='basis-3/5 flex flex-col gap-3'>
+                <div className='basis-3/5 flex flex-col gap-3 dark:text-white'>
                     <h1 className='uppercase text-lg sm:text-xl font-semibold'>Chi tiết công việc</h1>
                     <div>
                         <List ordered className='flex flex-col gap-6'>
@@ -179,15 +179,14 @@ const DetailJobPage = () => {
                                 <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
                                     2. Mô tả công việc
                                 </div>
-                                <div dangerouslySetInnerHTML={{ __html: detailJob?.description }}></div>
-
+                                <div className='text-black text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.description }}></div>
                             </div>
 
                             <div className='flex flex-col'>
                                 <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
                                     3. Yêu cầu ứng viên
                                 </div>
-                                <div dangerouslySetInnerHTML={{ __html: detailJob?.requirements?.replace(/\*/g, '<br>•') }}></div>
+                                <div className='text-black text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.requirements?.replace(/\*/g, '<br>•') }}></div>
                             </div>
                         </List>
                     </div>
@@ -195,29 +194,29 @@ const DetailJobPage = () => {
             </div>
 
             <div className='w-full sm:hidden flex flex-col gap-6'>
-                <div className='h-fit rounded-lg flex flex-col gap-3 bg-[#ebeeef] p-4'>
-                    <h1 className='flex items-center gap-2 text-lg font-medium'> <FaCircleInfo className='text-gray-500' size={15} /> Nhà tuyển dụng:</h1>
-                    <div className='flex gap-2 text-base font-semibold text-[#23527c] cursor-pointer hover:underline'
+                <div className='h-fit rounded-lg flex flex-col gap-3 bg-[#ebeeef] p-4 dark:bg-gray-700'>
+                    <h1 className='flex items-center gap-2 text-lg font-medium dark:text-white'> <FaCircleInfo className='text-gray-500' size={15} /> Nhà tuyển dụng:</h1>
+                    <div className='flex gap-2 text-base font-semibold text-[#23527c] dark:text-blue-500 cursor-pointer hover:underline'
                         onClick={() => navigate(`${path.RECRUITMENT}/detail/${detailJob?.company?.id}/${slugify(detailJob?.company?.name, { lower: true, strict: true })}`)}
                         onMouseEnter={() => handlePrefetchRecruitment(+detailJob?.company?.id)}
                         onTouchStart={() => handlePrefetchRecruitment(+detailJob?.company?.id)}
                     >
                         <FaRegBuilding size={15} /> {detailJob?.company?.name}
                     </div>
-                    <div className='text-justify text-sm px-3 font-light'>
-                        {detailJob?.company?.description}
+                    <div className='text-sm px-3 font-light'>
+                        <div className='text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.company?.description }}></div>
                     </div>
                     <div className='flex gap-2 items-center'>
                         <IoPeople className='text-[#23527c]' size={15} />
-                        <span className='font-medium'> Quy mô:</span> {detailJob?.company?.size} nhân viên
+                        <span className='font-medium dark:text-white'> Quy mô:</span> <span className='dark:text-gray-400'>{detailJob?.company?.size} nhân viên</span>
                     </div>
                     <div className='flex gap-2 items-center '>
                         <GrLocation className='text-[#23527c]' size={15} />
-                        <span className='font-medium'> Địa chỉ:</span> {detailJob?.company?.address}
+                        <span className='font-medium dark:text-white'> Địa chỉ:</span> <span className='dark:text-gray-400'>{detailJob?.company?.address}</span>
                     </div>
                 </div>
                 <div className='flex flex-col gap-3'>
-                    <h1 className='uppercase text-lg sm:text-xl font-semibold'>Chi tiết công việc</h1>
+                    <h1 className='uppercase text-lg sm:text-xl font-semibold dark:text-white'>Chi tiết công việc</h1>
                     <div>
                         <List ordered className='flex flex-col gap-6'>
                             <List.Item className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
@@ -236,7 +235,7 @@ const DetailJobPage = () => {
                                 <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
                                     2. Mô tả công việc
                                 </div>
-                                <div dangerouslySetInnerHTML={{ __html: detailJob?.description?.replace(/\*/g, '<br>•') }}></div>
+                                <div className='text-black text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.description?.replace(/\*/g, '<br>•') }}></div>
 
                             </div>
 
@@ -244,7 +243,7 @@ const DetailJobPage = () => {
                                 <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
                                     3. Yêu cầu ứng viên
                                 </div>
-                                <div dangerouslySetInnerHTML={{ __html: detailJob?.requirements?.replace(/\*/g, '<br>•') }}></div>
+                                <div className='text-black text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.requirements?.replace(/\*/g, '<br>•') }}></div>
                             </div>
                         </List>
                     </div>

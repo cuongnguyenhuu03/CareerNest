@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { Alert, Avatar } from 'flowbite-react';
+import { Alert } from 'flowbite-react';
 import icons from '../../utils/icons';
 import JobCard from '../../components/card/JobCard';
 import { CgWebsite } from "react-icons/cg";
@@ -12,6 +12,7 @@ import { useQuery } from '@tanstack/react-query';
 import { HiInformationCircle } from "react-icons/hi";
 import { getJobsByCompany } from '../../services/jobService';
 import withErrorBoundary from '../../hoc/withErrorBoundary';
+import '../job/DetailJobPage.scss';
 
 const { IoPeople, GrLocation, FaCircleInfo } = icons;
 
@@ -46,12 +47,12 @@ const DetailRecruitmentPage = () => {
         staleTime: 10 * 1000,
         refetchOnWindowFocus: false,
     })
-    const jobsByCompany = resJobs?.data;
+    const jobsByCompany = resJobs?.data?.content;
 
     if (!id || !slug) return null;
     if (isLoading || isFetching)
         return (
-            <div className='ct-container flex flex-col gap-8 mt-20'>
+            <div className='ct-container flex flex-col gap-8 mt-20 dark:bg-gray-800'>
                 <div>
                     <div role="status" className="space-y-8 animate-pulse md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center">
                         <div className="flex items-center justify-center w-full h-48 bg-gray-300 rounded-sm sm:w-96 dark:bg-gray-700">
@@ -90,12 +91,18 @@ const DetailRecruitmentPage = () => {
         );
     }
     return (
-        <div className='ct-container mt-24'>
+        <div className='ct-container mt-[60px]'>
             <Breadcrumbs data={data} />
             <div ref={ref} className='w-full h-[250px] rounded-md relative bg-cover bg-no-repeat bg-center' style={{ backgroundImage: `url(/cover-default.jpg)` }} >
                 <div className='w-full h-full py-3 flex flex-col gap-4 items-center justify-end  bg-gray-900 bg-opacity-30'>
-                    <Avatar img={detailCompany?.logoUrl} size='xl' rounded />
-                    <h1 className='uppercase font-semibold text-white text-base xs:text-xl sm:text-2xl'>{detailCompany?.name}</h1>
+                    <img
+                        src={detailCompany?.logoUrl}
+                        alt="company Logo"
+                        className="w-40 h-40 object-contain dark:object-contain"
+                    />
+                    <h1 className='uppercase text-center font-semibold text-white text-base xs:text-xl sm:text-2xl'>
+                        {detailCompany?.name}
+                    </h1>
                 </div>
             </div>
 
@@ -105,8 +112,8 @@ const DetailRecruitmentPage = () => {
                         <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
                             1. Giới thiệu nhà tuyển dụng
                         </div>
-                        <div className='text-justify text-sm px-3'>
-                            {detailCompany?.description}
+                        <div className='text-justify text-sm px-3 job-description'>
+                            <div className='text-justify text-black dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailCompany?.description }}></div>
                         </div>
                     </div>
                     <div className='flex flex-col gap-6'>
@@ -123,23 +130,23 @@ const DetailRecruitmentPage = () => {
                     </div>
                 </div>
                 <div className='basis-2/5 flex flex-col gap-3'>
-                    <h1 className='flex items-center gap-2 md:text-base lg:text-lg font-medium uppercase'> <FaCircleInfo className='text-gray-500' size={15} /> Thông tin nhà tuyển dụng</h1>
+                    <h1 className='flex items-center gap-2 md:text-base lg:text-lg font-medium uppercase dark:text-white'> <FaCircleInfo className='text-gray-500' size={15} /> Thông tin nhà tuyển dụng</h1>
                     <div className='flex gap-2 items-center'>
                         <CgWebsite className='text-[#23527c]' size={15} />
-                        <span className='font-medium'> Website:</span> <a className='text-blue-600 hover:underline' target='blank' href="https://www.facebook.com/">
-                            {detailCompany?.socialLinks?.facebook}
+                        <span className='font-medium dark:text-white'> Website:</span> <a className='text-blue-600 hover:underline' target='blank' href={detailCompany?.website}>
+                            {detailCompany?.website}
                         </a>
                     </div>
                     <div className='flex gap-2 items-center'>
                         <IoPeople className='text-[#23527c]' size={15} />
-                        <span className='font-medium'> Quy mô:</span> {detailCompany?.size} nhân viên
+                        <span className='font-medium dark:text-white'> Quy mô:</span> <span className='dark:text-gray-400'>{detailCompany?.size} nhân viên</span>
                     </div>
                     <div className='flex gap-2 items-center '>
                         <GrLocation className='text-[#23527c]' size={15} />
-                        <span className='font-medium'> Địa chỉ:</span> {detailCompany?.address}
+                        <span className='font-medium dark:text-white'> Địa chỉ:</span> <span className='dark:text-gray-400'>{detailCompany?.address}</span>
                     </div>
 
-                    <h1 className='mt-6 flex items-center gap-2 text-lg font-medium uppercase'> <TbMapSearch className='text-gray-500' size={15} />
+                    <h1 className='mt-6 flex items-center gap-2 text-lg font-medium uppercase dark:text-white'> <TbMapSearch className='text-gray-500' size={15} />
                         Bản đồ
                     </h1>
                     <iframe className='w-full h-[300px] md:h-[400px]'
@@ -151,21 +158,23 @@ const DetailRecruitmentPage = () => {
             {/* Resonsive for Mobile */}
             <div className='sm:hidden w-full flex flex-col px-2 mt-8'>
                 <div className='w-full flex flex-col gap-2 mb-8'>
-                    <h1 className='flex items-center gap-2 text-lg font-medium uppercase'> <FaCircleInfo className='text-gray-500' size={15} /> Thông tin nhà tuyển dụng</h1>
+                    <h1 className='flex items-center gap-2 text-lg font-medium uppercase dark:text-white'> <FaCircleInfo className='text-gray-500' size={15} /> Thông tin nhà tuyển dụng</h1>
                     <div className='flex gap-2 items-center'>
                         <CgWebsite className='text-[#23527c]' size={15} />
-                        <span className='font-medium'> Website:</span> <a className='text-blue-600 hover:underline' target='blank' href="https://www.facebook.com/">www.facebook.com</a>
+                        <span className='font-medium dark:text-white'> Website:</span> <a className='text-blue-600 hover:underline' target='blank' href={detailCompany?.website}>
+                            <span className='dark:text-gray-400'>{detailCompany?.website}</span>
+                        </a>
                     </div>
                     <div className='flex gap-2 items-center'>
                         <IoPeople className='text-[#23527c]' size={15} />
-                        <span className='font-medium'> Quy mô:</span> 25-99 nhân viên
+                        <span className='font-medium dark:text-white'> Quy mô:</span> <span className='dark:text-gray-400'>{detailCompany?.size} nhân viên</span>
                     </div>
                     <div className='flex gap-2 items-center '>
                         <GrLocation className='text-[#23527c]' size={15} />
-                        <span className='font-medium'> Địa chỉ:</span> 15/4 Đặng Lộ P7 Q.Tân Bình, TP.HCM
+                        <span className='font-medium dark:text-white'> Địa chỉ:</span> <span className='dark:text-gray-400'>{detailCompany?.address}</span>
                     </div>
 
-                    <h1 className='mt-6 flex items-center gap-2 text-lg font-medium uppercase'> <TbMapSearch className='text-gray-500' size={15} />
+                    <h1 className='mt-6 flex items-center gap-2 text-lg font-medium uppercase dark:text-white'> <TbMapSearch className='text-gray-500' size={15} />
                         Bản đồ
                     </h1>
                     <iframe className='w-full h-[300px] md:h-[400px]'
@@ -178,7 +187,7 @@ const DetailRecruitmentPage = () => {
                             1. Giới thiệu nhà tuyển dụng
                         </div>
                         <div className='text-justify text-sm px-0 xs:px-3'>
-                            {detailCompany?.description}
+                            <div className='text-justify text-black dark:text-gray-400  ' dangerouslySetInnerHTML={{ __html: detailCompany?.description }}></div>
                         </div>
                     </div>
                     <div className='flex flex-col gap-6'>
