@@ -1,3 +1,5 @@
+import { grey, green, blue, red, orange } from '@ant-design/colors';
+
 export const path = {
     HOME: '/',
     REGISTER__CANDIDATE: '/register-candidate',
@@ -21,6 +23,7 @@ export const path = {
     SYSTEM: '/system',
     SYSTEM__LOGIN: 'login',
     SYSTEM__DASHBOARD: 'dashboard',
+    SYSTEM__ROLE: 'role',
 
     JOB: '/job',
     DETAIL__JOB: 'detail/:id/:slug',
@@ -65,4 +68,19 @@ export const ALL_PERMISSIONS = {
         UPDATE: { method: "PUT", apiPath: '/api/v1/users', module: "USERS" },
         DELETE: { method: "DELETE", apiPath: '/api/v1/users/{id}', module: "USERS" },
     },
-} 
+}
+
+export const colorMethod = (method) => {
+    switch (method) {
+        case "POST":
+            return green[6]
+        case "PUT":
+            return orange[6]
+        case "GET":
+            return blue[6]
+        case "DELETE":
+            return red[6]
+        default:
+            return grey[10];
+    }
+}
