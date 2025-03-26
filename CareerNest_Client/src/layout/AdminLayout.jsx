@@ -76,15 +76,15 @@ const AdminLayout = () => {
                     : []
                 ),
                 ...(permissions?.some(item => item.apiPath === ALL_PERMISSIONS.RESUMES.GET_PAGINATE.apiPath) || ACL_ENABLE === 'false'
-                    ? [{ label: <Link to='/admin/resume'>Resume</Link>, key: '/admin/resume', icon: <AliwangwangOutlined /> }]
+                    ? [{ label: <Link to='/system/resume'>Resume</Link>, key: '/system/resume', icon: <AliwangwangOutlined /> }]
                     : []
                 ),
                 ...(permissions?.some(item => item.apiPath === ALL_PERMISSIONS.PERMISSIONS.GET_PAGINATE.apiPath) || ACL_ENABLE === 'false'
-                    ? [{ label: <Link to='/admin/permission'>Permission</Link>, key: '/admin/permission', icon: <ApiOutlined /> }]
+                    ? [{ label: <Link to='/system/permission'>Permission</Link>, key: '/system/permission', icon: <ApiOutlined /> }]
                     : []
                 ),
                 ...(permissions?.some(item => item.apiPath === ALL_PERMISSIONS.ROLES.GET_PAGINATE.apiPath) || ACL_ENABLE === 'false'
-                    ? [{ label: <Link to='/admin/role'>Role</Link>, key: '/admin/role', icon: <ExceptionOutlined /> }]
+                    ? [{ label: <Link to='/system/role'>Role</Link>, key: '/system/role', icon: <ExceptionOutlined /> }]
                     : []
                 ),
             ];

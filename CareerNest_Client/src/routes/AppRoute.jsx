@@ -30,6 +30,7 @@ const CVDetailPage = lazy(() => import('../pages/cv/CVDetailPage'));
 const LoginRecruitmentPage = lazy(() => import('../pages/recruitment/LoginRecruitmentPage'));
 const LoginAdminPage = lazy(() => import('../pages/system/LoginAdminPage'));
 const DashboardPage = lazy(() => import('../pages/system/DashboardPage'));
+const RolePage = lazy(() => import('../pages/system/RolePage'));
 
 const AppRoute = () => {
 
@@ -68,6 +69,7 @@ const AppRoute = () => {
 
                 <Route path={path.SYSTEM} element={<PrivateRoute><AdminLayout /></PrivateRoute>} >
                     <Route path={path.SYSTEM__DASHBOARD} element={< DashboardPage />} />
+                    <Route path={path.SYSTEM__ROLE} element={< RolePage />} />
                 </Route>
 
                 <Route path={path.REGISTER__CANDIDATE} element={<AuthLayout><RegisterPage /></AuthLayout>} />
