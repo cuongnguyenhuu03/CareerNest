@@ -9,7 +9,7 @@ import { usePermissions } from "../../../hooks/usePermissions";
 import withErrorBoundary from "../../../hoc/withErrorBoundary";
 import ModalRoleSkeleton from "../../../components/skeleton/ModalRoleSkeleton";
 import ModuleApi from "./ModuleAPI";
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { postCreateNewRole, putUpdateRole } from "../../../services/roleService";
 import { toast } from "react-toastify";
 import { useDetailRole } from "../../../hooks/useDetailRole";
@@ -19,6 +19,7 @@ const ModalRole = ({ roleId = '', setRoleId = () => { }, openModal, setOpenModal
     const { res: resDetailRole, isFetching: isFetchingDetailRole, error: errorDetailRole, refetch: refetchDetailRole } = useDetailRole(roleId);
     const [form] = Form.useForm();
     const { res, isLoading, isFetching, error, refetch } = usePermissions();
+    const queryClient = useQueryClient()
 
     const groupByPermission = (data) => {
         const groupedData = groupBy(data, x => x.module);
@@ -69,6 +70,8 @@ const ModalRole = ({ roleId = '', setRoleId = () => { }, openModal, setOpenModal
         mutationFn: singleRole?.id ? putUpdateRole : postCreateNewRole,
         onSuccess: (res) => {
             if (+res?.statusCode === 200) {
+                if (roleId)
+                    queryClient.setQueryData(['detail_role', roleId], res) //cập nhật data trong react-query-devtools
                 message.success(singleRole?.id ? "Cập nhật role thành công" : "Thêm mới role thành công");
                 handleReset();
                 reloadTable();
@@ -107,8 +110,11 @@ const ModalRole = ({ roleId = '', setRoleId = () => { }, openModal, setOpenModal
         setRoleId('');
     };
 
-    if (error) console.log(error);
-    if (isFetching || isLoading)
+    if (error || errorDetailRole) {
+        console.log(error || errorDetailRole);
+        return <></>
+    }
+    if (isFetching || isLoading || isFetchingDetailRole)
         return (<ModalRoleSkeleton />)
     return (
         <ModalForm

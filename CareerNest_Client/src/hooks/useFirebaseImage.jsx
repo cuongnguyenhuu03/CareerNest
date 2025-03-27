@@ -3,7 +3,7 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL, deleteObject } f
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 
-export default function useFirebaseImage(setValue, imageNameState, imageName = '', callback = () => { }) {
+export default function useFirebaseImage(type = '', setValue, imageNameState, imageName = '', callback = () => { }) {
     const [progress, setProgress] = useState(0);
     const [imageURL, setImageURL] = useState('');
 
@@ -11,7 +11,7 @@ export default function useFirebaseImage(setValue, imageNameState, imageName = '
 
     const handleUploadImage = (file) => {
         const storage = getStorage();
-        const storageRef = ref(storage, 'users/' + `user-${uuidv4()}`);
+        const storageRef = ref(storage, `${type}/${type}-${uuidv4()}`);
         const uploadTask = uploadBytesResumable(storageRef, file);
         // Listen for state changes, errors, and completion of the upload.
         uploadTask.on('state_changed',
@@ -58,7 +58,7 @@ export default function useFirebaseImage(setValue, imageNameState, imageName = '
     const handleDeleteImage = async () => {
         const storage = getStorage();
         // Create a reference to the file to delete
-        const desertRef = ref(storage, `users/${imageName || imageNameState}`);
+        const desertRef = ref(storage, `${type}/${imageName || imageNameState}`);
         // Delete the file
         await deleteObject(desertRef)
             .then(() => {

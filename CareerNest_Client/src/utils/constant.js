@@ -23,6 +23,7 @@ export const path = {
     SYSTEM: '/system',
     SYSTEM__LOGIN: 'login',
     SYSTEM__DASHBOARD: 'dashboard',
+    SYSTEM__COMPANY: 'company',
     SYSTEM__ROLE: 'role',
 
     JOB: '/job',

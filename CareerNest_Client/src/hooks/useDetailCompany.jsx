@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { getDetailRole } from '../services/roleService';
+import { getDetailCompany } from '../services/companyService';
 
-export const useDetailRole = (id) => {
+export const useDetailCompany = (id) => {
     const {
         data: res,
         isLoading,
@@ -9,8 +9,8 @@ export const useDetailRole = (id) => {
         error,
         refetch,
     } = useQuery({
-        queryKey: ['detail_role', id],
-        queryFn: () => getDetailRole(id),
+        queryKey: ['detail_company', id],
+        queryFn: () => getDetailCompany(id),
         enabled: !!id,
         staleTime: 60 * 1000,
         refetchOnWindowFocus: false,

@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { path } from '../../utils/constant';
 import slugify from 'slugify';
 import icons from '../../utils/icons';
+import { getFirebaseImageUrl } from '../../utils/getFirebaseImageURL';
 
 const { GrLocation } = icons;
 
-const defaultLogo = "https://rubicmarketing.com/wp-content/uploads/2022/11/y-nghia-logo-mb-bank-2.jpg";
 const EmployerLogoCard = ({ data = {} }) => {
     const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ const EmployerLogoCard = ({ data = {} }) => {
             {/* Logo */}
             <div className="flex justify-center mt-4">
                 <img
-                    src={data?.logoUrl ?? defaultLogo}
+                    src={data?.logoUrl ? getFirebaseImageUrl(data.logoUrl, 'companies') : ''}
                     alt="company Logo"
                     className="w-36 h-36 object-contain dark:object-contain shadow-sm"
                 />

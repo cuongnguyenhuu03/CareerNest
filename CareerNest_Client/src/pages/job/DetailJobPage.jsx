@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, } from 'react';
 import icons from '../../utils/icons';
-import { Alert, Button, List, } from "flowbite-react";
+import { Alert, Badge, Button, List, } from "flowbite-react";
 import { useNavigate, useParams } from 'react-router-dom';
 import { path } from '../../utils/constant';
 import slugify from 'slugify';
@@ -13,6 +13,7 @@ import { convertTimeStampToString } from '../../utils/convertTimeStampToString';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { HiInformationCircle } from "react-icons/hi";
 import withErrorBoundary from '../../hoc/withErrorBoundary';
+import { getFirebaseImageUrl } from '../../utils/getFirebaseImageURL';
 
 const { FaRegBuilding, FaMoneyCheckDollar, IoMdTime, IoPeople, GrLocation, FaCircleInfo, HiCheckCircle, FaHeart } = icons;
 const data = [
@@ -49,6 +50,8 @@ const DetailJobPage = () => {
             staleTime: 10 * 1000,
         })
     }
+
+    const isExpired = (date) => new Date(date) < new Date();
 
     if (!params?.id) return null;
     if (isLoading || isFetching)
@@ -96,7 +99,8 @@ const DetailJobPage = () => {
             <Breadcrumbs data={data} />
             <div className='w-full shadow-md flex items-center justify-between py-3 gap-3 xs:gap-6 rounded-lg pl-2'>
                 <img
-                    src={detailJob?.company?.logoUrl} alt="thumbnail"
+                    src={detailJob?.company?.logoUrl ? getFirebaseImageUrl(detailJob.company.logoUrl, 'companies') : ''}
+                    alt="thumbnail"
                     className={`w-[100px] h-[100px] sm:w-[120px] sm:h-[120px] lg:w-[150px] lg:h-[150px] object-contain rounded-md`}
                 />
                 <div className='flex flex-auto flex-col gap-1'>
@@ -105,21 +109,27 @@ const DetailJobPage = () => {
                             {detailJob?.name}
                         </div>
                         <div className='flex order-1 md:order-2 items-center gap-4'>
-                            <Button size='xs' className="block sm:hidden" gradientDuoTone="pinkToOrange" onClick={() => setOpenModal(true)}>
-                                Ứng tuyển
-                            </Button>
-                            <Button size='sm' className="hidden sm:block" gradientDuoTone="pinkToOrange" onClick={() => setOpenModal(true)}>
-                                Ứng tuyển
-                            </Button>
+                            {isExpired(detailJob?.endDate)
+                                ? <Badge color="failure" size='sm' className='uppercase'>Đã hết hạn ứng tuyển</Badge>
+                                :
+                                <>
+                                    <Button size='xs' className="block sm:hidden" gradientDuoTone="pinkToOrange" onClick={() => setOpenModal(true)}>
+                                        Ứng tuyển
+                                    </Button>
+                                    <Button size='sm' className="hidden sm:block" gradientDuoTone="pinkToOrange" onClick={() => setOpenModal(true)}>
+                                        Ứng tuyển
+                                    </Button>
 
-                            <Button size='xs' className="block sm:hidden" gradientDuoTone="pinkToOrange" onClick={() => setOpenModal(true)}>
-                                <FaHeart size={18} className='mr-2' />
-                                Lưu tin
-                            </Button>
-                            <Button size='sm' className="hidden sm:block" gradientDuoTone="pinkToOrange" onClick={() => setOpenModal(true)}>
-                                <FaHeart size={18} className='mr-2' />
-                                Lưu tin
-                            </Button>
+                                    <Button size='xs' className="block sm:hidden" gradientDuoTone="pinkToOrange" onClick={() => setOpenModal(true)}>
+                                        <FaHeart size={18} className='mr-2' />
+                                        Lưu tin
+                                    </Button>
+                                    <Button size='sm' className="hidden sm:block" gradientDuoTone="pinkToOrange" onClick={() => setOpenModal(true)}>
+                                        <FaHeart size={18} className='mr-2' />
+                                        Lưu tin
+                                    </Button>
+                                </>
+                            }
                         </div>
                     </div>
                     <div className='flex gap-2 items-center text-sm md:text-base font-medium text-[#23527c] dark:text-blue-500 cursor-pointer hover:underline'

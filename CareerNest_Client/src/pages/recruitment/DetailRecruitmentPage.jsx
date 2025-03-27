@@ -13,6 +13,7 @@ import { HiInformationCircle } from "react-icons/hi";
 import { getJobsByCompany } from '../../services/jobService';
 import withErrorBoundary from '../../hoc/withErrorBoundary';
 import '../job/DetailJobPage.scss';
+import { getFirebaseImageUrl } from '../../utils/getFirebaseImageURL';
 
 const { IoPeople, GrLocation, FaCircleInfo } = icons;
 
@@ -36,7 +37,7 @@ const DetailRecruitmentPage = () => {
         queryFn: () => getDetailRecruitment(+id),
         enabled: !!id,
         staleTime: 10 * 1000,
-        refetchOnWindowFocus: false,
+        refetchOnWindowFocus: true,
     })
     const detailCompany = resRecruitment?.data;
 
@@ -45,9 +46,9 @@ const DetailRecruitmentPage = () => {
         queryFn: () => getJobsByCompany(+detailCompany?.id),
         enabled: !!detailCompany?.id,
         staleTime: 10 * 1000,
-        refetchOnWindowFocus: false,
+        refetchOnWindowFocus: true,
     })
-    const jobsByCompany = resJobs?.data?.content;
+    const jobsByCompany = resJobs?.data?.content ?? [];
 
     if (!id || !slug) return null;
     if (isLoading || isFetching)
@@ -96,7 +97,7 @@ const DetailRecruitmentPage = () => {
             <div ref={ref} className='w-full h-[250px] rounded-md relative bg-cover bg-no-repeat bg-center' style={{ backgroundImage: `url(/cover-default.jpg)` }} >
                 <div className='w-full h-full py-3 flex flex-col gap-4 items-center justify-end  bg-gray-900 bg-opacity-30'>
                     <img
-                        src={detailCompany?.logoUrl}
+                        src={detailCompany?.logoUrl ? getFirebaseImageUrl(detailCompany.logoUrl, 'companies') : ''}
                         alt="company Logo"
                         className="w-40 h-40 object-contain dark:object-contain"
                     />
