@@ -1,16 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
-import { getAllRoles } from '../services/roleService';
+import { getAllSkills } from '../services/skillService';
 import { useSelector } from 'react-redux';
 
-export const useRoles = () => {
+export const useSkills = () => {
     const user = useSelector(state => state?.user?.info);
 
     const { data: res, isLoading, isFetching, error, refetch, } = useQuery({
-        queryKey: ['roles'],
-        queryFn: () => getAllRoles(),
+        queryKey: ['skills'],
+        queryFn: () => getAllSkills(),
         enabled: user?.role?.id === 1, // Chỉ role ADMIN mới được gọi
-        staleTime: 60 * 1000,
-        refetchOnWindowFocus: true,
+        staleTime: 90 * 1000,
+        refetchOnWindowFocus: false,
     });
 
     return { res, isLoading, isFetching, error, refetch };

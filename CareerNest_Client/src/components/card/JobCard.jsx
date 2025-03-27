@@ -8,6 +8,7 @@ import ModalApplyCV from '../../modules/cv/ModalApplyCV';
 import { convertTimeStampToString } from '../../utils/convertTimeStampToString';
 import { getDetailJob } from '../../services/jobService';
 import { path } from '../../utils/constant';
+import { getFirebaseImageUrl } from '../../utils/getFirebaseImageURL';
 
 const { FaMoneyCheckDollar, FaRegBuilding, GrLocation, GrNetworkDrive, FaRegCalendarAlt, HiCheckCircle, FaHeart } = icons;
 
@@ -26,16 +27,20 @@ const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false
         })
     }
 
+    const isExpired = (date) => new Date(date) < new Date();
+
     return (
         <>
             <div
-                className={`${className} rounded-lg w-full flex gap-4 md:gap-6 p-[12px] items-center justify-between cursor-pointer hover:rounded-md ct-hover-transition text-black hover:bg-white dark:hover:bg-gray-700`}
+                className={`${className} ${isExpired(data?.endDate) && 'opacity-60'}
+                rounded-lg w-full flex gap-4 md:gap-6 p-[12px] items-center justify-between cursor-pointer hover:rounded-md ct-hover-transition text-black hover:bg-white dark:hover:bg-gray-700`}
                 onMouseEnter={() => handlePrefetchJob(+data?.id)}
                 onTouchStart={() => handlePrefetchJob(+data?.id)}
             >
                 <div className='flex flex-col gap-2'>
                     <img
-                        src={data?.company?.logoUrl} alt="thumbnail"
+                        src={data?.company?.logoUrl ? getFirebaseImageUrl(data.company.logoUrl, 'companies') : ''}
+                        alt="thumbnail"
                         className={`w-14 h-14 border border-gray-300  sm:w-[60px] sm:h-[60px] md:w-[80px] md:h-[80px] xl:w-[100px] xl:h-[100px] object-contain rounded-md`}
                     />
                     <div className="w-full py-1 text-[8px] md:text-[10px] flex gap-1 items-center justify-center text-white font-semibold rounded bg-red-500">
@@ -141,7 +146,10 @@ const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false
                         <FaMoneyCheckDollar /> Lương: {data?.salary} $
                     </div>
                     <div className='flex gap-2 items-center text-xs md:text-sm font-light dark:text-gray-400'>
-                        <GrNetworkDrive /> Làm việc từ xa
+                        {isExpired(data?.endDate)
+                            ? <Badge color="failure" size='sm' >Đã hết hạn ứng tuyển</Badge>
+                            : <><GrNetworkDrive /> Làm việc từ xa</>
+                        }
                     </div>
                 </div>
             </div>

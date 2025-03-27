@@ -20,7 +20,7 @@ const UpdateAccount = ({ isOpen = false, setOpenModal = () => { } }) => {
 
     const imageRegex = /%2F(\S+)\?/gm.exec(avatar);
     const imageName = imageRegex?.length > 0 ? imageRegex[1] : "";
-    const { imageURL, progress, handleOnchangeImage, handleDeleteImage } = useFirebaseImage(setImageName, imageNameState, imageName);
+    const { imageURL, progress, handleOnchangeImage, handleDeleteImage } = useFirebaseImage("users", setImageName, imageNameState, imageName);
 
     const fullNameRef = useRef(user?.fullName || '');
     const genderRef = useRef(user?.gender || 'MALE');
@@ -93,7 +93,6 @@ const UpdateAccount = ({ isOpen = false, setOpenModal = () => { } }) => {
                                         imageName={imageName}
                                     />
                                 </div>
-
                             </div>
                             <div className="col-span-2 sm:col-span-1">
                                 <label htmlFor="full_name_info_modal" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Họ và tên </label>
