@@ -25,9 +25,15 @@ export const path = {
     SYSTEM__DASHBOARD: 'dashboard',
     SYSTEM__COMPANY: 'company',
     SYSTEM__ROLE: 'role',
+    SYSTEM__USER: 'user',
 
     JOB: '/job',
     DETAIL__JOB: 'detail/:id/:slug',
+
+    BLOG: '/blog',
+
+    CHAT: '/chat',
+    DETAIL__CHAT: 'detail/:id',
 
     FIND__JOB: '/find-job',
 }
