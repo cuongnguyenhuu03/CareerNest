@@ -74,7 +74,7 @@ const FindJobPage = () => {
                 <div className="hidden w-full md:flex items-center justify-between rounded-md shadow-md dark:shadow-lg p-4">
                     <div className='flex items-center gap-4'>
                         {/* Cấp bậc */}
-                        <Dropdown label="Cấp bậc" color='gray' className="border-gray-300">
+                        <Dropdown label="Cấp bậc" color='light' className="border-gray-300">
                             <div className="p-2 w-32 lg:w-40">
                                 {["Fresher", "Junior", "Senior", "Manager"].map((level) => (
                                     <label key={level} className="flex items-center gap-2 p-1">

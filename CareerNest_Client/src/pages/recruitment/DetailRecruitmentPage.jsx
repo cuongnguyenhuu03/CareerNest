@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { Alert } from 'flowbite-react';
+import { Alert, Badge } from 'flowbite-react';
 import icons from '../../utils/icons';
 import JobCard from '../../components/card/JobCard';
 import { CgWebsite } from "react-icons/cg";
@@ -122,11 +122,19 @@ const DetailRecruitmentPage = () => {
                             2. Việc làm đang tuyển dụng
                         </div>
                         <div className='w-full flex flex-col gap-y-4'>
-                            {jobsByCompany?.length > 0 && jobsByCompany.map(item => (
-                                <div key={item?.id} className='shadow-lg'>
-                                    <JobCard data={item} className="min-w-full xs:min-w-0" />
-                                </div>
-                            ))}
+                            {jobsByCompany?.length <= 0 ?
+                                <Badge color="gray" size="sm" className='w-fit uppercase'>Chưa có thông tin tuyển dụng nào</Badge>
+                                :
+                                <>
+                                    {
+                                        jobsByCompany.map(item => (
+                                            <div key={item?.id} className='shadow-lg'>
+                                                <JobCard data={item} className="min-w-full xs:min-w-0" />
+                                            </div>
+                                        ))
+                                    }
+                                </>
+                            }
                         </div>
                     </div>
                 </div>
@@ -196,11 +204,20 @@ const DetailRecruitmentPage = () => {
                             2. Việc làm đang tuyển dụng
                         </div>
                         <div className='mt-3 w-full flex flex-col gap-y-4'>
-                            {jobsByCompany?.length > 0 && jobsByCompany.map(item => (
-                                <div key={item?.id} className='shadow-lg'>
-                                    <JobCard data={item} className="min-w-full xs:min-w-0" />
-                                </div>
-                            ))}
+                            {jobsByCompany?.length <= 0 ?
+                                <Badge color="gray" size="xs" className='w-fit uppercase tracking-wide'>Chưa có thông tin tuyển dụng nào</Badge>
+                                :
+                                <>
+                                    {
+                                        jobsByCompany.map(item => (
+                                            <div key={item?.id} className='shadow-lg'>
+                                                <JobCard data={item} className="min-w-full xs:min-w-0" />
+                                            </div>
+                                        ))
+                                    }
+                                </>
+
+                            }
                         </div>
                     </div>
                 </div>

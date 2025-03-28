@@ -8,6 +8,10 @@ const postRegister = (data) => {
     return axios.post('/auth/register', { ...data });
 }
 
+const postCreateNewUser = (data) => {
+    return axios.post('/users', { ...data });
+}
+
 const postLogout = () => {
     return axios.post('/auth/logout');
 }
@@ -24,8 +28,8 @@ const putUpdateUser = (data) => {
     return axios.put(`/users`, { ...data })
 };
 
-const deleteUser = (userId) => {
-    return axios.delete(`/users/delete`, { data: { id: userId } })
-};
+const deleteUser = (id) => {
+    return axios.delete(`/users/${id}`);
+}
 
-export { postLogin, postRegister, postLogout, getAllUsers, getDetailUser, putUpdateUser, deleteUser };
+export { postLogin, postRegister,postCreateNewUser, postLogout, getAllUsers, getDetailUser, putUpdateUser, deleteUser };

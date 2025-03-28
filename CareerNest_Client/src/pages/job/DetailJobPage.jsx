@@ -97,7 +97,7 @@ const DetailJobPage = () => {
     return (
         <div ref={ref} className='ct-container flex flex-col gap-8 mt-[61px]'>
             <Breadcrumbs data={data} />
-            <div className='w-full shadow-md flex items-center justify-between py-3 gap-3 xs:gap-6 rounded-lg pl-2'>
+            <div className='w-full shadow-md flex items-center justify-between py-3 gap-3 xs:gap-6 rounded-lg pl-2 dark:bg-gray-700'>
                 <img
                     src={detailJob?.company?.logoUrl ? getFirebaseImageUrl(detailJob.company.logoUrl, 'companies') : ''}
                     alt="thumbnail"
