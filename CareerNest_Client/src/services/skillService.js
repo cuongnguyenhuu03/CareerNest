@@ -4,4 +4,8 @@ const getAllSkills = () => {
     return axios.get(`/skills`);
 };
 
-export { getAllSkills };
+const postCreateNewSkill = (data) => {
+    return axios.post('/skills', { ...data });
+}
+
+export { getAllSkills, postCreateNewSkill };

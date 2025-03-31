@@ -27,16 +27,30 @@ const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false
         })
     }
 
-    const isExpired = (date) => new Date(date) < new Date();
+    const isNew = (startDate) => {
+        if (!startDate) return false;
+        const now = new Date().getTime(); // Thời gian hiện tại (milliseconds)
+        const startTime = startDate * 1000; // Convert timestamp (giả sử `startDate` là UNIX timestamp giây)
+        return now - startTime <= 48 * 60 * 60 * 1000; // Kiểm tra nếu trong vòng 48 giờ
+    };
 
+    const isExpired = (date) => new Date(date * 1000) < new Date();
+
+    if (!data?.active) return null;
     return (
         <>
             <div
                 className={`${className} ${isExpired(data?.endDate) && 'opacity-60'}
-                rounded-lg w-full flex gap-4 md:gap-6 p-[12px] items-center justify-between cursor-pointer hover:rounded-md ct-hover-transition text-black hover:bg-white dark:hover:bg-gray-700`}
+                relative rounded-lg w-full flex gap-4 md:gap-6 p-[12px] items-center justify-between cursor-pointer hover:rounded-md ct-hover-transition text-black hover:bg-white dark:hover:bg-gray-700`}
                 onMouseEnter={() => handlePrefetchJob(+data?.id)}
                 onTouchStart={() => handlePrefetchJob(+data?.id)}
             >
+                {/* Thêm tag "New" */}
+                {isNew(data?.startDate) && (
+                    <span className="absolute top-0 right-0 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded-bl-md">
+                        NEW
+                    </span>
+                )}
                 <div className='flex flex-col gap-2'>
                     <img
                         src={data?.company?.logoUrl ? getFirebaseImageUrl(data.company.logoUrl, 'companies') : ''}

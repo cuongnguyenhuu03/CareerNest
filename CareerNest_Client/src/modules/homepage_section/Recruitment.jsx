@@ -16,7 +16,7 @@ const Recruitment = () => {
                 return allPages.length + 1;
             return undefined;
         },
-        staleTime: 10000,
+        staleTime: 10*1000,
         refetchOnWindowFocus: true,
     });
 

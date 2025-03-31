@@ -35,6 +35,8 @@ const LoginRecruitmentPage = lazy(() => import('../pages/recruitment/LoginRecrui
 const LoginAdminPage = lazy(() => import('../pages/system/LoginAdminPage'));
 const DashboardPage = lazy(() => import('../pages/system/DashboardPage'));
 const CompanyPage = lazy(() => import('../pages/system/CompanyPage'));
+const JobPage = lazy(() => import('../pages/system/JobPage'));
+const SkillPage = lazy(() => import('../pages/system/SkillPage'));
 const RolePage = lazy(() => import('../pages/system/RolePage'));
 const UserPage = lazy(() => import('../pages/system/UserPage'));
 
@@ -84,6 +86,8 @@ const AppRoute = () => {
                 <Route path={path.SYSTEM} element={<PrivateRoute><AdminLayout /></PrivateRoute>} >
                     <Route path={path.SYSTEM__DASHBOARD} element={< DashboardPage />} />
                     <Route path={path.SYSTEM__COMPANY} element={< CompanyPage />} />
+                    <Route path={path.SYSTEM__JOB} element={< JobPage />} />
+                    <Route path={path.SYSTEM__SKILL} element={< SkillPage />} />
                     <Route path={path.SYSTEM__ROLE} element={< RolePage />} />
                     <Route path={path.SYSTEM__USER} element={< UserPage />} />
                 </Route>

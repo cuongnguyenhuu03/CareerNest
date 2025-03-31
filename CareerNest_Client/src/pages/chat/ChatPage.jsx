@@ -1,9 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
 
 const ChatPage = () => {
     const ref = useRef(null);
-    const params = useParams();
     const [isChatListVisible, setIsChatListVisible] = useState(true);
 
 
@@ -13,7 +11,6 @@ const ChatPage = () => {
         document.title = 'Tin nhắn';
     }, []);
 
-    if (!params?.id) return null;
     return (
         <div ref={ref} className="flex h-full border-b border-gray-300 dark:border-gray-700 pt-14">
             {/* Left Sidebar */}

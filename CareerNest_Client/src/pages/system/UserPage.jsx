@@ -25,7 +25,7 @@ const UserPage = () => {
 
     const meta = res?.meta ?? {
         page: 1,
-        pageSize: res?.data?.length > 0 ? res.data.length : 10,
+        pageSize: 6,
         pages: 0,
         total: res?.data?.length > 0 ? res.data.length : 0
     };
@@ -66,7 +66,7 @@ const UserPage = () => {
             render: (text, record, index) => {
                 return (
                     <>
-                        {(index + 1) + (meta.page - 1) * (meta.pageSize)}
+                        {(index + 1) + (currentPage - 1) * (meta.pageSize)}
                     </>)
             },
             hideInSearch: true,
@@ -133,7 +133,7 @@ const UserPage = () => {
             render: (_value, entity, _index, _action) => (
                 <Space>
                     <Access
-                        permission={ALL_PERMISSIONS.COMPANIES.UPDATE}
+                        permission={ALL_PERMISSIONS.USERS.UPDATE}
                         hideChildren
                     >
                         <EditOutlined
@@ -149,7 +149,7 @@ const UserPage = () => {
                         />
                     </Access>
                     <Access
-                        permission={ALL_PERMISSIONS.COMPANIES.DELETE}
+                        permission={ALL_PERMISSIONS.USERS.DELETE}
                         hideChildren
                     >
                         <Popconfirm
@@ -224,7 +224,7 @@ const UserPage = () => {
         console.log(error);
     return (
         <>
-            <Access permission={ALL_PERMISSIONS.COMPANIES.GET_PAGINATE} >
+            <Access permission={ALL_PERMISSIONS.USERS.GET_PAGINATE} >
                 <DataTable
                     actionRef={tableRef}
                     headerTitle="Danh sách User"
@@ -243,7 +243,7 @@ const UserPage = () => {
                             pageSize: meta?.pageSize,
                             showSizeChanger: true,
                             total: meta?.total,
-                            showTotal: (total, range) => { return (<div> {range[0]}-{range[1]} trên {total} công ty</div>) },
+                            showTotal: (total, range) => { return (<div> {range[0]}-{range[1]} trên {total} user</div>) },
                             onChange: (page, pageSize) => {
                                 setCurrentPage(page);
                             }
@@ -253,7 +253,7 @@ const UserPage = () => {
                     toolBarRender={(_action, _rows) => {
                         return (
                             <Access
-                                permission={ALL_PERMISSIONS.COMPANIES.CREATE}
+                                permission={ALL_PERMISSIONS.USERS.CREATE}
                                 hideChildren
                             >
                                 <Button

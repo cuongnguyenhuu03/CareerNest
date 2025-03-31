@@ -6,28 +6,33 @@ import { Button, Popconfirm, Space, Tag, message } from "antd";
 import queryString from 'query-string';
 import { ALL_PERMISSIONS } from '../../utils/constant';
 import Access from '../../components/share/Access';
-import { sfLike } from "spring-filter-query-builder";
 import withErrorBoundary from '../../hoc/withErrorBoundary';
 import { convertTimeStampToString } from '../../utils/convertTimeStampToString';
-import { useCompanies } from '../../hooks/useCompanies';
-import ModalCompany from '../../modules/admin/company/ModalCompany';
+import { useJobs } from '../../hooks/useJobs';
 import { useMutation } from '@tanstack/react-query';
-import { deleteCompany } from '../../services/companyService';
 import { toast } from 'react-toastify';
+import { ProFormSelect } from '@ant-design/pro-components';
+import ModalJob from '../../modules/admin/job/ModalJob';
+import { deleteJob } from '../../services/jobService';
 
-const CompanyPage = () => {
+const JobPage = () => {
     const [openModal, setOpenModal] = useState(false);
-    const [companyId, setCompanyId] = useState('');
+    const [jobId, setJobId] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const tableRef = useRef(null);
 
-    const { res, isFetching, error, refetch } = useCompanies(currentPage);
+    const { res, isFetching, error, refetch } = useJobs(currentPage);
 
-    const meta = res?.meta ?? {};
-    const companies = res?.result?.length > 0 ? res.result : [];
+    const meta = res?.meta ?? {
+        page: 1,
+        pageSize: 6,
+        pages: 0,
+        total: res?.data?.length > 0 ? res.data.length : 0
+    };;
+    const jobs = res?.result?.length > 0 ? res.result : [];
 
     const mutation = useMutation({
-        mutationFn: deleteCompany,
+        mutationFn: deleteJob,
         onSuccess: async (res) => {
             if (+res?.statusCode === 200 || +res?.statusCode === 201) {
                 message.success("Xóa thành công");
@@ -44,7 +49,8 @@ const CompanyPage = () => {
         },
     });
 
-    const handleDeleteCompany = async (id) => {
+    const handleDeleteJob = async (id) => {
+        if (!id) return;
         await mutation.mutateAsync(+id);
     }
 
@@ -67,22 +73,51 @@ const CompanyPage = () => {
             hideInSearch: true,
         },
         {
-            title: 'Name',
+            title: 'Tên Job',
             dataIndex: 'name',
             sorter: true,
         },
         {
-            title: 'Address',
-            dataIndex: 'address',
+            title: 'Công ty',
+            dataIndex: ["company", "name"],
             sorter: true,
+            hideInSearch: true,
+        },
+        {
+            title: 'Mức lương',
+            dataIndex: 'salary',
+            sorter: true,
+            render(dom, entity, index, action, schema) {
+                const str = "" + entity.salary;
+                return <>{str?.replace(/\B(?=(\d{3})+(?!\d))/g, '.')} $</>
+            },
+        },
+        {
+            title: 'Level',
+            dataIndex: 'level',
+            renderFormItem: (item, props, form) => (
+                <ProFormSelect
+                    showSearch
+                    mode="multiple"
+                    allowClear
+                    valueEnum={{
+                        INTERN: 'INTERN',
+                        FRESHER: 'FRESHER',
+                        JUNIOR: 'JUNIOR',
+                        MIDDLE: 'MIDDLE',
+                        SENIOR: 'SENIOR',
+                    }}
+                    placeholder="Chọn level"
+                />
+            ),
         },
         {
             title: 'Trạng thái',
             dataIndex: 'active',
             render(dom, entity, index, action, schema) {
                 return <>
-                    <Tag color={entity.isActive ? "lime" : "red"} >
-                        {entity.isActive ? "ACTIVE" : "INACTIVE"}
+                    <Tag color={entity.active ? "lime" : "red"} >
+                        {entity.active ? "ACTIVE" : "INACTIVE"}
                     </Tag>
                 </>
             },
@@ -120,7 +155,7 @@ const CompanyPage = () => {
             render: (_value, entity, _index, _action) => (
                 <Space>
                     <Access
-                        permission={ALL_PERMISSIONS.COMPANIES.UPDATE}
+                        permission={ALL_PERMISSIONS.JOBS.UPDATE}
                         hideChildren
                     >
                         <EditOutlined
@@ -130,20 +165,20 @@ const CompanyPage = () => {
                             }}
                             type=""
                             onClick={() => {
-                                setCompanyId(entity?.id);
+                                setJobId(entity?.id);
                                 setOpenModal(true);
                             }}
                         />
                     </Access>
                     <Access
-                        permission={ALL_PERMISSIONS.COMPANIES.DELETE}
+                        permission={ALL_PERMISSIONS.JOBS.DELETE}
                         hideChildren
                     >
                         <Popconfirm
                             placement="leftTop"
-                            title={"Xác nhận xóa company"}
-                            description={"Bạn có chắc chắn muốn xóa company này ?"}
-                            onConfirm={() => handleDeleteCompany(entity.id)}
+                            title={"Xác nhận xóa Job"}
+                            description={"Bạn có chắc chắn muốn xóa Job này ?"}
+                            onConfirm={() => handleDeleteJob(entity.id)}
                             okText="Xác nhận"
                             cancelText="Hủy"
                         >
@@ -164,37 +199,38 @@ const CompanyPage = () => {
     ];
 
     const buildQuery = (params, sort, filter) => {
+
         const clone = { ...params };
-        const q = {
-            page: params.current,
-            size: params.pageSize,
-            filter: ""
+        let parts = [];
+        if (clone.name) parts.push(`name ~ '${clone.name}'`);
+        if (clone.salary) parts.push(`salary ~ '${clone.salary}'`);
+        if (clone?.level?.length) {
+            parts.push(`${sfIn("level", clone.level).toString()}`);
         }
 
-        if (clone.name) q.filter = `${sfLike("name", clone.name)}`;
-        if (clone.address) {
-            q.filter = clone.name ?
-                q.filter + " and " + `${sfLike("address", clone.address)}`
-                : `${sfLike("address", clone.address)}`;
-        }
+        clone.filter = parts.join(' and ');
+        if (!clone.filter) delete clone.filter;
 
+        clone.page = clone.current;
+        clone.size = clone.pageSize;
 
-        if (!q.filter) delete q.filter;
+        delete clone.current;
+        delete clone.pageSize;
+        delete clone.name;
+        delete clone.salary;
+        delete clone.level;
 
-        let temp = queryString.stringify(q);
+        let temp = queryString.stringify(clone);
 
         let sortBy = "";
-        if (sort && sort.name) {
-            sortBy = sort.name === 'ascend' ? "sort=name,asc" : "sort=name,desc";
-        }
-        if (sort && sort.address) {
-            sortBy = sort.address === 'ascend' ? "sort=address,asc" : "sort=address,desc";
-        }
-        if (sort && sort.createdAt) {
-            sortBy = sort.createdAt === 'ascend' ? "sort=createdAt,asc" : "sort=createdAt,desc";
-        }
-        if (sort && sort.updatedAt) {
-            sortBy = sort.updatedAt === 'ascend' ? "sort=updatedAt,asc" : "sort=updatedAt,desc";
+        const fields = ["name", "salary", "createdAt", "updatedAt"];
+        if (sort) {
+            for (const field of fields) {
+                if (sort[field]) {
+                    sortBy = `sort=${field},${sort[field] === 'ascend' ? 'asc' : 'desc'}`;
+                    break;  // Remove this if you want to handle multiple sort parameters
+                }
+            }
         }
 
         //mặc định sort theo updatedAt
@@ -211,17 +247,16 @@ const CompanyPage = () => {
         console.log(error);
     return (
         <>
-            <Access permission={ALL_PERMISSIONS.COMPANIES.GET_PAGINATE} >
+            <Access permission={ALL_PERMISSIONS.JOBS.GET_PAGINATE} >
                 <DataTable
                     actionRef={tableRef}
-                    headerTitle="Danh sách các công ty"
+                    headerTitle="Danh sách các công việc"
                     rowKey="id"
                     loading={isFetching}
                     columns={columns}
-                    dataSource={companies}
+                    dataSource={jobs}
                     request={async (params, sort, filter) => {
                         const query = buildQuery(params, sort, filter);
-
                         // dispatch(fetchCompany({ query }))
                     }}
                     scroll={{ x: true }}
@@ -231,7 +266,7 @@ const CompanyPage = () => {
                             pageSize: meta?.pageSize,
                             showSizeChanger: true,
                             total: meta?.total,
-                            showTotal: (total, range) => { return (<div> {range[0]}-{range[1]} trên {total} công ty</div>) },
+                            showTotal: (total, range) => { return (<div> {range[0]}-{range[1]} trên {total} công việc</div>) },
                             onChange: (page, pageSize) => {
                                 setCurrentPage(page);
                             }
@@ -241,7 +276,7 @@ const CompanyPage = () => {
                     toolBarRender={(_action, _rows) => {
                         return (
                             <Access
-                                permission={ALL_PERMISSIONS.COMPANIES.CREATE}
+                                permission={ALL_PERMISSIONS.JOBS.CREATE}
                                 hideChildren
                             >
                                 <Button
@@ -257,9 +292,9 @@ const CompanyPage = () => {
                 />
             </Access>
             {openModal &&
-                <ModalCompany
-                    companyId={companyId}
-                    setCompanyId={setCompanyId}
+                <ModalJob
+                    jobId={jobId}
+                    setJobId={setJobId}
                     openModal={openModal}
                     setOpenModal={setOpenModal}
                     reloadTable={reloadTable}
@@ -269,4 +304,4 @@ const CompanyPage = () => {
     );
 };
 
-export default withErrorBoundary(CompanyPage);
+export default withErrorBoundary(JobPage);

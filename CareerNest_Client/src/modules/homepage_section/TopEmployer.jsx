@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import EmployerLogoCard from '../../components/card/EmployerLogoCard';
 import './TopEmployer.scss';
 import { getAllRecruitment } from '../../services/recruitmentService';
@@ -16,6 +16,7 @@ const TopEmployer = () => {
         pages: 0,
         total: 0
     });
+    const containerRef = useRef(null);  // Tạo ref để cuộn đến div chứa danh sách công ty
 
     const fetchAllCompanies = async () => {
         setIsLoading(true);
@@ -38,7 +39,13 @@ const TopEmployer = () => {
         fetchAllCompanies();
     }, [currentPage]);
 
-    const onPageChange = (page) => setCurrentPage(page);
+    const onPageChange = (page) => {
+        setCurrentPage(+page);
+        // Cuộn đến phần tử chứa danh sách công ty
+        if (containerRef.current) {
+            containerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    };
 
     if (listCompanies.length <= 0) return null;
     if (isLoading)
@@ -51,7 +58,7 @@ const TopEmployer = () => {
         )
     return (
         <>
-            <div className='ct-container'>
+            <div className='ct-container' ref={containerRef}>
                 <h1 className='text-base sm:text-lg xs:text-2xl mb-10 text-center text-slate-800 font-bold uppercase dark:text-white'>Top nhà tuyển dụng hàng đầu</h1>
                 <div className='w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-7'>
                     {listCompanies?.length > 0 && listCompanies.map(item => (
@@ -59,7 +66,7 @@ const TopEmployer = () => {
                     ))}
                 </div>
             </div>
-            <div className="flex overflow-x-auto sm:justify-center mb-8">
+            <div className="flex overflow-x-auto justify-center mb-8">
                 <Pagination currentPage={currentPage} totalPages={meta?.pages} onPageChange={onPageChange} showIcons />
             </div>
         </>
