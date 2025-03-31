@@ -14,6 +14,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { HiInformationCircle } from "react-icons/hi";
 import withErrorBoundary from '../../hoc/withErrorBoundary';
 import { getFirebaseImageUrl } from '../../utils/getFirebaseImageURL';
+import { SiHyperskill } from "react-icons/si";
 
 const { FaRegBuilding, FaMoneyCheckDollar, IoMdTime, IoPeople, GrLocation, FaCircleInfo, HiCheckCircle, FaHeart } = icons;
 const data = [
@@ -38,7 +39,7 @@ const DetailJobPage = () => {
         queryFn: () => getDetailJob(+params?.id),
         enabled: !!params?.id,
         staleTime: 10 * 1000,
-        refetchOnWindowFocus: false,
+        refetchOnWindowFocus: true,
     })
     const detailJob = res?.data;
 
@@ -51,7 +52,7 @@ const DetailJobPage = () => {
         })
     }
 
-    const isExpired = (date) => new Date(date) < new Date();
+    const isExpired = (date) => new Date(date * 1000) < new Date();
 
     if (!params?.id) return null;
     if (isLoading || isFetching)
@@ -95,7 +96,7 @@ const DetailJobPage = () => {
         );
     }
     return (
-        <div ref={ref} className='ct-container flex flex-col gap-8 mt-[61px]'>
+        <div ref={ref} className='ct-container flex flex-col gap-8 pt-24'>
             <Breadcrumbs data={data} />
             <div className='w-full shadow-md flex items-center justify-between py-3 gap-3 xs:gap-6 rounded-lg pl-2 dark:bg-gray-700'>
                 <img
@@ -103,6 +104,7 @@ const DetailJobPage = () => {
                     alt="thumbnail"
                     className={`w-[100px] h-[100px] sm:w-[120px] sm:h-[120px] lg:w-[150px] lg:h-[150px] object-contain rounded-md`}
                 />
+
                 <div className='flex flex-auto flex-col gap-1'>
                     <div className='flex flex-col gap-y-4 md:gap-y-0 md:flex-row md:items-center md:justify-between md:pr-6'>
                         <div className='text-sm order-2 md:order-1 md:text-base lg:text-lg xl:text-xl font-medium uppercase dark:text-white' >
@@ -139,9 +141,22 @@ const DetailJobPage = () => {
                     >
                         <FaRegBuilding size={15} /> {detailJob?.company?.name}
                     </div>
-                    <div className='flex mb-6 gap-2 text-orange-600 items-center text-xs md:text-sm font-light'>
+                    <div className='flex gap-2 text-orange-600 items-center text-xs md:text-sm font-light'>
                         <FaMoneyCheckDollar /> Lương: {detailJob?.salary}$
                     </div>
+                    {detailJob?.skills?.length > 0 &&
+                        <div className="flex flex-wrap mb-6 gap-2 items-center text-xs md:text-sm font-light dark:text-white dark:tracking-wide">
+                            <SiHyperskill color='gray' /> Kĩ năng:
+                            {detailJob.skills.map((skill) => (
+                                <span key={skill?.id}
+                                    className="bg-gray-200 text-slate-800 px-3 py-1 rounded-full border border-gray-300 text-xs cursor-pointer hover:transition-all hover:bg-red-500 hover:text-white"
+                                    onClick={() => navigate(`${path.FIND__JOB}/all/${skill?.name?.toLowerCase()}`)}
+                                >
+                                    {skill?.name}
+                                </span>
+                            ))}
+                        </div>
+                    }
                     <div className='flex gap-2 items-center text-xs md:text-sm font-light dark:text-white dark:tracking-wide'>
                         <IoMdTime /> Hạn nộp: {convertTimeStampToString(detailJob?.endDate, true)}
                     </div>

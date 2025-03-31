@@ -75,6 +75,10 @@ const AdminLayout = () => {
                     ? [{ label: <Link to='/system/job'>Job</Link>, key: '/system/job', icon: <ScheduleOutlined /> }]
                     : []
                 ),
+                ...(permissions?.some(item => item.apiPath === ALL_PERMISSIONS.JOBS.GET_PAGINATE.apiPath) || ACL_ENABLE === 'false'
+                    ? [{ label: <Link to='/system/skill'>Skill</Link>, key: '/system/skill', icon: <ScheduleOutlined /> }]
+                    : []
+                ),
                 ...(permissions?.some(item => item.apiPath === ALL_PERMISSIONS.RESUMES.GET_PAGINATE.apiPath) || ACL_ENABLE === 'false'
                     ? [{ label: <Link to='/system/resume'>Resume</Link>, key: '/system/resume', icon: <AliwangwangOutlined /> }]
                     : []

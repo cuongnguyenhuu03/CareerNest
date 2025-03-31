@@ -17,4 +17,5 @@ export const dropdownAccount = [
 export const dropdownAdmin = [
     { path: `${path.SYSTEM}/${path.SYSTEM__DASHBOARD}`, text: 'Trang quản trị' },
     { path: `${path.ACCOUNT}/${path.ACCOUNT__PROFILE}`, text: 'Thông tin cá nhân' },
+    { path: `${path.CHAT}/${path.DETAIL__CHAT}`, text: 'Tin nhắn' },
 ];
