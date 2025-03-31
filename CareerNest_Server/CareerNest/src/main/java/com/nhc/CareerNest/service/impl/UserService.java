@@ -111,6 +111,8 @@ public class UserService implements IUserService {
         res.setCompany(user.getCompany());
         res.setRole(user.getRole());
         res.setCreatedAt(user.getCreatedAt());
+        res.setPhoneNumber(user.getPhoneNumber());
+        res.setAvatarUrl(user.getAvatar());
 
         return res;
     }
@@ -127,6 +129,7 @@ public class UserService implements IUserService {
         res.setCompany(user.getCompany());
         res.setRole(user.getRole());
         res.setUpdatedAt(user.getUpdatedAt());
+        res.setId(user.getId());
 
         return res;
     }
@@ -221,6 +224,11 @@ public class UserService implements IUserService {
         currentUser = this.userRepository.save(currentUser);
         currentJob = this.jobRepository.save(currentJob);
         return currentUser.getSavedJob();
+    }
+
+    public User deleteUser(User deleteUser) {
+        deleteUser.setBlocked(true);
+        return this.userRepository.save(deleteUser);
     }
 
 }

@@ -46,6 +46,22 @@ public class PermissionInterceptor implements HandlerInterceptor {
             return true;
         }
 
+        if ("GET".equalsIgnoreCase(request.getMethod()) && request.getRequestURI().startsWith("/api/v1/jobs/**")) {
+            return true;
+        }
+        if ("GET".equalsIgnoreCase(request.getMethod()) && request.getRequestURI().startsWith("/api/v1/jobs")) {
+            return true;
+        }
+
+        if ("GET".equalsIgnoreCase(request.getMethod()) && request.getRequestURI().startsWith("/api/v1/users/")) {
+            return true;
+        }
+
+        if ("POST".equalsIgnoreCase(request.getMethod())
+                && request.getRequestURI().startsWith("/api/v1/online-resumes")) {
+            return true;
+        }
+
         // check permission
         // get user name
         String email = SecurityUtil.getCurrentUserLogin().isPresent() == true

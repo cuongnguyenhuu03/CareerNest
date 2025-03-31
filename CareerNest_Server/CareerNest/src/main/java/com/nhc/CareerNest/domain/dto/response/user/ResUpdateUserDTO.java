@@ -8,6 +8,8 @@ import com.nhc.CareerNest.domain.entity.Company;
 import com.nhc.CareerNest.domain.entity.Role;
 
 public class ResUpdateUserDTO {
+
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;
@@ -21,6 +23,8 @@ public class ResUpdateUserDTO {
     public String getFirstName() {
         return firstName;
     }
+
+    
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -88,6 +92,18 @@ public class ResUpdateUserDTO {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+
+
+    public Long getId() {
+        return id;
+    }
+
+
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }

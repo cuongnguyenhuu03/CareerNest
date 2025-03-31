@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -97,7 +98,9 @@ public class UserController {
             @RequestBody User user,
             @RequestHeader(name = "Authorization") String accessToken) throws IdInvalidException {
 
-        if (user.getId() == SecurityUtil.extractClaim(accessToken.substring(7))) {
+        Long idToken = SecurityUtil.extractClaim(accessToken.substring(7));
+        boolean isAdmin = this.userService.findUserById(idToken).getRole().getId() == 1;
+        if (user.getId() == idToken || isAdmin) {
             User updateUser = this.userService.findUserById(user.getId());
             if (updateUser == null) {
                 throw new IdInvalidException(localizationUtils.getLocalizedMessage(MessageKeys.USER_NOT_FOUND));
@@ -123,6 +126,21 @@ public class UserController {
             throw new IdInvalidException(localizationUtils.getLocalizedMessage(MessageKeys.USER_NOT_FOUND));
         }
 
+    }
+
+    @DeleteMapping("/users/{id}")
+    @ApiMessage("Delete a user")
+    public ResponseEntity<RestResponse> deleteUser(
+            @PathVariable("id") Long id) {
+
+        User deleteUser = this.userService.findUserById(id);
+        this.userService.deleteUser(deleteUser);
+
+        RestResponse res = new RestResponse();
+        res.setData(this.userService.convertToResUpdateUserDTO(this.userService.deleteUser(deleteUser)));
+        res.setStatusCode(HttpStatus.OK.value());
+
+        return ResponseEntity.ok(res);
     }
 
     @PostMapping("users/saveJob/{userId}/{jobId}")
