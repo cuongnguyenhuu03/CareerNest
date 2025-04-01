@@ -237,7 +237,7 @@ const ModalJob = ({ jobId = '', setJobId = () => { }, openModal, setOpenModal, r
                     <Col span={12}>
                         <ProFormSelect label="Cấp bậc" name="level" rules={[{ required: true, message: 'Vui lòng không bỏ trống' }]} options={[
                             { label: "INTERN", value: "INTERN" },
-                            { label: "FRESHER", value: "FRESHERi" },
+                            { label: "FRESHER", value: "FRESHER" },
                             { label: "MIDDLE", value: "MIDDLE" },
                             { label: "JUNIOR", value: "JUNIOR" },
                             { label: "SENIOR", value: "SENIOR" }

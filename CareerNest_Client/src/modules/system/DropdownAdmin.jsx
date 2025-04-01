@@ -50,7 +50,7 @@ const DropdownAdmin = () => {
                             img={user?.avatar ?? ''}
                             rounded
                         />
-                        <span className='hidden xs:inline-block text-gray-800 font-medium dark:text-gray-400'>{`${user?.lastName ?? ''} ${user?.firstName ?? ''}`}</span>
+                        <span className='hidden xs:inline-block text-gray-800 font-medium dark:text-gray-400'>{`${user?.firstName ?? ''}`}</span>
                         <IoIosArrowDown size={13} className='dark:text-gray-400' />
                     </div>
                 }
