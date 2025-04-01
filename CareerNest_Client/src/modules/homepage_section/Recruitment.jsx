@@ -12,11 +12,11 @@ const Recruitment = () => {
         queryKey: ['jobs'],
         queryFn: ({ pageParam = 1 }) => getAllJobs(pageParam),
         getNextPageParam: (lastPage, allPages) => {
-            if (lastPage?.result?.length === 3)
+            if (lastPage?.result?.length === 6)
                 return allPages.length + 1;
             return undefined;
         },
-        staleTime: 10*1000,
+        staleTime: 10 * 1000,
         refetchOnWindowFocus: true,
     });
 
@@ -42,9 +42,16 @@ const Recruitment = () => {
             </div>
             {hasNextPage && (
                 <div className='flex items-center justify-center mt-8'>
-                    <Button isProcessing={isFetchingNextPage} color='light' onClick={() => fetchNextPage()} disabled={isFetchingNextPage}>
-                        {isFetchingNextPage ? 'Đang tải...' : 'Xem thêm'}
-                    </Button>
+                    {listJobs?.length < 12 ?
+                        <Button isProcessing={isFetchingNextPage} color='light' onClick={() => fetchNextPage()} disabled={isFetchingNextPage}>
+                            {isFetchingNextPage ? 'Đang tải...' : 'Xem thêm'}
+                        </Button>
+                        :
+                        <Button isProcessing={isFetchingNextPage} color='light' onClick={() => fetchNextPage()}>
+                            {isFetchingNextPage ? 'Đang tải...' : 'Xem các công việc khác'}
+                        </Button>
+                    }
+
                 </div>
             )}
         </div>
