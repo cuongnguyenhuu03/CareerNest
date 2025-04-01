@@ -4,9 +4,10 @@ import { path } from '../../utils/constant';
 import Breadcrumbs from '../../components/breadcrumb/Breadcrumbs';
 import UpdateAccount from '../../modules/account/UpdateAccount';
 import { ChangePasswordModal } from '../../modules/account/ChangePasswordModal';
-import { Alert, Avatar } from 'flowbite-react';
+import { Avatar } from 'flowbite-react';
 import { useSelector } from 'react-redux';
 import { convertMillisecondsToString } from '../../utils/convertMiliSecondsToString';
+import { getFirebaseImageUrl } from '../../utils/getFirebaseImageURL';
 
 const data = [
     { text: "Trang chủ", path: path.HOME },
@@ -92,7 +93,7 @@ const ProfilePage = () => {
                             <div className="mb-4 grid gap-4 sm:grid-cols-2 sm:gap-8 lg:gap-16">
                                 <div className="space-y-4">
                                     <div className="flex space-x-4">
-                                        <Avatar size='lg' rounded />
+                                        <Avatar img={user?.avatarUrl ? getFirebaseImageUrl(user.avatarUrl, 'users') : ''} size='lg' rounded />
                                         <div>
                                             <span className="mb-2 inline-block rounded bg-primary-100 px-2.5 py-0.5 text-xs font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-300"> STANDARD Account </span>
                                             <h2 className="flex items-center text-xl font-bold leading-none text-gray-900 dark:text-white sm:text-2xl">{`${user?.lastName} ${user?.firstName}`}</h2>

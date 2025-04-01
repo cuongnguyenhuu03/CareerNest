@@ -154,8 +154,8 @@ const UserPage = () => {
                     >
                         <Popconfirm
                             placement="leftTop"
-                            title={"Xác nhận xóa company"}
-                            description={"Bạn có chắc chắn muốn xóa company này ?"}
+                            title={"Xác nhận xóa user"}
+                            description={"Bạn có chắc chắn muốn xóa user này ?"}
                             onConfirm={() => handleDeleteUser(entity.id)}
                             okText="Xác nhận"
                             cancelText="Hủy"

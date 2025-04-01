@@ -15,7 +15,7 @@ const UpdateAccount = ({ isOpen = false, setOpenModal = () => { } }) => {
     const { refetch } = useDetailUser(user?.id);
 
     const [dob, setDOB] = useState(user?.dateOfBirth ? new Date(user.dateOfBirth) : null);
-    const [avatar, setAvatar] = useState(user?.avatar ? getFirebaseImageUrl(user.avatar, 'users') : '');
+    const [avatar, setAvatar] = useState(user?.avatarUrl ? getFirebaseImageUrl(user.avatarUrl, 'users') : '');
     const [imageNameState, setImageName] = useState('');
 
     const imageRegex = /%2F(\S+)\?/gm.exec(avatar);
@@ -24,7 +24,7 @@ const UpdateAccount = ({ isOpen = false, setOpenModal = () => { } }) => {
 
     const fullNameRef = useRef(user?.fullName || '');
     const genderRef = useRef(user?.gender || 'MALE');
-    const phoneRef = useRef(user?.phone || '');
+    const phoneRef = useRef(user?.phoneNumber || '');
     const addressRef = useRef(user?.address || '');
     const [city, setCity] = useState('');
 
@@ -67,8 +67,8 @@ const UpdateAccount = ({ isOpen = false, setOpenModal = () => { } }) => {
             lastName: splitName(fullNameRef.current.value).lastName,
             dateOfBirth: dob,
             gender: genderRef.current.value,
-            phoneNumber: `0${phoneRef.current.value}`,
-            address: `${addressRef.current.value} ${city}`,
+            phoneNumber: phoneRef.current.value.startsWith('0') ? phoneRef.current.value : `0${phoneRef.current.value}`,
+            address: `${addressRef.current.value} ${city}`.trim(),
             avatar: imageName,
         };
         await mutation.mutateAsync(updatedUser);
@@ -87,9 +87,9 @@ const UpdateAccount = ({ isOpen = false, setOpenModal = () => { } }) => {
                                     <ImageUpload
                                         className="!rounded-full h-full"
                                         onChange={handleOnchangeImage}
-                                        handleDeleteImage={handleDeleteImage}
+                                        handleDeleteImage={() => { setAvatar(''); handleDeleteImage(); }}
                                         progress={progress}
-                                        image={imageURL ?? avatar}
+                                        image={avatar}
                                         imageName={imageName}
                                     />
                                 </div>
@@ -150,7 +150,7 @@ const UpdateAccount = ({ isOpen = false, setOpenModal = () => { } }) => {
                                     <div className="relative w-full">
                                         <input
                                             type="text"
-                                            defaultValue={user?.phone || ''}
+                                            defaultValue={user?.phoneNumber || ''}
                                             ref={phoneRef}
                                             id="phone-input"
                                             className="z-20 outline-none block w-full rounded-e-lg border border-s-0 border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:border-s-gray-700  dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500" placeholder="0123 456 789" required />

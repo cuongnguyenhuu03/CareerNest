@@ -50,7 +50,7 @@ const ModalUser = ({ userId = '', setUserId = () => { }, openModal, setOpenModal
         if (dataInit?.id) {
             setSelectedRole(dataInit?.role?.id);
             if (dataInit?.role?.id !== 2) {
-                setAvatar(dataInit?.avatar ? getFirebaseImageUrl(dataInit.avatar, 'users') : '');
+                setAvatar(dataInit?.avatarUrl ? getFirebaseImageUrl(dataInit.avatarUrl, 'users') : '');
                 form.setFieldsValue({
                     firstName: dataInit?.firstName,
                     lastName: dataInit?.lastName,
@@ -64,7 +64,7 @@ const ModalUser = ({ userId = '', setUserId = () => { }, openModal, setOpenModal
                 });
             }
             else {
-                setAvatar(dataInit?.avatar ? getFirebaseImageUrl(dataInit.avatar, 'companies') : '');
+                setAvatar(dataInit?.avatarUrl ? getFirebaseImageUrl(dataInit.avatarUrl, 'companies') : '');
                 form.setFieldsValue({
                     name: dataInit?.company?.name,
                     industry: dataInit?.company?.industry,
