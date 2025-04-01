@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { persistor } from '../../redux/store.js';
 import { path } from '../../utils/constant';
+import { getFirebaseImageUrl } from '../../utils/getFirebaseImageURL.js';
 
 const DropdownAdmin = () => {
     const dispatch = useDispatch();
@@ -47,7 +48,7 @@ const DropdownAdmin = () => {
                     <div className='flex items-center gap-2'>
                         <Avatar
                             alt="User settings"
-                            img={user?.avatar ?? ''}
+                            img={user?.avatarUrl ? getFirebaseImageUrl(user.avatarUrl, 'users') : ''}
                             rounded
                         />
                         <span className='hidden xs:inline-block text-gray-800 font-medium dark:text-gray-400'>{`${user?.firstName ?? ''}`}</span>

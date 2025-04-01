@@ -5,6 +5,7 @@ import icons from '../../../utils/icons';
 import { Link } from 'react-router-dom';
 import { path } from '../../../utils/constant';
 import { useSelector } from 'react-redux';
+import { getFirebaseImageUrl } from '../../../utils/getFirebaseImageURL';
 
 const { CiMail, MdOutlineSubtitles } = icons;
 
@@ -14,7 +15,7 @@ const ShortInfo = () => {
     if (!user?.id) return null;
     return (
         <div className='w-full flex gap-x-4 shadow-md p-4 rounded-lg mb-6 dark:shadow-lg dark:bg-gray-700'>
-            <Avatar img={user?.avatar ?? ''} size='lg' rounded />
+            <Avatar img={user?.avatarUrl ? getFirebaseImageUrl(user.avatarUrl, 'users') : ''} size='lg' rounded />
             <div className='flex flex-col gap-y-3'>
                 <h1 className='font-semibold text-xl xs:text-3xl text-slate-800 dark:text-white'>
                     {`${user?.lastName} ${user?.firstName}`}
@@ -27,7 +28,7 @@ const ShortInfo = () => {
                     <CiMail size={15} />
                     <span className='font-medium'> {user?.email}</span>
                 </div>
-                <Link to={`${path.ACCOUNT}/profile/12`} className='flex items-center text-blue-600'>
+                <Link to={`${path.ACCOUNT}/profile`} className='flex items-center text-blue-600'>
                     Chi tiết hồ sơ <MdKeyboardDoubleArrowRight size={18} />
                 </Link>
             </div>
