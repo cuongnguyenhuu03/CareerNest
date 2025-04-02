@@ -81,7 +81,6 @@ const FindJobCard = ({ job = {}, selectedJob = {}, handleSelectJob = () => { } }
             </div>
 
             <div className="mt-3 flex flex-wrap gap-2">
-
                 {job?.skills?.map((skill) => (
                     <span key={skill} className="bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm cursor-pointer hover:transition-all hover:bg-red-500 hover:text-white">
                         {skill?.name}
