@@ -53,15 +53,7 @@ const FilterJobModal = ({ isOpen = false, setOpenModal = () => { } }) => {
                         ))}
                     </div>
                 </div>
-                <div className='flex flex-col gap-4'>
-                    <div className='font-semibold'>Quận huyện</div>
-                    <Select className="w-40 rounded-full border-gray-300">
-                        <option>Tất cả</option>
-                        <option>Quận 1</option>
-                        <option>Quận 2</option>
-                        <option>Quận 3</option>
-                    </Select>
-                </div>
+
                 <div className='flex flex-col gap-4'>
                     <div className='font-semibold'>Hình thức làm việc</div>
                     <div className="flex flex-wrap gap-3">

@@ -67,7 +67,7 @@ const AppRoute = () => {
                 </Route>
 
                 <Route path={path.FIND__JOB} element={<FindJobLayout />}>
-                    <Route path=":city?/:keyword?" element={<FindJobPage />} />
+                    <Route path=":location?/:name?" element={<FindJobPage />} />
                 </Route>
 
                 <Route path={path.CV} element={<PrivateRoute><CVLayout /></PrivateRoute>} >
