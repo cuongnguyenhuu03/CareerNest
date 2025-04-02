@@ -4,7 +4,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import Slider from "react-slider";
 import { FaDollarSign } from "react-icons/fa";
 
-const levels = ["Fresher", "Junior", "Senior", "Manager"];
+const levels = ["INTERN", "FRESHER", "JUNIOR", "MIDDLE", "SENIOR"];
 const workType = ["Fulltime", "Part-time", "Remote"];
 
 // use for Tablet, Mobile

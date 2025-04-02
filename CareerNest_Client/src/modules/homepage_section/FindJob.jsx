@@ -10,11 +10,10 @@ const FindJob = () => {
     const [location, setLocation] = useState('all');
 
     const handleSearch = () => {
-        const formattedLocation = location.replace(/\s+/g, '-'); // Thay thế khoảng trắng bằng "-"
         if (keyword)
-            navigate(`${path.FIND__JOB}/${formattedLocation}/${keyword.toLowerCase()}`);
+            navigate(`${path.FIND__JOB}/${location}/${keyword.toLowerCase()}`);
         else
-            navigate(`${path.FIND__JOB}/${formattedLocation}`);
+            navigate(`${path.FIND__JOB}/${location}`);
     };
 
 
