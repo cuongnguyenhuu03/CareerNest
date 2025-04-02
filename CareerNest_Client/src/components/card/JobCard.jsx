@@ -29,9 +29,19 @@ const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false
 
     const isNew = (startDate) => {
         if (!startDate) return false;
-        const now = new Date().getTime(); // Thời gian hiện tại (milliseconds)
-        const startTime = startDate * 1000; // Convert timestamp (giả sử `startDate` là UNIX timestamp giây)
-        return now - startTime <= 48 * 60 * 60 * 1000; // Kiểm tra nếu trong vòng 48 giờ
+
+        const now = new Date();
+        const startTime = new Date(startDate * 1000); // Chuyển timestamp sang Date object
+
+        // Chỉ lấy ngày, tháng, năm của cả hai ngày để so sánh
+        now.setHours(0, 0, 0, 0); // Đặt giờ, phút, giây, mili giây là 0
+        startTime.setHours(0, 0, 0, 0); // Đặt giờ, phút, giây, mili giây là 0
+
+        // Tính số ngày khác biệt
+        const diffDays = (now - startTime) / (1000 * 60 * 60 * 24);
+
+        // Kiểm tra nếu số ngày khác biệt <= 2 (tính là mới)
+        return diffDays <= 2;
     };
 
     const isExpired = (date) => new Date(date * 1000) < new Date();
@@ -154,7 +164,7 @@ const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false
                         }
                     </div>
                     <div className='flex gap-2 items-center text-xs md:text-sm font-light dark:text-gray-400'>
-                        <FaRegCalendarAlt /> Ngày đăng: {convertTimeStampToString(data?.createdAt)}
+                        <FaRegCalendarAlt /> {convertTimeStampToString(data?.createdAt)}
                     </div>
                     <div className='flex mb-6 gap-2 text-orange-600 items-center text-xs md:text-sm font-light'>
                         <FaMoneyCheckDollar /> Lương: {data?.salary} $

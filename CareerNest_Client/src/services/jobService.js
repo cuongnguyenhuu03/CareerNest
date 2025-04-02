@@ -6,6 +6,37 @@ const getAllJobs = (page) => {
     return axios.get('/jobs');
 }
 
+// filterJobs({ 
+//     page: 2, 
+//     name: "Frontend Developer", 
+//     location: ["New York", "Los Angeles"], 
+//     level: ["Junior", "Mid"] 
+// });
+const filterJobs = ({ page = 1, pageSize = 4, name, location, level }) => {
+    // Kiểm tra page và pageSize hợp lệ, nếu không, gán giá trị mặc định
+    if (page <= 0) page = 1;
+    if (pageSize <= 0) pageSize = 6;
+
+    const params = new URLSearchParams();
+    params.append("page", page);
+    params.append("pageSize", pageSize);
+
+    // Kiểm tra và thêm name vào query nếu có giá trị
+    if (name) params.append("name", name);
+
+    // Kiểm tra location có phải là mảng và thêm từng giá trị vào query
+    if (Array.isArray(location) && location.length > 0) {
+        location.forEach(loc => params.append("location", loc));
+    }
+
+    // Kiểm tra level có phải là mảng và thêm từng giá trị vào query
+    if (Array.isArray(level) && level.length > 0) {
+        level.forEach(lvl => params.append("level", lvl));
+    }
+
+    return axios.get(`/jobs?${params.toString()}`);
+};
+
 const getDetailJob = (id) => {
     return axios.get(`/jobs/${id}`);
 }
@@ -26,4 +57,4 @@ const deleteJob = (id) => {
     return axios.delete(`/jobs/${id}`);
 }
 
-export { getAllJobs, getDetailJob, getJobsByCompany, postCreateNewJob, putUpdateJob, deleteJob };
+export { getAllJobs, filterJobs, getDetailJob, getJobsByCompany, postCreateNewJob, putUpdateJob, deleteJob };

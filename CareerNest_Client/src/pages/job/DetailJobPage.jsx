@@ -9,12 +9,12 @@ import { getDetailJob } from '../../services/jobService';
 import { getDetailRecruitment } from '../../services/recruitmentService';
 import _ from 'lodash';
 import './DetailJobPage.scss';
-import { convertTimeStampToString } from '../../utils/convertTimeStampToString';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { HiInformationCircle } from "react-icons/hi";
 import withErrorBoundary from '../../hoc/withErrorBoundary';
 import { getFirebaseImageUrl } from '../../utils/getFirebaseImageURL';
 import { SiHyperskill } from "react-icons/si";
+import { format } from 'date-fns'
 
 const { FaRegBuilding, FaMoneyCheckDollar, IoMdTime, IoPeople, GrLocation, FaCircleInfo, HiCheckCircle, FaHeart } = icons;
 const data = [
@@ -53,6 +53,17 @@ const DetailJobPage = () => {
     }
 
     const isExpired = (date) => new Date(date * 1000) < new Date();
+
+    const convertTimeStampToString = (timestamp) => {
+        if (!timestamp) return '';
+        try {
+            const date = new Date(timestamp * 1000);
+            return format(date, 'dd/MM/yyyy');
+        } catch (error) {
+            console.error('Error converting timestamp:', error);
+            return '';
+        }
+    };
 
     if (!params?.id) return null;
     if (isLoading || isFetching)
@@ -213,6 +224,13 @@ const DetailJobPage = () => {
                                 </div>
                                 <div className='text-black text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.requirements?.replace(/\*/g, '<br>•') }}></div>
                             </div>
+
+                            <div className='flex flex-col'>
+                                <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
+                                    4. Phúc lợi
+                                </div>
+                                <div className='text-black text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.benefits?.replace(/\*/g, '<br>•') }}></div>
+                            </div>
                         </List>
                     </div>
                 </div>
@@ -269,6 +287,13 @@ const DetailJobPage = () => {
                                     3. Yêu cầu ứng viên
                                 </div>
                                 <div className='text-black text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.requirements?.replace(/\*/g, '<br>•') }}></div>
+                            </div>
+
+                            <div className='flex flex-col'>
+                                <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
+                                    4. Phúc lợi
+                                </div>
+                                <div className='text-black text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.benefits?.replace(/\*/g, '<br>•') }}></div>
                             </div>
                         </List>
                     </div>

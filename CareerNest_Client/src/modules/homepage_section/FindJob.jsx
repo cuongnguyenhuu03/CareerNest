@@ -10,11 +10,13 @@ const FindJob = () => {
     const [location, setLocation] = useState('all');
 
     const handleSearch = () => {
+        const formattedLocation = location.replace(/\s+/g, '-'); // Thay thế khoảng trắng bằng "-"
         if (keyword)
-            navigate(`${path.FIND__JOB}/${location}/${keyword.toLowerCase()}`);
+            navigate(`${path.FIND__JOB}/${formattedLocation}/${keyword.toLowerCase()}`);
         else
-            navigate(`${path.FIND__JOB}/${location}`);
+            navigate(`${path.FIND__JOB}/${formattedLocation}`);
     };
+
 
 
     return (
@@ -31,6 +33,9 @@ const FindJob = () => {
                                 placeholder="Từ khóa công việc..."
                                 value={keyword}
                                 onChange={(e) => setKeyword(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter") handleSearch();
+                                }}
                                 className="outline-none bg-gray-50 border border-gray-300 text-gray-900 text-xs lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             />
                         </div>
