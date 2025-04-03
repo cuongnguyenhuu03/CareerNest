@@ -79,6 +79,9 @@ public class UserService implements IUserService {
         updateUser.setDateOfBirth(user.getDateOfBirth());
         updateUser.setGender(user.getGender());
         updateUser.setBlocked(user.getIsBlocked());
+        updateUser.setAddress(user.getAddress());
+        updateUser.setAvatar(user.getAvatar());
+        updateUser.setPhoneNumber(user.getPhoneNumber());
 
         return this.userRepository.save(updateUser);
 
@@ -130,6 +133,8 @@ public class UserService implements IUserService {
         res.setRole(user.getRole());
         res.setUpdatedAt(user.getUpdatedAt());
         res.setId(user.getId());
+        res.setPhoneNumber(user.getPhoneNumber());
+        res.setAvatarUrl(user.getAvatar());
 
         return res;
     }
@@ -229,6 +234,10 @@ public class UserService implements IUserService {
     public User deleteUser(User deleteUser) {
         deleteUser.setBlocked(true);
         return this.userRepository.save(deleteUser);
+    }
+
+    public boolean isBlockAccount(String email, boolean True) {
+        return this.userRepository.existsByEmailAndIsBlocked(email, True);
     }
 
 }

@@ -67,7 +67,11 @@ public class AuthController {
     @PostMapping("/auth/login")
     public ResponseEntity<RestResponse> login(
             @RequestBody ReqLoginDTO loginDto,
-            HttpServletResponse response) {
+            HttpServletResponse response) throws IdInvalidException {
+
+        if (this.userService.isBlockAccount(loginDto.getUsername(), true)) {
+            throw new IdInvalidException(localizationUtils.getLocalizedMessage(MessageKeys.USER_NOT_FOUND));
+        }
 
         // nạp input gồm username/ password vào security
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(

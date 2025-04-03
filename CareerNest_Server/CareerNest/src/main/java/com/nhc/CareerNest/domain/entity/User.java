@@ -72,7 +72,7 @@ public class User extends BaseEntity {
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
     private List<Job> savedJob;
 
     public String getAddress() {

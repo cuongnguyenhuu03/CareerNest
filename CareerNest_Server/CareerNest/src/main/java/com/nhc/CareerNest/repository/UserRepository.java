@@ -20,5 +20,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findAllByStatus(UserStatusEnum status);
 
+    boolean existsByEmailAndIsBlocked(String username, boolean isLocked);
+
     User findByRefreshTokenAndEmail(String token, String email);
 }

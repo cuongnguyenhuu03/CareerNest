@@ -58,9 +58,13 @@ public class JobService implements IJobService {
 
         // filter location
         if (jobCriteriaDTO.getLocation() != null && jobCriteriaDTO.getLocation().isPresent()) {
-            Specification<Job> currentSpec = JobSpecification.locationListMatch(jobCriteriaDTO.getLevel().get());
+            Specification<Job> currentSpec = JobSpecification.locationListMatch(jobCriteriaDTO.getLocation().get());
             combinedSpec = combinedSpec.and(currentSpec);
         }
+
+        // filter active job
+        Specification<Job> activeSpec = JobSpecification.activeSpec();
+        combinedSpec = combinedSpec.and(activeSpec);
 
         Page<Job> pageUser = this.jobRepository.findAll(combinedSpec, pageable);
 

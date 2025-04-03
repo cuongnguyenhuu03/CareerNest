@@ -33,4 +33,9 @@ public class JobSpecification {
     public static Specification<Job> levelListMatch(List<String> level) {
         return (root, query, criteriaBuilder) -> criteriaBuilder.in(root.get(Job_.LEVEL)).value(level);
     }
+
+    public static Specification<Job> activeSpec() {
+        return (root, query, criteriaBuilder) -> criteriaBuilder
+                .isTrue(root.get(Job_.ACTIVE));
+    }
 }
