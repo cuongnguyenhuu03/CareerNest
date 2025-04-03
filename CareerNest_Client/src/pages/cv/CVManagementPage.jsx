@@ -23,6 +23,7 @@ const CVManagementPage = () => {
             ref.current.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
         document.title = 'Quản lý CV';
     }, []);
+
     return (
         <div ref={ref} className='ct-container py-4 mt-20 bg-[#f7f7f7]'>
             <Breadcrumbs data={data} />
