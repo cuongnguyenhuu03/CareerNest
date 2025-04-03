@@ -6,8 +6,11 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { Button } from 'flowbite-react';
 import withErrorBoundary from '../../hoc/withErrorBoundary';
 import JobCardSkeleton from '../../components/skeleton/JobCardSkeleton';
+import { useNavigate } from 'react-router-dom';
+import { path } from '../../utils/constant';
 
 const Recruitment = () => {
+    const navigate = useNavigate();
     const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } = useInfiniteQuery({
         queryKey: ['jobs'],
         queryFn: ({ pageParam = 1 }) => getAllJobs(pageParam),
@@ -37,23 +40,23 @@ const Recruitment = () => {
             <div className='w-full xs:w-2/3 border border-gray-300 rounded-lg sm:border-none sm:w-full flex flex-nowrap overflow-x-auto sm:grid sm:grid-cols-2 xl:grid-cols-3 xs:gap-4 xl:gap-8'>
                 {listJobs.length > 0 && listJobs.map(item => (
                     <JobCard key={item?.id} data={item} className="min-w-full sm:min-w-0 dark:text-white" />
-
                 ))}
             </div>
-            {hasNextPage && (
+            {(hasNextPage && !data?.pages[1]) ?
                 <div className='flex items-center justify-center mt-8'>
-                    {listJobs?.length < 12 ?
-                        <Button isProcessing={isFetchingNextPage} color='light' onClick={() => fetchNextPage()} disabled={isFetchingNextPage}>
-                            {isFetchingNextPage ? 'Đang tải...' : 'Xem thêm'}
-                        </Button>
-                        :
-                        <Button isProcessing={isFetchingNextPage} color='light' onClick={() => fetchNextPage()}>
-                            {isFetchingNextPage ? 'Đang tải...' : 'Xem các công việc khác'}
-                        </Button>
-                    }
-
+                    <Button isProcessing={isFetchingNextPage} color='light' onClick={() => fetchNextPage()} disabled={isFetchingNextPage}>
+                        {isFetchingNextPage ? 'Đang tải...' : 'Xem thêm'}
+                    </Button>
                 </div>
-            )}
+                :
+                <>
+                    <div className='flex items-center justify-center mt-8'>
+                        <Button color='light' onClick={() => navigate(`${path.FIND__JOB}/all`)} >
+                            Xem các công việc khác
+                        </Button>
+                    </div>
+                </>
+            }
         </div>
     );
 };
