@@ -8,7 +8,7 @@ export const useSkills = () => {
     const { data: res, isLoading, isFetching, error, refetch, } = useQuery({
         queryKey: ['skills'],
         queryFn: () => getAllSkills(),
-        enabled: user?.role?.id === 1, // Chỉ role ADMIN mới được gọi
+        enabled: !!user?.id, 
         staleTime: 90 * 1000,
         refetchOnWindowFocus: false,
     });

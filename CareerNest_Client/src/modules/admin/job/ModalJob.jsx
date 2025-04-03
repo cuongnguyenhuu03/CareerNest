@@ -146,7 +146,7 @@ const ModalJob = ({ jobId = '', setJobId = () => { }, openModal, setOpenModal, r
                 ...valuesForm, description: descriptionRef.current, requirements: requirementRef.current,
                 benefits: benefitRef.current, skills: transformIds(valuesForm.skills), company: { id: selectedCompany?.id ?? dataInit?.company?.id }
             };
-console.log(data)
+
         await mutation.mutateAsync(data);
     };
 

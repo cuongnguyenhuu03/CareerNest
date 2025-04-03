@@ -17,8 +17,6 @@ const MyJobPage = () => {
     const [activeTab, setActiveTab] = useState(location?.state === 'saved' ? 1 : 0);
     const [selected, setSelected] = useState("Ngày ứng tuyển gần nhất");
 
-    console.log(activeTab)
-
     useEffect(() => {
         if (ref?.current)
             ref.current.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
