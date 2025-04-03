@@ -12,6 +12,10 @@ const postCreateNewUser = (data) => {
     return axios.post('/users', { ...data });
 }
 
+const postSaveJob = ({ userId, jobId }) => {
+    return axios.post(`/users/saveJob/${userId}/${jobId}`);
+}
+
 const postLogout = () => {
     return axios.post('/auth/logout');
 }
@@ -32,4 +36,7 @@ const deleteUser = (id) => {
     return axios.delete(`/users/${id}`);
 }
 
-export { postLogin, postRegister,postCreateNewUser, postLogout, getAllUsers, getDetailUser, putUpdateUser, deleteUser };
+export {
+    postLogin, postRegister, postCreateNewUser, postLogout, getAllUsers, getDetailUser, putUpdateUser, deleteUser,
+    postSaveJob
+};

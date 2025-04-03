@@ -4,7 +4,6 @@ const ChatPage = () => {
     const ref = useRef(null);
     const [isChatListVisible, setIsChatListVisible] = useState(true);
 
-
     useEffect(() => {
         if (ref?.current)
             ref.current.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });

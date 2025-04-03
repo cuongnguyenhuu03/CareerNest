@@ -3,8 +3,10 @@ import React from 'react';
 import { path } from '../../../utils/constant';
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
+import {useSelector} from 'react-redux';
 
 const MyJob = () => {
+    const user = useSelector(state => state?.user?.info);
     const navigate = useNavigate();
 
     return (
@@ -35,7 +37,7 @@ const MyJob = () => {
                     <div className='basis-2/3 flex flex-col gap-y-4 p-3'>
                         <div className='text-slate-800 font-medium text-sm xs:text-lg sm:text-xll'>Việc làm đã lưu</div>
                         <span className='text-[#c82222] font-bold text-2xl sm:text-3xl flex items-center gap-3'>
-                            3 <MdKeyboardDoubleArrowRight size={18} />
+                            {user?.saveJob?.length > 0 ? user.saveJob.length : 0} <MdKeyboardDoubleArrowRight size={18} />
                         </span>
                     </div>
                     <div className='basis-1/3 flex items-center'>

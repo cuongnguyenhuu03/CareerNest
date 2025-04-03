@@ -5,10 +5,61 @@ import { path } from '../../utils/constant';
 import slugify from 'slugify';
 import { Badge } from 'flowbite-react';
 import { convertTimeStampToString } from '../../utils/convertTimeStampToString';
+import { useSelector } from 'react-redux';
+import { message } from "antd";
+import { useMutation } from '@tanstack/react-query';
+import { postSaveJob } from '../../services/userService';
+import { toast } from 'react-toastify';
+import { useDetailUser } from '../../hooks/useDetailUer';
 
 const DetailJobCard = forwardRef(({ job = {} }, ref) => {
-
+    const user = useSelector(state => state?.user?.info);
+    const { refetch } = useDetailUser(user?.id);
     const isExpired = (date) => new Date(date * 1000) < new Date();
+
+    const checkIsSavedJob = (id, saveJobs) => {
+        if (!saveJobs || saveJobs?.length === 0) return false;
+        return saveJobs.some(job => +job.id === +id);
+    };
+
+    const mutation = useMutation({
+        mutationFn: postSaveJob,
+        onSuccess: (res) => {
+            if (+res?.statusCode === 201 || +res?.statusCode === 200) {
+                message.success('Lưu tin thành công');
+                refetch();
+                mutation.reset();
+            } else {
+                console.log(res?.data);
+                toast.error(res?.data?.error);
+            }
+        },
+        onError: (error) => {
+            console.error('Error:', error);
+            toast.error(error?.message || 'Something wrong in Server');
+        },
+    });
+
+    const handleSaveJob = async () => {
+        if (!job?.id) return;
+        if (!user?.id) {
+            message.warning("Vui lòng đăng nhập trước khi lưu tin");
+            return;
+        }
+        if (checkIsSavedJob(job?.id, user?.saveJob)) {
+            message.warning("Bạn đã lưu tin tuyển dụng này!");
+            return;
+        }
+        await mutation.mutateAsync({ userId: +user.id, jobId: +job.id });
+    }
+
+    const handleApplyJob = async () => {
+        if (!job?.id) return;
+        if (!user?.id) {
+            message.warning("Vui lòng đăng nhập trước khi ứng tuyển");
+            return;
+        }
+    }
 
     if (!job) return null;
     return (
@@ -37,14 +88,17 @@ const DetailJobCard = forwardRef(({ job = {} }, ref) => {
                     </div>
                 </div>
                 {!isExpired(job?.endDate) &&
-                    <button className="text-red-500 text-xl hover:text-red-600">❤️</button>
+                    <button className="text-red-500 text-xl hover:text-red-600" onClick={handleSaveJob}>❤️</button>
                 }
 
             </div>
 
             {/* Apply Button */}
             {!isExpired(job?.endDate) ?
-                <button className="w-full bg-red-500 hover:bg-red-600 hover:transition-colors text-white font-semibold py-2 rounded-lg mt-4">
+                <button
+                    className="w-full bg-red-500 hover:bg-red-600 hover:transition-colors text-white font-semibold py-2 rounded-lg mt-4"
+                    onClick={handleApplyJob}
+                >
                     Ứng tuyển
                 </button>
                 : <Badge className='uppercase text-base w-fit' color="failure" size='sm' >Đã hết hạn ứng tuyển</Badge>
