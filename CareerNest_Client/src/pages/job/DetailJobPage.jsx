@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, } from 'react';
 import icons from '../../utils/icons';
 import { Alert, Badge, Button, List, } from "flowbite-react";
+import { message } from "antd";
 import { useNavigate, useParams } from 'react-router-dom';
 import { path } from '../../utils/constant';
 import slugify from 'slugify';
@@ -9,12 +10,16 @@ import { getDetailJob } from '../../services/jobService';
 import { getDetailRecruitment } from '../../services/recruitmentService';
 import _ from 'lodash';
 import './DetailJobPage.scss';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import { HiInformationCircle } from "react-icons/hi";
 import withErrorBoundary from '../../hoc/withErrorBoundary';
 import { getFirebaseImageUrl } from '../../utils/getFirebaseImageURL';
 import { SiHyperskill } from "react-icons/si";
-import { format } from 'date-fns'
+import { format } from 'date-fns';
+import { useSelector } from 'react-redux';
+import { postSaveJob } from '../../services/userService';
+import { toast } from 'react-toastify';
+import { useDetailUser } from '../../hooks/useDetailUer';
 
 const { FaRegBuilding, FaMoneyCheckDollar, IoMdTime, IoPeople, GrLocation, FaCircleInfo, HiCheckCircle, FaHeart } = icons;
 const data = [
@@ -23,6 +28,9 @@ const data = [
 ]
 
 const DetailJobPage = () => {
+    const user = useSelector(state => state?.user?.info);
+    const { refetch } = useDetailUser(user?.id);
+
     const navigate = useNavigate();
     const ref = useRef(null);
     const params = useParams();
@@ -42,6 +50,24 @@ const DetailJobPage = () => {
         refetchOnWindowFocus: true,
     })
     const detailJob = res?.data;
+
+    const mutation = useMutation({
+        mutationFn: postSaveJob,
+        onSuccess: (res) => {
+            if (+res?.statusCode === 201 || +res?.statusCode === 200) {
+                message.success('Lưu tin thành công');
+                refetch();
+                mutation.reset();
+            } else {
+                console.log(res?.data);
+                toast.error(res?.data?.error);
+            }
+        },
+        onError: (error) => {
+            console.error('Error:', error);
+            toast.error(error?.message || 'Something wrong in Server');
+        },
+    });
 
     const handlePrefetchRecruitment = (id) => {
         if (!id) return;
@@ -64,6 +90,29 @@ const DetailJobPage = () => {
             return '';
         }
     };
+
+    const checkIsSavedJob = (id, saveJobs) => {
+        if (!saveJobs || saveJobs?.length === 0) return false;
+        return saveJobs.some(job => +job.id === +id);
+    };
+
+    const handleSaveJob = async () => {
+        if (!params?.id) return;
+        if (!user?.id) {
+            message.warning("Vui lòng đăng nhập trước khi lưu tin");
+            return;
+        }
+
+        await mutation.mutateAsync({ userId: +user?.id, jobId: +params.id });
+    }
+
+    const handleApplyJob = async () => {
+        if (!params?.id) return;
+        if (!user?.id) {
+            message.warning("Vui lòng đăng nhập trước khi ứng tuyển");
+            return;
+        }
+    }
 
     if (!params?.id) return null;
     if (isLoading || isFetching)
@@ -126,20 +175,22 @@ const DetailJobPage = () => {
                                 ? <Badge color="failure" size='sm' className='uppercase'>Đã hết hạn ứng tuyển</Badge>
                                 :
                                 <>
-                                    <Button size='xs' className="block sm:hidden" gradientDuoTone="pinkToOrange" onClick={() => setOpenModal(true)}>
+                                    <Button size='xs' className="block sm:hidden" gradientDuoTone="pinkToOrange" onClick={handleApplyJob}>
                                         Ứng tuyển
                                     </Button>
-                                    <Button size='sm' className="hidden sm:block" gradientDuoTone="pinkToOrange" onClick={() => setOpenModal(true)}>
+                                    <Button size='sm' className="hidden sm:block" gradientDuoTone="pinkToOrange" onClick={handleApplyJob}>
                                         Ứng tuyển
                                     </Button>
 
-                                    <Button size='xs' className="block sm:hidden" gradientDuoTone="pinkToOrange" onClick={() => setOpenModal(true)}>
+                                    <Button size='xs' className="block sm:hidden" gradientDuoTone="pinkToOrange"
+                                        onClick={!checkIsSavedJob(params?.id, user?.saveJob) ? handleSaveJob : () => { message.warning("Bạn đã lưu tin tuyển dụng này") }}>
                                         <FaHeart size={18} className='mr-2' />
-                                        Lưu tin
+                                        {checkIsSavedJob(params?.id, user?.saveJob) ? 'Đã lưu' : 'Lưu tin'}
                                     </Button>
-                                    <Button size='sm' className="hidden sm:block" gradientDuoTone="pinkToOrange" onClick={() => setOpenModal(true)}>
+                                    <Button size='sm' className="hidden sm:block" gradientDuoTone="pinkToOrange"
+                                        onClick={!checkIsSavedJob(params?.id, user?.saveJob) ? handleSaveJob : () => { message.warning("Bạn đã lưu tin tuyển dụng này") }}>
                                         <FaHeart size={18} className='mr-2' />
-                                        Lưu tin
+                                        {checkIsSavedJob(params?.id, user?.saveJob) ? 'Đã lưu' : 'Lưu tin'}
                                     </Button>
                                 </>
                             }

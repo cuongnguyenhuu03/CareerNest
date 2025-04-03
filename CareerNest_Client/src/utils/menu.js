@@ -9,9 +9,10 @@ export const headerMenu = [
 
 export const dropdownAccount = [
     { path: `${path.ACCOUNT}/${path.ACCOUNT__OVERVIEW}`, text: 'Tổng quan hồ sơ' },
+    { path: `${path.CHAT}/${path.DETAIL__CHAT}`, text: 'Tin nhắn' },
     { path: `${path.ACCOUNT}/${path.ACCOUNT__MY__JOB}`, text: 'Việc làm của tôi' },
     { path: `${path.ACCOUNT}/${path.ACCOUNT__GET__JOB__VIA__MAIL}`, text: 'Đăng ký nhận email' },
-    { path: '#', text: 'Việc làm phù hợp' },
+
 ];
 
 export const dropdownAdmin = [

@@ -1,19 +1,27 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { path } from '../../utils/constant';
 import Breadcrumbs from '../../components/breadcrumb/Breadcrumbs';
 import { Tabs, Badge, Dropdown } from "flowbite-react";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 import AppliedJob from '../../modules/job/AppliedJob';
 import SavedJob from '../../modules/job/SavedJob';
+import { useSelector } from 'react-redux';
 
 const data = [
     { text: "Trang chủ", path: path.HOME },
     { text: "Việc làm của tôi", path: "#" }
 ]
+
 const MyJobPage = () => {
     const location = useLocation();
     const ref = useRef(null);
+
+    const user = useSelector(state => state?.user?.info);
+    const listSaveJobs = useMemo(() => {
+        return user?.saveJob?.length > 0 ? user.saveJob : [];
+    }, [user?.saveJob]);
+
     const [activeTab, setActiveTab] = useState(location?.state === 'saved' ? 1 : 0);
     const [selected, setSelected] = useState("Ngày ứng tuyển gần nhất");
 
@@ -58,7 +66,7 @@ const MyJobPage = () => {
                             <div className='flex items-center gap-2'>
                                 Đã lưu
                                 <Badge color={activeTab === 1 ? "info" : "gray"} size="sm" className='rounded-full'>
-                                    3
+                                    {user?.saveJob?.length ?? 0}
                                 </Badge>
                             </div>
                         }>
@@ -89,7 +97,7 @@ const MyJobPage = () => {
             <div className='w-full px-6 py-3'>
                 {/* Render component theo activeTab */}
                 {activeTab === 0 && <AppliedJob />}
-                {activeTab === 1 && <SavedJob />}
+                {activeTab === 1 && <SavedJob listJobs={listSaveJobs} />}
             </div>
         </div>
     );

@@ -43,8 +43,19 @@ const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false
         // Kiểm tra nếu số ngày khác biệt <= 2 (tính là mới)
         return diffDays <= 2;
     };
-
     const isExpired = (date) => new Date(date * 1000) < new Date();
+
+    const getDaysUntilExpiration = (endDate) => {
+        if (!endDate) return "Không xác định";
+        const now = new Date();
+        now.setHours(0, 0, 0, 0);
+        const end = new Date(endDate * 1000);
+        end.setHours(0, 0, 0, 0);
+
+        const days = (end - now) / 86400000;
+        return days > 0 ? `Hết hạn trong ${days} ngày tới` : "Đã hết hạn";
+    };
+
 
     const getJobType = (type) => ({
         FULL_TIME: "Toàn thời gian",
@@ -107,16 +118,21 @@ const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false
                                         {data?.name}
                                     </div>
                                     <div className='text-right flex flex-col gap-y-2'>
-                                        <span className='text-xs md:text-sm'>Đăng 1 ngày trước</span>
-                                        <span className='text-xs md:text-sm text-orange-600'>(Hết hạn trong 10 ngày)</span>
+                                        <span className='text-xs md:text-sm text-orange-600'>{getDaysUntilExpiration(data?.endDate)}</span>
                                         <div className='flex items-center justify-between'>
                                             {isApplied ?
                                                 <Badge icon={HiCheckCircle} color="success" size="sm">
                                                     Đã ứng tuyển
                                                 </Badge>
-                                                : <Button gradientDuoTone="pinkToOrange" onClick={() => setOpenModal(true)}>Ứng tuyển</Button>
+                                                :
+                                                <>
+                                                    {!isExpired(data?.endDate) ?
+                                                        <Button gradientDuoTone="pinkToOrange" onClick={() => setOpenModal(true)}>Ứng tuyển</Button>
+                                                        : <div></div>
+                                                    }
+                                                </>
                                             }
-                                            <Tooltip content="Đã lưu" style="dark">
+                                            <Tooltip content="Đã lưu" className='w-20' style="dark">
                                                 <FaHeart size={28} color='red' />
                                             </Tooltip>
                                         </div>
@@ -125,7 +141,6 @@ const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false
                                 <div className='sm:hidden mb-4'>
                                     <div className='flex flex-col gap-y-2'>
                                         <div className='flex gap-x-2'>
-                                            <span className='text-xs md:text-sm'>Đăng 1 ngày trước</span>
                                             <span className='text-[10px] xs:text-xs md:text-sm text-orange-600'>(Hết hạn trong 10 ngày)</span>
                                         </div>
                                         <div className='flex items-center gap-x-4'>
@@ -183,7 +198,11 @@ const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false
                     </div>
                 </div>
             </div>
-            {isOpenModal && <ModalApplyCV openModal={isOpenModal} setOpenModal={setOpenModal} />}
+
+            {/* Modal apply job */}
+            {isOpenModal &&
+                <ModalApplyCV openModal={isOpenModal} setOpenModal={setOpenModal} jobTitle={data?.name} />
+            }
         </>
 
     );
