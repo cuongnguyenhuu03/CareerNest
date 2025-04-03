@@ -2,9 +2,11 @@ package com.nhc.CareerNest.domain.dto.response.user;
 
 import java.sql.Date;
 import java.time.Instant;
+import java.util.List;
 
 import com.nhc.CareerNest.constant.GenderEnum;
 import com.nhc.CareerNest.domain.entity.Company;
+import com.nhc.CareerNest.domain.entity.Job;
 import com.nhc.CareerNest.domain.entity.Role;
 
 public class ResCreateUserDTO {
@@ -21,8 +23,7 @@ public class ResCreateUserDTO {
     private Company company;
     private String phoneNumber;
     private String avatarUrl;
-
-    
+    private List<Job> saveJob;
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -118,6 +119,14 @@ public class ResCreateUserDTO {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public List<Job> getSaveJob() {
+        return saveJob;
+    }
+
+    public void setSaveJob(List<Job> saveJob) {
+        this.saveJob = saveJob;
     }
 
 }

@@ -63,7 +63,7 @@ public class PermissionInterceptor implements HandlerInterceptor {
         }
 
         if ("POST".equalsIgnoreCase(request.getMethod())
-                && request.getRequestURI().startsWith("/api/v1/ users/saveJob/")) {
+                && request.getRequestURI().startsWith("/api/v1/users/saveJob/")) {
             return true;
         }
 
