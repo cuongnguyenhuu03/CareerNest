@@ -178,7 +178,7 @@ const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false
                     <div className='flex gap-2 items-center text-xs md:text-sm font-light dark:text-gray-400'>
                         {isExpired(data?.endDate)
                             ? <Badge color="failure" size='sm' >Đã hết hạn ứng tuyển</Badge>
-                            : <><GrNetworkDrive /> {getJobType(data?.jobType)}</>
+                            : <><GrNetworkDrive /> Toàn thời gian</>
                         }
                     </div>
                 </div>

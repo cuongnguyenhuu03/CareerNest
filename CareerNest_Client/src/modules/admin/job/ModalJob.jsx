@@ -62,7 +62,7 @@ const ModalJob = ({ jobId = '', setJobId = () => { }, openModal, setOpenModal, r
                 company: dataInit?.company?.name,
                 skills: buildSkillsInitialSelect(dataInit?.skills),
                 level: dataInit.level,
-                jobType: dataInit.jobType,
+                // jobType: dataInit.jobType,
                 startDate: dataInit.startDate * 1000,
                 endDate: dataInit.endDate * 1000,
                 expertise: dataInit.expertise,
@@ -146,6 +146,7 @@ const ModalJob = ({ jobId = '', setJobId = () => { }, openModal, setOpenModal, r
                 ...valuesForm, description: descriptionRef.current, requirements: requirementRef.current,
                 benefits: benefitRef.current, skills: transformIds(valuesForm.skills), company: { id: selectedCompany?.id ?? dataInit?.company?.id }
             };
+
 
         await mutation.mutateAsync(data);
     };
@@ -284,13 +285,13 @@ const ModalJob = ({ jobId = '', setJobId = () => { }, openModal, setOpenModal, r
                             }
                         </Modal>
                     }
-                    <Col span={12}>
+                    {/* <Col span={12}>
                         <ProFormSelect label="Hình thức làm việc" name="jobType" rules={[{ required: true, message: 'Vui lòng không bỏ trống' }]} options={[
                             { label: "Toàn thời gian", value: "FULL_TIME" },
                             { label: "Bán thời gian", value: "PART_TIME" },
                             { label: "Theo hợp đồng", value: "CONTRACT" },
                         ]} placeholder="Chọn hình thức làm việc" />
-                    </Col>
+                    </Col> */}
                     {selectedCompany !== null &&
                         <Col span={12}>
                             <ProFormSelect

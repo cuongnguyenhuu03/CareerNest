@@ -19,9 +19,10 @@ const JobPage = () => {
     const [openModal, setOpenModal] = useState(false);
     const [jobId, setJobId] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
+    const [jobName, setJobName] = useState('');
     const tableRef = useRef(null);
 
-    const { res, isFetching, error, refetch } = useJobs(currentPage);
+    const { res, isFetching, error, refetch } = useJobs(currentPage, jobName);
 
     const meta = res?.meta ?? {
         page: 1,
@@ -201,9 +202,11 @@ const JobPage = () => {
     const buildQuery = (params, sort, filter) => {
 
         const clone = { ...params };
+        setJobName(clone?.name);
+
         let parts = [];
-        if (clone.name) parts.push(`name ~ '${clone.name}'`);
-        if (clone.salary) parts.push(`salary ~ '${clone.salary}'`);
+        if (clone.name) parts.push(`${clone.name}`);
+        if (clone.salary) parts.push(`${clone.salary}`);
         if (clone?.level?.length) {
             parts.push(`${sfIn("level", clone.level).toString()}`);
         }
@@ -257,7 +260,6 @@ const JobPage = () => {
                     dataSource={jobs}
                     request={async (params, sort, filter) => {
                         const query = buildQuery(params, sort, filter);
-                        // dispatch(fetchCompany({ query }))
                     }}
                     scroll={{ x: true }}
                     pagination={
