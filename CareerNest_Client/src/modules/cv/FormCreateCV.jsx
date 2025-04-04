@@ -3,9 +3,13 @@ import ReactQuill from "react-quill";
 import withErrorBoundary from "../../hoc/withErrorBoundary";
 import { useSelector } from 'react-redux';
 import { postCreateOnlineCV } from "../../services/resumeService";
+import { postCreateWorkExperience } from "../../services/workExperience";
 import { Datepicker, Spinner } from "flowbite-react";
 import { useSkills } from "../../hooks/useSkills";
 import { ProFormSelect } from "@ant-design/pro-components";
+import { useMutation } from "@tanstack/react-query";
+import { Button, message } from "antd";
+import { toast } from "react-toastify";
 
 const FormCreateCV = () => {
     const containerRef = useRef(null);
@@ -27,7 +31,6 @@ const FormCreateCV = () => {
         companyName: "", location: "", startDate: "", endDate: "", description: ""
     });
     const { res: resSkills, isLoading: isLoadingSkills } = useSkills();
-    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         if (user?.dateOfBirth)
@@ -55,49 +58,75 @@ const FormCreateCV = () => {
         formRef.current[field] = value;
     };
 
-    const apiCreateOnlineCV = async (data) => {
-        try {
-            let res = await postCreateOnlineCV(data);
-            console.log(res);
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    const mutationResumeOnline = useMutation({
+        mutationFn: postCreateOnlineCV,
+        onSuccess: async (res) => {
+            if (+res?.statusCode === 201 || +res?.statusCode === 200) {
+                const dataWorkExpe = {
+                    companyName: formRef.current.companyName,
+                    startDate: formRef.current.startDate,
+                    endDate: formRef.current.endDate,
+                    description: formRef.current.description,
+                    location: formRef.current.location,
+                    onlineResume: { id: res?.data?.id }
+                }
+                await mutationWorkExpe.mutateAsync(dataWorkExpe);
+                mutationResumeOnline.reset();
+            } else {
+                console.log(res?.data);
+                toast.error(res?.data?.error);
+            }
+        },
+        onError: (error) => {
+            console.error('Error:', error);
+            toast.error(error?.message || 'Something wrong in Server');
+        },
+    });
+
+    const mutationWorkExpe = useMutation({
+        mutationFn: postCreateWorkExperience,
+        onSuccess: (res) => {
+            if (+res?.statusCode === 201 || +res?.statusCode === 200) {
+                message.success("Tạo hồ sơ CV thành công");
+                mutationWorkExpe.reset();
+            } else {
+                console.log(res?.data);
+                toast.error(res?.data?.error);
+            }
+        },
+        onError: (error) => {
+            console.error('Error:', error);
+            toast.error(error?.message || 'Something wrong in Server');
+        },
+    });
 
     const handleSubmit = async () => {
         if (containerRef?.current)
             containerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
-        setIsLoading(true);
-        const formData = {
-            ...formRef.current,
-            skills: transformIds(formRef.current.skills),
 
-        };
-        console.log(formData)
-        return;
-        let data = {
-            user: {
-                id: user?.id
-            },
-            title: formData.title,
-            summary: formData.summary,
-            phone: "0377586305",
-            languages: formData.languages,
-            fullName: user.lastName + " " + user?.firstName,
-            email: user?.email,
-            educations: formData.educations,
-            address: "Dang Lo street, Tan Binh dist, Ho Chi Minh city",
+        const dataResumeOnl = {
+            user: { id: user?.id },
+            title: formRef.current.title,
+            address: formRef.current.address,
+            email: formRef.current.email,
+            fullName: formRef.current.fullName,
+            dateOfBirth: formRef.current.dateOfBirth,
+            phone: formRef.current.phoneNumber,
+            summary: formRef.current.summary,
+            skills: transformIds(formRef.current.skills),
+            languages: [formRef.current.languages],
+            educations: [formRef.current.educations],
+            certifications: [formRef.current.certifications],
         }
-        console.log("Submitted Data:", data);
-        await apiCreateOnlineCV(data)
-        // TODO: Gửi formData lên API hoặc xử lý dữ liệu
+
+        await mutationResumeOnline.mutateAsync(dataResumeOnl)
     };
 
 
     return (
         <div className="relative" ref={containerRef}>
             {/* Overlay + Loading */}
-            {isLoading && (
+            {mutationResumeOnline?.isPending || mutationWorkExpe?.isPending && (
                 <div className="absolute rounded-sm inset-0 h-screen flex justify-center items-center bg-gray-600 bg-opacity-50 z-10">
                     <Spinner size="xl" color="white" />
                 </div>
@@ -265,7 +294,7 @@ const FormCreateCV = () => {
                     <ReactQuill
                         theme="snow"
                         className="h-[200px]"
-                        onChange={(value) => handleOnChange("workExperience", [...formRef.current.workExperience, { jobDescription: value }])}
+                        onChange={(value) => handleOnChange("description", value)}
                     />
                 </div>
 
@@ -273,13 +302,13 @@ const FormCreateCV = () => {
 
             {/* Buttons */}
             <div className="text-right border-t border-gray-200 pt-4 dark:border-gray-700 md:pt-5 mt-14">
-                <button
-                    type="submit"
+                <Button
+                    loading={mutationResumeOnline.isPending || mutationWorkExpe.isPending}
                     className="me-2 inline-flex items-center rounded-lg bg-primary-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-800"
                     onClick={handleSubmit}
                 >
                     Tạo CV
-                </button>
+                </Button>
                 <button
                     type="button"
                     className="me-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100"
