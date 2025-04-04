@@ -57,9 +57,9 @@ const DropdownAccount = () => {
                 }
             >
                 {dropdownAccount?.length > 0 && dropdownAccount.map(item => (
-                    <Dropdown.Item key={item?.path}>
-                        <Link to={item?.path}>{item?.text ?? ''}</Link>
-                    </Dropdown.Item>
+                    <Link key={item?.path} to={item?.path} onClick={(e) => e.stopPropagation()}>
+                        <Dropdown.Item>{item?.text ?? ''}</Dropdown.Item>
+                    </Link>
                 ))}
                 <Dropdown.Divider />
                 <Dropdown.Item onClick={handleLogout}>Đăng xuất</Dropdown.Item>
