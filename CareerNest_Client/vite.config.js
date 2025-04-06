@@ -12,4 +12,7 @@ export default defineConfig({
   server: {
     port: parseInt(process.env.VITE_PORT, 10) || 3000,
   },
+  optimizeDeps: {
+    include: ['pdfjs-dist'],
+  },
 })
