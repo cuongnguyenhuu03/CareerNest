@@ -2,17 +2,20 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IoMdSend } from "react-icons/io";
 import { RiRobot2Line } from "react-icons/ri";
-import { CiUser } from "react-icons/ci";
+import { CiUser, CiImageOn } from "react-icons/ci";
 import withErrorBoundary from '../../hoc/withErrorBoundary';
-import { askGemini } from './gemini';
+import { askGemini, askGeminiWithPDF } from './gemini';
+import { message } from 'antd';
+import { Spinner } from "flowbite-react";
 
 const ModalChatBot = ({ setShowChatbot = () => { } }) => {
     const [chatHistory, setChatHistory] = useState([]);
     const [input, setInput] = useState("");
+    const [file, setFile] = useState(null);
 
     const handleAsk = async () => {
         if (!input.trim()) {
-            alert("Please enter a question.");
+            message.warning("Vui lòng nhập câu hỏi cho Chatbot.");
             return;
         }
 
@@ -35,7 +38,13 @@ const ModalChatBot = ({ setShowChatbot = () => { } }) => {
 
         try {
             // Gọi API để lấy câu trả lời từ Gemini
-            const answer = await askGemini(input);
+            let answer;
+            if (file) {
+                answer = await askGeminiWithPDF(file, input); // Gửi cả file và input
+            } else {
+                answer = await askGemini(input); // Chỉ gửi input nếu không có file
+            }
+            setFile(null);
 
             // Tạo tin nhắn của Gemini với phản hồi
             const geminiMessage = {
@@ -87,7 +96,14 @@ const ModalChatBot = ({ setShowChatbot = () => { } }) => {
                                             <span className="text-xs font-medium">{chat?.username}</span>
                                             <span className="text-xs ml-2 opacity-75">{chat?.time}</span>
                                         </div>
-                                        <p className='text-[13px]'>{chat?.message}</p>
+                                        {chat?.message === 'Loading...' ? <div className='text-center'><Spinner size="sm" /></div>
+                                            :
+                                            <div
+                                                className="text-[13px]"
+                                                dangerouslySetInnerHTML={{ __html: chat?.message }}
+                                            />
+                                        }
+
                                     </div>
                                 </div>
                                 :
@@ -104,6 +120,11 @@ const ModalChatBot = ({ setShowChatbot = () => { } }) => {
                         ))}
                     </div>
 
+                    {file && (
+                        <p className="text-xs text-gray-500 mt-1 truncate max-w-[200px]">
+                            📎 {file.name}
+                        </p>
+                    )}
                     <div className="border-t border-gray-200 pt-4 flex items-center">
                         <input
                             type="text"
@@ -115,11 +136,26 @@ const ModalChatBot = ({ setShowChatbot = () => { } }) => {
                                 }
                             }}
                             placeholder="Type your message here..."
-                            className="flex-1 text-xs border border-gray-300 rounded-l-lg py-2 px-4 focus:outline-none  " />
+                            className="flex-1 text-xs border border-gray-300 rounded-l-lg py-2 px-4 focus:outline-none"
+                        />
+
+                        {/* Nút upload file */}
+                        <label className="bg-gray-200 p-2 cursor-pointer hover:bg-gray-300">
+                            <input
+                                type="file"
+                                accept="application/pdf"
+                                onChange={(e) => setFile(e.target.files[0])}
+                                className="hidden"
+                            />
+                            <CiImageOn size={18} />
+                        </label>
+
+                        {/* Nút gửi */}
                         <button
                             onClick={handleAsk}
-                            disabled={!input.trim()}
-                            className="bg-blue-600 text-white p-2 rounded-r-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            disabled={!input.trim() && !file}
+                            className="bg-blue-600 text-white p-2 rounded-r-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
                             <IoMdSend size={18} />
                         </button>
                     </div>
