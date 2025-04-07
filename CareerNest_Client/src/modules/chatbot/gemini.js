@@ -2,6 +2,9 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { getDocument } from 'pdfjs-dist';
 import './pdfWorker';
 import * as marked from 'marked';
+import { filterJobs } from "../../services/jobService";
+import { toast } from "react-toastify";
+import { formatJobsToHTML } from "./formatJobToMarkdown";
 
 // Thay API key của bạn ở đây (lưu ý: ai cũng có thể xem khi bundle)
 const genAI = new GoogleGenerativeAI(`${import.meta.env.VITE_GOOGLE_GEMINI_API_KEY}`);
@@ -16,11 +19,45 @@ const generationConfig = {
 // Khởi tạo mô hình Gemini
 const model = genAI.getGenerativeModel({
     model: "gemini-2.0-flash",
-    systemInstruction: "Remember you are a chatbot AI from CareerNest website (an online IT job search platform in Vietnam). Developed by Vu Hoang Hai author",
+    systemInstruction: `Bạn là trợ lý AI giúp người dùng tìm việc trên nền tảng CareerNest. Khi người dùng hỏi thông tin 
+    như: tìm thông tin công việc/việc làm/job tại đâu, hay công việc về lĩnh vực/công nghệ gì, theo cấp bậc/level nào, thì hãy trả về cho tôi những từ khóa
+     đó theo định dạng: keywork:x,location:y,level:[],findJob:true(location hãy chuyển về viết thường và không dấu nhé, 
+    còn level mặc định là mảng rỗng, nếu có giá trị thì viết hoa toàn bộ chữ cái và bỏ vào cặp dấu '' nhé)`,
 });
+
+function parseTextToObject(text) {
+    const result = {};
+
+    // Tách các cặp key:value nhưng không bị split bên trong dấu []
+    const pairs = text.match(/[^,]+:\s*(?:\[[^\]]*\]|[^,]*)/g);
+
+    pairs.forEach(pair => {
+        const [key, rawValue] = pair.split(':').map(s => s.trim());
+
+        if (!rawValue) {
+            result[key] = '';
+        } else if (rawValue.startsWith('[') && rawValue.endsWith(']')) {
+            // Parse mảng
+            try {
+                result[key] = JSON.parse(rawValue.replace(/'/g, '"'));
+            } catch (e) {
+                result[key] = rawValue;
+            }
+        } else if (rawValue === 'true' || rawValue === 'false') {
+            // Parse boolean
+            result[key] = rawValue === 'true';
+        } else {
+            result[key] = rawValue;
+        }
+    });
+
+    return result;
+}
+
 
 export async function askGemini(prompt) {
     if (!prompt) return;
+
     try {
         const chatSession = model.startChat({
             generationConfig,
@@ -29,7 +66,17 @@ export async function askGemini(prompt) {
 
         const result = await chatSession.sendMessage(prompt);
 
-        const text = result.response.text();
+        let text = result.response.text();
+        if (text.includes("findJob:true")) {
+            let obj = parseTextToObject(text);
+            try {
+                let res = await filterJobs({ page: 1, pageSize: 5, name: obj?.keyword, location: [obj?.location], level: obj?.level });
+                text = res?.result?.length > 0 ? formatJobsToHTML(res.result) : 'Xin lỗi, không tìm thấy công việc bạn đang tìm.';
+            } catch (error) {
+                console.log(error);
+                toast.error(error?.message ?? 'Có lỗi xảy ra!');
+            }
+        }
 
         return marked.parse(text);
     } catch (err) {
