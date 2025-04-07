@@ -16,8 +16,6 @@ const FindJob = () => {
             navigate(`${path.FIND__JOB}/${location}`);
     };
 
-
-
     return (
         <div className={`w-full h-[500px] bg-slider-bg bg-cover bg-no-repeat bg-bottom mb-6 md:mb-16`}>
             <div className='w-full h-full flex justify-center items-center bg-gray-900 bg-opacity-60'>
