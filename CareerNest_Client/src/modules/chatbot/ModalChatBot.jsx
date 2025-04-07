@@ -99,7 +99,7 @@ const ModalChatBot = ({ setShowChatbot = () => { } }) => {
                                         {chat?.message === 'Loading...' ? <div className='text-center'><Spinner size="sm" /></div>
                                             :
                                             <div
-                                                className="text-[13px]"
+                                                className="text-xs text-wrap"
                                                 dangerouslySetInnerHTML={{ __html: chat?.message }}
                                             />
                                         }
@@ -154,7 +154,7 @@ const ModalChatBot = ({ setShowChatbot = () => { } }) => {
                         <button
                             onClick={handleAsk}
                             disabled={!input.trim() && !file}
-                            className="bg-blue-600 text-white p-2 rounded-r-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="bg-blue-600 cursor-pointer text-white p-2 rounded-r-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
                             <IoMdSend size={18} />
                         </button>
