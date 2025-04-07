@@ -38,6 +38,8 @@ export const path = {
     CHAT: '/chat',
     DETAIL__CHAT: 'detail',
 
+    INTERVIEW__BY__AI: '/interview-by-AI',
+
     FIND__JOB: '/find-job',
 }
 

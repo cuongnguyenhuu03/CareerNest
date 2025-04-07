@@ -127,12 +127,19 @@ const Header = () => {
                                             ) :
                                                 <NavLink
                                                     to={item.path}
-                                                    className={({ isActive }) => `ct-header-dropdown ct-hover-transition 
-                                                    ${(item.path === path.RECRUITMENT) && 'sm:hidden block'}
-                                             ${isActive && 'text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white'}`
+                                                    className={({ isActive }) =>
+                                                        `relative inline-block ct-header-dropdown ct-hover-transition 
+                                                ${(item.path === path.RECRUITMENT) && 'sm:hidden block'} 
+                                                ${isActive && 'text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white'}`
                                                     }
                                                 >
-                                                    {item.text}
+                                                    <span>{item.text}</span>
+
+                                                    {item.path === '/interview-by-AI' && (
+                                                        <span className="absolute -top-1 -right-2 text-[8px] bg-red-600 text-white rounded-full px-1.5 py-[1px] font-bold animate-bounce">
+                                                            NEW
+                                                        </span>
+                                                    )}
                                                 </NavLink>
                                             }
                                         </li>

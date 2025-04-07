@@ -3,6 +3,7 @@ import React, { Suspense, lazy } from 'react';
 import Loading from '../components/loading/Loading';
 import { path } from '../utils/constant';
 import PrivateRoute from './PrivateRoute';
+import InterviewByAI from '../pages/interviewByAI/InterviewByAIPage';
 
 const HomePage = lazy(() => import('../pages/homepage/HomePage'));
 const RegisterPage = lazy(() => import('../pages/auth/RegisterPage'));
@@ -16,6 +17,7 @@ const JobLayout = lazy(() => import('../layout/JobLayout'));
 const ChatLayout = lazy(() => import('../layout/ChatLayout'));
 const BlogLayout = lazy(() => import('../layout/BlogLayout'));
 const FindJobLayout = lazy(() => import('../layout/FindJobLayout'));
+const InterviewByAILayout = lazy(() => import('../layout/InterviewByAILayout'));
 const AuthLayout = lazy(() => import('../layout/AuthLayout'));
 const AdminLayout = lazy(() => import('../layout/AdminLayout'));
 const DetailJobPage = lazy(() => import('../pages/job/DetailJobPage'));
@@ -31,6 +33,7 @@ const CVLayout = lazy(() => import('../layout/CVLayout'));
 const CVManagementPage = lazy(() => import('../pages/cv/CVManagementPage'));
 const CVCreatePage = lazy(() => import('../pages/cv/CVCreatePage'));
 const CVReviewByAI = lazy(() => import('../pages/cv/CVReviewByAI'));
+const InterviewByAIPage = lazy(() => import('../pages/interviewByAI/InterviewByAIPage'));
 const CVDetailPage = lazy(() => import('../pages/cv/CVDetailPage'));
 const LoginRecruitmentPage = lazy(() => import('../pages/recruitment/LoginRecruitmentPage'));
 const LoginAdminPage = lazy(() => import('../pages/system/LoginAdminPage'));
@@ -69,6 +72,10 @@ const AppRoute = () => {
 
                 <Route path={path.FIND__JOB} element={<FindJobLayout />}>
                     <Route path=":location?/:name?" element={<FindJobPage />} />
+                </Route>
+
+                <Route path={path.INTERVIEW__BY__AI} element={<PrivateRoute><InterviewByAILayout /></PrivateRoute>}>
+                    <Route index element={<InterviewByAIPage />} />
                 </Route>
 
                 <Route path={path.CV} element={<PrivateRoute><CVLayout /></PrivateRoute>} >
