@@ -117,6 +117,7 @@ public class UserService implements IUserService {
         res.setPhoneNumber(user.getPhoneNumber());
         res.setAvatarUrl(user.getAvatar());
         res.setSaveJob(user.getSavedJob());
+        res.setOnlineResumes(user.getOnlineResumes());
 
         return res;
     }

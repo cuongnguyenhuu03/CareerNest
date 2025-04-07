@@ -86,7 +86,7 @@ public class JobController {
         // }
         // });
 
-        System.out.println("nguyen huu cuogn");
+        System.out.println("nguyen huu cuong");
 
         return ResponseEntity.ok(res);
     }

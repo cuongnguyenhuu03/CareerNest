@@ -7,6 +7,7 @@ import java.util.List;
 import com.nhc.CareerNest.constant.GenderEnum;
 import com.nhc.CareerNest.domain.entity.Company;
 import com.nhc.CareerNest.domain.entity.Job;
+import com.nhc.CareerNest.domain.entity.OnlineResume;
 import com.nhc.CareerNest.domain.entity.Role;
 
 public class ResCreateUserDTO {
@@ -24,6 +25,7 @@ public class ResCreateUserDTO {
     private String phoneNumber;
     private String avatarUrl;
     private List<Job> saveJob;
+    private List<OnlineResume> onlineResumes;
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -127,6 +129,14 @@ public class ResCreateUserDTO {
 
     public void setSaveJob(List<Job> saveJob) {
         this.saveJob = saveJob;
+    }
+
+    public List<OnlineResume> getOnlineResumes() {
+        return onlineResumes;
+    }
+
+    public void setOnlineResumes(List<OnlineResume> onlineResumes) {
+        this.onlineResumes = onlineResumes;
     }
 
 }

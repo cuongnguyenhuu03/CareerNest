@@ -6,6 +6,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
@@ -37,6 +38,7 @@ public class OnlineResume extends BaseEntity {
 
     private String address;
 
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String summary;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -44,10 +46,13 @@ public class OnlineResume extends BaseEntity {
     @JoinTable(name = "onlineResumes_skills", joinColumns = @JoinColumn(name = "onlineResume_id"), inverseJoinColumns = @JoinColumn(name = "skill_id"))
     private List<Skill> skills;
 
+    @Column(columnDefinition = "MEDIUMTEXT")
     private List<String> certifications;
 
+    @Column(columnDefinition = "MEDIUMTEXT")
     private List<String> educations;
 
+    @Column(columnDefinition = "MEDIUMTEXT")
     private List<String> languages;
 
     @OneToMany(mappedBy = "onlineResume", fetch = FetchType.LAZY)
