@@ -5,6 +5,8 @@ import * as marked from 'marked';
 import { filterJobs } from "../../services/jobService";
 import { toast } from "react-toastify";
 import { formatJobsToHTML } from "./formatJobToMarkdown";
+import { getAllCompanies } from "../../services/companyService";
+import { formatCompanyToHTML } from "./formatCompanyToHTML";
 
 // Thay API key của bạn ở đây (lưu ý: ai cũng có thể xem khi bundle)
 const genAI = new GoogleGenerativeAI(`${import.meta.env.VITE_GOOGLE_GEMINI_API_KEY}`);
@@ -23,7 +25,13 @@ const model = genAI.getGenerativeModel({
     như: tìm thông tin công việc/việc làm/job tại đâu, hay công việc về lĩnh vực/công nghệ gì, theo cấp bậc/level nào, thì hãy trả về cho tôi những từ khóa
      đó theo định dạng: keywork:x,location:y,level:[],findJob:true(location hãy chuyển về viết thường và không dấu nhé, 
     còn level mặc định là mảng rỗng, nếu có giá trị thì viết hoa toàn bộ chữ cái và bỏ vào cặp dấu '' nhé).
-    Đồng thời bạn có thể giúp người dùng review CV khi người dùng hỏi.`,
+    Khi người dùng quan tâm đến 1 lĩnh vực, vị trí nào đó và người dùng hỏi, bạn hãy đề xuất những kĩ năng cần đạt được để
+    người dùng học hỏi.
+    Đồng thời bạn có thể giúp người dùng review CV khi người dùng hỏi, phân tích điểm mạnh, điểm yếu. Gợi ý cải thiện CV để tăng tỷ lệ pass phỏng vấn, và 
+    dựa trên thông tin CV nói cho người dùng biết phù hợp với những vị trí việc làm nào. Hãy thêm kí hiệu ngăn cách các phần trả lời.
+    Nếu người dùng hỏi câu hỏi về công ty, chẳng hạn: đang có những công ty nào, thì trả về giúp tôi định dạng kiểu chuỗi findCompany:true. 
+    
+    Nhớ rằng: nếu người dùng hỏi những câu hỏi ở ngoài lề, không trong phạm vi của web CareerNest, thì bạn vẫn có thể trả lời theo hiểu biết của bạn.`,
 });
 
 function parseTextToObject(text) {
@@ -67,12 +75,23 @@ export async function askGemini(prompt) {
         const result = await chatSession.sendMessage(prompt);
 
         let text = result.response.text();
+
         if (text.includes("findJob:true")) {
             let obj = parseTextToObject(text);
 
             try {
-                let res = await filterJobs({ page: 1, pageSize: 5, name: obj?.keyword, location: [obj?.location], level: obj?.level });
+                let res = await filterJobs({ page: 1, pageSize: 50, name: obj?.keyword, location: [obj?.location], level: obj?.level });
                 text = res?.result?.length > 0 ? formatJobsToHTML(res.result) : 'Xin lỗi, không tìm thấy công việc bạn đang tìm.';
+            } catch (error) {
+                console.log(error);
+                toast.error(error?.message ?? 'Có lỗi xảy ra!');
+            }
+        }
+
+        if (text.includes("findCompany:true")) {
+            try {
+                let res = await getAllCompanies();
+                text = res?.result?.length > 0 ? formatCompanyToHTML(res.result) : 'Xin lỗi, không tìm thấy công việc bạn đang tìm.';
             } catch (error) {
                 console.log(error);
                 toast.error(error?.message ?? 'Có lỗi xảy ra!');

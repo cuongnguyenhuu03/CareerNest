@@ -30,6 +30,7 @@ const BlogPage = lazy(() => import('../pages/blog/BlogPage'));
 const CVLayout = lazy(() => import('../layout/CVLayout'));
 const CVManagementPage = lazy(() => import('../pages/cv/CVManagementPage'));
 const CVCreatePage = lazy(() => import('../pages/cv/CVCreatePage'));
+const CVReviewByAI = lazy(() => import('../pages/cv/CVReviewByAI'));
 const CVDetailPage = lazy(() => import('../pages/cv/CVDetailPage'));
 const LoginRecruitmentPage = lazy(() => import('../pages/recruitment/LoginRecruitmentPage'));
 const LoginAdminPage = lazy(() => import('../pages/system/LoginAdminPage'));
@@ -74,6 +75,7 @@ const AppRoute = () => {
                     <Route path={path.CV__MANAGE} element={< CVManagementPage />} />
                     <Route path={path.CV__CREATE} element={< CVCreatePage />} />
                     <Route path={path.CV__DETAIL} element={< CVDetailPage />} />
+                    <Route path={path.CV__REVIEW__BY__AI} element={< CVReviewByAI />} />
                 </Route>
 
                 <Route path={path.ACCOUNT} element={<PrivateRoute><AccountLayout /></PrivateRoute>} >
