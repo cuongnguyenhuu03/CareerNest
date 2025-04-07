@@ -109,6 +109,18 @@ const Header = () => {
                                                                     Tạo CV
                                                                 </Link>
                                                             </li>
+                                                            <li className="relative">
+                                                                <Link
+                                                                    to={`${path.CV}/${path.CV__REVIEW__BY__AI}`}
+                                                                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-white"
+                                                                >
+                                                                    Đánh giá CV bởi AI
+                                                                    <span className="absolute top-0 right-0 mt-1 bg-red-500 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">
+                                                                        New
+                                                                    </span>
+                                                                </Link>
+                                                            </li>
+
                                                         </ul>
                                                     }
                                                 </div>
