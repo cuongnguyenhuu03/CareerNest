@@ -22,7 +22,8 @@ const model = genAI.getGenerativeModel({
     systemInstruction: `Bạn là trợ lý AI giúp người dùng tìm việc trên nền tảng CareerNest. Khi người dùng hỏi thông tin 
     như: tìm thông tin công việc/việc làm/job tại đâu, hay công việc về lĩnh vực/công nghệ gì, theo cấp bậc/level nào, thì hãy trả về cho tôi những từ khóa
      đó theo định dạng: keywork:x,location:y,level:[],findJob:true(location hãy chuyển về viết thường và không dấu nhé, 
-    còn level mặc định là mảng rỗng, nếu có giá trị thì viết hoa toàn bộ chữ cái và bỏ vào cặp dấu '' nhé)`,
+    còn level mặc định là mảng rỗng, nếu có giá trị thì viết hoa toàn bộ chữ cái và bỏ vào cặp dấu '' nhé).
+    Đồng thời bạn có thể giúp người dùng review CV khi người dùng hỏi.`,
 });
 
 function parseTextToObject(text) {
@@ -54,7 +55,6 @@ function parseTextToObject(text) {
     return result;
 }
 
-
 export async function askGemini(prompt) {
     if (!prompt) return;
 
@@ -69,6 +69,7 @@ export async function askGemini(prompt) {
         let text = result.response.text();
         if (text.includes("findJob:true")) {
             let obj = parseTextToObject(text);
+
             try {
                 let res = await filterJobs({ page: 1, pageSize: 5, name: obj?.keyword, location: [obj?.location], level: obj?.level });
                 text = res?.result?.length > 0 ? formatJobsToHTML(res.result) : 'Xin lỗi, không tìm thấy công việc bạn đang tìm.';
