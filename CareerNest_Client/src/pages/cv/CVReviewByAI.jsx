@@ -63,7 +63,7 @@ const CVReviewByAI = () => {
                     {loading && (
                         <div className="flex flex-col items-center justify-center gap-4">
                             <Spinner size='xl' color='info' />
-                            <p className="text-lg font-medium">Đang phân tích CV...</p>
+                            <p className="text-lg font-medium animate-pulse">Đang phân tích CV...</p>
                         </div>
                     )}
 
