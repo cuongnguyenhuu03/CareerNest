@@ -227,12 +227,18 @@ const DetailJobPage = () => {
                         <div className='flex gap-2 items-center text-xs md:text-sm font-light dark:text-white dark:tracking-wide'>
                             <IoMdTime /> Hạn nộp: {convertTimeStampToString(detailJob?.endDate, true)}
                         </div>
-                        <Tooltip content="Kiểm tra độ phù hợp với công việc" placement='right' >
-                            <Button onClick={() => setOpenModal(true)} className="w-fit mt-4 bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 text-white hover:bg-gradient-to-br focus:ring-cyan-300 dark:focus:ring-cyan-800">
-                                <RiRobot2Line className="mr-2 h-5 w-5" />
-                                Tư vấn bởi AI
-                            </Button>
+                        <Tooltip content="Kiểm tra độ phù hợp với công việc" placement="right">
+                            <div className="relative inline-block">
+                                <Button onClick={() => setOpenModal(true)} color="light" className="mt-2 pr-3">
+                                    <RiRobot2Line className="mr-2 h-5 w-5" />
+                                    Tư vấn bởi AI
+                                </Button>
+                                <span className="absolute animate-bounce top-0 right-0 mt-1 -mr-1 bg-red-500 text-white text-[10px] px-1 py-0.5 rounded-full shadow">
+                                    New
+                                </span>
+                            </div>
                         </Tooltip>
+
 
                     </div>
                 </div>

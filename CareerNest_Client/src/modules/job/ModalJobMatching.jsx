@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { MdOutlineFileUpload } from "react-icons/md";
 import { toast } from 'react-toastify';
 import { askGeminiWithPDF } from '../chatbot/gemini';
+import withErrorBoundary from '../../hoc/withErrorBoundary';
 
 const ModalJobMatching = ({ openModal = false, setOpenModal = null, job = {} }) => {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -91,7 +92,7 @@ const ModalJobMatching = ({ openModal = false, setOpenModal = null, job = {} }) 
                 }
 
                 <ModalFooter className="w-full flex justify-end gap-2">
-                    <Button onClick={handleSubmitForm}>Xác nhận</Button>
+                    {!answerFromAI && <Button onClick={handleSubmitForm}>Xác nhận</Button>}
                     <Button color="gray" onClick={() => setOpenModal(false)}>
                         Hủy
                     </Button>
@@ -101,7 +102,7 @@ const ModalJobMatching = ({ openModal = false, setOpenModal = null, job = {} }) 
                 {isLoading && (
                     <div className="absolute inset-0 bg-white/60 dark:bg-gray-900/60 flex flex-col gap-3  items-center justify-center z-10">
                         <Spinner size="xl" />
-                        <span className="text-lg font-semibold text-red-500 animate-pulse">
+                        <span className="text-lg font-semibold text-red-500 dark:text-white animate-pulse">
                             Job matching processing...
                         </span>
                     </div>
@@ -111,4 +112,4 @@ const ModalJobMatching = ({ openModal = false, setOpenModal = null, job = {} }) 
     );
 };
 
-export default ModalJobMatching;
+export default withErrorBoundary(ModalJobMatching);
