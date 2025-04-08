@@ -82,7 +82,7 @@ const ModalJobMatching = ({ openModal = false, setOpenModal = null, job = {} }) 
                         </div>
                     </ModalBody>
                     :
-                    <ModalBody className="max-h-[70vh] overflow-y-auto">
+                    <ModalBody className="max-h-[70vh] overflow-y-auto dark:bg-white">
                         <div
                             className="mt-4 text-sm text-gray-800 text-justify"
                             dangerouslySetInnerHTML={{ __html: answerFromAI }}

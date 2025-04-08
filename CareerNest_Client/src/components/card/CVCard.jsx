@@ -15,7 +15,7 @@ const CVCard = ({ className = '' }) => {
 
     return (
         <>
-            <div className={`${className} rounded-lg w-full flex gap-3 md:gap-6 p-[12px] items-center justify-between hover:rounded-md ct-hover-transition text-black hover:bg-gray-100`}>
+            <div className={`${className} rounded-lg w-full flex gap-3 md:gap-6 p-[12px] items-center justify-between hover:rounded-md ct-hover-transition text-black hover:bg-gray-100 dark:hover:bg-gray-500`}>
                 <div className='flex flex-col gap-2'>
                     <img
                         src={'/create_cv.png'} alt="thumbnail"
@@ -24,7 +24,7 @@ const CVCard = ({ className = '' }) => {
                 </div>
                 <div className='flex flex-auto flex-col gap-1'>
                     <div className='hidden sm:flex items-center justify-between'>
-                        <div className={`text-sm md:text-base lg:text-lg xl:text-base font-medium uppercase`}>
+                        <div className={`text-sm md:text-base lg:text-lg xl:text-base font-medium uppercase dark:text-white`}>
                             Fresher Backend NodeJS
                         </div>
                         <div className='text-right flex flex-col gap-y-4'>
@@ -51,14 +51,14 @@ const CVCard = ({ className = '' }) => {
                                 </Tooltip>
                             </div>
                         </div>
-                        <div className={`text-sm md:text-base lg:text-lg xl:text-base font-medium uppercase`}
+                        <div className={`text-sm md:text-base lg:text-lg xl:text-base font-medium uppercase dark:text-white`}
                             onClick={() => navigate(`/job/detail/1/${slugify('Lập trình viên Python', { lower: true, strict: true })}`)}
                         >
                             Fresher Backend NodeJS
                         </div>
                     </div>
 
-                    <div className='flex gap-2 items-center text-xs md:text-sm font-light'>
+                    <div className='flex gap-2 items-center text-xs md:text-sm font-light dark:text-gray-300'>
                         <FaRegBuilding size={15} /> Mã CV: 192783910
                     </div>
                     <div className='flex mb-6 gap-2 text-orange-600 items-center text-xs md:text-sm font-light'>

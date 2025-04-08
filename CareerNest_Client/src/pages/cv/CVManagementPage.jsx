@@ -25,9 +25,9 @@ const CVManagementPage = () => {
     }, []);
 
     return (
-        <div ref={ref} className='ct-container py-4 mt-20 bg-[#f7f7f7]'>
+        <div ref={ref} className='ct-container py-4 pt-20 bg-[#f7f7f7] dark:bg-slate-800'>
             <Breadcrumbs data={data} />
-            <div className='bg-[#fff] px-3 xs:px-6 py-4 rounded-lg'>
+            <div className='bg-[#fff] dark:bg-gray-700 px-3 xs:px-6 py-4 rounded-lg'>
                 <Badge className='py-2 rounded-md' color="gray" size='sm'>Danh sách CV của bạn</Badge>
                 <Button className='my-4' size='sm' gradientDuoTone="cyanToBlue" onClick={() => navigate(`${path.CV}/${path.CV__CREATE}`)}>
                     <CiCirclePlus className='mr-2' size={22} />  Tạo mới
@@ -38,8 +38,8 @@ const CVManagementPage = () => {
                 <Badge className='w-fit mt-20 text-sm sm:text-lg' color="success" size='sm'>CV online của bạn trên CareerNest</Badge>
                 {/* danh sách cv đã tạo */}
                 <div className='w-full mt-4 flex flex-col gap-y-4'>
-                    <CVCard className='shadow-md' />
-                    <CVCard className='shadow-md' />
+                    <CVCard className='border border-gray-200 dark:border-gray-500' />
+                    <CVCard className='border border-gray-200 dark:border-gray-500' />
                 </div>
             </div>
         </div>

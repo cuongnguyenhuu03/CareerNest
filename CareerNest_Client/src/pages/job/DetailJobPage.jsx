@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, } from 'react';
 import icons from '../../utils/icons';
-import { Alert, Badge, Button, List } from "flowbite-react";
+import { Alert, Badge, Button, List, Tooltip } from "flowbite-react";
 import { message } from "antd";
 import { useNavigate, useParams } from 'react-router-dom';
 import { path } from '../../utils/constant';
@@ -227,10 +227,13 @@ const DetailJobPage = () => {
                         <div className='flex gap-2 items-center text-xs md:text-sm font-light dark:text-white dark:tracking-wide'>
                             <IoMdTime /> Hạn nộp: {convertTimeStampToString(detailJob?.endDate, true)}
                         </div>
-                        <Button onClick={() => setOpenModal(true)} className="w-fit mt-4 bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 text-white hover:bg-gradient-to-br focus:ring-cyan-300 dark:focus:ring-cyan-800">
-                            <RiRobot2Line className="mr-2 h-5 w-5" />
-                            Tư vấn bởi AI
-                        </Button>
+                        <Tooltip content="Kiểm tra độ phù hợp với công việc" placement='right' >
+                            <Button onClick={() => setOpenModal(true)} className="w-fit mt-4 bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 text-white hover:bg-gradient-to-br focus:ring-cyan-300 dark:focus:ring-cyan-800">
+                                <RiRobot2Line className="mr-2 h-5 w-5" />
+                                Tư vấn bởi AI
+                            </Button>
+                        </Tooltip>
+
                     </div>
                 </div>
 

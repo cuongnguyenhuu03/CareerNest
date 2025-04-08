@@ -199,7 +199,7 @@ const FormCreateCV = () => {
                         defaultValue={user?.address ?? ''}
                         rows={3}
                         readOnly
-                        className="block w-full outline-none rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="Enter here your address" />
+                        className="block w-full outline-none rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900" placeholder="Enter here your address" />
                 </div>
 
                 {/* Select Fields */}
@@ -237,7 +237,7 @@ const FormCreateCV = () => {
                             {label}
                         </label>
                         <ReactQuill
-                            className="h-[400px]"
+                            className="h-[400px] custom-quill-editor dark:text-white dark:font-medium"
                             theme="snow"
                             onChange={(value) => handleOnChange(field, value)}
                         />
@@ -293,7 +293,7 @@ const FormCreateCV = () => {
                     <label className="block text-sm font-medium text-gray-900 dark:text-white">Mô tả công việc</label>
                     <ReactQuill
                         theme="snow"
-                        className="h-[200px]"
+                        className="h-[200px] custom-quill-editor dark:text-white dark:font-medium"
                         onChange={(value) => handleOnChange("description", value)}
                     />
                 </div>

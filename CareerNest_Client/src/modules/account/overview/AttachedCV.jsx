@@ -10,7 +10,7 @@ const AttachedCV = () => {
     const location = useLocation();
 
     return (
-        <div className='w-full flex flex-col gap-y-4 shadow-md dark:shadow-lg p-3 sm:p-4 rounded-lg mb-6'>
+        <div className='w-full flex flex-col gap-y-4 shadow-md dark:shadow-lg p-3 sm:p-4 rounded-lg mb-6 dark:bg-slate-800'>
             <Badge className='w-fit text-base sm:text-lg' color="info" size='sm'>CV đính kèm của bạn</Badge>
             <div className='w-full flex gap-x-4 rounded-lg bg-[#f7f7f7] dark:bg-gray-700 p-2 sm:p-6 border border-gray-200 dark:border-gray-600'>
                 <Avatar size='lg' className='sm:order-1 order-2'
@@ -18,7 +18,7 @@ const AttachedCV = () => {
                 />
                 <div className='flex flex-col gap-y-3 sm:order-2 order-1'>
                     <Link
-                        className='text-[#414042] dark:text-gray-400 underline text-[11px] xs:text-xs sm:text-lg font-medium'
+                        className='text-[#414042] dark:text-white underline text-[11px] xs:text-xs sm:text-lg font-medium'
                         to={'#'}
                     >
                         {fileName}
@@ -39,7 +39,7 @@ const AttachedCV = () => {
                                     className="hidden" // Ẩn input
                                 />
                             </label>
-                            <div className='text-xs xs:text-sm mt-3 text-gray-500'>Chỉ chấp nhận file định dạng .docx, .doc, .pdf *</div>
+                            <div className='text-xs xs:text-sm mt-3 text-gray-400'>Chỉ chấp nhận file định dạng .docx, .doc, .pdf *</div>
                         </>
 
                     }
