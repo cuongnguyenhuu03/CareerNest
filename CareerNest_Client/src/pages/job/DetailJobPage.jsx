@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, } from 'react';
 import icons from '../../utils/icons';
-import { Alert, Badge, Button, List, Modal, ModalBody, ModalFooter, ModalHeader } from "flowbite-react";
+import { Alert, Badge, Button, List } from "flowbite-react";
 import { message } from "antd";
 import { useNavigate, useParams } from 'react-router-dom';
 import { path } from '../../utils/constant';
@@ -21,6 +21,7 @@ import { postSaveJob } from '../../services/userService';
 import { toast } from 'react-toastify';
 import { useDetailUser } from '../../hooks/useDetailUer';
 import { RiRobot2Line } from "react-icons/ri";
+import ModalJobMatching from '../../modules/job/ModalJobMatching';
 
 const { FaRegBuilding, FaMoneyCheckDollar, IoMdTime, IoPeople, GrLocation, FaCircleInfo, HiCheckCircle, FaHeart } = icons;
 const data = [
@@ -37,7 +38,7 @@ const DetailJobPage = () => {
     const params = useParams();
     const queryClient = useQueryClient()
 
-    const [openModal, setOpenModal] = useState(true);
+    const [openModal, setOpenModal] = useState(false);
 
     useEffect(() => {
         if (ref?.current)
@@ -361,28 +362,10 @@ const DetailJobPage = () => {
             </div>
 
             {openModal &&
-                <Modal show={openModal} onClose={() => setOpenModal(false)}>
-                    <ModalHeader>Terms of Service</ModalHeader>
-                    <ModalBody>
-                        <div className="space-y-6">
-                            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                                With less than a month to go before the European Union enacts new consumer privacy laws for its citizens,
-                                companies around the world are updating their terms of service agreements to comply.
-                            </p>
-                            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                                The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant
-                                to ensure a common set of data rights in the European Union. It requires organizations to notify users as
-                                soon as possible of high-risk data breaches that could personally affect them.
-                            </p>
-                        </div>
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button onClick={() => setOpenModal(false)}>I accept</Button>
-                        <Button color="gray" onClick={() => setOpenModal(false)}>
-                            Decline
-                        </Button>
-                    </ModalFooter>
-                </Modal>
+                <ModalJobMatching
+                    openModal={openModal}
+                    setOpenModal={setOpenModal}
+                    job={detailJob} />
             }
         </>
 
