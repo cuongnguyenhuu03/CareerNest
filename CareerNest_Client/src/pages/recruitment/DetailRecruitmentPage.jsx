@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Alert, Badge } from 'flowbite-react';
+import { Alert, Badge, Button, Card, TextInput } from 'flowbite-react';
 import icons from '../../utils/icons';
 import JobCard from '../../components/card/JobCard';
 import { CgWebsite } from "react-icons/cg";
@@ -14,9 +14,11 @@ import { getJobsByCompany } from '../../services/jobService';
 import withErrorBoundary from '../../hoc/withErrorBoundary';
 import '../job/DetailJobPage.scss';
 import { getFirebaseImageUrl } from '../../utils/getFirebaseImageURL';
+import { FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa";
+import slugify from 'slugify';
+import ModalRecruitmentMatching from '../../modules/recruitment/ModalRecruitmentMatching';
 
 const { IoPeople, GrLocation, FaCircleInfo } = icons;
-
 const data = [
     { text: "Trang chủ", path: path.HOME },
     { text: "Nhà tuyển dụng", path: "#" }
@@ -25,6 +27,9 @@ const data = [
 const DetailRecruitmentPage = () => {
     const ref = useRef(null);
     const { id, slug } = useParams();
+    const [copied, setCopied] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
+    const [isListening, setIsListening] = useState(false);
 
     useEffect(() => {
         if (ref?.current)
@@ -40,6 +45,7 @@ const DetailRecruitmentPage = () => {
         refetchOnWindowFocus: true,
     })
     const detailCompany = resRecruitment?.data;
+    const link = `http://localhost:3000/${path.RECRUITMENT}/detail/${detailCompany?.id}/${slugify(detailCompany?.name ?? '', { lower: true, strict: true })}`;
 
     const { data: resJobs } = useQuery({
         queryKey: ['jobsByCompany', +detailCompany?.id],
@@ -49,6 +55,12 @@ const DetailRecruitmentPage = () => {
         refetchOnWindowFocus: true,
     })
     const jobsByCompany = resJobs?.data?.content ?? [];
+
+    const handleCopy = () => {
+        navigator.clipboard.writeText(link);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
 
     if (!id || !slug) return null;
     if (isLoading || isFetching)
@@ -92,139 +104,189 @@ const DetailRecruitmentPage = () => {
         );
     }
     return (
-        <div className='ct-container mt-[60px]'>
-            <Breadcrumbs data={data} />
-            <div ref={ref} className='w-full h-[250px] rounded-md relative bg-cover bg-no-repeat bg-center' style={{ backgroundImage: `url(/cover-default.jpg)` }} >
-                <div className='w-full h-full py-3 flex flex-col gap-4 items-center justify-end  bg-gray-900 bg-opacity-30'>
-                    <img
-                        src={detailCompany?.logoUrl ? getFirebaseImageUrl(detailCompany.logoUrl, 'companies') : ''}
-                        alt="company Logo"
-                        className="w-40 h-40 object-contain dark:object-contain"
-                    />
-                    <h1 className='uppercase text-center font-semibold text-white text-base xs:text-xl sm:text-2xl'>
-                        {detailCompany?.name}
-                    </h1>
-                </div>
-            </div>
+        <>
+            <div className='ct-container pt-20'>
+                <Breadcrumbs data={data} />
+                <div ref={ref} className='w-full h-[250px] rounded-md relative bg-cover bg-no-repeat bg-center' style={{ backgroundImage: `url(/cover-default.jpg)` }}>
+                    {/* Button Flowbite nằm trên cùng bên phải */}
+                    <Button
+                        size="sm"
+                        color="light"
+                        className="absolute top-2 right-2 z-10 pr-4 text-blue-800"
+                        onClick={() => setOpenModal(true)}
+                    >
+                        Phân tích văn hóa công ty
+                        <span className="absolute animate-bounce top-0 right-0 mt-0 -mr-1 bg-red-500 text-white text-[10px] px-1 py-0.5 rounded-md shadow">
+                            New
+                        </span>
+                    </Button>
 
-            <div className='hidden w-full sm:flex mt-8 gap-6'>
-                <div className='basis-3/5 flex flex-col gap-10'>
-                    <div className='flex flex-col gap-4'>
-                        <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
-                            1. Giới thiệu nhà tuyển dụng
+                    {/* Lớp overlay + nội dung */}
+                    <div className='w-full h-full py-3 flex flex-col gap-4 items-center justify-end bg-gray-900 bg-opacity-30'>
+                        <img
+                            src={detailCompany?.logoUrl ? getFirebaseImageUrl(detailCompany.logoUrl, 'companies') : ''}
+                            alt="company Logo"
+                            className="w-40 h-40 object-contain dark:object-contain"
+                        />
+                        <h1 className='uppercase text-center font-semibold text-white text-base xs:text-xl sm:text-2xl'>
+                            {detailCompany?.name}
+                        </h1>
+                    </div>
+                </div>
+
+
+                <div className='hidden w-full sm:flex mt-8 gap-6'>
+                    <div className='basis-3/5 flex flex-col gap-10'>
+                        <div className='flex flex-col gap-4'>
+                            <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
+                                1. Giới thiệu nhà tuyển dụng
+                            </div>
+                            <div className='text-justify text-sm px-3 job-description'>
+                                <div className='text-justify text-black dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailCompany?.description }}></div>
+                            </div>
                         </div>
-                        <div className='text-justify text-sm px-3 job-description'>
-                            <div className='text-justify text-black dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailCompany?.description }}></div>
+                        <div className='flex flex-col gap-6'>
+                            <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
+                                2. Việc làm đang tuyển dụng
+                            </div>
+                            <div className='w-full flex flex-col gap-y-4'>
+                                {jobsByCompany?.length <= 0 ?
+                                    <Badge color="gray" size="sm" className='w-fit uppercase'>Chưa có thông tin tuyển dụng nào</Badge>
+                                    :
+                                    <>
+                                        {
+                                            jobsByCompany.map(item => (
+                                                <div key={item?.id} className='shadow-lg'>
+                                                    <JobCard data={item} className="min-w-full xs:min-w-0" />
+                                                </div>
+                                            ))
+                                        }
+                                    </>
+                                }
+                            </div>
                         </div>
+                    </div>
+                    <div className='basis-2/5 flex flex-col gap-3'>
+                        <h1 className='flex items-center gap-2 md:text-base lg:text-lg font-medium uppercase dark:text-white'> <FaCircleInfo className='text-gray-500' size={15} /> Thông tin nhà tuyển dụng</h1>
+                        <div className='flex gap-2 items-center'>
+                            <CgWebsite className='text-[#23527c]' size={15} />
+                            <span className='font-medium dark:text-white'> Website:</span> <a className='text-blue-600 hover:underline' target='blank' href={detailCompany?.website}>
+                                {detailCompany?.website}
+                            </a>
+                        </div>
+                        <div className='flex gap-2 items-center'>
+                            <IoPeople className='text-[#23527c]' size={15} />
+                            <span className='font-medium dark:text-white'> Quy mô:</span> <span className='dark:text-gray-400'>{detailCompany?.size} nhân viên</span>
+                        </div>
+                        <div className='flex gap-2 items-center '>
+                            <GrLocation className='text-[#23527c]' size={15} />
+                            <span className='font-medium dark:text-white'> Địa chỉ:</span> <span className='dark:text-gray-400'>{detailCompany?.address}</span>
+                        </div>
+
+                        <h1 className='mt-6 flex items-center gap-2 text-lg font-medium uppercase dark:text-white'> <TbMapSearch className='text-gray-500' size={15} />
+                            Bản đồ
+                        </h1>
+                        <iframe className='w-full h-[300px] md:h-[400px]'
+                            src={`https://maps.google.com/maps?q=${detailCompany?.address}&output=embed`}>
+                        </iframe>
+
+                        {/* Clipboard */}
+                        <Card className="w-full mt-8 dark:bg-gray-700">
+                            <h2 className="text-lg font-medium uppercase dark:text-white">Chia sẻ công ty tới bạn bè</h2>
+
+                            <div className="flex items-center space-x-2">
+                                <TextInput
+                                    type="text"
+                                    value={link}
+                                    readOnly
+                                    className="flex-1"
+                                />
+                                <Button onClick={handleCopy} color="light">
+                                    📋
+                                </Button>
+                            </div>
+                            {copied && <p className="text-green-600 text-sm mt-1">Đã sao chép!</p>}
+
+                            <p className="text-sm text-gray-500 mt-4 dark:text-gray-300">Chia sẻ qua mạng xã hội</p>
+                            <div className="flex gap-4 text-xl">
+                                <a href="#" className="text-blue-600 border border-gray-200 rounded-full p-2 hover:scale-110 transition-transform"><FaFacebook size={30} /></a>
+                                <a href="#" className="text-blue-400 border border-gray-200 rounded-full p-2 hover:scale-110 transition-transform"><FaTwitter size={30} /></a>
+                                <a href="#" className="text-blue-700 border border-gray-200 rounded-full p-2 hover:scale-110 transition-transform"><FaLinkedin size={30} /></a>
+                            </div>
+                        </Card>
+                    </div>
+                </div>
+
+                {/* Resonsive for Mobile */}
+                <div className='sm:hidden w-full flex flex-col px-2 mt-8'>
+                    <div className='w-full flex flex-col gap-2 mb-8'>
+                        <h1 className='flex items-center gap-2 text-lg font-medium uppercase dark:text-white'> <FaCircleInfo className='text-gray-500' size={15} /> Thông tin nhà tuyển dụng</h1>
+                        <div className='flex gap-2 items-center'>
+                            <CgWebsite className='text-[#23527c]' size={15} />
+                            <span className='font-medium dark:text-white'> Website:</span> <a className='text-blue-600 hover:underline' target='blank' href={detailCompany?.website}>
+                                <span className='dark:text-gray-400'>{detailCompany?.website}</span>
+                            </a>
+                        </div>
+                        <div className='flex gap-2 items-center'>
+                            <IoPeople className='text-[#23527c]' size={15} />
+                            <span className='font-medium dark:text-white'> Quy mô:</span> <span className='dark:text-gray-400'>{detailCompany?.size} nhân viên</span>
+                        </div>
+                        <div className='flex gap-2 items-center '>
+                            <GrLocation className='text-[#23527c]' size={15} />
+                            <span className='font-medium dark:text-white'> Địa chỉ:</span> <span className='dark:text-gray-400'>{detailCompany?.address}</span>
+                        </div>
+
+                        <h1 className='mt-6 flex items-center gap-2 text-lg font-medium uppercase dark:text-white'> <TbMapSearch className='text-gray-500' size={15} />
+                            Bản đồ
+                        </h1>
+                        <iframe className='w-full h-[300px] md:h-[400px]'
+                            src='https://maps.google.com/maps?q=15/4%20Đặng%20Lộ%20P7%20Q.Tân%20Bình,%20TP.HCM&output=embed'>
+                        </iframe>
                     </div>
                     <div className='flex flex-col gap-6'>
-                        <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
-                            2. Việc làm đang tuyển dụng
+                        <div className='flex flex-col gap-4'>
+                            <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
+                                1. Giới thiệu nhà tuyển dụng
+                            </div>
+                            <div className='text-justify text-sm px-0 xs:px-3'>
+                                <div className='text-justify text-black dark:text-gray-400  ' dangerouslySetInnerHTML={{ __html: detailCompany?.description }}></div>
+                            </div>
                         </div>
-                        <div className='w-full flex flex-col gap-y-4'>
-                            {jobsByCompany?.length <= 0 ?
-                                <Badge color="gray" size="sm" className='w-fit uppercase'>Chưa có thông tin tuyển dụng nào</Badge>
-                                :
-                                <>
-                                    {
-                                        jobsByCompany.map(item => (
-                                            <div key={item?.id} className='shadow-lg'>
-                                                <JobCard data={item} className="min-w-full xs:min-w-0" />
-                                            </div>
-                                        ))
-                                    }
-                                </>
-                            }
+                        <div className='flex flex-col gap-6'>
+                            <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
+                                2. Việc làm đang tuyển dụng
+                            </div>
+                            <div className='mt-3 w-full flex flex-col gap-y-4'>
+                                {jobsByCompany?.length <= 0 ?
+                                    <Badge color="gray" size="xs" className='w-fit uppercase tracking-wide'>Chưa có thông tin tuyển dụng nào</Badge>
+                                    :
+                                    <>
+                                        {
+                                            jobsByCompany.map(item => (
+                                                <div key={item?.id} className='shadow-lg'>
+                                                    <JobCard data={item} className="min-w-full xs:min-w-0" />
+                                                </div>
+                                            ))
+                                        }
+                                    </>
+
+                                }
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div className='basis-2/5 flex flex-col gap-3'>
-                    <h1 className='flex items-center gap-2 md:text-base lg:text-lg font-medium uppercase dark:text-white'> <FaCircleInfo className='text-gray-500' size={15} /> Thông tin nhà tuyển dụng</h1>
-                    <div className='flex gap-2 items-center'>
-                        <CgWebsite className='text-[#23527c]' size={15} />
-                        <span className='font-medium dark:text-white'> Website:</span> <a className='text-blue-600 hover:underline' target='blank' href={detailCompany?.website}>
-                            {detailCompany?.website}
-                        </a>
-                    </div>
-                    <div className='flex gap-2 items-center'>
-                        <IoPeople className='text-[#23527c]' size={15} />
-                        <span className='font-medium dark:text-white'> Quy mô:</span> <span className='dark:text-gray-400'>{detailCompany?.size} nhân viên</span>
-                    </div>
-                    <div className='flex gap-2 items-center '>
-                        <GrLocation className='text-[#23527c]' size={15} />
-                        <span className='font-medium dark:text-white'> Địa chỉ:</span> <span className='dark:text-gray-400'>{detailCompany?.address}</span>
                     </div>
 
-                    <h1 className='mt-6 flex items-center gap-2 text-lg font-medium uppercase dark:text-white'> <TbMapSearch className='text-gray-500' size={15} />
-                        Bản đồ
-                    </h1>
-                    <iframe className='w-full h-[300px] md:h-[400px]'
-                        src={`https://maps.google.com/maps?q=${detailCompany?.address}&output=embed`}>
-                    </iframe>
-                </div>
-            </div>
-
-            {/* Resonsive for Mobile */}
-            <div className='sm:hidden w-full flex flex-col px-2 mt-8'>
-                <div className='w-full flex flex-col gap-2 mb-8'>
-                    <h1 className='flex items-center gap-2 text-lg font-medium uppercase dark:text-white'> <FaCircleInfo className='text-gray-500' size={15} /> Thông tin nhà tuyển dụng</h1>
-                    <div className='flex gap-2 items-center'>
-                        <CgWebsite className='text-[#23527c]' size={15} />
-                        <span className='font-medium dark:text-white'> Website:</span> <a className='text-blue-600 hover:underline' target='blank' href={detailCompany?.website}>
-                            <span className='dark:text-gray-400'>{detailCompany?.website}</span>
-                        </a>
-                    </div>
-                    <div className='flex gap-2 items-center'>
-                        <IoPeople className='text-[#23527c]' size={15} />
-                        <span className='font-medium dark:text-white'> Quy mô:</span> <span className='dark:text-gray-400'>{detailCompany?.size} nhân viên</span>
-                    </div>
-                    <div className='flex gap-2 items-center '>
-                        <GrLocation className='text-[#23527c]' size={15} />
-                        <span className='font-medium dark:text-white'> Địa chỉ:</span> <span className='dark:text-gray-400'>{detailCompany?.address}</span>
-                    </div>
-
-                    <h1 className='mt-6 flex items-center gap-2 text-lg font-medium uppercase dark:text-white'> <TbMapSearch className='text-gray-500' size={15} />
-                        Bản đồ
-                    </h1>
-                    <iframe className='w-full h-[300px] md:h-[400px]'
-                        src='https://maps.google.com/maps?q=15/4%20Đặng%20Lộ%20P7%20Q.Tân%20Bình,%20TP.HCM&output=embed'>
-                    </iframe>
-                </div>
-                <div className='flex flex-col gap-6'>
-                    <div className='flex flex-col gap-4'>
-                        <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
-                            1. Giới thiệu nhà tuyển dụng
-                        </div>
-                        <div className='text-justify text-sm px-0 xs:px-3'>
-                            <div className='text-justify text-black dark:text-gray-400  ' dangerouslySetInnerHTML={{ __html: detailCompany?.description }}></div>
-                        </div>
-                    </div>
-                    <div className='flex flex-col gap-6'>
-                        <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
-                            2. Việc làm đang tuyển dụng
-                        </div>
-                        <div className='mt-3 w-full flex flex-col gap-y-4'>
-                            {jobsByCompany?.length <= 0 ?
-                                <Badge color="gray" size="xs" className='w-fit uppercase tracking-wide'>Chưa có thông tin tuyển dụng nào</Badge>
-                                :
-                                <>
-                                    {
-                                        jobsByCompany.map(item => (
-                                            <div key={item?.id} className='shadow-lg'>
-                                                <JobCard data={item} className="min-w-full xs:min-w-0" />
-                                            </div>
-                                        ))
-                                    }
-                                </>
-
-                            }
-                        </div>
-                    </div>
                 </div>
 
-            </div>
+            </div >
+            {openModal &&
+                <ModalRecruitmentMatching
+                    openModal={openModal}
+                    setOpenModal={setOpenModal}
+                    company={detailCompany}
+                />
+            }
+        </>
 
-        </div>
     );
 };
 

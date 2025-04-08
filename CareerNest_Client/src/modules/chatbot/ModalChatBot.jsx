@@ -12,7 +12,13 @@ import { FaMicrophone, FaMicrophoneSlash } from 'react-icons/fa';
 
 const ModalChatBot = ({ setShowChatbot = () => { } }) => {
     const navigate = useNavigate();
-    const [chatHistory, setChatHistory] = useState([]);
+    const [chatHistory, setChatHistory] = useState([
+        {
+            username: "Chatbot",
+            message: "Chào bạn 👋 Tôi có thể giúp gì cho bạn hôm nay?",
+            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        }
+    ]);
     const [input, setInput] = useState("");
     const [file, setFile] = useState(null);
     const [isListening, setIsListening] = useState(false); // chức năng voice
