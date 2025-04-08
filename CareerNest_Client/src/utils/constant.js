@@ -40,6 +40,8 @@ export const path = {
 
     INTERVIEW__BY__AI: '/interview-by-AI',
 
+    ROADMAP__BY__AI: '/roadmap-by-AI',
+
     FIND__JOB: '/find-job',
 }
 

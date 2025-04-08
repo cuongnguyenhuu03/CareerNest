@@ -5,6 +5,7 @@ export const headerMenu = [
     { path: '/resume', text: 'Hồ sơ & CV' },
     { path: '/find-job/all', text: 'Tìm việc làm' },
     { path: '/interview-by-AI', text: 'AI Interview' },
+    { path: '/roadmap-by-AI', text: 'AI Roadmap' },
     { path: path.RECRUITMENT, text: 'Nhà tuyển dụng' },
 ];
 

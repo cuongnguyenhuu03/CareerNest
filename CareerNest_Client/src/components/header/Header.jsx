@@ -134,8 +134,7 @@ const Header = () => {
                                                     }
                                                 >
                                                     <span>{item.text}</span>
-
-                                                    {item.path === '/interview-by-AI' && (
+                                                    {(item.path === '/interview-by-AI' || item.path === '/roadmap-by-AI') && (
                                                         <span className="absolute -top-1 -right-2 text-[8px] bg-red-600 text-white rounded-full px-1.5 py-[1px] font-bold animate-bounce">
                                                             NEW
                                                         </span>
