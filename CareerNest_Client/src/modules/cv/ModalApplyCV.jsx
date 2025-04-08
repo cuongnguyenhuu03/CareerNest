@@ -101,9 +101,9 @@ const ModalApplyCV = ({ openModal = false, setOpenModal = () => { }, jobTitle = 
                     </form>
                     <label className='block font-semibold'>Thư xin việc:</label>
                     <textarea
-                        placeholder='Bạn có thể nêu mong muốn, lý do lựa chọn công ty này...'
+                        placeholder='Nhờ chatbot AI tạo 1 cover letter phù hợp ?'
                         className='border rounded p-2 w-full outline-none'
-                        rows={4}
+                        rows={13}
                         onChange={(e) => setMessage(e.target.value)}
                     />
                 </div>
