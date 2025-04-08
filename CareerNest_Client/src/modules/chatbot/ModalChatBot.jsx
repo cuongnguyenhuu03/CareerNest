@@ -2,19 +2,55 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IoMdSend } from "react-icons/io";
 import { RiRobot2Line } from "react-icons/ri";
-import { CiUser, CiImageOn } from "react-icons/ci";
+import { CiUser, CiLink } from "react-icons/ci";
 import withErrorBoundary from '../../hoc/withErrorBoundary';
 import { askGemini, askGeminiWithPDF } from './gemini';
 import { message } from 'antd';
 import { Spinner } from "flowbite-react";
+import { useNavigate } from 'react-router-dom';
+import { FaMicrophone, FaMicrophoneSlash } from 'react-icons/fa';
 
 const ModalChatBot = ({ setShowChatbot = () => { } }) => {
+    const navigate = useNavigate();
     const [chatHistory, setChatHistory] = useState([]);
     const [input, setInput] = useState("");
     const [file, setFile] = useState(null);
+    const [isListening, setIsListening] = useState(false); // chức năng voice
 
-    const handleAsk = async () => {
-        if (!input.trim()) {
+    const SpeechRecognition =
+        window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+        return <p>Trình duyệt của bạn không hỗ trợ chức năng nhận diện giọng nói.</p>;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = 'vi-VN';
+
+    const startListening = () => {
+        setIsListening(true);
+        recognition.start();
+
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            setIsListening(false);
+            setTimeout(() => handleAsk(transcript), 50); // gọi hỏi luôn sau khi có transcript
+        };
+
+        recognition.onerror = (event) => {
+            console.error('Lỗi nhận dạng giọng nói:', event.error);
+            setIsListening(false);
+        };
+
+        recognition.onend = () => {
+            setIsListening(false);
+        };
+    };
+
+    const handleAsk = async (inputOption) => {
+        if (!input.trim() && file === null && !inputOption) {
             message.warning("Vui lòng nhập câu hỏi cho Chatbot.");
             return;
         }
@@ -42,7 +78,9 @@ const ModalChatBot = ({ setShowChatbot = () => { } }) => {
             if (file) {
                 answer = await askGeminiWithPDF(file, input); // Gửi cả file và input
             } else {
-                answer = await askGemini(input); // Chỉ gửi input nếu không có file
+                if (input && !inputOption)
+                    answer = await askGemini(input); // Chỉ gửi input nếu không có file
+                else answer = await askGemini(inputOption);
             }
             setFile(null);
 
@@ -98,10 +136,46 @@ const ModalChatBot = ({ setShowChatbot = () => { } }) => {
                                         </div>
                                         {chat?.message === 'Loading...' ? <div className='text-center'><Spinner size="sm" /></div>
                                             :
-                                            <div
-                                                className="text-xs text-wrap"
-                                                dangerouslySetInnerHTML={{ __html: chat?.message }}
-                                            />
+                                            <>
+                                                <div
+                                                    className="text-xs text-wrap"
+                                                    dangerouslySetInnerHTML={{ __html: chat?.message }}
+                                                />
+                                                <div className="flex flex-col gap-2 mt-2">
+                                                    <span
+                                                        onClick={() => handleAsk("tôi muốn tìm việc làm")}
+                                                        className="px-3 text-blue-500 text-[11px] py-1 bg-gray-100 rounded hover:bg-gray-50 transition-colors duration-200 cursor-pointer"
+                                                    >
+                                                        1. Tìm công việc
+                                                    </span>
+                                                    <span
+                                                        onClick={() => handleAsk("tôi muốn hỏi về lĩnh vực nào đó")}
+                                                        className="px-3 text-blue-500 text-[11px] py-1 bg-gray-100 rounded hover:bg-gray-50 transition-colors duration-200 cursor-pointer"
+                                                    >
+                                                        2. Hỏi đáp lĩnh vực
+                                                    </span>
+                                                    <span
+                                                        onClick={() => handleAsk("bạn có thể review cv không ?")}
+                                                        className="px-3 text-blue-500 text-[11px] py-1 bg-gray-100 rounded hover:bg-gray-50 transition-colors duration-200 cursor-pointer">
+                                                        3. Review CV by AI
+                                                    </span>
+                                                    <span
+                                                        onClick={() => handleAsk("hiện đang có những công ty tuyển dụng nào?")}
+                                                        className="px-3 text-blue-500 text-[11px] py-1 bg-gray-100 rounded hover:bg-gray-50 transition-colors duration-200 cursor-pointer">
+                                                        4. Danh sách công ty
+                                                    </span>
+                                                    <span
+                                                        onClick={() => navigate("/interview-by-AI")}
+                                                        className="px-3 text-blue-500 text-[11px] py-1 bg-gray-100 rounded hover:bg-gray-50 transition-colors duration-200 cursor-pointer">
+                                                        5. Interview by AI
+                                                    </span>
+                                                    <span
+                                                        onClick={() => handleAsk("giúp tôi tạo 1 cover lettet được không?")}
+                                                        className="px-3 text-blue-500 text-[11px] py-1 bg-gray-100 rounded hover:bg-gray-50 transition-colors duration-200 cursor-pointer">
+                                                        6. Tạo thư xin việc
+                                                    </span>
+                                                </div>
+                                            </>
                                         }
 
                                     </div>
@@ -147,7 +221,17 @@ const ModalChatBot = ({ setShowChatbot = () => { } }) => {
                                 onChange={(e) => setFile(e.target.files[0])}
                                 className="hidden"
                             />
-                            <CiImageOn size={18} />
+                            <CiLink size={18} />
+                        </label>
+                        <label className="text-white p-1 bg-red-500 cursor-pointer">
+                            <button
+                                onClick={startListening}
+                                disabled={isListening}
+                                className={`text-white transition-all duration-300
+            ${isListening ? 'bg-red-500 cursor-not-allowed' : 'bg-red-500'}`}
+                            >
+                                {isListening ? <FaMicrophoneSlash size={18} /> : <FaMicrophone size={18} />}
+                            </button>
                         </label>
 
                         {/* Nút gửi */}
@@ -156,7 +240,7 @@ const ModalChatBot = ({ setShowChatbot = () => { } }) => {
                             disabled={!input.trim() && !file}
                             className="bg-blue-600 cursor-pointer text-white p-2 rounded-r-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
-                            <IoMdSend size={18} />
+                            <IoMdSend size={16} />
                         </button>
                     </div>
 

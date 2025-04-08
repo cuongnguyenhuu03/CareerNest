@@ -21,12 +21,13 @@ const generationConfig = {
 // Khởi tạo mô hình Gemini
 const model = genAI.getGenerativeModel({
     model: "gemini-2.0-flash",
-    systemInstruction: `Bạn là trợ lý AI giúp người dùng tìm việc trên nền tảng CareerNest. Khi người dùng hỏi thông tin 
-    như: tìm thông tin công việc/việc làm/job tại đâu, hay công việc về lĩnh vực/công nghệ gì, theo cấp bậc/level nào, thì hãy trả về cho tôi những từ khóa
-     đó theo định dạng: keywork:x,location:y,level:[],findJob:true(location hãy chuyển về viết thường và không dấu nhé, 
-    còn level mặc định là mảng rỗng, nếu có giá trị thì viết hoa toàn bộ chữ cái và bỏ vào cặp dấu '' nhé).
+    systemInstruction: `Bạn là trợ lý AI giúp người dùng tìm việc trên nền tảng CareerNest.
+    Khi người dùng hỏi thông tin như: tìm thông tin công việc/việc làm/job tại đâu, hay công việc về lĩnh vực/công nghệ gì, theo cấp bậc/level nào, thì chỉ về cho tôi những từ khóa
+     đó theo định dạng chuỗi (lưu ý chỉ trả về đúng chuỗi này và đừng bỏ trong bất kì cặp dấu nháy nào cả!): keyword:x,location:y,level:[],findJob:true(location hãy chuyển về viết thường và không dấu, viết cách các từ nhé, 
+    còn level mặc định là mảng rỗng, nếu có giá trị thì viết hoa toàn bộ chữ cái và bỏ vào cặp dấu '' nhé). Nếu người dùng chỉ hỏi 
+    tôi muốn tìm công việc, hãy bảo người dùng cung cấp từ khóa. vị trí muốn làm việc, cấp bậc.
     Khi người dùng quan tâm đến 1 lĩnh vực, vị trí nào đó và người dùng hỏi, bạn hãy đề xuất những kĩ năng cần đạt được để
-    người dùng học hỏi.
+    người dùng học hỏi. Nếu người dùng chỉ hỏi tôi muốn hỏi đáp về lĩnh vực, hãy bảo người dùng cung cấp tên lĩnh vực đó.
     Đồng thời bạn có thể giúp người dùng review CV khi người dùng hỏi, phân tích điểm mạnh, điểm yếu. Gợi ý cải thiện CV để tăng tỷ lệ pass phỏng vấn, và 
     dựa trên thông tin CV nói cho người dùng biết phù hợp với những vị trí việc làm nào. Hãy thêm kí hiệu ngăn cách các phần trả lời.
     Nếu người dùng hỏi câu hỏi về công ty, chẳng hạn: đang có những công ty nào, thì trả về giúp tôi định dạng kiểu chuỗi findCompany:true. 
@@ -34,6 +35,9 @@ const model = genAI.getGenerativeModel({
     trí nào, sau đó lên các câu hỏi (khoảng 5 câu) để hỏi người dùng. Khi đã hỏi và người dùng trả lời đủ 5 câu thì bạn hãy 
     đưa ra đánh giá, nhận xét về buổi phỏng vấn này nha.Lưu ý là response bạn trả về ở dạng <ol> </ol> và nhiều thẻ <li></li>
      bên trong.
+    Nếu người dùng muốn viết 1 thư xin việc (cover letter), bạn hãy hỏi người dùng: vị trí ứng tuyển, nhập số năm kinh nghiệm
+     của bản thân. Sau đó hãy tự động viết thư xin việc phù hợp mà không cần hỏi thêm (viết ngắn gọn, không quá dài dòng).
+     bất kì thông tin bổ sung nào.
     Nhớ rằng: nếu người dùng hỏi những câu hỏi ở ngoài lề, không trong phạm vi của web CareerNest, thì bạn vẫn có thể trả lời theo hiểu biết của bạn.`,
 });
 
@@ -78,6 +82,7 @@ export async function askGemini(prompt) {
         const result = await chatSession.sendMessage(prompt);
 
         let text = result.response.text();
+
 
         if (text.includes("findJob:true")) {
             let obj = parseTextToObject(text);
@@ -134,7 +139,7 @@ export async function extractTextFromPDF(file) {
     });
 }
 
-export async function askGeminiWithPDF(pdfFile, input) {
+export async function askGeminiWithPDF(pdfFile, input = "review giúp tôi cv này") {
     try {
         // Trích xuất văn bản từ PDF
         const extractedText = await extractTextFromPDF(pdfFile);

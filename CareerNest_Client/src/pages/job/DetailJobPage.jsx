@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, } from 'react';
+import React, { useEffect, useRef, useState, } from 'react';
 import icons from '../../utils/icons';
-import { Alert, Badge, Button, List, } from "flowbite-react";
+import { Alert, Badge, Button, List, Modal, ModalBody, ModalFooter, ModalHeader } from "flowbite-react";
 import { message } from "antd";
 import { useNavigate, useParams } from 'react-router-dom';
 import { path } from '../../utils/constant';
@@ -20,6 +20,7 @@ import { useSelector } from 'react-redux';
 import { postSaveJob } from '../../services/userService';
 import { toast } from 'react-toastify';
 import { useDetailUser } from '../../hooks/useDetailUer';
+import { RiRobot2Line } from "react-icons/ri";
 
 const { FaRegBuilding, FaMoneyCheckDollar, IoMdTime, IoPeople, GrLocation, FaCircleInfo, HiCheckCircle, FaHeart } = icons;
 const data = [
@@ -35,6 +36,8 @@ const DetailJobPage = () => {
     const ref = useRef(null);
     const params = useParams();
     const queryClient = useQueryClient()
+
+    const [openModal, setOpenModal] = useState(true);
 
     useEffect(() => {
         if (ref?.current)
@@ -156,201 +159,233 @@ const DetailJobPage = () => {
         );
     }
     return (
-        <div ref={ref} className='ct-container flex flex-col gap-8 pt-24'>
-            <Breadcrumbs data={data} />
-            <div className='w-full shadow-md flex items-center justify-between py-3 gap-3 xs:gap-6 rounded-lg pl-2 dark:bg-gray-700'>
-                <img
-                    src={detailJob?.company?.logoUrl ? getFirebaseImageUrl(detailJob.company.logoUrl, 'companies') : ''}
-                    alt="thumbnail"
-                    className={`w-[100px] h-[100px] sm:w-[120px] sm:h-[120px] lg:w-[150px] lg:h-[150px] object-contain rounded-md`}
-                />
+        <>
+            <div ref={ref} className='ct-container flex flex-col gap-8 pt-24'>
+                <Breadcrumbs data={data} />
+                <div className='w-full shadow-md flex items-center justify-between py-3 gap-3 xs:gap-6 rounded-lg pl-2 dark:bg-gray-700'>
+                    <img
+                        src={detailJob?.company?.logoUrl ? getFirebaseImageUrl(detailJob.company.logoUrl, 'companies') : ''}
+                        alt="thumbnail"
+                        className={`w-[100px] h-[100px] sm:w-[120px] sm:h-[120px] lg:w-[150px] lg:h-[150px] object-contain rounded-md`}
+                    />
 
-                <div className='flex flex-auto flex-col gap-1'>
-                    <div className='flex flex-col gap-y-4 md:gap-y-0 md:flex-row md:items-center md:justify-between md:pr-6'>
-                        <div className='text-sm order-2 md:order-1 md:text-base lg:text-lg xl:text-xl font-medium uppercase dark:text-white' >
-                            {detailJob?.name}
-                        </div>
-                        <div className='flex order-1 md:order-2 items-center gap-4'>
-                            {isExpired(detailJob?.endDate)
-                                ? <Badge color="failure" size='sm' className='uppercase'>Đã hết hạn ứng tuyển</Badge>
-                                :
-                                <>
-                                    <Button size='xs' className="block sm:hidden" gradientDuoTone="pinkToOrange" onClick={handleApplyJob}>
-                                        Ứng tuyển
-                                    </Button>
-                                    <Button size='sm' className="hidden sm:block" gradientDuoTone="pinkToOrange" onClick={handleApplyJob}>
-                                        Ứng tuyển
-                                    </Button>
+                    <div className='flex flex-auto flex-col gap-1'>
+                        <div className='flex flex-col gap-y-4 md:gap-y-0 md:flex-row md:items-center md:justify-between md:pr-6'>
+                            <div className='text-sm order-2 md:order-1 md:text-base lg:text-lg xl:text-xl font-medium uppercase dark:text-white' >
+                                {detailJob?.name}
+                            </div>
+                            <div className='flex order-1 md:order-2 items-center gap-4'>
+                                {isExpired(detailJob?.endDate)
+                                    ? <Badge color="failure" size='sm' className='uppercase'>Đã hết hạn ứng tuyển</Badge>
+                                    :
+                                    <>
+                                        <Button size='xs' className="block sm:hidden" gradientDuoTone="pinkToOrange" onClick={handleApplyJob}>
+                                            Ứng tuyển
+                                        </Button>
+                                        <Button size='sm' className="hidden sm:block" gradientDuoTone="pinkToOrange" onClick={handleApplyJob}>
+                                            Ứng tuyển
+                                        </Button>
 
-                                    <Button size='xs' className="block sm:hidden" gradientDuoTone="pinkToOrange"
-                                        onClick={!checkIsSavedJob(params?.id, user?.saveJob) ? handleSaveJob : () => { message.warning("Bạn đã lưu tin tuyển dụng này") }}>
-                                        <FaHeart size={18} className='mr-2' />
-                                        {checkIsSavedJob(params?.id, user?.saveJob) ? 'Đã lưu' : 'Lưu tin'}
-                                    </Button>
-                                    <Button size='sm' className="hidden sm:block" gradientDuoTone="pinkToOrange"
-                                        onClick={!checkIsSavedJob(params?.id, user?.saveJob) ? handleSaveJob : () => { message.warning("Bạn đã lưu tin tuyển dụng này") }}>
-                                        <FaHeart size={18} className='mr-2' />
-                                        {checkIsSavedJob(params?.id, user?.saveJob) ? 'Đã lưu' : 'Lưu tin'}
-                                    </Button>
-                                </>
-                            }
+                                        <Button size='xs' className="block sm:hidden" gradientDuoTone="pinkToOrange"
+                                            onClick={!checkIsSavedJob(params?.id, user?.saveJob) ? handleSaveJob : () => { message.warning("Bạn đã lưu tin tuyển dụng này") }}>
+                                            <FaHeart size={18} className='mr-2' />
+                                            {checkIsSavedJob(params?.id, user?.saveJob) ? 'Đã lưu' : 'Lưu tin'}
+                                        </Button>
+                                        <Button size='sm' className="hidden sm:block" gradientDuoTone="pinkToOrange"
+                                            onClick={!checkIsSavedJob(params?.id, user?.saveJob) ? handleSaveJob : () => { message.warning("Bạn đã lưu tin tuyển dụng này") }}>
+                                            <FaHeart size={18} className='mr-2' />
+                                            {checkIsSavedJob(params?.id, user?.saveJob) ? 'Đã lưu' : 'Lưu tin'}
+                                        </Button>
+                                    </>
+                                }
+                            </div>
+                        </div>
+                        <div className='flex gap-2 items-center text-sm md:text-base font-medium text-[#23527c] dark:text-blue-500 cursor-pointer hover:underline'
+                            onClick={() => navigate(`${path.RECRUITMENT}/detail/${detailJob?.company?.id}/${slugify(detailJob?.company?.name, { lower: true, strict: true })}`)}
+                            onMouseEnter={() => handlePrefetchRecruitment(+detailJob?.company?.id)}
+                            onTouchStart={() => handlePrefetchRecruitment(+detailJob?.company?.id)}
+                        >
+                            <FaRegBuilding size={15} /> {detailJob?.company?.name}
+                        </div>
+                        <div className='flex gap-2 text-orange-600 items-center text-xs md:text-sm font-light'>
+                            <FaMoneyCheckDollar /> Lương: {detailJob?.salary}$
+                        </div>
+                        {detailJob?.skills?.length > 0 &&
+                            <div className="flex flex-wrap mb-6 gap-2 items-center text-xs md:text-sm font-light dark:text-white dark:tracking-wide">
+                                <SiHyperskill color='gray' /> Kĩ năng:
+                                {detailJob.skills.map((skill) => (
+                                    <span key={skill?.id}
+                                        className="bg-gray-200 text-slate-800 px-3 py-1 rounded-full border border-gray-300 text-xs cursor-pointer hover:transition-all hover:bg-red-500 hover:text-white"
+                                        onClick={() => navigate(`${path.FIND__JOB}/all/${skill?.name?.toLowerCase()}`)}
+                                    >
+                                        {skill?.name}
+                                    </span>
+                                ))}
+                            </div>
+                        }
+                        <div className='flex gap-2 items-center text-xs md:text-sm font-light dark:text-white dark:tracking-wide'>
+                            <IoMdTime /> Hạn nộp: {convertTimeStampToString(detailJob?.endDate, true)}
+                        </div>
+                        <Button onClick={() => setOpenModal(true)} className="w-fit mt-4 bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 text-white hover:bg-gradient-to-br focus:ring-cyan-300 dark:focus:ring-cyan-800">
+                            <RiRobot2Line className="mr-2 h-5 w-5" />
+                            Tư vấn bởi AI
+                        </Button>
+                    </div>
+                </div>
+
+                <div className='hidden w-full sm:flex gap-6'>
+                    <div className='basis-2/5 h-fit rounded-lg flex flex-col gap-3 bg-[#ebeeef] p-4 dark:bg-gray-700'>
+                        <h1 className='flex items-center gap-2 text-lg font-medium dark:text-white'> <FaCircleInfo className='text-gray-500 ' size={15} /> Nhà tuyển dụng:</h1>
+                        <div className='flex gap-2 text-base font-semibold text-[#23527c] dark:text-blue-500 cursor-pointer hover:underline'
+                            onClick={() => navigate(`${path.RECRUITMENT}/detail/${detailJob?.company?.id}/${slugify(detailJob?.company?.name, { lower: true, strict: true })}`)}
+                            onMouseEnter={() => handlePrefetchRecruitment(+detailJob?.company?.id)}
+                            onTouchStart={() => handlePrefetchRecruitment(+detailJob?.company?.id)}
+                        >
+                            <FaRegBuilding size={15} /> {detailJob?.company?.name}
+                        </div>
+                        <div className='text-justify text-sm px-3 font-light'>
+                            <div className='dark:text-gray-400 text-justify' dangerouslySetInnerHTML={{ __html: detailJob?.company?.description }}></div>
+                        </div>
+                        <div className='flex gap-2 items-center'>
+                            <IoPeople className='text-[#23527c]' size={15} />
+                            <span className='font-medium dark:text-white'> Quy mô:</span> <span className='dark:text-white dark:font-light'>{detailJob?.company?.size}  nhân viên</span>
+                        </div>
+                        <div className='flex gap-2 items-center '>
+                            <GrLocation className='text-[#23527c]' size={15} />
+                            <span className='font-medium dark:text-white'> Địa chỉ:</span> <span className='dark:text-white dark:font-light'>{detailJob?.company?.address}</span>
                         </div>
                     </div>
-                    <div className='flex gap-2 items-center text-sm md:text-base font-medium text-[#23527c] dark:text-blue-500 cursor-pointer hover:underline'
-                        onClick={() => navigate(`${path.RECRUITMENT}/detail/${detailJob?.company?.id}/${slugify(detailJob?.company?.name, { lower: true, strict: true })}`)}
-                        onMouseEnter={() => handlePrefetchRecruitment(+detailJob?.company?.id)}
-                        onTouchStart={() => handlePrefetchRecruitment(+detailJob?.company?.id)}
-                    >
-                        <FaRegBuilding size={15} /> {detailJob?.company?.name}
-                    </div>
-                    <div className='flex gap-2 text-orange-600 items-center text-xs md:text-sm font-light'>
-                        <FaMoneyCheckDollar /> Lương: {detailJob?.salary}$
-                    </div>
-                    {detailJob?.skills?.length > 0 &&
-                        <div className="flex flex-wrap mb-6 gap-2 items-center text-xs md:text-sm font-light dark:text-white dark:tracking-wide">
-                            <SiHyperskill color='gray' /> Kĩ năng:
-                            {detailJob.skills.map((skill) => (
-                                <span key={skill?.id}
-                                    className="bg-gray-200 text-slate-800 px-3 py-1 rounded-full border border-gray-300 text-xs cursor-pointer hover:transition-all hover:bg-red-500 hover:text-white"
-                                    onClick={() => navigate(`${path.FIND__JOB}/all/${skill?.name?.toLowerCase()}`)}
-                                >
-                                    {skill?.name}
-                                </span>
-                            ))}
+                    <div className='basis-3/5 flex flex-col gap-3 dark:text-white'>
+                        <h1 className='uppercase text-lg sm:text-xl font-semibold'>Chi tiết công việc</h1>
+                        <div>
+                            <List ordered className='flex flex-col gap-6'>
+                                <List.Item className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
+                                    Thông tin tuyển dụng
+                                    <List nested className='text-black text-sm font-normal'>
+                                        <List.Item icon={HiCheckCircle} >Mức lương: {detailJob?.salary}$</List.Item>
+                                        <List.Item icon={HiCheckCircle} >Hình thức làm việc: Remote - Làm việc từ xa.</List.Item>
+                                        <List.Item icon={HiCheckCircle} >Giới tính: Nam.</List.Item>
+                                        <List.Item icon={HiCheckCircle} >Số lượng tuyển: {detailJob?.quantity}.</List.Item>
+                                        <List.Item icon={HiCheckCircle} >Cấp bậc: {detailJob?.level}.</List.Item>
+                                        <List.Item icon={HiCheckCircle} >Địa điểm làm việc: {detailJob?.location}</List.Item>
+                                    </List>
+                                </List.Item>
+                                <div className='flex flex-col job-description'>
+                                    <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
+                                        2. Mô tả công việc
+                                    </div>
+                                    <div className='text-black text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.description }}></div>
+                                </div>
+
+                                <div className='flex flex-col'>
+                                    <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
+                                        3. Yêu cầu ứng viên
+                                    </div>
+                                    <div className='text-black text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.requirements?.replace(/\*/g, '<br>•') }}></div>
+                                </div>
+
+                                <div className='flex flex-col'>
+                                    <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
+                                        4. Phúc lợi
+                                    </div>
+                                    <div className='text-black text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.benefits?.replace(/\*/g, '<br>•') }}></div>
+                                </div>
+                            </List>
                         </div>
-                    }
-                    <div className='flex gap-2 items-center text-xs md:text-sm font-light dark:text-white dark:tracking-wide'>
-                        <IoMdTime /> Hạn nộp: {convertTimeStampToString(detailJob?.endDate, true)}
+                    </div>
+                </div>
+
+                <div className='w-full sm:hidden flex flex-col gap-6'>
+                    <div className='h-fit rounded-lg flex flex-col gap-3 bg-[#ebeeef] p-4 dark:bg-gray-700'>
+                        <h1 className='flex items-center gap-2 text-lg font-medium dark:text-white'> <FaCircleInfo className='text-gray-500' size={15} /> Nhà tuyển dụng:</h1>
+                        <div className='flex gap-2 text-base font-semibold text-[#23527c] dark:text-blue-500 cursor-pointer hover:underline'
+                            onClick={() => navigate(`${path.RECRUITMENT}/detail/${detailJob?.company?.id}/${slugify(detailJob?.company?.name, { lower: true, strict: true })}`)}
+                            onMouseEnter={() => handlePrefetchRecruitment(+detailJob?.company?.id)}
+                            onTouchStart={() => handlePrefetchRecruitment(+detailJob?.company?.id)}
+                        >
+                            <FaRegBuilding size={15} /> {detailJob?.company?.name}
+                        </div>
+                        <div className='text-sm px-3 font-light'>
+                            <div className='text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.company?.description }}></div>
+                        </div>
+                        <div className='flex gap-2 items-center'>
+                            <IoPeople className='text-[#23527c]' size={15} />
+                            <span className='font-medium dark:text-white'> Quy mô:</span> <span className='dark:text-gray-400'>{detailJob?.company?.size} nhân viên</span>
+                        </div>
+                        <div className='flex gap-2 items-center '>
+                            <GrLocation className='text-[#23527c]' size={15} />
+                            <span className='font-medium dark:text-white'> Địa chỉ:</span> <span className='dark:text-gray-400'>{detailJob?.company?.address}</span>
+                        </div>
+                    </div>
+                    <div className='flex flex-col gap-3'>
+                        <h1 className='uppercase text-lg sm:text-xl font-semibold dark:text-white'>Chi tiết công việc</h1>
+                        <div>
+                            <List ordered className='flex flex-col gap-6'>
+                                <List.Item className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
+                                    Thông tin tuyển dụng
+                                    <List nested className='text-black text-sm font-normal'>
+                                        <List.Item icon={HiCheckCircle} >Mức lương: {detailJob?.salary}$</List.Item>
+                                        <List.Item icon={HiCheckCircle} >Hình thức làm việc: Remote - Làm việc từ xa.</List.Item>
+                                        <List.Item icon={HiCheckCircle} >Giới tính: Nam.</List.Item>
+                                        <List.Item icon={HiCheckCircle} >Số lượng tuyển: {detailJob?.quantity}.</List.Item>
+                                        <List.Item icon={HiCheckCircle} >Cấp bậc: {detailJob?.level}.</List.Item>
+                                        <List.Item icon={HiCheckCircle} >Địa điểm làm việc: {detailJob?.location}</List.Item>
+
+                                    </List>
+                                </List.Item>
+                                <div className='flex flex-col job-description'>
+                                    <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
+                                        2. Mô tả công việc
+                                    </div>
+                                    <div className='text-black text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.description?.replace(/\*/g, '<br>•') }}></div>
+
+                                </div>
+
+                                <div className='flex flex-col'>
+                                    <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
+                                        3. Yêu cầu ứng viên
+                                    </div>
+                                    <div className='text-black text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.requirements?.replace(/\*/g, '<br>•') }}></div>
+                                </div>
+
+                                <div className='flex flex-col'>
+                                    <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
+                                        4. Phúc lợi
+                                    </div>
+                                    <div className='text-black text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.benefits?.replace(/\*/g, '<br>•') }}></div>
+                                </div>
+                            </List>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div className='hidden w-full sm:flex gap-6'>
-                <div className='basis-2/5 h-fit rounded-lg flex flex-col gap-3 bg-[#ebeeef] p-4 dark:bg-gray-700'>
-                    <h1 className='flex items-center gap-2 text-lg font-medium dark:text-white'> <FaCircleInfo className='text-gray-500 ' size={15} /> Nhà tuyển dụng:</h1>
-                    <div className='flex gap-2 text-base font-semibold text-[#23527c] dark:text-blue-500 cursor-pointer hover:underline'
-                        onClick={() => navigate(`${path.RECRUITMENT}/detail/${detailJob?.company?.id}/${slugify(detailJob?.company?.name, { lower: true, strict: true })}`)}
-                        onMouseEnter={() => handlePrefetchRecruitment(+detailJob?.company?.id)}
-                        onTouchStart={() => handlePrefetchRecruitment(+detailJob?.company?.id)}
-                    >
-                        <FaRegBuilding size={15} /> {detailJob?.company?.name}
-                    </div>
-                    <div className='text-justify text-sm px-3 font-light'>
-                        <div className='dark:text-gray-400 text-justify' dangerouslySetInnerHTML={{ __html: detailJob?.company?.description }}></div>
-                    </div>
-                    <div className='flex gap-2 items-center'>
-                        <IoPeople className='text-[#23527c]' size={15} />
-                        <span className='font-medium dark:text-white'> Quy mô:</span> <span className='dark:text-white dark:font-light'>{detailJob?.company?.size}  nhân viên</span>
-                    </div>
-                    <div className='flex gap-2 items-center '>
-                        <GrLocation className='text-[#23527c]' size={15} />
-                        <span className='font-medium dark:text-white'> Địa chỉ:</span> <span className='dark:text-white dark:font-light'>{detailJob?.company?.address}</span>
-                    </div>
-                </div>
-                <div className='basis-3/5 flex flex-col gap-3 dark:text-white'>
-                    <h1 className='uppercase text-lg sm:text-xl font-semibold'>Chi tiết công việc</h1>
-                    <div>
-                        <List ordered className='flex flex-col gap-6'>
-                            <List.Item className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
-                                Thông tin tuyển dụng
-                                <List nested className='text-black text-sm font-normal'>
-                                    <List.Item icon={HiCheckCircle} >Mức lương: {detailJob?.salary}$</List.Item>
-                                    <List.Item icon={HiCheckCircle} >Hình thức làm việc: Remote - Làm việc từ xa.</List.Item>
-                                    <List.Item icon={HiCheckCircle} >Giới tính: Nam.</List.Item>
-                                    <List.Item icon={HiCheckCircle} >Số lượng tuyển: {detailJob?.quantity}.</List.Item>
-                                    <List.Item icon={HiCheckCircle} >Cấp bậc: {detailJob?.level}.</List.Item>
-                                    <List.Item icon={HiCheckCircle} >Địa điểm làm việc: {detailJob?.location}</List.Item>
-                                </List>
-                            </List.Item>
-                            <div className='flex flex-col job-description'>
-                                <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
-                                    2. Mô tả công việc
-                                </div>
-                                <div className='text-black text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.description }}></div>
-                            </div>
+            {openModal &&
+                <Modal show={openModal} onClose={() => setOpenModal(false)}>
+                    <ModalHeader>Terms of Service</ModalHeader>
+                    <ModalBody>
+                        <div className="space-y-6">
+                            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                With less than a month to go before the European Union enacts new consumer privacy laws for its citizens,
+                                companies around the world are updating their terms of service agreements to comply.
+                            </p>
+                            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant
+                                to ensure a common set of data rights in the European Union. It requires organizations to notify users as
+                                soon as possible of high-risk data breaches that could personally affect them.
+                            </p>
+                        </div>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button onClick={() => setOpenModal(false)}>I accept</Button>
+                        <Button color="gray" onClick={() => setOpenModal(false)}>
+                            Decline
+                        </Button>
+                    </ModalFooter>
+                </Modal>
+            }
+        </>
 
-                            <div className='flex flex-col'>
-                                <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
-                                    3. Yêu cầu ứng viên
-                                </div>
-                                <div className='text-black text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.requirements?.replace(/\*/g, '<br>•') }}></div>
-                            </div>
-
-                            <div className='flex flex-col'>
-                                <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
-                                    4. Phúc lợi
-                                </div>
-                                <div className='text-black text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.benefits?.replace(/\*/g, '<br>•') }}></div>
-                            </div>
-                        </List>
-                    </div>
-                </div>
-            </div>
-
-            <div className='w-full sm:hidden flex flex-col gap-6'>
-                <div className='h-fit rounded-lg flex flex-col gap-3 bg-[#ebeeef] p-4 dark:bg-gray-700'>
-                    <h1 className='flex items-center gap-2 text-lg font-medium dark:text-white'> <FaCircleInfo className='text-gray-500' size={15} /> Nhà tuyển dụng:</h1>
-                    <div className='flex gap-2 text-base font-semibold text-[#23527c] dark:text-blue-500 cursor-pointer hover:underline'
-                        onClick={() => navigate(`${path.RECRUITMENT}/detail/${detailJob?.company?.id}/${slugify(detailJob?.company?.name, { lower: true, strict: true })}`)}
-                        onMouseEnter={() => handlePrefetchRecruitment(+detailJob?.company?.id)}
-                        onTouchStart={() => handlePrefetchRecruitment(+detailJob?.company?.id)}
-                    >
-                        <FaRegBuilding size={15} /> {detailJob?.company?.name}
-                    </div>
-                    <div className='text-sm px-3 font-light'>
-                        <div className='text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.company?.description }}></div>
-                    </div>
-                    <div className='flex gap-2 items-center'>
-                        <IoPeople className='text-[#23527c]' size={15} />
-                        <span className='font-medium dark:text-white'> Quy mô:</span> <span className='dark:text-gray-400'>{detailJob?.company?.size} nhân viên</span>
-                    </div>
-                    <div className='flex gap-2 items-center '>
-                        <GrLocation className='text-[#23527c]' size={15} />
-                        <span className='font-medium dark:text-white'> Địa chỉ:</span> <span className='dark:text-gray-400'>{detailJob?.company?.address}</span>
-                    </div>
-                </div>
-                <div className='flex flex-col gap-3'>
-                    <h1 className='uppercase text-lg sm:text-xl font-semibold dark:text-white'>Chi tiết công việc</h1>
-                    <div>
-                        <List ordered className='flex flex-col gap-6'>
-                            <List.Item className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
-                                Thông tin tuyển dụng
-                                <List nested className='text-black text-sm font-normal'>
-                                    <List.Item icon={HiCheckCircle} >Mức lương: {detailJob?.salary}$</List.Item>
-                                    <List.Item icon={HiCheckCircle} >Hình thức làm việc: Remote - Làm việc từ xa.</List.Item>
-                                    <List.Item icon={HiCheckCircle} >Giới tính: Nam.</List.Item>
-                                    <List.Item icon={HiCheckCircle} >Số lượng tuyển: {detailJob?.quantity}.</List.Item>
-                                    <List.Item icon={HiCheckCircle} >Cấp bậc: {detailJob?.level}.</List.Item>
-                                    <List.Item icon={HiCheckCircle} >Địa điểm làm việc: {detailJob?.location}</List.Item>
-
-                                </List>
-                            </List.Item>
-                            <div className='flex flex-col job-description'>
-                                <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
-                                    2. Mô tả công việc
-                                </div>
-                                <div className='text-black text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.description?.replace(/\*/g, '<br>•') }}></div>
-
-                            </div>
-
-                            <div className='flex flex-col'>
-                                <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
-                                    3. Yêu cầu ứng viên
-                                </div>
-                                <div className='text-black text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.requirements?.replace(/\*/g, '<br>•') }}></div>
-                            </div>
-
-                            <div className='flex flex-col'>
-                                <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
-                                    4. Phúc lợi
-                                </div>
-                                <div className='text-black text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.benefits?.replace(/\*/g, '<br>•') }}></div>
-                            </div>
-                        </List>
-                    </div>
-                </div>
-            </div>
-        </div>
     );
 };
 
