@@ -26,4 +26,8 @@
     @apply w-full mb-6 md:mb-16 px-6 md:px-10 lg:px-[150px];
   }
 
+  .custom-quill-editor .ql-toolbar {
+    @apply dark:bg-gray-400 dark:text-black;
+  }
+
 }

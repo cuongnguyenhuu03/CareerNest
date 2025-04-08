@@ -70,7 +70,7 @@ const InterviewForm = ({ questions }) => {
                 <form onSubmit={handleSubmit} className="space-y-6 max-w-3xl mx-auto">
                     {questions.map((question, index) => (
                         <div key={index} className="relative">
-                            <p className="font-semibold text-slate-600 mb-2 flex">
+                            <p className="font-normal text-slate-600 text-justify mb-2 flex dark:text-white tracking-wider">
                                 <FaRegQuestionCircle size={25} className='mr-2' />
                                 {question}
                             </p>
@@ -96,14 +96,14 @@ const InterviewForm = ({ questions }) => {
 
                     <button
                         type="submit"
-                        className="bg-red-600 text-white px-6 py-2 rounded-md hover:bg-blue-500 hover:transition-all"
+                        className="bg-red-600 float-right text-white px-6 py-2 rounded-md hover:bg-opacity-60 hover:transition-all"
                     >
                         Nộp
                     </button>
                 </form>
             ) : (
                 <div
-                    className="mt-8 text-base text-wrap text-gray-800 text-justify overflow-x-auto"
+                    className="mt-8 text-base text-wrap text-gray-800 dark:text-white dark:font-normal text-justify overflow-x-auto"
                     dangerouslySetInnerHTML={{ __html: answerFromAI }}
                 />
             )}

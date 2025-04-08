@@ -42,11 +42,11 @@ const CVReviewByAI = () => {
     }, []);
 
     return (
-        <div ref={ref} className='ct-container py-4 pt-20 bg-[#f7f7f7]'>
+        <div ref={ref} className='ct-container py-4 pt-20 bg-[#f7f7f7] dark:bg-slate-800'>
             <Breadcrumbs data={data} />
-            <div className='bg-[#fff] px-3 xs:px-6 py-8 rounded-lg flex items-center justify-center min-h-[350px]'>
+            <div className='bg-[#fff] dark:bg-gray-700 px-3 xs:px-6 py-8 rounded-lg flex items-center justify-center min-h-[350px]'>
                 <div className="text-center max-w-2xl">
-                    <h1 className="text-2xl font-bold mb-8">Đánh giá CV bởi AI CareerNest</h1>
+                    <h1 className="text-2xl font-bold mb-8 dark:text-white">Đánh giá CV bởi AI CareerNest</h1>
 
                     {!loading && !result && (
                         <label className="cursor-pointer bg-blue-600 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-700 transition">
@@ -63,13 +63,13 @@ const CVReviewByAI = () => {
                     {loading && (
                         <div className="flex flex-col items-center justify-center gap-4">
                             <Spinner size='xl' color='info' />
-                            <p className="text-lg font-medium animate-pulse">Đang phân tích CV...</p>
+                            <p className="text-lg font-medium animate-pulse dark:text-white">Đang phân tích CV...</p>
                         </div>
                     )}
 
                     {!loading && result && (
                         <div
-                            className="mt-8 text-base text-gray-800 text-justify"
+                            className="mt-8 dark:p-4 dark:rounded-lg text-base text-gray-800 text-justify dark:bg-white"
                             dangerouslySetInnerHTML={{ __html: result }}
                         />
                     )}

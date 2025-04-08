@@ -19,12 +19,12 @@ const CVLayout = () => {
     if (location.pathname === path.CV)
         return null;
     return (
-        <>
+        <div className='dark:bg-slate-800'>
             <Header />
             <Outlet />
             <Footer />
             <FloatButton.BackTop tooltip={<div>Scrolling to Top</div>} />
-        </>
+        </div>
     );
 };
 
