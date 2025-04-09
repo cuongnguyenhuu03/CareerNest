@@ -169,7 +169,7 @@ const ModalJob = ({ jobId = '', setJobId = () => { }, openModal, setOpenModal, r
         console.log(error || errCompanies);
         return <></>
     }
-    if (isFetching)
+    if (isFetching || isFetchingSkills)
         return (<ModalRoleSkeleton />)
     return (
         <>
