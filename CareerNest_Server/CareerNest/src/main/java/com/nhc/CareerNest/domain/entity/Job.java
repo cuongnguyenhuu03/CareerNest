@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.nhc.CareerNest.constant.JobTypeEnum;
 import com.nhc.CareerNest.constant.LevelEnum;
 
 import jakarta.persistence.Column;
@@ -44,6 +45,9 @@ public class Job extends BaseEntity {
     private Instant startDate;
 
     private Instant endDate;
+
+    @Enumerated(EnumType.STRING)
+    private JobTypeEnum jobType;
 
     @Size(min = 100, message = "{long.content.size}")
     @Column(columnDefinition = "MEDIUMTEXT")
@@ -193,4 +197,11 @@ public class Job extends BaseEntity {
         this.resumes = resumes;
     }
 
+    public JobTypeEnum getJobType() {
+        return jobType;
+    }
+
+    public void setJobType(JobTypeEnum jobType) {
+        this.jobType = jobType;
+    }
 }
