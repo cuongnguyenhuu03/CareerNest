@@ -10,6 +10,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nhc.CareerNest.domain.dto.request.ChatNotificationDTO;
@@ -52,11 +53,11 @@ public class ChatController {
         return user;
     }
 
-    @GetMapping("/users")
-    public ResponseEntity<RestResponse> findConnectedUsers() {
+    @GetMapping("/users-connected")
+    public ResponseEntity<RestResponse> findConnectedUsers(@RequestParam Long id) {
 
         RestResponse e = new RestResponse();
-        e.setData(userService.findConnectedUsers());
+        e.setData(userService.findConnectedUsers(id));
         e.setStatusCode(HttpStatus.OK.value());
         return ResponseEntity.ok(e);
     }

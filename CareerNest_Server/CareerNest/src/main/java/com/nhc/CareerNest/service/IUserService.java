@@ -25,5 +25,5 @@ public interface IUserService {
 
     void disconnect(User user);
 
-    List<User> findConnectedUsers();
+    List<User> findConnectedUsers(Long id);
 }

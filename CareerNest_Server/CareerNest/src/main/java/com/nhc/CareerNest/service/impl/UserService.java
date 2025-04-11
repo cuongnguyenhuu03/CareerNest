@@ -1,8 +1,10 @@
 package com.nhc.CareerNest.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -10,10 +12,12 @@ import com.nhc.CareerNest.constant.UserStatusEnum;
 import com.nhc.CareerNest.domain.dto.response.user.ResCreateUserDTO;
 import com.nhc.CareerNest.domain.dto.response.user.ResUpdateUserDTO;
 import com.nhc.CareerNest.domain.dto.response.user.ResUserDTO;
+import com.nhc.CareerNest.domain.entity.ChatRoom;
 import com.nhc.CareerNest.domain.entity.Company;
 import com.nhc.CareerNest.domain.entity.Role;
 import com.nhc.CareerNest.domain.entity.User;
 import com.nhc.CareerNest.domain.entity.Job;
+import com.nhc.CareerNest.repository.ChatRoomRepository;
 import com.nhc.CareerNest.repository.JobRepository;
 import com.nhc.CareerNest.repository.UserRepository;
 import com.nhc.CareerNest.service.IUserService;
@@ -25,8 +29,10 @@ public class UserService implements IUserService {
     private final RoleService roleService;
     private final CompanyService companyService;
     private final JobRepository jobRepository;
+    private final ChatRoomRepository chatRoomRepository;
 
     public UserService(
+            ChatRoomRepository chatRoomRepository,
             JobRepository jobRepository,
             RoleService roleService,
             CompanyService companyService,
@@ -35,6 +41,7 @@ public class UserService implements IUserService {
         this.userRepository = userRepository;
         this.companyService = companyService;
         this.roleService = roleService;
+        this.chatRoomRepository = chatRoomRepository;
     }
 
     @Override
@@ -202,8 +209,20 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<User> findConnectedUsers() {
-        return this.userRepository.findAllByStatus(UserStatusEnum.OFFLINE);
+    public List<User> findConnectedUsers(Long id) {
+
+        List<ChatRoom> chatRooms = this.chatRoomRepository.findBySenderId(id);
+
+        if (chatRooms.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        List<Long> idReceiveList = chatRooms.stream()
+                .map(room -> room.getReceiver().getId())
+                .distinct()
+                .collect(Collectors.toList());
+
+        return this.userRepository.findByIdIn(idReceiveList);
     }
 
     public List<Job> saveJob(Long userId, Long jobId) {
