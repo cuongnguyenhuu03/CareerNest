@@ -1,5 +1,6 @@
 package com.nhc.CareerNest.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -10,11 +11,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nhc.CareerNest.domain.entity.Skill;
 import com.nhc.CareerNest.domain.entity.Subscriber;
 import com.nhc.CareerNest.exception.errors.IdInvalidException;
 import com.nhc.CareerNest.service.impl.SubscriberService;
 
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -43,4 +47,12 @@ public class SubscriberController {
         }
         return ResponseEntity.ok().body(this.subscriberService.updateSubs(subs, optionalSubs.get()));
     }
+
+    @GetMapping("/subscribers")
+    public ResponseEntity<List<Skill>> getMethodName(@RequestParam String email) {
+        Subscriber Subs = this.subscriberService.fetchByEmail(email);
+        List<Skill> skills = Subs.getSkills();
+        return ResponseEntity.ok().body(skills);
+    }
+
 }
