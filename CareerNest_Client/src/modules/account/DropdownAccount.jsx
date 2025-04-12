@@ -2,7 +2,7 @@ import React from 'react';
 import { Avatar, Dropdown } from "flowbite-react";
 import { IoIosArrowDown } from "react-icons/io";
 import { Link } from 'react-router';
-import { dropdownAccount } from '../../utils/menu';
+import { dropdownAccount, dropdownRecruitment } from '../../utils/menu';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
@@ -41,29 +41,55 @@ const DropdownAccount = () => {
 
     return (
         <>
-            <Dropdown
-                arrowIcon={false}
-                inline
-                label={
-                    <div className='flex items-center gap-2'>
-                        <Avatar
-                            alt="User settings"
-                            img={user?.avatarUrl ? getFirebaseImageUrl(user.avatarUrl, 'users') : ''}
-                            rounded
-                        />
-                        <span className='hidden xs:inline-block text-gray-800 font-medium dark:text-gray-400'>{`${user?.lastName ?? ''} ${user?.firstName ?? ''}`}</span>
-                        <IoIosArrowDown size={13} className='dark:text-gray-400' />
-                    </div>
-                }
-            >
-                {dropdownAccount?.length > 0 && dropdownAccount.map(item => (
-                    <Link key={item?.path} to={item?.path} onClick={(e) => e.stopPropagation()}>
-                        <Dropdown.Item>{item?.text ?? ''}</Dropdown.Item>
-                    </Link>
-                ))}
-                <Dropdown.Divider />
-                <Dropdown.Item onClick={handleLogout}>Đăng xuất</Dropdown.Item>
-            </Dropdown>
+            {user?.role?.id === 3 ?
+                <Dropdown
+                    arrowIcon={false}
+                    inline
+                    label={
+                        <div className='flex items-center gap-2'>
+                            <Avatar
+                                alt="User settings"
+                                img={user?.avatarUrl ? getFirebaseImageUrl(user.avatarUrl, 'users') : ''}
+                                rounded
+                            />
+                            <span className='hidden xs:inline-block text-gray-800 font-medium dark:text-gray-400'>{`${user?.lastName ?? ''} ${user?.firstName ?? ''}`}</span>
+                            <IoIosArrowDown size={13} className='dark:text-gray-400' />
+                        </div>
+                    }
+                >
+                    {dropdownAccount?.length > 0 && dropdownAccount.map(item => (
+                        <Link key={item?.path} to={item?.path} onClick={(e) => e.stopPropagation()}>
+                            <Dropdown.Item>{item?.text ?? ''}</Dropdown.Item>
+                        </Link>
+                    ))}
+                    <Dropdown.Divider />
+                    <Dropdown.Item onClick={handleLogout}>Đăng xuất</Dropdown.Item>
+                </Dropdown>
+                :
+                <Dropdown
+                    arrowIcon={false}
+                    inline
+                    label={
+                        <div className='flex items-center gap-2'>
+                            <Avatar
+                                alt="User settings"
+                                img={user?.avatarUrl ? getFirebaseImageUrl(user.avatarUrl, 'companies') : ''}
+                                rounded
+                            />
+                            <span className='hidden xs:inline-block text-gray-800 font-medium dark:text-gray-400'>{`${user?.lastName ?? ''} ${user?.firstName ?? ''}`}</span>
+                            <IoIosArrowDown size={13} className='dark:text-gray-400' />
+                        </div>
+                    }
+                >
+                    {dropdownRecruitment?.length > 0 && dropdownRecruitment.map(item => (
+                        <Link key={item?.path} to={item?.path} onClick={(e) => e.stopPropagation()}>
+                            <Dropdown.Item>{item?.text ?? ''}</Dropdown.Item>
+                        </Link>
+                    ))}
+                    <Dropdown.Divider />
+                    <Dropdown.Item onClick={handleLogout}>Đăng xuất</Dropdown.Item>
+                </Dropdown>
+            }
         </>
     );
 };

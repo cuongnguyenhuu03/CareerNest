@@ -19,6 +19,7 @@ const FindJobLayout = lazy(() => import('../layout/FindJobLayout'));
 const InterviewByAILayout = lazy(() => import('../layout/InterviewByAILayout'));
 const RoadmapByAILayout = lazy(() => import('../layout/RoadmapByAILayout'));
 const AuthLayout = lazy(() => import('../layout/AuthLayout'));
+const AuthRecruitmentLayout = lazy(() => import('../layout/AuthRecruitmentLayout'));
 const AdminLayout = lazy(() => import('../layout/AdminLayout'));
 const DetailJobPage = lazy(() => import('../pages/job/DetailJobPage'));
 const FindJobPage = lazy(() => import('../pages/job/FindJobPage'));
@@ -107,7 +108,7 @@ const AppRoute = () => {
                 </Route>
 
                 <Route path={path.REGISTER__CANDIDATE} element={<AuthLayout><RegisterPage /></AuthLayout>} />
-                <Route path={`${path.RECRUITMENT}/${path.RECRUITMENT__LOGIN}`} element={<AuthLayout>< LoginRecruitmentPage /></AuthLayout>} />
+                <Route path={`${path.RECRUITMENT}/${path.RECRUITMENT__LOGIN}`} element={<AuthRecruitmentLayout>< LoginRecruitmentPage /></AuthRecruitmentLayout>} />
                 <Route path={`${path.SYSTEM}/${path.SYSTEM__LOGIN}`} element={<AuthLayout>< LoginAdminPage /></AuthLayout>} />
                 <Route path={path.FORGOT__PASSWORD} element={<AuthLayout><ForgotPasswordPage /></AuthLayout>} />
 
