@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import bannerImg from '../../assets/recruitmentpage/banner.jpg'
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import CountUp from 'react-countup';
 import aboutLogo1 from '../../assets/recruitmentpage/about_1.svg'
 import aboutLogo2 from '../../assets/recruitmentpage/about_2.svg'
@@ -12,10 +12,11 @@ import serviceLogo4 from '../../assets/recruitmentpage/service_4.svg'
 import serviceLogo5 from '../../assets/recruitmentpage/service_5.svg'
 import serviceLogo6 from '../../assets/recruitmentpage/service_6.jpg'
 import TopEmployer from '../../modules/homepage_section/TopEmployer';
-
+import { useSelector } from 'react-redux';
 
 const RecruitmentPage = () => {
     const ref = useRef(null);
+    const user = useSelector(state => state?.user?.info);
 
     useEffect(() => {
         if (ref?.current)
@@ -23,6 +24,8 @@ const RecruitmentPage = () => {
         document.title = 'Nhà tuyển dụng'
     }, []);
 
+    if (user?.role?.id === 3)
+        return <Navigate to={'/'} />
     return (
         <div className='w-full'>
             <div ref={ref} className={`w-full h-[380px] md:h-[500px] mt-12 bg-slider-bg bg-cover bg-no-repeat bg-bottom mb-6 md:mb-16`}>

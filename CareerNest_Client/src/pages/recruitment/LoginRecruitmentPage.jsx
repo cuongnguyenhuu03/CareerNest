@@ -3,8 +3,38 @@ import { path } from "../../utils/constant";
 import { List } from 'flowbite-react'
 import { IoCallOutline } from "react-icons/io5";
 import { CiMail } from "react-icons/ci";
+import { useRef } from "react";
+import { useDispatch } from 'react-redux';
+import { updateUserInfo } from "../../redux/slices/userSlice";
+import { useMutation } from "@tanstack/react-query";
+import { postLogin } from "../../services/userService";
+import { toast } from "react-toastify";
 
 const LoginRecruitmentPage = () => {
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
+    const dispatch = useDispatch();
+
+    const mutation = useMutation({
+        mutationFn: postLogin,
+        onSuccess: async (res) => {
+            if (+res?.statusCode === 200) {
+                dispatch(updateUserInfo({ ...res?.data }));
+                mutation.reset();
+            } else
+                toast.error(res?.error ?? 'Login failed!');
+        },
+        onError: (error) => {
+            console.error('Error:', error);
+            toast.error(error.message || 'Something wrong in Server');
+        },
+    });
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        await mutation.mutateAsync({ username: emailRef.current?.value, password: passwordRef.current?.value });
+    };
+
     return (
         <section className="bg-gray-50 dark:bg-gray-900">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -17,15 +47,30 @@ const LoginRecruitmentPage = () => {
                         <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                             Đăng nhập dành cho Nhà tuyển dụng
                         </h1>
-                        <form className="space-y-4 md:space-y-6" action="#">
-
+                        <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
                             <div>
                                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                                <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required />
+                                <input
+                                    type="email"
+                                    name="email"
+                                    id="email"
+                                    ref={emailRef}
+                                    className="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="name@company.com"
+                                    required
+                                />
                             </div>
                             <div>
                                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mật khẩu</label>
-                                <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                                <input
+                                    type="password"
+                                    name="password"
+                                    id="password"
+                                    ref={passwordRef}
+                                    placeholder="••••••••"
+                                    className="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    required
+                                />
                             </div>
 
                             <div className="flex items-start">

@@ -17,6 +17,7 @@ import { getFirebaseImageUrl } from '../../utils/getFirebaseImageURL';
 import { FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa";
 import slugify from 'slugify';
 import ModalRecruitmentMatching from '../../modules/recruitment/ModalRecruitmentMatching';
+import { FiMessageSquare } from "react-icons/fi";
 
 const { IoPeople, GrLocation, FaCircleInfo } = icons;
 const data = [
@@ -112,7 +113,18 @@ const DetailRecruitmentPage = () => {
                     <Button
                         size="sm"
                         color="light"
-                        className="absolute top-2 right-2 z-10 pr-4 text-blue-800"
+                        className="absolute hidden sm:block top-2 right-2 z-10 pr-4 text-blue-800"
+                        onClick={() => setOpenModal(true)}
+                    >
+                        Phân tích văn hóa công ty
+                        <span className="absolute animate-bounce top-0 right-0 mt-0 -mr-1 bg-red-500 text-white text-[10px] px-1 py-0.5 rounded-md shadow">
+                            New
+                        </span>
+                    </Button>
+                    <Button
+                        size="xs"
+                        color="light"
+                        className="absolute sm:hidden top-2 right-2 z-10 pr-4 text-blue-800"
                         onClick={() => setOpenModal(true)}
                     >
                         Phân tích văn hóa công ty
@@ -183,6 +195,11 @@ const DetailRecruitmentPage = () => {
                             <span className='font-medium dark:text-white'> Địa chỉ:</span> <span className='dark:text-gray-400'>{detailCompany?.address}</span>
                         </div>
 
+                        <Button color="light" className='mt-4'>
+                            <FiMessageSquare className="text-lg mr-2" />
+                            Trò chuyện với nhà tuyển dụng
+                        </Button>
+
                         <h1 className='mt-6 flex items-center gap-2 text-lg font-medium uppercase dark:text-white'> <TbMapSearch className='text-gray-500' size={15} />
                             Bản đồ
                         </h1>
@@ -235,6 +252,11 @@ const DetailRecruitmentPage = () => {
                             <GrLocation className='text-[#23527c]' size={15} />
                             <span className='font-medium dark:text-white'> Địa chỉ:</span> <span className='dark:text-gray-400'>{detailCompany?.address}</span>
                         </div>
+
+                        <Button color="light" className='mt-4'>
+                            <FiMessageSquare className="text-lg mr-2" />
+                            Trò chuyện với nhà tuyển dụng
+                        </Button>
 
                         <h1 className='mt-6 flex items-center gap-2 text-lg font-medium uppercase dark:text-white'> <TbMapSearch className='text-gray-500' size={15} />
                             Bản đồ
