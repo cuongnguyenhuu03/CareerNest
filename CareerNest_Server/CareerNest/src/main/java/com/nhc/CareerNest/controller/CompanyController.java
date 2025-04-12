@@ -16,10 +16,13 @@ import com.nhc.CareerNest.constant.MessageKeys;
 import com.nhc.CareerNest.domain.dto.request.CompanyCriteriaDTO;
 import com.nhc.CareerNest.domain.dto.response.base.RestResponse;
 import com.nhc.CareerNest.domain.dto.response.base.ResultPaginationResponse;
+import com.nhc.CareerNest.domain.dto.response.company.ResCompany;
 import com.nhc.CareerNest.domain.entity.Company;
+import com.nhc.CareerNest.domain.entity.User;
 import com.nhc.CareerNest.exception.errors.IdInvalidException;
 import com.nhc.CareerNest.service.impl.CompanyRedisService;
 import com.nhc.CareerNest.service.impl.CompanyService;
+import com.nhc.CareerNest.service.impl.UserService;
 import com.nhc.CareerNest.util.anotation.ApiMessage;
 
 import jakarta.validation.Valid;
@@ -36,11 +39,14 @@ public class CompanyController {
     private final CompanyService companyService;
     private final LocalizationUtils localizationUtils;
     private final CompanyRedisService companyRedisService;
+    private final UserService userService;
 
     public CompanyController(
+            UserService userService,
             CompanyRedisService companyRedisService,
             LocalizationUtils localizationUtils,
             CompanyService companyService) {
+        this.userService = userService;
         this.companyRedisService = companyRedisService;
         this.companyService = companyService;
         this.localizationUtils = localizationUtils;
@@ -68,9 +74,17 @@ public class CompanyController {
     public ResponseEntity<RestResponse> fetchACompany(@PathVariable("id") Long id) {
         Company company = this.companyService.getCompanyById(id).get();
 
+        // fetch Hr in this company
+
+        User hr = this.userService.findByCompanyId(company.getId());
+
+        ResCompany data = new ResCompany();
+        data.setCompany(company);
+        data.setHr(hr);
+
         RestResponse res = new RestResponse();
         res.setStatusCode(HttpStatus.OK.value());
-        res.setData(company);
+        res.setData(data);
 
         return ResponseEntity.ok(res);
     }

@@ -261,4 +261,8 @@ public class UserService implements IUserService {
         return this.userRepository.existsByEmailAndIsBlocked(email, True);
     }
 
+    public User findByCompanyId(Long id) {
+        return this.userRepository.findByCompany(id);
+    }
+
 }
