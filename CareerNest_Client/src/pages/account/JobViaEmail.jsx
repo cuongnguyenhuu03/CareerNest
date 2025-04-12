@@ -7,6 +7,10 @@ import withErrorBoundary from '../../hoc/withErrorBoundary';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { postCreateNewSubscriber } from '../../services/subcriberService';
+import { useSubscribers } from '../../hooks/useSubscribers';
+import { Link } from 'react-router-dom';
+import { Badge, Tooltip } from 'flowbite-react';
+import { MdDeleteOutline } from "react-icons/md";
 
 const data = [
     { text: "Trang chủ", path: path.HOME },
@@ -19,6 +23,7 @@ const JobViaEmail = () => {
     const selectedSkillsRef = useRef([]);
     const [resetKey, setResetKey] = useState(0);
     const { res: resSkills, isFetchingSkills, error: errSkills } = useSkills();
+    const { res: resSubscribers, isFetchingSubscribers, error: errSubscribers } = useSubscribers(user?.email ?? '');
 
     useEffect(() => {
         if (ref?.current)
@@ -58,8 +63,9 @@ const JobViaEmail = () => {
         }
     };
 
-    if (errSkills) {
+    if (errSkills || errSubscribers) {
         console.log(errSkills);
+        console.log(errSubscribers);
         return <></>;
     }
     return (
@@ -67,7 +73,7 @@ const JobViaEmail = () => {
             <Breadcrumbs data={data} />
             <div className='w-full flex flex-col gap-y-4 shadow-md p-6 rounded-lg'>
                 {
-                    isFetchingSkills ? (
+                    (isFetchingSkills || isFetchingSubscribers) ? (
                         <div className='w-full h-40 flex items-center justify-center'>
                             <Spin size="large" />
                         </div>
@@ -152,33 +158,31 @@ const JobViaEmail = () => {
                                 </Button>
                             </div>
 
-                            {/* <div className='w-full flex items-center rounded-md p-2 sm:p-4 border border-gray-300 '>
-                                <div className='basis-2/3 flex items-center gap-x-2 sm:gap-x-3'>
-                                    <span className='font-semibold text-[11px] xs:text-xs sm:text-sm'>1.</span>
-                                    <Link
-                                        to={"#"}
-                                        className='font-medium tracking-wide text-slate-800 underline hover:transition-colors hover:text-red-500'
-                                    >
-                                        <span className='font-semibold text-[11px] xs:text-xs sm:text-sm'>Lập trình viên NodeJS</span> tại Hồ Chí Minh
-                                    </Link>
+                            {resSubscribers?.length > 0 &&
+                                <div className='w-full flex items-center rounded-md p-2 sm:p-4 border border-gray-300 '>
+                                    <div className='basis-2/3 flex items-center gap-x-2 sm:gap-x-3'>
+                                        {resSubscribers.map(item => (
+                                            <Badge key={item?.id} color="gray">{item?.name}</Badge>
+                                        ))}
+                                    </div>
+                                    <div className='hidden basis-1/3 xs:flex items-center gap-x-2 sm:gap-x-0 justify-start sm:justify-evenly'>
+                                        <Badge color="success" size='sm' className='hidden sm:block'>Đã đăng ký</Badge>
+                                        <Badge color="success" size='xs' className='sm:hidden block'>Đã đăng ký</Badge>
+                                        <Tooltip content="Xóa" style="dark">
+                                            <MdDeleteOutline size={25} className='hidden sm:block cursor-pointer' />
+                                            <MdDeleteOutline size={20} className='sm:hidden block cursor-pointer' />
+                                        </Tooltip>
+                                    </div>
+                                    <div className='xs:hidden basis-1/3 flex flex-col items-center gap-y-2'>
+                                        <Badge color="success" size='sm' className='hidden sm:block'>Đã đăng ký</Badge>
+                                        <Badge color="success" className='sm:hidden block'>Đã đăng ký</Badge>
+                                        <Tooltip content="Xóa" style="dark">
+                                            <MdDeleteOutline size={25} className='hidden sm:block cursor-pointer' />
+                                            <MdDeleteOutline size={20} className='sm:hidden block cursor-pointer' />
+                                        </Tooltip>
+                                    </div>
                                 </div>
-                                <div className='hidden basis-1/3 xs:flex items-center gap-x-2 sm:gap-x-0 justify-start sm:justify-evenly'>
-                                    <Badge color="success" size='sm' className='hidden sm:block'>Đã đăng ký</Badge>
-                                    <Badge color="success" size='xs' className='sm:hidden block'>Đã đăng ký</Badge>
-                                    <Tooltip content="Xóa" style="dark">
-                                        <MdDeleteOutline size={25} className='hidden sm:block' />
-                                        <MdDeleteOutline size={20} className='sm:hidden block' />
-                                    </Tooltip>
-                                </div>
-                                <div className='xs:hidden basis-1/3 flex flex-col items-center gap-y-2'>
-                                    <Badge color="success" size='sm' className='hidden sm:block'>Đã đăng ký</Badge>
-                                    <Badge color="success" className='sm:hidden block'>Đã đăng ký</Badge>
-                                    <Tooltip content="Xóa" style="dark">
-                                        <MdDeleteOutline size={25} className='hidden sm:block' />
-                                        <MdDeleteOutline size={20} className='sm:hidden block' />
-                                    </Tooltip>
-                                </div>
-                            </div> */}
+                            }
                         </>
                 }
             </div>
