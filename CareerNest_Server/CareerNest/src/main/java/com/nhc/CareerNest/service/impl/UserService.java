@@ -262,7 +262,7 @@ public class UserService implements IUserService {
     }
 
     public User findByCompanyId(Long id) {
-        return this.userRepository.findByCompany(id);
+        return this.userRepository.findByCompanyId(id);
     }
 
 }
