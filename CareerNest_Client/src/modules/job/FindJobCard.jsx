@@ -27,6 +27,12 @@ const FindJobCard = ({ job = {}, selectedJob = {}, handleSelectJob = () => { } }
         return diffDays <= 2;
     };
 
+    const getJobType = (type) => ({
+        FULL_TIME: "Toàn thời gian",
+        PART_TIME: "Bán thời gian",
+        CONTRACT: "Theo hợp đồng"
+    }[type] || "");
+
     if (!job?.active) return null;
     return (
         <div
@@ -73,7 +79,7 @@ const FindJobCard = ({ job = {}, selectedJob = {}, handleSelectJob = () => { } }
 
             <div className="mt-2 text-gray-600 space-y-1 dark:text-gray-400">
                 <p className="flex items-center gap-2 ">
-                    <FaLaptop className="text-gray-500" /> Tại văn phòng
+                    <FaLaptop className="text-gray-500" /> {getJobType(job?.jobType)}
                 </p>
                 <p className="flex items-center gap-2">
                     <FaMapMarkerAlt className="text-gray-500" /> {job?.location}
