@@ -62,6 +62,12 @@ public class JobService implements IJobService {
             combinedSpec = combinedSpec.and(currentSpec);
         }
 
+        // filter salary
+        if(jobCriteriaDTO.getSalary() != null && jobCriteriaDTO.getSalary().isPresent()){
+            Specification<Job> currentSpec = this.findAllWithSalarySpec(jobCriteriaDTO.getSalary().get());
+            combinedSpec = combinedSpec.and(currentSpec);
+        }
+
         // filter active job
         Specification<Job> activeSpec = JobSpecification.activeSpec();
         combinedSpec = combinedSpec.and(activeSpec);
@@ -77,6 +83,49 @@ public class JobService implements IJobService {
         rs.setResult(pageUser.getContent());
 
         return rs;
+    }
+
+    public Specification<Job> findAllWithSalarySpec(List<String> salary) {
+        Specification<Job> combinedSpec = Specification.where(null);
+        for (String s : salary) {
+            double min = 0;
+            double max = 0;
+
+            // Set the appropriate min and max based on the price range string
+            switch (s) {
+                case "under-1000-$":
+                    min = 1;
+                    max = 1000;
+                    break;
+                case "1000-1500-$":
+                    min = 1000;
+                    max = 1500;
+                    break;
+                case "1500-2000-$":
+                    min = 1500;
+                    max = 2000;
+                    break;
+                case "2000-2500-$":
+                    min = 2000;
+                    max = 2500;
+                    break;
+                case "2500-3000-$":
+                    min = 2500;
+                    max = 3000;
+                    break;
+                case "over-3000-$":
+                    min = 3000;
+                    max = 30000;
+                    break;
+            }
+
+            if (min != 0 && max != 0) {
+                Specification<Job> rangeSpec = JobSpecification.matchMultipleSalary(min, max);
+                combinedSpec = combinedSpec.or(rangeSpec);
+            }
+        }
+
+        return combinedSpec;
     }
 
     @Override

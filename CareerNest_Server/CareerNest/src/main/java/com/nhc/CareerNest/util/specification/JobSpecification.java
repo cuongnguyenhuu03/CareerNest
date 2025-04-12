@@ -38,4 +38,9 @@ public class JobSpecification {
         return (root, query, criteriaBuilder) -> criteriaBuilder
                 .isTrue(root.get(Job_.ACTIVE));
     }
+
+    public static Specification<Job> matchMultipleSalary(double min, double max) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.between(
+                root.get(Job_.SALARY), min, max);
+    }
 }

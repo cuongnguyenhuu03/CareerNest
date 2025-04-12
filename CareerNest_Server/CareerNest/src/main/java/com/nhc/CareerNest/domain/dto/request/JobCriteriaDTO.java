@@ -8,6 +8,7 @@ public class JobCriteriaDTO {
     private Optional<String> name;
     private Optional<List<String>> location;
     private Optional<List<String>> level;
+    private Optional<List<String>> salary;
 
     public Optional<String> getName() {
         return name;
@@ -31,6 +32,14 @@ public class JobCriteriaDTO {
 
     public void setLevel(Optional<List<String>> level) {
         this.level = level;
+    }
+
+    public Optional<List<String>> getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Optional<List<String>> salary) {
+        this.salary = salary;
     }
 
 }
