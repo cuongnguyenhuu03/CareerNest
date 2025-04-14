@@ -4,4 +4,8 @@ const getUsersConnected = (id) => {
     return axios.get(`/users-connected?id=${id}`);
 };
 
-export { getUsersConnected };
+const getAllMessages = (senderId, recipientId) => {
+    return axios.get(`/messages/${senderId}/${recipientId}`)
+}
+
+export { getUsersConnected,getAllMessages };

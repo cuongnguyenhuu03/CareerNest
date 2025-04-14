@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, } from 'react';
 import icons from '../../utils/icons';
-import { Alert, Badge, Button, List, Tooltip } from "flowbite-react";
+import { Alert, Badge, Button, List, Tooltip, Popover } from "flowbite-react";
 import { message } from "antd";
 import { useNavigate, useParams } from 'react-router-dom';
 import { path } from '../../utils/constant';
@@ -22,6 +22,7 @@ import { toast } from 'react-toastify';
 import { useDetailUser } from '../../hooks/useDetailUer';
 import { RiRobot2Line } from "react-icons/ri";
 import ModalJobMatching from '../../modules/job/ModalJobMatching';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const { FaRegBuilding, FaMoneyCheckDollar, IoMdTime, IoPeople, GrLocation, FaCircleInfo, HiCheckCircle, FaHeart } = icons;
 const data = [
@@ -39,6 +40,9 @@ const DetailJobPage = () => {
     const queryClient = useQueryClient()
 
     const [openModal, setOpenModal] = useState(false);
+
+    const [openPopup, setOpenPopup] = useState(false);
+    const timeoutRef = useRef(null);
 
     useEffect(() => {
         if (ref?.current)
@@ -72,6 +76,15 @@ const DetailJobPage = () => {
             toast.error(error?.message || 'Something wrong in Server');
         },
     });
+
+    const handleMouseEnter = () => {
+        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+        setOpenPopup(true);
+    };
+
+    const handleMouseLeave = () => {
+        timeoutRef.current = setTimeout(() => setOpenPopup(false), 150);
+    };
 
     const handlePrefetchRecruitment = (id) => {
         if (!id) return;
@@ -161,9 +174,9 @@ const DetailJobPage = () => {
     }
     return (
         <>
-            <div ref={ref} className='ct-container flex flex-col gap-8 pt-24'>
+            <div ref={ref} className='ct-container flex flex-col gap-8 pt-20'>
                 <Breadcrumbs data={data} />
-                <div className='w-full shadow-md flex items-center justify-between py-3 gap-3 xs:gap-6 rounded-lg pl-2 dark:bg-gray-700'>
+                <div className='w-full shadow-md dark:shadow-lg flex items-center justify-between py-3 gap-3 xs:gap-6 rounded-lg pl-2 dark:bg-slate-800'>
                     <img
                         src={detailJob?.company?.logoUrl ? getFirebaseImageUrl(detailJob.company.logoUrl, 'companies') : ''}
                         alt="thumbnail"
@@ -203,11 +216,58 @@ const DetailJobPage = () => {
                         </div>
                         <div className='flex gap-2 items-center text-sm md:text-base font-medium text-[#23527c] dark:text-blue-500 cursor-pointer hover:underline'
                             onClick={() => navigate(`${path.RECRUITMENT}/detail/${detailJob?.company?.id}/${slugify(detailJob?.company?.name, { lower: true, strict: true })}`)}
-                            onMouseEnter={() => handlePrefetchRecruitment(+detailJob?.company?.id)}
+                            onMouseEnter={() => { handlePrefetchRecruitment(+detailJob?.company?.id); handleMouseEnter(); }}
                             onTouchStart={() => handlePrefetchRecruitment(+detailJob?.company?.id)}
+                            onMouseLeave={handleMouseLeave}
                         >
                             <FaRegBuilding size={15} /> {detailJob?.company?.name}
                         </div>
+                        {openPopup &&
+                            <AnimatePresence>
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0.95, y: -5 }}
+                                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                                    exit={{ opacity: 0, scale: 0.95, y: -5 }}
+                                    transition={{ duration: 0.2, ease: 'easeOut' }}
+                                    className="absolute z-50 right-[550px] w-[300px] h-fit bg-white shadow-md dark:shadow-sm rounded-lg dark:bg-slate-900 border border-gray-200 dark:border-gray-700 p-4 transition-all"
+                                    onMouseEnter={handleMouseEnter}
+                                    onMouseLeave={handleMouseLeave}
+                                >
+                                    <div className="h-fit dark:bg-gray-700 bg-gray-200 ">
+                                        <div className="max-w-sm mx-auto bg-white dark:bg-gray-900 overflow-hidden">
+                                            <div className="border-b px-4 pb-6">
+                                                <div className="text-center my-4">
+                                                    <img className="h-28 w-28 rounded-full border-4 border-white dark:border-gray-800 mx-auto my-4"
+                                                        src={getFirebaseImageUrl(detailJob?.company?.logoUrl, "companies")} alt />
+                                                    <div className="py-2">
+                                                        <h3 className="font-bold text-xl text-wrap text-gray-800 dark:text-white mb-1">{detailJob?.company?.name}</h3>
+                                                        <div className="inline-flex text-gray-700 dark:text-gray-300 items-center">
+                                                            <svg className="h-5 w-5 text-gray-400 dark:text-gray-600 mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24}>
+                                                                <path className d="M5.64 16.36a9 9 0 1 1 12.72 0l-5.65 5.66a1 1 0 0 1-1.42 0l-5.65-5.66zm11.31-1.41a7 7 0 1 0-9.9 0L12 19.9l4.95-4.95zM12 14a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
+                                                            </svg>
+                                                            {detailJob?.company?.city}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="flex gap-2 px-2">
+                                                    <button className="flex-1 rounded-full bg-blue-600 dark:bg-blue-800 text-white dark:text-white antialiased font-bold hover:bg-blue-800 dark:hover:bg-blue-900 px-4 py-2">
+                                                        Theo dõi
+                                                    </button>
+                                                    <button
+                                                        className="flex-1 rounded-full border-2 border-gray-400 dark:border-gray-700 font-semibold text-black dark:text-white px-4 py-2"
+                                                        onClick={() => navigate(`${path.RECRUITMENT}/detail/${detailJob?.company?.id}/${slugify(detailJob?.company?.name, { lower: true, strict: true })}`)}
+                                                    >
+                                                        Nhắn tin
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </motion.div>
+                            </AnimatePresence>
+                        }
                         <div className='flex gap-2 text-orange-600 items-center text-xs md:text-sm font-light'>
                             <FaMoneyCheckDollar /> Lương: {detailJob?.salary}$
                         </div>
@@ -244,7 +304,7 @@ const DetailJobPage = () => {
                 </div>
 
                 <div className='hidden w-full sm:flex gap-6'>
-                    <div className='basis-2/5 h-fit rounded-lg flex flex-col gap-3 bg-[#ebeeef] p-4 dark:bg-gray-700'>
+                    <div className='basis-2/5 h-fit rounded-lg flex flex-col gap-3 bg-[#ebeeef] p-4 dark:bg-slate-800'>
                         <h1 className='flex items-center gap-2 text-lg font-medium dark:text-white'> <FaCircleInfo className='text-gray-500 ' size={15} /> Nhà tuyển dụng:</h1>
                         <div className='flex gap-2 text-base font-semibold text-[#23527c] dark:text-blue-500 cursor-pointer hover:underline'
                             onClick={() => navigate(`${path.RECRUITMENT}/detail/${detailJob?.company?.id}/${slugify(detailJob?.company?.name, { lower: true, strict: true })}`)}
@@ -306,7 +366,7 @@ const DetailJobPage = () => {
                 </div>
 
                 <div className='w-full sm:hidden flex flex-col gap-6'>
-                    <div className='h-fit rounded-lg flex flex-col gap-3 bg-[#ebeeef] p-4 dark:bg-gray-700'>
+                    <div className='h-fit rounded-lg flex flex-col gap-3 bg-[#ebeeef] p-4 dark:bg-slate-800'>
                         <h1 className='flex items-center gap-2 text-lg font-medium dark:text-white'> <FaCircleInfo className='text-gray-500' size={15} /> Nhà tuyển dụng:</h1>
                         <div className='flex gap-2 text-base font-semibold text-[#23527c] dark:text-blue-500 cursor-pointer hover:underline'
                             onClick={() => navigate(`${path.RECRUITMENT}/detail/${detailJob?.company?.id}/${slugify(detailJob?.company?.name, { lower: true, strict: true })}`)}

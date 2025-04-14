@@ -12,7 +12,7 @@ const EmployerLogoCard = ({ data = {} }) => {
 
     return (
         <div
-            className="dark:bg-gray-700 h-fit bg-white rounded-xl shadow-md dark:shadow-lg overflow-hidden border border-gray-200 relative cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110"
+            className="dark:bg-slate-800 h-fit bg-white rounded-xl shadow-md dark:shadow-lg overflow-hidden border border-gray-200 relative cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110"
             onClick={() => navigate(`${path.RECRUITMENT}/detail/${data?.id}/${slugify(data?.name, { lower: true, strict: true })}`)}
         >
             {/* Logo */}
@@ -44,7 +44,7 @@ const EmployerLogoCard = ({ data = {} }) => {
             </div>
 
             {/* Location + Job Count */}
-            <div className="flex items-center p-4 mt-10 bg-[#f7f7f7] dark:bg-gray-700">
+            <div className="flex items-center p-4 mt-10 bg-[#f7f7f7] dark:bg-slate-800">
                 <GrLocation size={18} className='mr-2 text-gray-600 dark:text-white' />
                 <span className="text-xs text-gray-600 dark:text-white">
                     {data?.city}

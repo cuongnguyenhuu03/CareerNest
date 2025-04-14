@@ -3,14 +3,14 @@ import React from 'react';
 import { path } from '../../../utils/constant';
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const MyJob = () => {
     const user = useSelector(state => state?.user?.info);
     const navigate = useNavigate();
 
     return (
-        <div className='w-full flex flex-col gap-y-4 shadow-md dark:shadow-lg p-4 rounded-lg dark:bg-gray-700'>
+        <div className='w-full flex flex-col gap-y-4 shadow-md dark:shadow-lg p-4 rounded-lg dark:bg-slate-800'>
             <Badge className='w-fit text-base sm:text-lg' color="warning" size='sm'>Hoạt động của bạn</Badge>
             <div className='w-full flex gap-4'>
                 <div className='basis-1/2 bg-[#eaf0fa] dark:bg-gray-300 flex rounded-lg cursor-pointer hover:border hover:border-blue-500 ct-hover-transition'

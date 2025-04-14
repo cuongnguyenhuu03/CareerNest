@@ -33,7 +33,7 @@ const FindJob = () => {
                                 onKeyDown={(e) => {
                                     if (e.key === "Enter") handleSearch();
                                 }}
-                                className="outline-none bg-gray-50 border border-gray-300 text-gray-900 text-xs lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                className="outline-none bg-gray-50 border border-gray-300 text-gray-900 text-xs lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             />
                         </div>
 
@@ -42,7 +42,7 @@ const FindJob = () => {
                             <select
                                 value={location}
                                 onChange={(e) => setLocation(e.target.value)}
-                                className="bg-gray-50 border text-xs lg:text-sm border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pl-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                className="bg-gray-50 border text-xs lg:text-sm border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pl-10 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             >
                                 <option value="all">Tất cả tỉnh thành</option>
                                 <option value="ho chi minh">Hồ Chí Minh</option>
@@ -60,7 +60,7 @@ const FindJob = () => {
                     <div className='sm:hidden flex flex-col gap-3 mb-6'>
                         <div className="w-full">
                             <input type="text" id="default-input" placeholder="Từ khóa công việc..."
-                                className="outline-none bg-gray-50 border border-gray-300 text-gray-900 text-xs lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                className="outline-none bg-gray-50 border border-gray-300 text-gray-900 text-xs lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 value={keyword}
                                 onChange={(e) => setKeyword(e.target.value)}
                             />
@@ -72,7 +72,7 @@ const FindJob = () => {
                                     value={location}
                                     onChange={(e) => setLocation(e.target.value)}
                                     id="countries"
-                                    className="bg-gray-50 border text-xs lg:text-sm border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pl-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    className="bg-gray-50 border text-xs lg:text-sm border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pl-10 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 >
                                     <option value="all">Tất cả tỉnh thành</option>
                                     <option value="ho chi minh">Hồ Chí Minh</option>

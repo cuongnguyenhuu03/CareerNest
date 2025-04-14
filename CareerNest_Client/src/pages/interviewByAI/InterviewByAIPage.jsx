@@ -48,7 +48,7 @@ const InterviewByAIPage = () => {
         <div ref={ref} className='ct-container flex flex-col pt-20'>
             <Breadcrumbs data={data} />
 
-            <div className="bg-white p-6 rounded-lg shadow-lg dark:bg-gray-700">
+            <div className="bg-white p-6 rounded-lg shadow-lg dark:bg-slate-800">
                 <h2 className="text-xl md:text-2xl font-semibold mb-10 uppercase text-center dark:text-white">Phỏng vấn giả lập bởi AI</h2>
                 <div className="hidden sm:flex flex-row gap-6">
                     <div className="flex-1">

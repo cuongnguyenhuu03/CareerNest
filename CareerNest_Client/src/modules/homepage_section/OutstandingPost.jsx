@@ -3,7 +3,7 @@ import { Card } from "flowbite-react";
 
 const OutstandingPost = () => {
     return (
-        <div className='ct-container py-10 bg-gray-100 dark:bg-gray-800'>
+        <div className='ct-container py-10 bg-gray-100 dark:bg-slate-800'>
             <h1 className='text-xl mb-10 text-center text-slate-800 font-bold uppercase dark:text-white'>Bài viết nổi bật</h1>
             <div className='w-full grid grid-cols-2 sm:grid-cols-3 gap-6 md:gap-10'>
                 <Card

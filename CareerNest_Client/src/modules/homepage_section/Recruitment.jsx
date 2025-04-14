@@ -35,7 +35,7 @@ const Recruitment = () => {
             </div>
         );
     return (
-        <div className='ct-container py-10 bg-[#f7f7f7] flex flex-col items-center dark:bg-gray-800'>
+        <div className='ct-container py-10 bg-[#f7f7f7] flex flex-col items-center dark:bg-slate-800'>
             <h1 className='text-base sm:text-lg xs:text-xl mb-10 text-slate-800 font-bold uppercase dark:text-white'>Tin tuyển dụng mới nhất</h1>
             <div className='w-full xs:w-2/3 border border-gray-300 rounded-lg sm:border-none sm:w-full flex flex-nowrap overflow-x-auto sm:grid sm:grid-cols-2 xl:grid-cols-3 xs:gap-4 xl:gap-8'>
                 {listJobs.length > 0 && listJobs.map(item => (

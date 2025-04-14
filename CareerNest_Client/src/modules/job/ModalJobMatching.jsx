@@ -43,7 +43,7 @@ const ModalJobMatching = ({ openModal = false, setOpenModal = null, job = {} }) 
 
     return (
         <Modal show={openModal} onClose={() => setOpenModal(false)}>
-            <div className="relative">
+            <div className="relative dark:bg-slate-800">
                 <ModalHeader>Đánh giá mức độ phù hợp của bạn với công việc</ModalHeader>
                 {!answerFromAI ?
                     <ModalBody>

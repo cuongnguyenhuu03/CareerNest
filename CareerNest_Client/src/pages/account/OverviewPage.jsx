@@ -20,7 +20,7 @@ const OverviewPage = () => {
     }, []);
 
     return (
-        <div ref={ref} className='ct-container mt-[60px] flex flex-col'>
+        <div ref={ref} className='ct-container pt-20 flex flex-col'>
             <Breadcrumbs data={data} />
 
             {/* Thông tin cá nhân */}

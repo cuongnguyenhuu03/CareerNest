@@ -9,7 +9,7 @@ export const useUsersConnected = () => {
         queryKey: ['usersConnected'],
         queryFn: () => getUsersConnected(user?.id),
         enabled: !!user?.id,
-        staleTime: 30 * 1000,
+        staleTime: 15 * 1000,
         refetchOnWindowFocus: true,
     });
 

@@ -77,8 +77,8 @@ const UpdateAccount = ({ isOpen = false, setOpenModal = () => { } }) => {
     return (
         <>
             <Modal show={isOpen} size="3xl" className='pt-20' popup onClose={() => setOpenModal(false)} >
-                <Modal.Header />
-                <Modal.Body>
+                <Modal.Header className='dark:bg-slate-800' />
+                <Modal.Body className='dark:bg-slate-800'>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div className="col-span-2">

@@ -32,10 +32,10 @@ const MyJobPage = () => {
     }, []);
 
     return (
-        <div ref={ref} className='ct-container py-4 mt-20 bg-[#f7f7f7]'>
+        <div ref={ref} className='ct-container py-4 pt-20 bg-[#f7f7f7] dark:bg-slate-900'>
             <Breadcrumbs data={data} />
-            <div className='bg-[#fff] px-6 py-3 rounded-lg'>
-                <h1 className='font-semibold text-xl mb-3'>Việc làm của tôi</h1>
+            <div className='bg-[#fff] dark:bg-slate-800 px-6 py-3 rounded-lg'>
+                <h1 className='font-semibold text-xl mb-3 dark:text-white'>Việc làm của tôi</h1>
                 <Tabs
                     variant="underline"
                     onActiveTabChange={(index) => setActiveTab(index)}
@@ -74,15 +74,15 @@ const MyJobPage = () => {
                 </Tabs>
             </div>
             <div className='w-full my-4 flex flex-col md:flex-row md:justify-between md:items-center px-6'>
-                <div className='flex items-center gap-2 mb-4 md:mb-0'>
+                <div className='flex items-center gap-2 mb-4 md:mb-0 dark:text-gray-400'>
                     {activeTab === 1 &&
                         <>
                             <IoMdInformationCircleOutline size={15} />
-                            <span>Bạn có thể lưu tối đa 20 công việc.</span>
+                            <span >Bạn có thể lưu tối đa 20 công việc.</span>
                         </>
                     }
                 </div>
-                <div className='flex gap-2'>
+                <div className='flex gap-2 dark:text-white'>
                     <span>Sắp xếp theo:</span>
                     <Dropdown label={selected} inline>
                         <Dropdown.Item onClick={() => setSelected(`${activeTab === 0 ? 'Ngày ứng tuyển gần nhất' : "Ngày hết hạn gần nhất"}`)}>

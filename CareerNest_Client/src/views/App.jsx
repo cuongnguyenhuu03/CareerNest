@@ -34,9 +34,9 @@ function App() {
       {/* Nút mở chatbot */}
       <button
         onClick={() => setShowChatbot(true)}
-        className="fixed bottom-48 right-4 z-50 p-3 bg-white rounded-full shadow-md hover:scale-110 transition"
+        className="fixed bottom-48 right-4 z-50 p-3 bg-white dark:bg-gray-700 rounded-full hover:scale-110 transition"
       >
-        <FaRegMessage size={18} />
+        <FaRegMessage size={18} className='dark:text-white' />
       </button>
 
       {/* Modal chatbot */}

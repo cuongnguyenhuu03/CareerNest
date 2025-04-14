@@ -15,7 +15,7 @@ const CVCard = ({ className = '' }) => {
 
     return (
         <>
-            <div className={`${className} rounded-lg w-full flex gap-3 md:gap-6 p-[12px] items-center justify-between hover:rounded-md ct-hover-transition text-black hover:bg-gray-100 dark:hover:bg-gray-500`}>
+            <div className={`${className} rounded-lg w-full flex gap-3 md:gap-6 p-[12px] items-center justify-between hover:rounded-md ct-hover-transition text-black hover:bg-gray-100 dark:hover:bg-gray-700`}>
                 <div className='flex flex-col gap-2'>
                     <img
                         src={'/create_cv.png'} alt="thumbnail"

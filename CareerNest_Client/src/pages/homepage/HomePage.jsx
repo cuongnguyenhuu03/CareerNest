@@ -17,7 +17,7 @@ const Homepage = () => {
     }, []);
 
     return (
-        <div ref={ref} className='w-full dark:bg-gray-800'>
+        <div ref={ref} className='w-full dark:bg-slate-900'>
             {/* Section tìm việc */}
             <FindJob />
 

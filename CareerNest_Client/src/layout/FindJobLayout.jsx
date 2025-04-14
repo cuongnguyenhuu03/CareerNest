@@ -19,7 +19,7 @@ const FindJobLayout = () => {
     if (location.pathname === path.FIND__JOB)
         return null;
     return (
-        <div className='dark:bg-gray-800'>
+        <div className='dark:bg-slate-900'>
             <Header />
             <FindJob />
             <Outlet />

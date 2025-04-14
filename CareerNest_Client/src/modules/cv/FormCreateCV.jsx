@@ -140,7 +140,7 @@ const FormCreateCV = () => {
                     </label>
                     <input
                         type="text"
-                        className="outline-none block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
+                        className="outline-none block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm dark:bg-slate-800 dark:text-white"
                         onChange={(e) => handleOnChange("title", e.target.value)}
                     />
                 </div>
@@ -152,7 +152,7 @@ const FormCreateCV = () => {
                     <input
                         readOnly
                         type="text"
-                        className="outline-none block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
+                        className="outline-none block w-full rounded-lg dark:bg-slate-800 dark:text-white border border-gray-300 bg-gray-50 p-2.5 text-sm"
                         defaultValue={user?.email ?? ''}
                     />
                 </div>
@@ -164,7 +164,7 @@ const FormCreateCV = () => {
                     <input
                         readOnly
                         type="text"
-                        className="outline-none block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
+                        className="outline-none block w-full rounded-lg dark:bg-slate-800 dark:text-white border border-gray-300 bg-gray-50 p-2.5 text-sm"
                         defaultValue={user?.firstName && user?.lastName ? `${user.lastName} ${user.firstName}` : ''}
                     />
                 </div>
@@ -176,7 +176,7 @@ const FormCreateCV = () => {
                     <input
                         readOnly
                         type="text"
-                        className="outline-none block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
+                        className="outline-none block w-full rounded-lg dark:bg-slate-800 dark:text-white border border-gray-300 bg-gray-50 p-2.5 text-sm"
                         defaultValue={user?.phoneNumber ?? ''}
                     />
                 </div>
@@ -199,7 +199,7 @@ const FormCreateCV = () => {
                         defaultValue={user?.address ?? ''}
                         rows={3}
                         readOnly
-                        className="block w-full outline-none rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900" placeholder="Enter here your address" />
+                        className="block w-full outline-none rounded-lg dark:bg-slate-800 dark:text-white border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900" placeholder="Enter here your address" />
                 </div>
 
                 {/* Select Fields */}
@@ -256,7 +256,7 @@ const FormCreateCV = () => {
                     <input
                         placeholder="Nhập tên công ty làm việc"
                         type="text"
-                        className="outline-none block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
+                        className="outline-none block w-full dark:bg-slate-800 dark:text-white rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
                         onChange={(e) => handleOnChange("companyName", e.target.value)}
                     />
                 </div>
@@ -265,7 +265,7 @@ const FormCreateCV = () => {
                     <label className="block text-sm font-medium text-gray-900 dark:text-white">Địa chỉ</label>
                     <input
                         type="text"
-                        className="outline-none block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
+                        className="outline-none block w-full dark:bg-slate-800 dark:text-white rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
                         onChange={(e) => handleOnChange("location", e.target.value)}
                     />
                 </div>
@@ -275,7 +275,7 @@ const FormCreateCV = () => {
                     <label className="block text-sm font-medium text-gray-900 dark:text-white">Ngày bắt đầu</label>
                     <input
                         type="date"
-                        className="outline-none block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
+                        className="outline-none dark:bg-slate-800 dark:text-white block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
                         onChange={(e) => handleOnChange("startDate", new Date(e.target.value))}
                     />
                 </div>
@@ -284,7 +284,7 @@ const FormCreateCV = () => {
                     <label className="block text-sm font-medium text-gray-900 dark:text-white">Ngày kết thúc</label>
                     <input
                         type="date"
-                        className="outline-none block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
+                        className="outline-none dark:bg-slate-800 dark:text-white block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
                         onChange={(e) => handleOnChange("endDate", new Date(e.target.value))}
                     />
                 </div>

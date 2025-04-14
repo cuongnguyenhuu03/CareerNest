@@ -7,7 +7,7 @@ import Footer from '../components/footer/Footer';
 //cho nhà tuyển dụng
 const EmployerLayout = () => {
     return (
-        <div className='dark:bg-gray-800'>
+        <div className='dark:bg-slate-900'>
             <Header />
             <Outlet />
             <Footer />

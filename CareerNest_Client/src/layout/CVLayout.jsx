@@ -19,7 +19,7 @@ const CVLayout = () => {
     if (location.pathname === path.CV)
         return null;
     return (
-        <div className='dark:bg-slate-800'>
+        <div className='dark:bg-slate-900'>
             <Header />
             <Outlet />
             <Footer />

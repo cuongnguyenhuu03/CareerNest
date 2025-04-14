@@ -25,10 +25,10 @@ const CVManagementPage = () => {
     }, []);
 
     return (
-        <div ref={ref} className='ct-container py-4 pt-20 bg-[#f7f7f7] dark:bg-slate-800'>
+        <div ref={ref} className='ct-container py-4 pt-20 bg-[#f7f7f7] dark:bg-slate-900'>
             <Breadcrumbs data={data} />
-            <div className='bg-[#fff] dark:bg-gray-700 px-3 xs:px-6 py-4 rounded-lg'>
-                <Badge className='py-2 rounded-md' color="gray" size='sm'>Danh sách CV của bạn</Badge>
+            <div className='bg-[#fff] dark:bg-slate-800 px-3 xs:px-6 py-4 rounded-lg'>
+                <Badge className='py-2 rounded-md dark:bg-slate-800' color="gray" size='sm'>Danh sách CV của bạn</Badge>
                 <Button className='my-4' size='sm' gradientDuoTone="cyanToBlue" onClick={() => navigate(`${path.CV}/${path.CV__CREATE}`)}>
                     <CiCirclePlus className='mr-2' size={22} />  Tạo mới
                 </Button>

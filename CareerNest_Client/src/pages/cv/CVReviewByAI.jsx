@@ -42,9 +42,9 @@ const CVReviewByAI = () => {
     }, []);
 
     return (
-        <div ref={ref} className='ct-container py-4 pt-20 bg-[#f7f7f7] dark:bg-slate-800'>
+        <div ref={ref} className='ct-container py-4 pt-20 bg-[#f7f7f7] dark:bg-slate-900'>
             <Breadcrumbs data={data} />
-            <div className='bg-[#fff] dark:bg-gray-700 px-3 xs:px-6 py-8 rounded-lg flex items-center justify-center min-h-[350px]'>
+            <div className={`bg-[#fff] ${result ? 'dark:bg-gray-900' : 'dark:bg-slate-800'} px-3 xs:px-6 py-8 rounded-lg flex items-center justify-center min-h-[350px]`}>
                 <div className="text-center max-w-2xl">
                     <h1 className="text-2xl font-bold mb-8 dark:text-white">Đánh giá CV bởi AI CareerNest</h1>
 

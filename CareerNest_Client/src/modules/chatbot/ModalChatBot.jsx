@@ -161,7 +161,7 @@ const ModalChatBot = ({ setShowChatbot = () => { } }) => {
                                                         2. Hỏi đáp lĩnh vực
                                                     </span>
                                                     <span
-                                                        onClick={() => handleAsk("bạn có thể review cv không ?")}
+                                                        onClick={() => navigate("/cv/review-by-ai")}
                                                         className="px-3 text-blue-500 text-[11px] py-1 bg-gray-100 rounded hover:bg-gray-50 transition-colors duration-200 cursor-pointer">
                                                         3. Review CV by AI
                                                     </span>

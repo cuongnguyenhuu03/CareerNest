@@ -36,7 +36,7 @@ const RecruitmentPage = () => {
                             Với hiểu biết sâu sắc về lĩnh vực IT và các kỹ năng chuyên môn, chúng tôi có thể giúp bạn tiếp cận và tuyển dụng những ứng viên IT tốt nhất.
                         </div>
                         <div className='text-xs sm:text-sm'>
-                            Đã có tài khoản khách hàng?  <Link to={'/'} className='underline'> Đăng nhập ngay.</Link>
+                            Đã có tài khoản doanh nghiệp?  <Link to={'/recruitment/login'} className='underline'> Đăng nhập ngay.</Link>
                         </div>
                     </div>
                     <div className='basis-1/2'>
@@ -49,10 +49,10 @@ const RecruitmentPage = () => {
 
             {/* Section giới thiệu */}
             <div className='ct-container text-center flex flex-col gap-y-8 '>
-                <div className='font-semibold text-2xl sm:text-4xl'>
+                <div className='font-semibold text-2xl sm:text-4xl dark:text-white'>
                     Điều gì tạo nên sự khác biệt ở CareerNest ?
                 </div>
-                <div className='tracking-wide text-sm sm:text-lg lg:text-base'>
+                <div className='tracking-wide text-sm sm:text-lg lg:text-base dark:text-white'>
                     CareerNest là trang tuyển dụng và cơ sở dữ liệu hàng đầu về các chuyên gia IT tại Việt Nam.
                 </div>
 
@@ -62,7 +62,7 @@ const RecruitmentPage = () => {
                         { logo: aboutLogo2, value: 1000, label: 'Hồ sơ được gửi đến nhà tuyển dụng' },
                         { logo: aboutLogo3, value: 500, label: 'Hồ sơ Ứng viên kinh nghiệm cao' }
                     ].map((item, index) => (
-                        <div key={index} className='w-full flex flex-col gap-5 items-center py-6 rounded-md shadow-md'>
+                        <div key={index} className='w-full flex flex-col gap-5 items-center py-6 rounded-md dark:bg-slate-800'>
                             <div>
                                 <img src={item.logo} alt="" className='object-cover' />
                             </div>
@@ -70,7 +70,7 @@ const RecruitmentPage = () => {
                                 <CountUp start={0} end={item.value} duration={2} />
                                 <span>+</span>
                             </h1>
-                            <div className='text-[#121212] text-lg'>{item.label}</div>
+                            <div className='text-[#121212] text-lg dark:text-gray-400'>{item.label}</div>
                         </div>
                     ))}
                 </div>
