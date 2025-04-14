@@ -146,7 +146,7 @@ const FindJobPage = () => {
                     }
                     tại <span className='text-blue-500'>{selectedLocations[0] !== '' ? selectedLocations[0] : "Việt Nam"}</span>
                 </div>
-                <div className="hidden mb-6 w-full md:flex items-center justify-between rounded-md shadow-md dark:shadow-lg p-4 dark:bg-gray-700">
+                <div className="hidden mb-6 w-full md:flex items-center justify-between rounded-md shadow-md dark:shadow-lg p-4 dark:bg-slate-800">
                     <div className='flex items-center gap-4'>
                         {/* Cấp bậc */}
                         <Dropdown label="Cấp bậc" color='light' className="border-gray-300">

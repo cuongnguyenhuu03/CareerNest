@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Alert, Badge, Button, Card, TextInput } from 'flowbite-react';
 import icons from '../../utils/icons';
 import JobCard from '../../components/card/JobCard';
@@ -24,13 +24,12 @@ const data = [
     { text: "Trang chủ", path: path.HOME },
     { text: "Nhà tuyển dụng", path: "#" }
 ]
-
 const DetailRecruitmentPage = () => {
+    const navigate = useNavigate();
     const ref = useRef(null);
     const { id, slug } = useParams();
     const [copied, setCopied] = useState(false);
     const [openModal, setOpenModal] = useState(false);
-    const [isListening, setIsListening] = useState(false);
 
     useEffect(() => {
         if (ref?.current)
@@ -45,7 +44,7 @@ const DetailRecruitmentPage = () => {
         staleTime: 10 * 1000,
         refetchOnWindowFocus: true,
     })
-    const detailCompany = resRecruitment?.data;
+    const detailCompany = resRecruitment?.data?.company;
     const link = `http://localhost:3000/${path.RECRUITMENT}/detail/${detailCompany?.id}/${slugify(detailCompany?.name ?? '', { lower: true, strict: true })}`;
 
     const { data: resJobs } = useQuery({
@@ -195,7 +194,11 @@ const DetailRecruitmentPage = () => {
                             <span className='font-medium dark:text-white'> Địa chỉ:</span> <span className='dark:text-gray-400'>{detailCompany?.address}</span>
                         </div>
 
-                        <Button color="light" className='mt-4'>
+                        <Button
+                            onClick={() => { navigate('/chat/detail', { state: { receiver: resRecruitment?.data?.hr ?? {} } }) }}
+                            color="light"
+                            className='mt-4 dark:bg-slate-800'
+                        >
                             <FiMessageSquare className="text-lg mr-2" />
                             Trò chuyện với nhà tuyển dụng
                         </Button>
@@ -208,7 +211,7 @@ const DetailRecruitmentPage = () => {
                         </iframe>
 
                         {/* Clipboard */}
-                        <Card className="w-full mt-8 dark:bg-gray-700">
+                        <Card className="w-full mt-8 dark:bg-slate-800 dark:shadow-lg">
                             <h2 className="text-lg font-medium uppercase dark:text-white">Chia sẻ công ty tới bạn bè</h2>
 
                             <div className="flex items-center space-x-2">
@@ -253,7 +256,11 @@ const DetailRecruitmentPage = () => {
                             <span className='font-medium dark:text-white'> Địa chỉ:</span> <span className='dark:text-gray-400'>{detailCompany?.address}</span>
                         </div>
 
-                        <Button color="light" className='mt-4'>
+                        <Button
+                            onClick={() => { navigate('/chat/detail', { state: { receiver: resRecruitment?.data?.hr ?? {} } }) }}
+                            color="light"
+                            className='mt-4'
+                        >
                             <FiMessageSquare className="text-lg mr-2" />
                             Trò chuyện với nhà tuyển dụng
                         </Button>

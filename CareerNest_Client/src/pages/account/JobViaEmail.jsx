@@ -69,9 +69,9 @@ const JobViaEmail = () => {
         return <></>;
     }
     return (
-        <div ref={ref} className='ct-container mt-20 flex flex-col'>
+        <div ref={ref} className='ct-container pt-20 flex flex-col'>
             <Breadcrumbs data={data} />
-            <div className='w-full flex flex-col gap-y-4 shadow-md p-6 rounded-lg'>
+            <div className='w-full flex flex-col gap-y-4 shadow-md dark:shadow-lg dark:bg-slate-800 p-6 rounded-lg'>
                 {
                     (isFetchingSkills || isFetchingSubscribers) ? (
                         <div className='w-full h-40 flex items-center justify-center'>
@@ -80,8 +80,8 @@ const JobViaEmail = () => {
                     )
                         :
                         <>
-                            <div className='text-base xs:text-lg sm:text-xl font-semibold text-slate-800 uppercase tracking-wider'>Kỹ năng đã đăng ký </div>
-                            <span className='text-xs xs:text-sm md:text-base'>Đăng ký Job Robot để không bỏ lỡ việc làm phù hợp với kỹ năng của bạn.</span>
+                            <div className='text-base xs:text-lg sm:text-xl font-semibold text-slate-800 dark:text-white uppercase tracking-wider'>Kỹ năng đã đăng ký </div>
+                            <span className='text-xs xs:text-sm md:text-base dark:text-gray-400'>Đăng ký Job Robot để không bỏ lỡ việc làm phù hợp với kỹ năng của bạn.</span>
                             <div className='hidden sm:flex items-center gap-x-4'>
                                 <Select
                                     key={resetKey}
@@ -159,8 +159,8 @@ const JobViaEmail = () => {
                             </div>
 
                             {resSubscribers?.length > 0 &&
-                                <div className='w-full flex items-center rounded-md p-2 sm:p-4 border border-gray-300 '>
-                                    <div className='basis-2/3 flex items-center gap-x-2 sm:gap-x-3'>
+                                <div className='w-full flex items-center rounded-md p-2 sm:p-4 border border-gray-300 dark:border-gray-700'>
+                                    <div className='basis-2/3 flex items-center gap-2 sm:gap-x-3 flex-wrap'>
                                         {resSubscribers.map(item => (
                                             <Badge key={item?.id} color="gray">{item?.name}</Badge>
                                         ))}
@@ -169,16 +169,16 @@ const JobViaEmail = () => {
                                         <Badge color="success" size='sm' className='hidden sm:block'>Đã đăng ký</Badge>
                                         <Badge color="success" size='xs' className='sm:hidden block'>Đã đăng ký</Badge>
                                         <Tooltip content="Xóa" style="dark">
-                                            <MdDeleteOutline size={25} className='hidden sm:block cursor-pointer' />
-                                            <MdDeleteOutline size={20} className='sm:hidden block cursor-pointer' />
+                                            <MdDeleteOutline size={25} className='hidden sm:block cursor-pointer dark:text-white' />
+                                            <MdDeleteOutline size={20} className='sm:hidden block cursor-pointer dark:text-white' />
                                         </Tooltip>
                                     </div>
                                     <div className='xs:hidden basis-1/3 flex flex-col items-center gap-y-2'>
                                         <Badge color="success" size='sm' className='hidden sm:block'>Đã đăng ký</Badge>
                                         <Badge color="success" className='sm:hidden block'>Đã đăng ký</Badge>
                                         <Tooltip content="Xóa" style="dark">
-                                            <MdDeleteOutline size={25} className='hidden sm:block cursor-pointer' />
-                                            <MdDeleteOutline size={20} className='sm:hidden block cursor-pointer' />
+                                            <MdDeleteOutline size={25} className='hidden sm:block cursor-pointer dark:text-white' />
+                                            <MdDeleteOutline size={20} className='sm:hidden block cursor-pointer dark:text-white' />
                                         </Tooltip>
                                     </div>
                                 </div>

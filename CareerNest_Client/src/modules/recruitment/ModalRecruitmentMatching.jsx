@@ -36,7 +36,7 @@ const ModalRecruitmentMatching = ({ openModal = false, setOpenModal = null, comp
 
     return (
         <Modal show={openModal} onClose={() => setOpenModal(false)}>
-            <div className="relative">
+            <div className="relative dark:bg-slate-800">
                 <ModalHeader>Mức độ phù hợp của bạn với văn hóa công ty</ModalHeader>
                 {!answerFromAI ?
                     <ModalBody>

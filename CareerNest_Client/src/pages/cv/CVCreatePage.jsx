@@ -22,10 +22,10 @@ const CVCreatePage = () => {
     }, []);
 
     return (
-        <div ref={ref} className='ct-container py-4 pt-20 bg-[#f7f7f7] dark:bg-slate-800'>
+        <div ref={ref} className='ct-container py-4 pt-20 bg-[#f7f7f7] dark:bg-slate-900'>
             <Breadcrumbs data={data} />
-            <div className='bg-[#fff] dark:bg-slate-700 px-6 py-3 rounded-lg'>
-                <Badge className='py-2 rounded-md mb-4 tracking-wider text-base' color="gray" size='sm'>Thông tin tạo hồ sơ xin việc</Badge>
+            <div className='bg-[#fff] dark:bg-slate-800 px-6 py-3 rounded-lg'>
+                <Badge className='py-2 rounded-md mb-4 tracking-wider text-base dark:bg-slate-800' color="gray" size='sm'>Thông tin tạo hồ sơ xin việc</Badge>
                 <FormCreateCV />
             </div>
         </div>

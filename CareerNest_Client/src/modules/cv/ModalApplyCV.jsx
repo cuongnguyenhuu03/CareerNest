@@ -18,22 +18,22 @@ const ModalApplyCV = ({ openModal = false, setOpenModal = () => { }, jobTitle = 
     if (!openModal) return null;
     return (
         <div className='fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center px-4 sm:px-0 overflow-y-auto'>
-            <div className='bg-white rounded-lg w-[600px] shadow-lg p-6 max-h-[95vh] overflow-y-auto scroll-smooth'>
+            <div className='bg-white dark:bg-slate-800 rounded-lg w-[600px] shadow-lg p-6 max-h-[95vh] overflow-y-auto scroll-smooth'>
                 <div className='flex justify-between items-center border-b pb-2'>
-                    <h2 className='text-lg sm:text-xl font-medium uppercase'>Ứng tuyển {jobTitle}</h2>
+                    <h2 className='text-lg sm:text-xl font-medium uppercase dark:text-white'>Ứng tuyển {jobTitle}</h2>
                     <button onClick={() => setOpenModal(false)} className='text-gray-500 text-xl'>
                         &times;
                     </button>
                 </div>
 
                 <div className='space-y-4 mt-4'>
-                    <label className='block'>
+                    <label className='block dark:text-gray-400'>
                         <Radio name='option' value='online' onChange={() => setOption('online')} className='mr-2' />
                         Sử dụng CV hiện tại
                     </label>
 
                     {option === 'online' && (
-                        <div className='w-full flex gap-x-4 rounded-lg bg-[#f7f7f7] p-2 sm:p-6 border border-gray-200'>
+                        <div className='w-full flex gap-x-4 rounded-lg bg-[#f7f7f7] dark:bg-slate-800 p-2 sm:p-6 border border-gray-200 dark:border-slate-500'>
                             <div className='flex flex-col gap-y-3'>
                                 <Link
                                     className='text-blue-500 underline text-[11px] xs:text-base font-medium'
@@ -47,7 +47,7 @@ const ModalApplyCV = ({ openModal = false, setOpenModal = () => { }, jobTitle = 
                         </div>
                     )}
 
-                    <label className='block'>
+                    <label className='block dark:text-gray-400'>
                         <Radio name='option' value='upload' onChange={() => setOption('upload')} className='mr-2' />
                         Tải lên CV mới
                     </label>
@@ -73,7 +73,7 @@ const ModalApplyCV = ({ openModal = false, setOpenModal = () => { }, jobTitle = 
                         </>
                     )}
 
-                    <label className='block font-semibold'>Thông tin cá nhân</label>
+                    <label className='block font-semibold uppercase dark:text-white'>Thông tin cá nhân</label>
                     <form className="flex max-w-md flex-col gap-3">
                         <div>
                             <div className="mb-2 block">
@@ -99,10 +99,10 @@ const ModalApplyCV = ({ openModal = false, setOpenModal = () => { }, jobTitle = 
                             </Select>
                         </div>
                     </form>
-                    <label className='block font-semibold'>Thư xin việc:</label>
+                    <label className='block font-semibold dark:text-white'>Thư xin việc:</label>
                     <textarea
                         placeholder='Nhờ chatbot AI tạo 1 cover letter phù hợp ?'
-                        className='border rounded p-2 w-full outline-none'
+                        className='border dark:border-gray-500 rounded p-2 w-full outline-none dark:bg-slate-700 dark:text-gray-400'
                         rows={13}
                         onChange={(e) => setMessage(e.target.value)}
                     />

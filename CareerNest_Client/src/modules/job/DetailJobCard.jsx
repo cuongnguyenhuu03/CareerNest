@@ -64,7 +64,7 @@ const DetailJobCard = forwardRef(({ job = {} }, ref) => {
     if (!job) return null;
     return (
         <div ref={ref}
-            className="h-fit basis-3/5 bg-white rounded-lg shadow-md p-6 border overflow-hidden dark:bg-gray-700"
+            className="h-fit basis-3/5 bg-white rounded-lg shadow-md dark:shadow-lg p-6 border dark:border-gray-600 overflow-hidden dark:bg-slate-800"
         >
             {/* Header */}
             <div className="flex items-start justify-between">

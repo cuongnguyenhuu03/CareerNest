@@ -96,8 +96,8 @@ export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
 
     return (
         <Modal show={isOpen} size="md" popup onClose={() => setOpenModal(false)} className="pt-28 md:pt-0">
-            <Modal.Header />
-            <Modal.Body>
+            <Modal.Header className="dark:bg-slate-800" />
+            <Modal.Body className="dark:bg-slate-800">
                 <form className="space-y-4" onSubmit={handleSubmit}>
                     <h3 className="text-xl text-center font-medium text-gray-900 dark:text-white">Đăng nhập dành cho ứng viên</h3>
 

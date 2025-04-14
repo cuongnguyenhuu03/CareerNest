@@ -36,7 +36,7 @@ const FindJobCard = ({ job = {}, selectedJob = {}, handleSelectJob = () => { } }
     if (!job?.active) return null;
     return (
         <div
-            className={`relative shadow-lg dark:bg-gray-700 rounded-lg p-4 cursor-pointer 
+            className={`relative shadow-lg dark:bg-slate-800 rounded-lg p-4 cursor-pointer 
             ${selectedJob?.id === job?.id ? "border border-red-300 bg-red-50 transition-all" : ""}
             ${isExpired(job?.endDate) && 'opacity-60'}`}
             onClick={() => handleSelectJob(job)} // Cập nhật job được chọn

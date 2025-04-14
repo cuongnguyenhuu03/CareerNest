@@ -12,7 +12,7 @@ const AttachedCV = () => {
     return (
         <div className='w-full flex flex-col gap-y-4 shadow-md dark:shadow-lg p-3 sm:p-4 rounded-lg mb-6 dark:bg-slate-800'>
             <Badge className='w-fit text-base sm:text-lg' color="info" size='sm'>CV đính kèm của bạn</Badge>
-            <div className='w-full flex gap-x-4 rounded-lg bg-[#f7f7f7] dark:bg-gray-700 p-2 sm:p-6 border border-gray-200 dark:border-gray-600'>
+            <div className='w-full flex gap-x-4 rounded-lg bg-[#f7f7f7] dark:bg-slate-800 p-2 sm:p-6 border border-gray-200 dark:border-gray-600'>
                 <Avatar size='lg' className='sm:order-1 order-2'
                     img={'https://itviec.com/assets/profile/uploaded-resume-f70bd4d24afa0fa12412353a2fe8c4deaa8bdc1a9ffef1cdb2b8638adb24a5ac.svg'}
                 />

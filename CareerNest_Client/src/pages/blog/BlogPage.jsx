@@ -12,7 +12,7 @@ const BlogPage = () => {
     return (
         <div ref={ref} className='ct-container mt-14'>
             <div>
-                <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900 antialiased">
+                <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-slate-900 antialiased">
                     <div className="flex justify-between px-4 mx-auto max-w-screen-xl ">
                         <article className="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
                             <header className="mb-4 lg:mb-6 not-format">
@@ -204,7 +204,7 @@ const BlogPage = () => {
                         </article>
                     </div>
                 </main>
-                <aside aria-label="Related articles" className="py-8 lg:py-24 bg-gray-50 dark:bg-gray-800">
+                <aside aria-label="Related articles" className="py-8 lg:py-24 bg-gray-50 rounded-lg dark:bg-slate-800">
                     <div className="px-4 mx-auto max-w-screen-xl">
                         <h2 className="mb-8 text-2xl font-bold text-gray-900 dark:text-white">Related articles</h2>
                         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">

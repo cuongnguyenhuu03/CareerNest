@@ -6,7 +6,7 @@ import { FloatButton } from "antd";
 
 const BlogLayout = () => {
     return (
-        <div className='dark:bg-gray-800'>
+        <div className='dark:bg-slate-900'>
             <Header />
             <Outlet />
             <Footer />

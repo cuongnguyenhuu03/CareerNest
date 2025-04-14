@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { path } from '../../utils/constant';
 import Breadcrumbs from '../../components/breadcrumb/Breadcrumbs';
 import UpdateAccount from '../../modules/account/UpdateAccount';

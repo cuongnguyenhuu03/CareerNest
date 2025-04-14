@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return (
-        <footer className="w-full bg-white antialiased dark:bg-gray-800">
+        <footer className="w-full antialiased border-t dark:border-gray-800 border-gray-200 dark:bg-slate-900">
             <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
                 <div className="border-b border-gray-100 py-6 dark:border-gray-700 md:py-8 lg:py-16">
                     <div className="items-start gap-6 md:gap-8 lg:flex 2xl:gap-24">
@@ -83,7 +83,7 @@ const Footer = () => {
                             </div>
                         </div>
                         <div className="mt-6 w-full md:mt-8 lg:mt-0 lg:max-w-lg">
-                            <div className="space-y-5 rounded-lg bg-gray-100 p-6 dark:bg-gray-700">
+                            <div className="space-y-5 rounded-lg bg-gray-100 p-6 dark:bg-slate-800">
                                 <form action="#">
                                     <div className="items-end space-y-4 sm:flex sm:space-y-0">
                                         <div className="relative mr-3 w-full sm:w-96 lg:w-full">

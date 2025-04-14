@@ -52,7 +52,9 @@ const DropdownAccount = () => {
                                 img={user?.avatarUrl ? getFirebaseImageUrl(user.avatarUrl, 'users') : ''}
                                 rounded
                             />
-                            <span className='hidden xs:inline-block text-gray-800 font-medium dark:text-gray-400'>{`${user?.lastName ?? ''} ${user?.firstName ?? ''}`}</span>
+                            <span className='hidden xs:inline-block text-gray-800 font-medium dark:text-gray-400'>
+                                {`${user?.lastName ?? ''} ${user?.firstName ?? ''}`}
+                            </span>
                             <IoIosArrowDown size={13} className='dark:text-gray-400' />
                         </div>
                     }
@@ -76,7 +78,12 @@ const DropdownAccount = () => {
                                 img={user?.avatarUrl ? getFirebaseImageUrl(user.avatarUrl, 'companies') : ''}
                                 rounded
                             />
-                            <span className='hidden xs:inline-block text-gray-800 font-medium dark:text-gray-400'>{`${user?.lastName ?? ''} ${user?.firstName ?? ''}`}</span>
+                            <span className='hidden xs:inline-block text-gray-800 font-medium dark:text-gray-400'>
+                                {`${user?.lastName ?? ''} ${user?.firstName ?? ''}`.length > 25
+                                    ? `${user?.lastName ?? ''} ${user?.firstName ?? ''}`.slice(0, 24) + "..."
+                                    : `${user?.lastName ?? ''} ${user?.firstName ?? ''}`}
+                            </span>
+
                             <IoIosArrowDown size={13} className='dark:text-gray-400' />
                         </div>
                     }

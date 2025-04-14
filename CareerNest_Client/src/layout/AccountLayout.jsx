@@ -18,7 +18,7 @@ const AccountLayout = () => {
     if (location.pathname === path.ACCOUNT)
         return null;
     return (
-        <div className='dark:bg-gray-800'>
+        <div className='dark:bg-slate-900'>
             <Header />
             <Outlet />
             <Footer />

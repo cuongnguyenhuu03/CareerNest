@@ -112,7 +112,7 @@ const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false
                         isSaved ?
                             <>
                                 <div className='hidden sm:flex items-center justify-between'>
-                                    <div className={`text-sm md:text-base lg:text-lg xl:text-base font-medium uppercase`}
+                                    <div className={`text-sm md:text-base lg:text-lg xl:text-base font-medium uppercase dark:text-white`}
                                         onClick={() => navigate(`/job/detail/${data?.id}/${slugify(data?.name, { lower: true, strict: true })}`)}
                                     >
                                         {data?.name}
@@ -159,7 +159,7 @@ const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false
                                             </Tooltip>
                                         </div>
                                     </div>
-                                    <div className={`mt-4 text-sm md:text-base lg:text-lg xl:text-base font-medium uppercase`}
+                                    <div className={`mt-4 text-sm md:text-base lg:text-lg xl:text-base font-medium uppercase dark:text-white`}
                                         onClick={() => navigate(`/job/detail/${data?.id}/${slugify(data?.name, { lower: true, strict: true })}`)}
                                     >
                                         {data?.name}

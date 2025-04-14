@@ -14,7 +14,7 @@ const ShortInfo = () => {
 
     if (!user?.id) return null;
     return (
-        <div className='w-full flex gap-x-4 shadow-md p-4 rounded-lg mb-6 dark:shadow-lg dark:bg-gray-700'>
+        <div className='w-full flex gap-x-4 shadow-md p-4 rounded-lg mb-6 dark:shadow-lg dark:bg-slate-800'>
             <Avatar img={user?.avatarUrl ? getFirebaseImageUrl(user.avatarUrl, 'users') : ''} size='lg' rounded />
             <div className='flex flex-col gap-y-3'>
                 <h1 className='font-semibold text-xl xs:text-3xl text-slate-800 dark:text-white'>

@@ -18,7 +18,7 @@ const JobLayout = () => {
     if (location.pathname === path.JOB)
         return null;
     return (
-        <div className='dark:bg-gray-800'>
+        <div className='dark:bg-slate-900'>
             <Header />
             <Outlet />
             <Footer />
