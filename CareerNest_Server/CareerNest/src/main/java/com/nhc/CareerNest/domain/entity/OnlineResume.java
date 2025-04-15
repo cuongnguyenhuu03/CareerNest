@@ -47,13 +47,13 @@ public class OnlineResume extends BaseEntity {
     private List<Skill> skills;
 
     @Column(columnDefinition = "MEDIUMTEXT")
-    private List<String> certifications;
+    private String certifications;
 
     @Column(columnDefinition = "MEDIUMTEXT")
-    private List<String> educations;
+    private String educations;
 
     @Column(columnDefinition = "MEDIUMTEXT")
-    private List<String> languages;
+    private String languages;
 
     @OneToMany(mappedBy = "onlineResume", fetch = FetchType.LAZY)
     List<WorkExperience> workExperiences;
@@ -127,27 +127,27 @@ public class OnlineResume extends BaseEntity {
         this.skills = skills;
     }
 
-    public List<String> getCertifications() {
+    public String getCertifications() {
         return certifications;
     }
 
-    public void setCertifications(List<String> certifications) {
+    public void setCertifications(String certifications) {
         this.certifications = certifications;
     }
 
-    public List<String> getEducations() {
+    public String getEducations() {
         return educations;
     }
 
-    public void setEducations(List<String> educations) {
+    public void setEducations(String educations) {
         this.educations = educations;
     }
 
-    public List<String> getLanguages() {
+    public String getLanguages() {
         return languages;
     }
 
-    public void setLanguages(List<String> languages) {
+    public void setLanguages(String languages) {
         this.languages = languages;
     }
 
