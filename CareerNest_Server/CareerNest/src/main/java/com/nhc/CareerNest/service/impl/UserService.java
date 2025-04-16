@@ -265,8 +265,4 @@ public class UserService implements IUserService {
         return this.userRepository.findByCompanyId(id);
     }
 
-    public User changePassword(User user) {
-        return this.userRepository.save(user);
-    }
-
 }

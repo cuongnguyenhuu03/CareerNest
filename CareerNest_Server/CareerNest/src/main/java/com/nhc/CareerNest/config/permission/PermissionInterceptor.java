@@ -53,7 +53,7 @@ public class PermissionInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        if ("GET".equalsIgnoreCase(request.getMethod())
+        if ("GET".equalsIgnoreCase(request.getMethod()) 
                 && request.getRequestURI().startsWith("/api/v1/users/")) {
             return true;
         }
@@ -65,11 +65,6 @@ public class PermissionInterceptor implements HandlerInterceptor {
 
         if ("POST".equalsIgnoreCase(request.getMethod())
                 && request.getRequestURI().startsWith("/api/v1/users/saveJob/")) {
-            return true;
-        }
-
-        if ("PUT".equalsIgnoreCase(request.getMethod())
-                && request.getRequestURI().startsWith("/api/v1/users/auth/change-password")) {
             return true;
         }
 

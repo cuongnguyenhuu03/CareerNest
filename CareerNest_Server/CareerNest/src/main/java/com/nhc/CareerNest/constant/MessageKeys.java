@@ -50,9 +50,4 @@ public class MessageKeys {
     // company
     public static final String COMPANY_ALREADY_EXIST = "company.company_already_exist";
     public static final String COMPANY_NOT_FOUND = "company.not_found";
-
-    //password 
-    public static final String PASSWORD_WRONG = "password.wrong";
-    public static final String CHANGE_PASSWORD_SUCCESSFULLY = "changing.successfully";
-    public static final String CONFIRM_PASSWORD_WRONG = "confirm.password.wrong";
 }
