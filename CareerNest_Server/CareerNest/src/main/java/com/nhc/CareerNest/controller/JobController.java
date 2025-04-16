@@ -10,7 +10,7 @@ import com.nhc.CareerNest.domain.dto.response.base.ResultPaginationResponse;
 import com.nhc.CareerNest.domain.entity.Job;
 import com.nhc.CareerNest.service.impl.JobService;
 import com.nhc.CareerNest.util.anotation.ApiMessage;
-import com.nhc.CareerNest.util.converter.JobMessageConverter;
+//import com.nhc.CareerNest.util.converter.JobMessageConverter;
 
 import jakarta.validation.Valid;
 
@@ -20,7 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.kafka.core.KafkaTemplate;
+//import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
