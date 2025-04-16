@@ -13,12 +13,14 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nhc.CareerNest.config.language.LocalizationUtils;
 import com.nhc.CareerNest.constant.MessageKeys;
 import com.nhc.CareerNest.constant.RoleEnum;
+import com.nhc.CareerNest.domain.dto.request.ChangingPassWorDTO;
 import com.nhc.CareerNest.domain.dto.request.ReqLoginDTO;
 import com.nhc.CareerNest.domain.dto.request.ReqRegisterDTO;
 import com.nhc.CareerNest.domain.dto.response.auth.ResLoginDTO;
@@ -34,6 +36,8 @@ import com.nhc.CareerNest.util.security.SecurityUtil;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -232,6 +236,42 @@ public class AuthController {
         res.setMessage(localizationUtils.getLocalizedMessage(MessageKeys.LOGOUT_SUCCESSFULLY));
         res.setStatusCode(HttpStatus.OK.value());
 
+        return ResponseEntity.ok(res);
+    }
+
+    @PutMapping("auth/change-password")
+    public ResponseEntity<RestResponse> putMethodName(
+            @RequestBody ChangingPassWorDTO dto,
+            @RequestHeader(name = "Authorization") String accessToken) throws IdInvalidException {
+
+        RestResponse res = new RestResponse();
+        Long idToken = SecurityUtil.extractClaim(accessToken.substring(7));
+        if (idToken != null) {
+            User updateUser = this.userService.findUserById(idToken);
+            if (updateUser == null) {
+                throw new IdInvalidException(localizationUtils.getLocalizedMessage(MessageKeys.USER_NOT_FOUND));
+            }
+
+            String hashPassword = this.passwordEncoder.encode(dto.getNewPassword());
+            if (!passwordEncoder.matches(dto.getCurrentPassword(), updateUser.getPassword())) {
+                res.setMessage(localizationUtils.getLocalizedMessage(MessageKeys.PASSWORD_WRONG));
+                res.setStatusCode(HttpStatus.BAD_REQUEST.value());
+                return ResponseEntity.ok(res);
+            }
+
+            if (!dto.getConfirmPassword().equals(dto.getNewPassword())) {
+                res.setMessage(localizationUtils.getLocalizedMessage(MessageKeys.CONFIRM_PASSWORD_WRONG));
+                res.setStatusCode(HttpStatus.BAD_REQUEST.value());
+                return ResponseEntity.ok(res);
+            }
+            updateUser.setPassword(hashPassword);
+            this.userService.changePassword(updateUser);
+            res.setMessage(localizationUtils.getLocalizedMessage(MessageKeys.CHANGE_PASSWORD_SUCCESSFULLY));
+            res.setStatusCode(HttpStatus.OK.value());
+            return ResponseEntity.ok(res);
+        }
+        res.setMessage(localizationUtils.getLocalizedMessage(MessageKeys.USER_NOT_FOUND));
+        res.setStatusCode(HttpStatus.OK.value());
         return ResponseEntity.ok(res);
     }
 }
