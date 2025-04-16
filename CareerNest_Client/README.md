@@ -1,4 +1,4 @@
-# Project's title: MobileStore E-commerce website
+# Project's title: CareerNest - Job seeking platform website
 - Online order mobile phone platform.
 
 # Project's description:

@@ -217,8 +217,9 @@ const DetailJobPage = () => {
                         <div className='flex gap-2 items-center text-sm md:text-base font-medium text-[#23527c] dark:text-blue-500 cursor-pointer hover:underline'
                             onClick={() => navigate(`${path.RECRUITMENT}/detail/${detailJob?.company?.id}/${slugify(detailJob?.company?.name, { lower: true, strict: true })}`)}
                             onMouseEnter={() => { handlePrefetchRecruitment(+detailJob?.company?.id); handleMouseEnter(); }}
-                            onTouchStart={() => handlePrefetchRecruitment(+detailJob?.company?.id)}
+                            onTouchStart={() => { handlePrefetchRecruitment(+detailJob?.company?.id); handleMouseEnter(); }}
                             onMouseLeave={handleMouseLeave}
+                            onTouchEnd={handleMouseLeave}
                         >
                             <FaRegBuilding size={15} /> {detailJob?.company?.name}
                         </div>
@@ -229,9 +230,11 @@ const DetailJobPage = () => {
                                     animate={{ opacity: 1, scale: 1, y: 0 }}
                                     exit={{ opacity: 0, scale: 0.95, y: -5 }}
                                     transition={{ duration: 0.2, ease: 'easeOut' }}
-                                    className="absolute z-50 right-[550px] w-[300px] h-fit bg-white shadow-md dark:shadow-sm rounded-lg dark:bg-slate-900 border border-gray-200 dark:border-gray-700 p-4 transition-all"
+                                    className="hidden lg:block absolute z-50 right-[550px] w-[300px] h-fit bg-white shadow-md dark:shadow-sm rounded-lg dark:bg-slate-900 border border-gray-200 dark:border-gray-700 p-4 transition-all"
                                     onMouseEnter={handleMouseEnter}
                                     onMouseLeave={handleMouseLeave}
+                                    onTouchStart={handleMouseEnter}     // hoạt động như hover vào
+                                    onTouchEnd={handleMouseLeave}       // hoạt động như hover vào
                                 >
                                     <div className="h-fit dark:bg-gray-700 bg-gray-200 ">
                                         <div className="max-w-sm mx-auto bg-white dark:bg-gray-900 overflow-hidden">
