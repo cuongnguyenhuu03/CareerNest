@@ -5,13 +5,17 @@ import SockJS from "sockjs-client/dist/sockjs"
 import { Stomp } from '@stomp/stompjs';
 import { getFirebaseImageUrl } from '../../utils/getFirebaseImageURL.js';
 import { useUsersConnected } from '../../hooks/useUsersConnected.jsx';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { getAllMessages } from '../../services/chatService.js';
 import { toast } from 'react-toastify';
+import { motion, AnimatePresence } from 'framer-motion';
+import { path } from '../../utils/constant.js';
+import slugify from 'slugify';
 
 const ChatPage = () => {
     const location = useLocation();
     const user = useSelector(state => state?.user?.info);
+    const navigate = useNavigate();
 
     const [isChatListVisible, setIsChatListVisible] = useState(true);
     const [stompClient, setStompClient] = useState(null);
@@ -20,12 +24,24 @@ const ChatPage = () => {
     const [messages, setMessages] = useState([]);
     const userSelectedRef = useRef(userSelected);
 
+    const [openPopup, setOpenPopup] = useState(false);
+    const timeoutRef = useRef(null);
+
     const { res: resUsersConnected, refetch: refetchUsersConnected } = useUsersConnected();
 
     useEffect(() => {
         document.title = 'Tin nhắn';
         userSelectedRef.current = userSelected;
     }, [userSelected]);
+
+    const handleMouseEnter = () => {
+        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+        setOpenPopup(true);
+    };
+
+    const handleMouseLeave = () => {
+        timeoutRef.current = setTimeout(() => setOpenPopup(false), 150);
+    };
 
     const onMessageReceived = (payload) => {
         const msg = JSON.parse(payload.body);
@@ -310,7 +326,14 @@ const ChatPage = () => {
                     <>
                         <header className="p-4 border-b border-gray-300 dark:border-gray-600 flex items-center justify-between">
                             <div className="flex flex-col items-start gap-2">
-                                <h1 className="text-xs sm:text-sm md:text-base text-wrap text-justify font-bold dark:text-white">
+                                <h1
+                                    onMouseEnter={handleMouseEnter}
+                                    onMouseLeave={handleMouseLeave}
+                                    onTouchStart={handleMouseEnter}     // hoạt động như hover vào
+                                    onTouchEnd={handleMouseLeave}       // hoạt động như hover ra
+                                    className="text-xs sm:text-sm md:text-base text-wrap text-justify font-bold dark:text-white hover:cursor-pointer hover:underline hover:transition-all"
+                                    onClick={() => navigate(`${path.RECRUITMENT}/detail/${userSelected?.company?.id}/${slugify(userSelected?.company?.name, { lower: true, strict: true })}`)}
+                                >
                                     {userSelected?.firstName}
                                 </h1>
                                 {userSelected?.status === 'ONLINE' ?
@@ -334,6 +357,53 @@ const ChatPage = () => {
                                 </button>
                             </div>
                         </header>
+                        {openPopup &&
+                            <AnimatePresence>
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0.95, y: -5 }}
+                                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                                    exit={{ opacity: 0, scale: 0.95, y: -5 }}
+                                    transition={{ duration: 0.2, ease: 'easeOut' }}
+                                    className="hidden lg:block absolute z-50 right-[600px] bottom-[200px] w-[300px] h-fit bg-white shadow-md dark:shadow-sm rounded-lg dark:bg-slate-900 border border-gray-200 dark:border-gray-700 p-4 transition-all"
+                                    onMouseEnter={handleMouseEnter}
+                                    onMouseLeave={handleMouseLeave}
+                                    onTouchStart={handleMouseEnter}     // hoạt động như hover vào
+                                    onTouchEnd={handleMouseLeave}       // hoạt động như hover ra
+                                >
+                                    <div className="h-fit dark:bg-gray-700 bg-gray-200 ">
+                                        <div className="max-w-sm mx-auto bg-white dark:bg-gray-900 overflow-hidden">
+                                            <div className="border-b px-4 pb-6">
+                                                <div className="text-center my-4">
+                                                    <img className="h-28 w-28 rounded-full border-4 border-white dark:border-gray-800 mx-auto my-4"
+                                                        src={getFirebaseImageUrl(userSelected?.company?.logoUrl, "companies")} alt />
+                                                    <div className="py-2">
+                                                        <h3 className="font-bold text-lg text-wrap text-gray-800 dark:text-white mb-1"  >
+                                                            {userSelected?.company?.name}
+                                                        </h3>
+                                                        <div className="inline-flex text-gray-700 dark:text-gray-300 items-center">
+                                                            <svg className="h-5 w-5 text-gray-400 dark:text-gray-600 mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24}>
+                                                                <path className d="M5.64 16.36a9 9 0 1 1 12.72 0l-5.65 5.66a1 1 0 0 1-1.42 0l-5.65-5.66zm11.31-1.41a7 7 0 1 0-9.9 0L12 19.9l4.95-4.95zM12 14a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
+                                                            </svg>
+                                                            {userSelected?.company?.city}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="flex gap-2 px-2">
+                                                    <button
+                                                        className="flex-1 rounded-full border-2 border-gray-400 dark:border-gray-700 font-semibold text-black dark:text-white px-4 py-2"
+                                                        onClick={() => navigate(`${path.RECRUITMENT}/detail/${userSelected?.company?.id}/${slugify(userSelected?.company?.name, { lower: true, strict: true })}`)}
+                                                    >
+                                                        Xem thông tin
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </motion.div>
+                            </AnimatePresence>
+                        }
                         <div className="overflow-y-auto h-[calc(100vh-230px)] p-4 space-y-6 ">
                             {messages.map((message, index) => {
                                 const isSender = message?.type === 'sender';
@@ -360,8 +430,8 @@ const ChatPage = () => {
                                                 <span className="text-xs text-gray-400">{message?.time}</span>
                                             </div>
                                             <div
-                                                className={`rounded-xl p-4 border border-gray-300 dark:border-gray-600 
-                                            ${isSender ? 'dark:text-gray-400' : 'dark:text-white dark:bg-gray-900'}
+                                                className={`rounded-xl p-4 dark:text-white border w-fit border-gray-300 dark:border-gray-600 
+                                            ${isSender ? 'ml-auto dark:bg-gray-900' : ''}
                                             ${bubbleBgClass}`}
                                             >
                                                 <p>{message?.content}</p>
@@ -375,7 +445,7 @@ const ChatPage = () => {
                         </div>
                         <footer className="p-4 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 absolute bottom-0 left-0 right-0" >
                             <div className="flex dark:text-white items-center gap-2 dark:bg-gray-700 border border-gray-300 rounded-xl p-2">
-                                <button className="p-2 hover:bg-gray-700 rounded-lg text-primary">
+                                <button className="p-2 hover:bg-gray-200 rounded-lg text-primary">
                                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
                                     </svg>
