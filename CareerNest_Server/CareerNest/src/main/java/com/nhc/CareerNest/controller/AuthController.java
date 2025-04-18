@@ -264,7 +264,7 @@ public class AuthController {
                 return ResponseEntity.ok(res);
             }
             updateUser.setPassword(hashPassword);
-            this.userService.changePassword(updateUser);
+            this.userService.saveUser(updateUser);
             res.setMessage(localizationUtils.getLocalizedMessage(MessageKeys.CHANGE_PASSWORD_SUCCESSFULLY));
             res.setStatusCode(HttpStatus.OK.value());
             return ResponseEntity.ok(res);

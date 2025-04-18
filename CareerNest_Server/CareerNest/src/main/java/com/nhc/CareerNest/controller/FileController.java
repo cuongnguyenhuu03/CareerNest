@@ -15,8 +15,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.time.Instant;
-import java.util.Arrays;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
@@ -54,17 +52,7 @@ public class FileController {
             @RequestParam("folder") String folder) throws StorageException, URISyntaxException, IOException {
 
         // validate
-        if (file == null || file.isEmpty()) {
-            throw new StorageException(localizationUtils.getLocalizedMessage(MessageKeys.FILE_EMPTY));
-        }
-
-        String fileName = file.getOriginalFilename();
-        List<String> allowedExtensions = Arrays.asList("pdf", "jpg", "jpeg", "png", "doc", "docx");
-
-        boolean isValid = allowedExtensions.stream().anyMatch(item -> fileName.toLowerCase().endsWith(item));
-        if (!isValid) {
-            throw new StorageException(localizationUtils.getLocalizedMessage(MessageKeys.FILE_INVALID_EXTENSION));
-        }
+        this.fileService.validateFile(file);
 
         // create directory if not exist
 

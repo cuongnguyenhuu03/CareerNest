@@ -11,16 +11,27 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.nhc.CareerNest.config.language.LocalizationUtils;
+import com.nhc.CareerNest.constant.MessageKeys;
+import com.nhc.CareerNest.exception.errors.StorageException;
 import com.nhc.CareerNest.service.IFileService;
 
 @Service
 public class FileService implements IFileService {
+
+    private final LocalizationUtils localizationUtils;
+
+    public FileService(LocalizationUtils localizationUtils) {
+        this.localizationUtils = localizationUtils;
+    }
 
     @Value("${careernest.upload-file.base-uri}")
     private String baseUri;
@@ -77,5 +88,19 @@ public class FileService implements IFileService {
 
         File file = new File(path.toString());
         return new InputStreamResource(new FileInputStream(file));
+    }
+
+    public void validateFile(MultipartFile file) throws StorageException {
+        if (file == null || file.isEmpty()) {
+            throw new StorageException(localizationUtils.getLocalizedMessage(MessageKeys.FILE_EMPTY));
+        }
+
+        String fileName = file.getOriginalFilename();
+        List<String> allowedExtensions = Arrays.asList("pdf", "jpg", "jpeg", "png", "doc", "docx");
+
+        boolean isValid = allowedExtensions.stream().anyMatch(item -> fileName.toLowerCase().endsWith(item));
+        if (!isValid) {
+            throw new StorageException(localizationUtils.getLocalizedMessage(MessageKeys.FILE_INVALID_EXTENSION));
+        }
     }
 }

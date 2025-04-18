@@ -75,6 +75,8 @@ public class User extends BaseEntity {
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
     private List<Job> savedJob;
 
+    private String mainResume;
+
     public String getAddress() {
         return address;
     }
@@ -209,6 +211,14 @@ public class User extends BaseEntity {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public String getMainResume() {
+        return mainResume;
+    }
+
+    public void setMainResume(String mainResume) {
+        this.mainResume = mainResume;
     }
 
 }
