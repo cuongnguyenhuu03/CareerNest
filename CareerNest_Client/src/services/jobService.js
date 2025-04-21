@@ -18,7 +18,7 @@ const getAllJobs = (page, name) => {
 //     location: ["New York", "Los Angeles"], 
 //     level: ["Junior", "Mid"] 
 // });
-const filterJobs = ({ page = 1, pageSize = 4, name, location, level }) => {
+const filterJobs = ({ page = 1, pageSize = 4, name, location, level, salary }) => {
     // Kiểm tra page và pageSize hợp lệ, nếu không, gán giá trị mặc định
     if (page <= 0) page = 1;
     if (pageSize <= 0) pageSize = 6;
@@ -29,6 +29,9 @@ const filterJobs = ({ page = 1, pageSize = 4, name, location, level }) => {
 
     // Kiểm tra và thêm name vào query nếu có giá trị
     if (name) params.append("name", name);
+
+    // Kiểm tra và thêm salary vào query nếu có giá trị
+    if (salary) params.append("salary", salary);
 
     // Kiểm tra location có phải là mảng và thêm từng giá trị vào query
     if (Array.isArray(location) && location.length > 0) {
