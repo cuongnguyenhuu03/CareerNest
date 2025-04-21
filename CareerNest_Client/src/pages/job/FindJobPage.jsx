@@ -21,7 +21,8 @@ const FindJobPage = () => {
 
     const [selectedLocations, setLocation] = useState([params?.location === 'all' ? '' : params?.location]);
     const [selectedLevels, setSelectedLevels] = useState([]);
-    const { res, isLoading, isFetching, error, refetch } = useFilterJobs(currentPage, params?.name, selectedLocations, selectedLevels);
+    const [selectedSalary, setSelectedSalary] = useState('');
+    const { res, isLoading, isFetching, error, refetch } = useFilterJobs(currentPage, params?.name, selectedLocations, selectedLevels, selectedSalary);
     const listJobs = res?.result?.length > 0 ? res.result : [];
     const [selectedJob, setSelectedJob] = useState(null); // State lưu job được chọn
     const meta = res?.meta ?? {};
@@ -58,6 +59,7 @@ const FindJobPage = () => {
 
     const handleResetFilter = () => {
         setSelectedLevels([]);
+        setSelectedSalary('');
     }
 
     const handleSelectJob = useCallback((job) => {
@@ -65,6 +67,7 @@ const FindJobPage = () => {
         detailRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [setSelectedJob]);
 
+    console.log(selectedSalary)
 
     if (!params?.name && !params?.location) return null;
     if (error) return null;
@@ -99,11 +102,18 @@ const FindJobPage = () => {
                         </Select>
 
                         {/* Mức lương */}
-                        <Select className="w-32 rounded-full border-gray-300">
-                            <option>Mức lương</option>
-                            <option>5-10 triệu</option>
-                            <option>10-20 triệu</option>
-                            <option>Trên 20 triệu</option>
+                        <Select
+                            className="w-fit rounded-full border-gray-300"
+                            value={selectedSalary}
+                            onChange={(e) => setSelectedSalary(e.target.value)}
+                        >
+                            <option value="">Mức lương</option>
+                            <option value="under-1000-$">Dưới 1000$</option>
+                            <option value="1000-1500-$">Từ 1000 - 1500$</option>
+                            <option value="1500-2000-$">Từ 1500-2000$</option>
+                            <option value="2000-2500-$">Từ 2000-2500$</option>
+                            <option value="2500-3000-$">Từ 2500-3000$</option>
+                            <option value="over-3000-$">Trên 3000$</option>
                         </Select>
                     </div>
                     <GrPowerReset onClick={handleResetFilter} size={22} className='ml-4 dark:text-white hover:cursor-pointer hover:text-red-500 hover:transition-all' />
@@ -170,15 +180,22 @@ const FindJobPage = () => {
                             <option>Hình thức làm việc</option>
                             <option>Full-time</option>
                             <option>Part-time</option>
-                            <option>Freelance</option>
+                            <option>Contract</option>
                         </Select>
 
                         {/* Mức lương */}
-                        <Select className="w-32 rounded-full border-gray-300">
-                            <option>Mức lương</option>
-                            <option>5-10 triệu</option>
-                            <option>10-20 triệu</option>
-                            <option>Trên 20 triệu</option>
+                        <Select
+                            className="w-fit rounded-full border-gray-300"
+                            value={selectedSalary}
+                            onChange={(e) => setSelectedSalary(e.target.value)}
+                        >
+                            <option value="">Mức lương</option>
+                            <option value="under-1000-$">Dưới 1000$</option>
+                            <option value="1000-1500-$">Từ 1000 - 1500$</option>
+                            <option value="1500-2000-$">Từ 1500-2000$</option>
+                            <option value="2000-2500-$">Từ 2000-2500$</option>
+                            <option value="2500-3000-$">Từ 2500-3000$</option>
+                            <option value="over-3000-$">Trên 3000$</option>
                         </Select>
                     </div>
                     <GrPowerReset onClick={handleResetFilter} size={22} className='ml-4 dark:text-white hover:cursor-pointer hover:text-red-500 hover:transition-all' />
