@@ -2,6 +2,8 @@ package com.nhc.CareerNest.domain.entity;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -25,6 +27,7 @@ public class WorkExperience extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "onlineResume_id")
+    @JsonIgnore
     private OnlineResume onlineResume;
 
     public String getCompanyName() {
