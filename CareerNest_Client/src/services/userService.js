@@ -4,6 +4,10 @@ const postLogin = (data) => {
     return axios.post('/auth/login', { ...data });
 }
 
+const putChangePassword = (data) => {
+    return axios.put('/auth/change-password', { ...data });
+}
+
 const postRegister = (data) => {
     return axios.post('/auth/register', { ...data });
 }
@@ -37,6 +41,6 @@ const deleteUser = (id) => {
 }
 
 export {
-    postLogin, postRegister, postCreateNewUser, postLogout, getAllUsers, getDetailUser, putUpdateUser, deleteUser,
+    postLogin, putChangePassword, postRegister, postCreateNewUser, postLogout, getAllUsers, getDetailUser, putUpdateUser, deleteUser,
     postSaveJob
 };

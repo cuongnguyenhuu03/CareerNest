@@ -35,6 +35,7 @@ const DropdownAccount = () => {
             toast.error(error.message || 'Something wrong in Server');
         },
     });
+    
     const handleLogout = async () => {
         await mutation.mutateAsync({});
     };

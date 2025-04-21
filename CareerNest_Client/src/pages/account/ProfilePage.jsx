@@ -75,7 +75,7 @@ const ProfilePage = () => {
                                 </svg>
                                 <h3 className="mb-2 text-gray-500 dark:text-gray-400">Việc làm đã ứng tuyển</h3>
                                 <span className="flex items-center text-2xl font-bold text-gray-900 dark:text-white">
-                                    16
+                                    0
                                 </span>
                             </div>
                             <div>
@@ -84,7 +84,7 @@ const ProfilePage = () => {
                                 </svg>
                                 <h3 className="mb-2 text-gray-500 dark:text-gray-400">Việc làm đã lưu</h3>
                                 <span className="flex items-center text-2xl font-bold text-gray-900 dark:text-white">
-                                    8
+                                    {user?.saveJob?.length ?? 0}
                                 </span>
                             </div>
                         </div>

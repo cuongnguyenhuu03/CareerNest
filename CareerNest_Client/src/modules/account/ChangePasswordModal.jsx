@@ -1,8 +1,19 @@
 import { useState } from "react";
 import { Button, Label, Modal, TextInput } from "flowbite-react";
 import { HiEye, HiEyeOff } from "react-icons/hi";
+import { useMutation } from '@tanstack/react-query';
+import { postLogout, putChangePassword } from '../../services/userService';
+import { toast } from 'react-toastify';
+import { message } from 'antd';
+import { persistor } from '../../redux/store.js';
+import { useDispatch } from "react-redux";
+import { updateUserInfo } from '../../redux/slices/userSlice';
+import { path } from "../../utils/constant";
+import { useNavigate } from "react-router-dom";
 
 export function ChangePasswordModal({ isOpen = false, setOpenModal = () => { } }) {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         currentPassword: "",
         newPassword: "",
@@ -27,7 +38,42 @@ export function ChangePasswordModal({ isOpen = false, setOpenModal = () => { } }
         }));
     };
 
-    const handleSubmit = (e) => {
+    const mutationLogout = useMutation({
+        mutationFn: postLogout,
+        onSuccess: async (res) => {
+            if (res?.statusCode === 200) {
+                persistor.pause();            // Tạm dừng Redux Persist
+                // localStorage.clear();        // Xóa toàn bộ localStorage
+                await persistor.purge();    // Xóa dữ liệu của Redux Persist
+                dispatch(updateUserInfo({ info: {}, access_token: '' }));
+                navigate(path.HOME);
+            } else
+                toast.error('Đăng xuất thất bại');
+        },
+        onError: (error) => {
+            console.error('Error:', error);
+            toast.error(error.message || 'Something wrong in Server');
+        },
+    });
+
+    const mutation = useMutation({
+        mutationFn: putChangePassword,
+        onSuccess: async (res) => {
+            if (+res?.statusCode === 200) {
+                message.success("Đổi mật khẩu thành công. Vui lòng đăng nhập lại.");
+                setOpenModal(false);
+                mutation.reset();
+                await mutationLogout.mutateAsync({});
+            } else
+                toast.error(res?.message ?? 'Có lỗi khi đổi mật khẩu!');
+        },
+        onError: (error) => {
+            console.error('Error:', error);
+            toast.error(error.message || 'Something wrong in Server');
+        },
+    });
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         let errors = {};
 
@@ -57,9 +103,12 @@ export function ChangePasswordModal({ isOpen = false, setOpenModal = () => { } }
             return;
         }
 
-        console.log({
-            currentPass: formData.currentPassword, newPass: formData.newPassword
+        await mutation.mutateAsync({
+            currentPassword: formData.currentPassword,
+            newPassword: formData.newPassword,
+            confirmPassword: formData.confirmPassword,
         });
+
     };
 
     return (
