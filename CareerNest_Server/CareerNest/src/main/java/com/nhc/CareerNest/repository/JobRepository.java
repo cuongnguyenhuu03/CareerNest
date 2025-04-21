@@ -20,9 +20,18 @@ public interface JobRepository extends JpaRepository<Job, Long>, JpaSpecificatio
     @Query("SELECT j FROM Job j WHERE j.company.id = :companyId")
     Page<Job> findByCompany(@Param("companyId") Long companyId, Pageable pageable);
 
+    @Query("SELECT j FROM Job j WHERE FUNCTION('MONTH', j.createdAt) = :month AND FUNCTION('YEAR', j.createdAt) = :year")
+    List<Job> findByMonthAndYear(@Param("month") int month, @Param("year") int year);
+
+    @Query("SELECT COUNT(j) FROM Job j WHERE FUNCTION('MONTH', j.createdAt) = :month AND FUNCTION('YEAR', j.createdAt) = :year")
+    long countByMonthAndYear(@Param("month") int month, @Param("year") int year);
+
     List<Job> findBySkillsIn(List<Skill> skills);
 
     Page<Job> findAll(Specification<Job> spec, Pageable page);
 
     Page<Job> findAll(Pageable page);
+
+    long count();
+
 }

@@ -37,7 +37,10 @@ public class PermissionInterceptorConfiguration implements WebMvcConfigurer {
                 "/users-connected",
                 "/user.disconnectUser",
                 "/user.addUser",
-                
+
+                // statistic
+                "/api/v1/admin/statistic"
+
         };
         registry.addInterceptor(getPermissionInterceptor())
                 .excludePathPatterns(whiteList);

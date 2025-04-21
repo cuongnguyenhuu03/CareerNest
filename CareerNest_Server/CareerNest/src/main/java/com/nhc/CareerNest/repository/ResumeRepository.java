@@ -7,5 +7,5 @@ import com.nhc.CareerNest.domain.entity.Resume;
 
 @Repository
 public interface ResumeRepository extends JpaRepository<Resume, Long> {
-
+    long count();
 }

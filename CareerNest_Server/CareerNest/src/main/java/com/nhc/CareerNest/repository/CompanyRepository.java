@@ -20,4 +20,6 @@ public interface CompanyRepository extends JpaRepository<Company, Long>, JpaSpec
     List<Company> findActiveCompany();
 
     Page<Company> findAll(Specification<Company> spec, Pageable pageable);
+
+    long count();
 }
