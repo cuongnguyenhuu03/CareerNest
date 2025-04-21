@@ -21,6 +21,7 @@ public class ResUserDTO {
 
     private CompanyUser company;
     private RoleUser roleUser;
+    private String mainResume;
 
     public long getId() {
         return id;
@@ -167,5 +168,13 @@ public class ResUserDTO {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getMainResume() {
+        return mainResume;
+    }
+
+    public void setMainResume(String mainResume) {
+        this.mainResume = mainResume;
     }
 }

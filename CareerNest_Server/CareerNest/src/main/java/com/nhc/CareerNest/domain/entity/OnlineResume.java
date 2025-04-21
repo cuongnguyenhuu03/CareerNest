@@ -61,6 +61,7 @@ public class OnlineResume extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonIgnoreProperties
     private User user;
 
     public String getTitle() {

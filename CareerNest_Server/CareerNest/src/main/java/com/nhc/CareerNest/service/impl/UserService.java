@@ -125,6 +125,7 @@ public class UserService implements IUserService {
         res.setAvatarUrl(user.getAvatar());
         res.setSaveJob(user.getSavedJob());
         res.setOnlineResumes(user.getOnlineResumes());
+        res.setMainResume(user.getMainResume());
 
         return res;
     }
@@ -162,6 +163,7 @@ public class UserService implements IUserService {
         res.setCreatedAt(user.getCreatedAt());
         res.setGender(user.getGender());
         res.setAddress(user.getAddress());
+        res.setMainResume(user.getMainResume());
 
         if (user.getCompany() != null) {
             com.setId(user.getCompany().getId());

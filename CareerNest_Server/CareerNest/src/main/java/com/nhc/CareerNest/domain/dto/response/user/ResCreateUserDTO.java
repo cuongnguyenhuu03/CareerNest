@@ -26,6 +26,7 @@ public class ResCreateUserDTO {
     private String avatarUrl;
     private List<Job> saveJob;
     private List<OnlineResume> onlineResumes;
+    private String mainResume;
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -137,6 +138,14 @@ public class ResCreateUserDTO {
 
     public void setOnlineResumes(List<OnlineResume> onlineResumes) {
         this.onlineResumes = onlineResumes;
+    }
+
+    public String getMainResume() {
+        return mainResume;
+    }
+
+    public void setMainResume(String mainResume) {
+        this.mainResume = mainResume;
     }
 
 }
