@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { updateUserInfo } from "../../redux/slices/userSlice";
 import { useDetailUser } from "../../hooks/useDetailUer";
+import { message } from 'antd';
 
 export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
     const [formData, setFormData] = useState({
@@ -43,7 +44,7 @@ export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
     useEffect(() => {
         if (userId && accessToken && res) {
             dispatch(updateUserInfo({ info: res?.data, access_token: accessToken }));
-            toast.success('Đăng nhập thành công')
+            message.success('Đăng nhập thành công')
             setOpenModal(false);
         }
     }, [userId, accessToken, res]);
