@@ -31,6 +31,36 @@ public class Resume extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private ResumeStateEnum status;
 
+    private String advantage;
+
+    private String shortcoming;
+
+    private int rating;
+
+    public String getAdvantage() {
+        return advantage;
+    }
+
+    public void setAdvantage(String advantage) {
+        this.advantage = advantage;
+    }
+
+    public String getLimit() {
+        return shortcoming;
+    }
+
+    public void setLimit(String shortcoming) {
+        this.shortcoming = shortcoming;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
     public String getEmail() {
         return email;
     }
