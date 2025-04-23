@@ -114,9 +114,9 @@ const FormCreateCV = () => {
             phone: formRef.current.phoneNumber,
             summary: formRef.current.summary,
             skills: transformIds(formRef.current.skills),
-            languages: [formRef.current.languages],
-            educations: [formRef.current.educations],
-            certifications: [formRef.current.certifications],
+            languages: formRef.current.languages,
+            educations: formRef.current.educations,
+            certifications: formRef.current.certifications,
         }
 
         await mutationResumeOnline.mutateAsync(dataResumeOnl)

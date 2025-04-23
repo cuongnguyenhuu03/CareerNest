@@ -18,6 +18,7 @@ import { FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa";
 import slugify from 'slugify';
 import ModalRecruitmentMatching from '../../modules/recruitment/ModalRecruitmentMatching';
 import { FiMessageSquare } from "react-icons/fi";
+import RecruitmentComment from '../../modules/recruitment/RecruitmentComment';
 
 const { IoPeople, GrLocation, FaCircleInfo } = icons;
 const data = [
@@ -25,6 +26,7 @@ const data = [
     { text: "Nhà tuyển dụng", path: "#" }
 ]
 const DetailRecruitmentPage = () => {
+
     const navigate = useNavigate();
     const ref = useRef(null);
     const { id, slug } = useParams();
@@ -176,6 +178,14 @@ const DetailRecruitmentPage = () => {
                                 }
                             </div>
                         </div>
+                        <div className='flex flex-col gap-6'>
+                            <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
+                                3. Đánh giá
+                            </div>
+                            <RecruitmentComment
+                                companyId={detailCompany?.id ?? null}
+                            />
+                        </div>
                     </div>
                     <div className='basis-2/5 flex flex-col gap-3'>
                         <h1 className='flex items-center gap-2 md:text-base lg:text-lg font-medium uppercase dark:text-white'> <FaCircleInfo className='text-gray-500' size={15} /> Thông tin nhà tuyển dụng</h1>
@@ -301,6 +311,14 @@ const DetailRecruitmentPage = () => {
 
                                 }
                             </div>
+                        </div>
+                        <div className='flex flex-col gap-6'>
+                            <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
+                                3. Đánh giá
+                            </div>
+                            <RecruitmentComment
+                                companyId={detailCompany?.id ?? null}
+                            />
                         </div>
                     </div>
 

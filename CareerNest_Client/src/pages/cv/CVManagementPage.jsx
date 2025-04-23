@@ -6,6 +6,7 @@ import icons from '../../utils/icons';
 import { useNavigate } from 'react-router-dom';
 import CVCard from '../../components/card/CVCard';
 import AttachedCV from '../../modules/account/overview/AttachedCV';
+import { useSelector } from "react-redux";
 
 const data = [
     { text: "Trang chủ", path: path.HOME },
@@ -17,6 +18,7 @@ const { CiCirclePlus } = icons;
 const CVManagementPage = () => {
     const ref = useRef(null);
     const navigate = useNavigate();
+    const user = useSelector(state => state?.user?.info);
 
     useEffect(() => {
         if (ref?.current)
@@ -24,6 +26,7 @@ const CVManagementPage = () => {
         document.title = 'Quản lý CV';
     }, []);
 
+    if (!user?.id) return null;
     return (
         <div ref={ref} className='ct-container py-4 pt-20 bg-[#f7f7f7] dark:bg-slate-900'>
             <Breadcrumbs data={data} />
@@ -38,8 +41,19 @@ const CVManagementPage = () => {
                 <Badge className='w-fit mt-20 text-sm sm:text-lg' color="success" size='sm'>CV online của bạn trên CareerNest</Badge>
                 {/* danh sách cv đã tạo */}
                 <div className='w-full mt-4 flex flex-col gap-y-4'>
-                    <CVCard className='border border-gray-200 dark:border-gray-500' />
-                    <CVCard className='border border-gray-200 dark:border-gray-500' />
+                    {user?.onlineResumes?.length > 0 ?
+                        <>
+                            {user.onlineResumes.map(item => (
+                                <CVCard
+                                    key={item?.id}
+                                    className='border border-gray-200 dark:border-gray-500'
+                                    data={item}
+                                />
+                            ))}
+                        </>
+                        :
+                        <Badge color="gray" size="sm" className='w-fit uppercase'>Chưa có CV online nào được tạo</Badge>
+                    }
                 </div>
             </div>
         </div>
