@@ -7,11 +7,23 @@ import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { path } from '../../utils/constant';
 import ModalDeleteCV from '../../modules/cv/ModalDeleteCV';
+import { format } from 'date-fns';
 
-const { FaMoneyCheckDollar, FaRegBuilding } = icons;
-const CVCard = ({ className = '' }) => {
+const { FaRegBuilding } = icons;
+const CVCard = ({ className = '', data = {}, ...props }) => {
     const navigate = useNavigate();
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
+
+    const convertTimeStampToString = (timestamp) => {
+        if (!timestamp) return '';
+        try {
+            const date = new Date(timestamp * 1000);
+            return format(date, 'dd/MM/yyyy');
+        } catch (error) {
+            console.error('Error converting timestamp:', error);
+            return '';
+        }
+    };
 
     return (
         <>
@@ -25,10 +37,15 @@ const CVCard = ({ className = '' }) => {
                 <div className='flex flex-auto flex-col gap-1'>
                     <div className='hidden sm:flex items-center justify-between'>
                         <div className={`text-sm md:text-base lg:text-lg xl:text-base font-medium uppercase dark:text-white`}>
-                            Fresher Backend NodeJS
+                            {data?.title}
                         </div>
                         <div className='text-right flex flex-col gap-y-4'>
-                            <Button gradientDuoTone="cyanToBlue" onClick={() => navigate(`${path.CV}/${path.CV__DETAIL}?candidate=12&cv=1`)}>Xem hồ sơ</Button>
+                            <Button
+                                gradientDuoTone="cyanToBlue"
+                                onClick={() => navigate(`${path.CV}/${path.CV__DETAIL}?candidate=${slugify(data?.fullName, { lower: true, strict: true })}&cv=${data?.id}`, { state: { dataResume: data } })}
+                            >
+                                Xem hồ sơ
+                            </Button>
                             <div className='flex gap-x-4  items-center justify-between'>
                                 <Button color="gray" size='xs' pill onClick={() => alert('aaa')}>
                                     <FaRegEdit size={15} className='mr-2' /> Sửa
@@ -51,18 +68,13 @@ const CVCard = ({ className = '' }) => {
                                 </Tooltip>
                             </div>
                         </div>
-                        <div className={`text-sm md:text-base lg:text-lg xl:text-base font-medium uppercase dark:text-white`}
-                            onClick={() => navigate(`/job/detail/1/${slugify('Lập trình viên Python', { lower: true, strict: true })}`)}
-                        >
-                            Fresher Backend NodeJS
+                        <div className={`text-sm md:text-base lg:text-lg xl:text-base font-medium uppercase dark:text-white`}>
+                            {data?.title}
                         </div>
                     </div>
 
-                    <div className='flex gap-2 items-center text-xs md:text-sm font-light dark:text-gray-300'>
-                        <FaRegBuilding size={15} /> Mã CV: 192783910
-                    </div>
                     <div className='flex mb-6 gap-2 text-orange-600 items-center text-xs md:text-sm font-light'>
-                        <FaMoneyCheckDollar /> Chức vụ: Lập trình viên
+                        <FaRegBuilding size={15} /> Ngày tạo: {convertTimeStampToString(data?.createdAt)}
                     </div>
                 </div>
             </div>
@@ -72,4 +84,4 @@ const CVCard = ({ className = '' }) => {
     );
 };
 
-export default CVCard;
+export default React.memo(CVCard);
