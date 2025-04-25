@@ -4,14 +4,17 @@ import withErrorBoundary from "../../hoc/withErrorBoundary";
 import { useSelector } from 'react-redux';
 import { postCreateOnlineCV } from "../../services/resumeService";
 import { postCreateWorkExperience } from "../../services/workExperience";
-import { Datepicker, Spinner } from "flowbite-react";
+import { Datepicker, Spinner, Button } from "flowbite-react";
 import { useSkills } from "../../hooks/useSkills";
 import { ProFormSelect } from "@ant-design/pro-components";
 import { useMutation } from "@tanstack/react-query";
-import { Button, message } from "antd";
+import { message } from "antd";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { path } from "../../utils/constant";
 
 const FormCreateCV = () => {
+    const navigate = useNavigate();
     const containerRef = useRef(null);
     const user = useSelector(state => state?.user?.info);
     const formRef = useRef({
@@ -28,8 +31,11 @@ const FormCreateCV = () => {
         certifications: "",
 
         // workExperience:
-        companyName: "", location: "", startDate: "", endDate: "", description: ""
+        workExperiences: [
+            { companyName: "", location: "", startDate: "", endDate: "", description: "" }
+        ]
     });
+    const [renderCounter, setRenderCounter] = useState(0); // Rerender khi push thêm
     const { res: resSkills, isLoading: isLoadingSkills } = useSkills();
 
     useEffect(() => {
@@ -58,19 +64,28 @@ const FormCreateCV = () => {
         formRef.current[field] = value;
     };
 
+    const handleAddWorkExperience = () => {
+        formRef.current.workExperiences.push({
+            companyName: "", location: "", startDate: "", endDate: "", description: ""
+        });
+        setRenderCounter(prev => prev + 1); // Trigger rerender
+    };
+
+    const handleWorkExperienceChange = (index, field, value) => {
+        formRef.current.workExperiences[index][field] = value;
+        setRenderCounter(prev => prev + 1); // Rerender nếu cần hiển thị giá trị ngay
+    };
+
     const mutationResumeOnline = useMutation({
         mutationFn: postCreateOnlineCV,
         onSuccess: async (res) => {
             if (+res?.statusCode === 201 || +res?.statusCode === 200) {
-                const dataWorkExpe = {
-                    companyName: formRef.current.companyName,
-                    startDate: formRef.current.startDate,
-                    endDate: formRef.current.endDate,
-                    description: formRef.current.description,
-                    location: formRef.current.location,
-                    onlineResume: { id: res?.data?.id }
+                for (const exp of formRef.current.workExperiences) {
+                    await mutationWorkExpe.mutateAsync({
+                        ...exp,
+                        onlineResume: { id: +res?.data?.id }
+                    });
                 }
-                await mutationWorkExpe.mutateAsync(dataWorkExpe);
                 mutationResumeOnline.reset();
             } else {
                 console.log(res?.data);
@@ -89,6 +104,7 @@ const FormCreateCV = () => {
             if (+res?.statusCode === 201 || +res?.statusCode === 200) {
                 message.success("Tạo hồ sơ CV thành công");
                 mutationWorkExpe.reset();
+                navigate(`${path.CV}/${path.CV__MANAGE}`);
             } else {
                 console.log(res?.data);
                 toast.error(res?.data?.error);
@@ -121,7 +137,6 @@ const FormCreateCV = () => {
 
         await mutationResumeOnline.mutateAsync(dataResumeOnl)
     };
-
 
     return (
         <div className="relative" ref={containerRef}>
@@ -219,9 +234,7 @@ const FormCreateCV = () => {
                             style: { width: '100%' },
                             onChange: (value) => handleOnChange("skills", value), // Lưu dữ liệu vào formRef
                         }}
-
                     />
-
                 </div>
 
 
@@ -247,57 +260,62 @@ const FormCreateCV = () => {
                 {/* Kinh nghiệm làm việc */}
                 <label className="mb-2 block text-sm font-semibold text-gray-900 dark:text-white col-span-2">
                     Kinh nghiệm làm việc
+                    <Button className="mt-3" size="xs" color="light" onClick={handleAddWorkExperience}>
+                        + Thêm kinh nghiệm
+                    </Button>
                 </label>
 
                 {/* Input fields cho "Kinh nghiệm làm việc" */}
+                {formRef.current.workExperiences.map((exp, index) => (
+                    <React.Fragment key={index}>
+                        <div className="col-span-2 sm:col-span-1">
+                            <label className="block text-sm font-medium text-gray-900 dark:text-white">Tên công ty</label>
+                            <input
+                                placeholder="Nhập tên công ty làm việc"
+                                type="text"
+                                className="outline-none block w-full dark:bg-slate-800 dark:text-white rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
+                                onChange={(e) => handleWorkExperienceChange(index, "companyName", e.target.value)}
+                            />
+                        </div>
 
-                <div className="col-span-2 sm:col-span-1">
-                    <label className="block text-sm font-medium text-gray-900 dark:text-white">Tên công ty</label>
-                    <input
-                        placeholder="Nhập tên công ty làm việc"
-                        type="text"
-                        className="outline-none block w-full dark:bg-slate-800 dark:text-white rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
-                        onChange={(e) => handleOnChange("companyName", e.target.value)}
-                    />
-                </div>
+                        <div className="col-span-2 sm:col-span-1">
+                            <label className="block text-sm font-medium text-gray-900 dark:text-white">Địa chỉ</label>
+                            <input
+                                type="text"
+                                className="outline-none block w-full dark:bg-slate-800 dark:text-white rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
+                                onChange={(e) => handleWorkExperienceChange(index, "location", e.target.value)}
+                            />
+                        </div>
 
-                <div className="col-span-2 sm:col-span-1">
-                    <label className="block text-sm font-medium text-gray-900 dark:text-white">Địa chỉ</label>
-                    <input
-                        type="text"
-                        className="outline-none block w-full dark:bg-slate-800 dark:text-white rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
-                        onChange={(e) => handleOnChange("location", e.target.value)}
-                    />
-                </div>
+                        <div className="col-span-2 sm:col-span-1">
+                            <label className="block text-sm font-medium text-gray-900 dark:text-white">Ngày bắt đầu</label>
+                            <input
+                                type="date"
+                                className="outline-none dark:bg-slate-800 dark:text-white block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
+                                onChange={(e) => handleWorkExperienceChange(index, "startDate", new Date(e.target.value))}
+                            />
+                        </div>
 
+                        <div className="col-span-2 sm:col-span-1">
+                            <label className="block text-sm font-medium text-gray-900 dark:text-white">Ngày kết thúc</label>
+                            <input
+                                type="date"
+                                className="outline-none dark:bg-slate-800 dark:text-white block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
+                                onChange={(e) => handleWorkExperienceChange(index, "endDate", new Date(e.target.value))}
+                            />
+                        </div>
 
-                <div className="col-span-2 sm:col-span-1">
-                    <label className="block text-sm font-medium text-gray-900 dark:text-white">Ngày bắt đầu</label>
-                    <input
-                        type="date"
-                        className="outline-none dark:bg-slate-800 dark:text-white block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
-                        onChange={(e) => handleOnChange("startDate", new Date(e.target.value))}
-                    />
-                </div>
+                        <div className="col-span-2 mb-10">
+                            <label className="block text-sm font-medium text-gray-900 dark:text-white">Mô tả công việc</label>
+                            <ReactQuill
+                                theme="snow"
+                                className="h-[200px] custom-quill-editor dark:text-white dark:font-medium"
+                                onChange={(value) => handleWorkExperienceChange(index, "description", value)}
+                            />
+                        </div>
 
-                <div className="col-span-2 sm:col-span-1">
-                    <label className="block text-sm font-medium text-gray-900 dark:text-white">Ngày kết thúc</label>
-                    <input
-                        type="date"
-                        className="outline-none dark:bg-slate-800 dark:text-white block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
-                        onChange={(e) => handleOnChange("endDate", new Date(e.target.value))}
-                    />
-                </div>
-
-                <div className="col-span-2">
-                    <label className="block text-sm font-medium text-gray-900 dark:text-white">Mô tả công việc</label>
-                    <ReactQuill
-                        theme="snow"
-                        className="h-[200px] custom-quill-editor dark:text-white dark:font-medium"
-                        onChange={(value) => handleOnChange("description", value)}
-                    />
-                </div>
-
+                    </React.Fragment>
+                ))}
             </div>
 
             {/* Buttons */}

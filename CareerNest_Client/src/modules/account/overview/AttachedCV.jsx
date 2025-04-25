@@ -1,13 +1,67 @@
-import { Avatar, Badge, FileInput } from 'flowbite-react';
-import React, { useState } from 'react';
+import { Avatar, Badge, FileInput, Tooltip } from 'flowbite-react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { path } from '../../../utils/constant';
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { FaFileUpload } from "react-icons/fa";
+import { useSelector } from 'react-redux';
+import { getMainResumeUpload } from '../../../services/resumeService';
+import { toast } from 'react-toastify';
+import { postUploadMainCV } from '../../../services/userService';
+import { useMutation } from '@tanstack/react-query';
+import { message } from 'antd';
 
 const AttachedCV = () => {
-    const [fileName, setFileName] = useState('VuHoangHai_Intern_BackEndDeveloper_CV.pdf');
+    const user = useSelector(state => state?.user?.info);
+
+    const [fileName, setFileName] = useState('');
     const location = useLocation();
+
+    useEffect(() => {
+        if (user?.id) {
+            setFileName(user?.mainResume ?? '');  // Cập nhật fileName nếu có mainResume
+        }
+    }, [user?.id, user?.mainResume]);
+
+    const handleDownloadFile = async () => {
+        try {
+            let res = await getMainResumeUpload(fileName, 'mainResume');
+            if (res) {
+                const url = window.URL.createObjectURL(res);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = fileName;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(url);
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error(error.message ?? 'Có lỗi khi download file!');
+        }
+    }
+
+    const mutation = useMutation({
+        mutationFn: postUploadMainCV,
+        onSuccess: async (res) => {
+            if (+res?.statusCode === 200) {
+                message.success("Upload main CV thành công.");
+                mutation.reset();
+                window.location.reload();
+            } else
+                message.error('Có lỗi xảy ra!');
+        },
+        onError: (error) => {
+            console.error('Error:', error);
+            message.error(error.message || 'Something wrong in Server');
+        },
+    });
+
+    const handleUploadMainCV = async (e) => {
+        if (e.target?.files?.[0])
+            await mutation.mutateAsync({ folder: "mainResume", file: e.target.files[0] })
+    }
 
     return (
         <div className='w-full flex flex-col gap-y-4 shadow-md dark:shadow-lg p-3 sm:p-4 rounded-lg mb-6 dark:bg-slate-800'>
@@ -17,13 +71,22 @@ const AttachedCV = () => {
                     img={'https://itviec.com/assets/profile/uploaded-resume-f70bd4d24afa0fa12412353a2fe8c4deaa8bdc1a9ffef1cdb2b8638adb24a5ac.svg'}
                 />
                 <div className='flex flex-col gap-y-3 sm:order-2 order-1'>
-                    <Link
-                        className='text-[#414042] dark:text-white underline text-[11px] xs:text-xs sm:text-lg font-medium'
-                        to={'#'}
-                    >
-                        {fileName}
-                    </Link>
-                    <span className='text-[#a6a6a6] text-xs sm:text-sm'>Cập nhật lần cuối: 03/03/2025</span>
+                    {fileName ?
+                        <Tooltip content="Download cv" style="dark">
+                            <Link
+                                className='text-[#414042] dark:text-white underline text-[11px] xs:text-xs sm:text-lg font-medium'
+                                to={'#'}
+                                onClick={handleDownloadFile}
+                            >
+                                {fileName}
+                            </Link>
+                        </Tooltip>
+
+                        :
+                        <Badge className='w-fit uppercase text-base sm:text-lg' color="gray" size='sm'>Chưa có CV nào được upload</Badge>
+                    }
+
+
                     {location.pathname.includes('overview') ?
                         <Link to={`${path.CV}/${path.CV__MANAGE}`} className='flex text-xs sm:text-sm items-center text-blue-600'>
                             Quản lý CV <MdKeyboardDoubleArrowRight size={18} />
@@ -34,8 +97,7 @@ const AttachedCV = () => {
                                 <FaFileUpload /> Tải CV lên
                                 <FileInput
                                     accept=".docx,.doc,.pdf"
-                                    // onChange={(e) => setCv(e.target.files?.[0])}
-                                    onChange={(e) => setFileName(e.target?.files?.[0]?.name)}
+                                    onChange={handleUploadMainCV}
                                     className="hidden" // Ẩn input
                                 />
                             </label>

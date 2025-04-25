@@ -16,6 +16,17 @@ const postCreateNewUser = (data) => {
     return axios.post('/users', { ...data });
 }
 
+const postUploadMainCV = (data) => {
+    const formData = new FormData();
+    formData.append('folder', data.folder);
+    formData.append('file', data.file); // Gửi tệp
+    return axios.post('/users/main-resume', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data' // Đảm bảo header đúng
+        }
+    });
+}
+
 const postSaveJob = ({ userId, jobId }) => {
     return axios.post(`/users/saveJob/${userId}/${jobId}`);
 }
@@ -41,6 +52,6 @@ const deleteUser = (id) => {
 }
 
 export {
-    postLogin, putChangePassword, postRegister, postCreateNewUser, postLogout, getAllUsers, getDetailUser, putUpdateUser, deleteUser,
+    postLogin, postUploadMainCV, putChangePassword, postRegister, postCreateNewUser, postLogout, getAllUsers, getDetailUser, putUpdateUser, deleteUser,
     postSaveJob
 };

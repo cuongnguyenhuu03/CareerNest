@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import CVCard from '../../components/card/CVCard';
 import AttachedCV from '../../modules/account/overview/AttachedCV';
 import { useSelector } from "react-redux";
+import { useOnlineResumes } from '../../hooks/useOnlineResumes';
+import CompanyCardSkeleton from '../../components/skeleton/CompanyCardSkeleton';
 
 const data = [
     { text: "Trang chủ", path: path.HOME },
@@ -16,9 +18,12 @@ const data = [
 const { CiCirclePlus } = icons;
 
 const CVManagementPage = () => {
-    const ref = useRef(null);
     const navigate = useNavigate();
+    const ref = useRef(null);
     const user = useSelector(state => state?.user?.info);
+
+    const { res, isFetching, error, refetch } = useOnlineResumes();
+    const onlResumes = res?.data ?? [];
 
     useEffect(() => {
         if (ref?.current)
@@ -27,6 +32,10 @@ const CVManagementPage = () => {
     }, []);
 
     if (!user?.id) return null;
+    if (error) {
+        console.log(error);
+        return null;
+    }
     return (
         <div ref={ref} className='ct-container py-4 pt-20 bg-[#f7f7f7] dark:bg-slate-900'>
             <Breadcrumbs data={data} />
@@ -39,11 +48,11 @@ const CVManagementPage = () => {
                 <AttachedCV />
 
                 <Badge className='w-fit mt-20 text-sm sm:text-lg' color="success" size='sm'>CV online của bạn trên CareerNest</Badge>
-                {/* danh sách cv đã tạo */}
+                {isFetching && <CompanyCardSkeleton />}
                 <div className='w-full mt-4 flex flex-col gap-y-4'>
-                    {user?.onlineResumes?.length > 0 ?
+                    {onlResumes?.length > 0 ?
                         <>
-                            {user.onlineResumes.map(item => (
+                            {onlResumes.map(item => (
                                 <CVCard
                                     key={item?.id}
                                     className='border border-gray-200 dark:border-gray-500'
