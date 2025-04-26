@@ -63,6 +63,11 @@ public class PermissionInterceptor implements HandlerInterceptor {
             return true;
         }
 
+        if ("DELETE".equalsIgnoreCase(request.getMethod())
+                && request.getRequestURI().startsWith("/api/v1/online-resumes/**")) {
+            return true;
+        }
+
         if ("POST".equalsIgnoreCase(request.getMethod())
                 && request.getRequestURI().startsWith("/api/v1/users/saveJob/")) {
             return true;
