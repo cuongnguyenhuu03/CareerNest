@@ -2,6 +2,7 @@ package com.nhc.CareerNest.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -11,6 +12,7 @@ import jakarta.persistence.Table;
 @Table(name = "comments")
 public class Comment extends BaseEntity {
 
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String comment;
 
     private float rating;

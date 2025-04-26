@@ -3,6 +3,7 @@ package com.nhc.CareerNest.domain.entity;
 import java.sql.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,7 +30,7 @@ public class WorkExperience extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "onlineResume_id")
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private OnlineResume onlineResume;
 
     public String getCompanyName() {

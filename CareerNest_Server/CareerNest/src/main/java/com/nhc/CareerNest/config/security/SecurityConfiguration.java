@@ -73,6 +73,8 @@ public class SecurityConfiguration {
                 "/api/v1/jobs/company/**",
                 "/storage/**",
                 "/api/v1/emails",
+                "/api/v1/comments",
+                "/api/v1/comments/**",
                 "/subscribers"
         };
 

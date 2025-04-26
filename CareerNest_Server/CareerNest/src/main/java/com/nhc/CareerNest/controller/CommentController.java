@@ -61,8 +61,9 @@ public class CommentController {
         return ResponseEntity.ok(res);
     }
 
-    @GetMapping("/comments")
+    @GetMapping("/comments/{companyId}")
     public ResponseEntity<ResultPaginationResponse> getMethodName(
+            @PathVariable("companyId") Long companyId,
             @RequestParam(defaultValue = "1", name = "page") int page,
             @RequestParam(defaultValue = "6", name = "pageSize") int pageSize) {
 
@@ -70,7 +71,7 @@ public class CommentController {
         ResultPaginationResponse.Meta mt = new ResultPaginationResponse.Meta();
 
         Pageable pageable = PageRequest.of(page - 1, pageSize);
-        Page<Comment> Comments = this.commentService.fetchAllComment(pageable);
+        Page<Comment> Comments = this.commentService.fetchAllComment(companyId, pageable);
 
         mt.setPage(pageable.getPageNumber() + 1);
         mt.setPageSize(pageable.getPageSize());

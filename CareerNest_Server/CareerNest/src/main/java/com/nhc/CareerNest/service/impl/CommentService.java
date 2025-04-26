@@ -23,8 +23,8 @@ public class CommentService {
     }
 
     // fetch all
-    public Page<Comment> fetchAllComment(Pageable pageable) {
-        return this.commentRepository.findAll(pageable);
+    public Page<Comment> fetchAllComment(Long companyId, Pageable pageable) {
+        return this.commentRepository.findAll(companyId, pageable);
     }
 
     // create
