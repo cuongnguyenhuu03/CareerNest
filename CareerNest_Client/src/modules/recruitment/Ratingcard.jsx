@@ -1,12 +1,14 @@
-import { Card } from "flowbite-react";
+import { Button, Card } from "flowbite-react";
 import { useComments } from "../../hooks/useComments";
 import CompanyCardSkeleton from "../../components/skeleton/CompanyCardSkeleton";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import withErrorBoundary from "../../hoc/withErrorBoundary";
 import { Rate } from 'antd';
+import ModalReviewCommentByAI from "./ModalReviewCommentByAI";
 
 const RatingCard = ({ companyId = null }) => {
     const { res, isLoading, isFetching, error } = useComments(+companyId, 1, 500);
+    const [openModal, setOpenModal] = useState(false);
 
     const getAverageRating = (comments) => {
         const totalComments = comments.length;
@@ -49,40 +51,62 @@ const RatingCard = ({ companyId = null }) => {
     if (isFetching || isLoading)
         return (<CompanyCardSkeleton />)
     return (
-        <Card className="p-6 w-full max-w-4xl rounded-lg shadow-md dark:shadow-lg dark:bg-slate-800">
-            <div className="flex flex-row items-center justify-between gap-8">
+        <>
+            <Card className="p-6 w-full max-w-4xl rounded-lg shadow-md dark:shadow-lg dark:bg-slate-800">
+                <div className="flex flex-row items-center justify-between gap-8">
 
-                {/* Left Side */}
-                <div className="flex flex-col items-center w-1/3">
-                    <div className="text-5xl font-bold text-gray-900 dark:text-white">{getAverageRating(res?.result)}</div>
-                    <div className="flex text-orange-400 text-2xl mt-2">
-                        <Rate disabled defaultValue={getAverageRating(res?.result)} />
-                    </div>
-                    <div className="text-md text-gray-600 dark:text-gray-300 mt-2 font-medium text-center">
-                        {res?.meta?.total} đánh giá
-                    </div>
-                </div>
-
-                {/* Right Side */}
-                <div className="flex flex-col w-2/3 space-y-3">
-                    {ratingStatistics.map((item) => (
-                        <div key={item.star} className="flex items-center gap-2">
-                            <span className="w-4 text-sm font-semibold dark:text-gray-300">{item.star}</span>
-                            <span className="text-orange-400">&#9733;</span>
-                            {/* Progress Custom */}
-                            <div className="relative flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
-                                <div
-                                    className="absolute top-0 left-0 h-full bg-orange-400 rounded-full"
-                                    style={{ width: `${item.percent}%` }}
-                                ></div>
-                            </div>
-                            <span className="w-10 text-sm text-right dark:text-gray-300 font-semibold">{item.percent}%</span>
+                    {/* Left Side */}
+                    <div className="flex flex-col items-center w-1/3">
+                        <div className="text-5xl font-bold text-gray-900 dark:text-white">{getAverageRating(res?.result)}</div>
+                        <div className="flex text-orange-400 text-2xl mt-2">
+                            <Rate disabled defaultValue={getAverageRating(res?.result)} />
                         </div>
-                    ))}
+                        <div className="text-md text-gray-600 dark:text-gray-300 mt-2 font-medium text-center">
+                            {res?.meta?.total} đánh giá
+                        </div>
+                    </div>
+
+                    {/* Right Side */}
+                    <div className="flex flex-col w-2/3 space-y-3">
+                        {ratingStatistics.map((item) => (
+                            <div key={item.star} className="flex items-center gap-2">
+                                <span className="w-4 text-sm font-semibold dark:text-gray-300">{item.star}</span>
+                                <span className="text-orange-400">&#9733;</span>
+                                {/* Progress Custom */}
+                                <div className="relative flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                                    <div
+                                        className="absolute top-0 left-0 h-full bg-orange-400 rounded-full"
+                                        style={{ width: `${item.percent}%` }}
+                                    ></div>
+                                </div>
+                                <span className="w-10 text-sm text-right dark:text-gray-300 font-semibold">{item.percent}%</span>
+                            </div>
+                        ))}
+                    </div>
                 </div>
 
-            </div>
-        </Card>
+                <Button
+                    size="xs"
+                    color="light"
+                    className="w-fit p-3 mx-auto mt-3 text-blue-800"
+                    onClick={() => setOpenModal(true)}
+                >
+                    AI đánh giá chi tiết công ty
+                    <span className="absolute animate-bounce top-0 right-0 mt-0 -mr-1 bg-red-500 text-white text-[10px] px-1 py-0.5 rounded-md shadow">
+                        New
+                    </span>
+                </Button>
+            </Card>
+
+            {openModal &&
+                <ModalReviewCommentByAI
+                    openModal={openModal}
+                    setOpenModal={setOpenModal}
+                    dataComments={res?.result ?? []}
+                />
+            }
+        </>
+
     );
 }
 
