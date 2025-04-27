@@ -9,6 +9,7 @@ import AttachedCV from '../../modules/account/overview/AttachedCV';
 import { useSelector } from "react-redux";
 import { useOnlineResumes } from '../../hooks/useOnlineResumes';
 import CompanyCardSkeleton from '../../components/skeleton/CompanyCardSkeleton';
+import withErrorBoundary from '../../hoc/withErrorBoundary';
 
 const data = [
     { text: "Trang chủ", path: path.HOME },
@@ -49,7 +50,7 @@ const CVManagementPage = () => {
 
                 <Badge className='w-fit mt-20 text-sm sm:text-lg' color="success" size='sm'>CV online của bạn trên CareerNest</Badge>
                 {isFetching && <CompanyCardSkeleton />}
-                <div className='w-full mt-4 flex flex-col gap-y-4'>
+                <div className='w-full mt-4 flex flex-col gap-y-4 overflow-y-auto h-[400px]'>
                     {onlResumes?.length > 0 ?
                         <>
                             {onlResumes.map(item => (
@@ -57,6 +58,7 @@ const CVManagementPage = () => {
                                     key={item?.id}
                                     className='border border-gray-200 dark:border-gray-500'
                                     data={item}
+                                    refetchOnlResumes={refetch}
                                 />
                             ))}
                         </>
@@ -69,4 +71,4 @@ const CVManagementPage = () => {
     );
 };
 
-export default CVManagementPage;
+export default withErrorBoundary(CVManagementPage);

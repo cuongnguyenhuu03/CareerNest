@@ -15,5 +15,9 @@ const postCreateOnlineCV = (data) => {
     return axios.post('/online-resumes', { ...data });
 }
 
+const deleteOnlResume = (id) => {
+    return axios.delete(`/online-resumes/${id}`);
+}
 
-export { getAllResumesByUser, getMainResumeUpload, postCreateOnlineCV };
+
+export { getAllResumesByUser, getMainResumeUpload, postCreateOnlineCV, deleteOnlResume };

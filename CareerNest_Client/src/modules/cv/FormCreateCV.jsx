@@ -80,6 +80,8 @@ const FormCreateCV = () => {
         mutationFn: postCreateOnlineCV,
         onSuccess: async (res) => {
             if (+res?.statusCode === 201 || +res?.statusCode === 200) {
+                if (formRef.current.workExperiences.length <= 0)
+                    return;
                 for (const exp of formRef.current.workExperiences) {
                     await mutationWorkExpe.mutateAsync({
                         ...exp,

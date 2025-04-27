@@ -78,7 +78,14 @@ const CVCard = ({ className = '', data = {}, ...props }) => {
                     </div>
                 </div>
             </div>
-            {openDeleteModal && <ModalDeleteCV openModal={openDeleteModal} setOpenModal={setOpenDeleteModal} cvId={'#112233'} />}
+            {openDeleteModal &&
+                <ModalDeleteCV
+                    openModal={openDeleteModal}
+                    setOpenModal={setOpenDeleteModal}
+                    data={data}
+                    refreshOnlResumes={props.refreshOnlResumes}
+                />
+            }
         </>
 
     );
