@@ -47,7 +47,6 @@ const CVReviewByAI = () => {
             <div className={`bg-[#fff] ${result ? 'dark:bg-gray-900' : 'dark:bg-slate-800'} px-3 xs:px-6 py-8 rounded-lg flex items-center justify-center min-h-[350px]`}>
                 <div className="text-center max-w-2xl">
                     <h1 className="text-2xl font-bold mb-8 dark:text-white">Đánh giá CV bởi AI CareerNest</h1>
-
                     {!loading && !result && (
                         <label className="cursor-pointer bg-blue-600 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-700 transition">
                             Chọn file CV (PDF)

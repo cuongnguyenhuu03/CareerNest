@@ -5,7 +5,7 @@ import { getAllResumesByUser } from '../services/resumeService';
 export const useOnlineResumes = () => {
     const user = useSelector(state => state?.user?.info);
 
-    const { data: res, isLoading, isFetching, error, refetch, } = useQuery({
+    const { data: res, isLoading, isFetching, error, refetch } = useQuery({
         queryKey: ['onlineResumes', user?.id],
         queryFn: () => getAllResumesByUser(),
         staleTime: 10 * 1000,

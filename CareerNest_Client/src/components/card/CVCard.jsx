@@ -83,7 +83,7 @@ const CVCard = ({ className = '', data = {}, ...props }) => {
                     openModal={openDeleteModal}
                     setOpenModal={setOpenDeleteModal}
                     data={data}
-                    refreshOnlResumes={props.refreshOnlResumes}
+                    refetchOnlResumes={props.refetchOnlResumes}
                 />
             }
         </>

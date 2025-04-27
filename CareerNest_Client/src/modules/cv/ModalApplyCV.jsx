@@ -1,77 +1,117 @@
-import { Button, FileInput, Label, Radio, Select, TextInput } from 'flowbite-react';
+import { Button, FileInput, Label, Select, TextInput } from 'flowbite-react';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { FaFileUpload } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { useMutation } from '@tanstack/react-query';
+import { message } from 'antd';
+import { postApplyJob } from '../../services/resumeService';
+import { askGeminiWithPDF } from '../../modules/chatbot/gemini';
+import { toast } from 'react-toastify';
+import withErrorBoundary from '../../hoc/withErrorBoundary';
 
-const ModalApplyCV = ({ openModal = false, setOpenModal = () => { }, jobTitle = "công việc abcd" }) => {
-    const [option, setOption] = useState('');
+const ModalApplyCV = ({ openModal = false, setOpenModal = () => { }, jobData = null }) => {
+    const user = useSelector(state => state?.user?.info);
+
+    const [loading, setLoading] = useState(false);
     const [cv, setCv] = useState(null);
-    const [message, setMessage] = useState('');
 
-    const handleApply = () => {
-        console.log('Option:', option);
-        console.log('CV:', cv);
-        console.log('Message:', message);
-        setOpenModal(false);
+    const parseText = (input) => {
+        if (!input) return;
+        const regex = /advantage:\s*(.*?);shortcoming:\s*(.*?);rating:\s*(\d+)/;
+        const match = input.replace(/<p>/g, '').replace(/<\/p>/g, '').match(regex);
+
+        if (match) {
+            return {
+                advantage: match[1].trim(),
+                shortcoming: match[2].trim(),
+                rating: parseInt(match[3], 10)
+            };
+        }
+        return {};
+    }
+
+    const mutation = useMutation({
+        mutationFn: postApplyJob,
+        onSuccess: async (res) => {
+            if (+res?.statusCode === 200) {
+                message.success("Ứng tuyển thành công.");
+                mutation.reset();
+                setOpenModal(false);
+            } else
+                message.error('Có lỗi xảy ra!');
+        },
+        onError: (error) => {
+            console.error('Error:', error);
+            message.error(error.message || 'Something wrong in Server');
+        },
+    });
+
+    const handleApply = async () => {
+        if (cv?.type === "application/pdf") {
+            setLoading(true);
+            try {
+                let res = await askGeminiWithPDF(cv, `Bạn hãy đọc file cv này. Sau đó tôi sẽ truyền thêm vào mô tả công việc và yêu cầu công việc.
+                Hãy dựa vào thông tin đọc được từ CV, cùng với thông tin mô tả công việc và yêu cầu công việc, phân tích bằng tiếng việt và phải ngắn gọn về điểm mạnh, điểm yếu, và đánh số điểm về mức độ phù hợp của CV này (từ 10-100).Trả về kết quả giúp tôi dạng: advantage:...;shortcoming:...;rating:... (dùng dấu chấm phẩy để ngăn cách nhé).
+                Mô tả công việc:${jobData?.description}.
+                Yêu cầu công việc:${jobData?.requirements}`);
+
+                await mutation.mutateAsync({
+                    folder: "resume",
+                    file: cv,
+                    email: user?.email,
+                    userId: user?.id,
+                    jobId: +jobData?.id,
+                    advantage: parseText(res)?.advantage,
+                    shortcoming: parseText(res)?.shortcoming,
+                    rating: +parseText(res)?.rating
+                })
+            } catch (error) {
+                console.log(error);
+                toast.error("Có lỗi xảy ra trong quá trình phân tích!");
+            }
+            finally {
+                setLoading(false);
+            }
+        } else {
+            alert("Vui lòng chọn file PDF hợp lệ!");
+        }
     };
 
     if (!openModal) return null;
     return (
         <div className='fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center px-4 sm:px-0 overflow-y-auto'>
             <div className='bg-white dark:bg-slate-800 rounded-lg w-[600px] shadow-lg p-6 max-h-[95vh] overflow-y-auto scroll-smooth'>
+                {/* Loading Overlay */}
+                {loading && (
+                    <div className="absolute inset-0 flex justify-center items-center bg-gray-500 bg-opacity-50 z-10">
+                        <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 border-t-transparent border-blue-600 rounded-full" role="status">
+                        </div>
+                    </div>
+                )}
                 <div className='flex justify-between items-center border-b pb-2'>
-                    <h2 className='text-lg sm:text-xl font-medium uppercase dark:text-white'>Ứng tuyển {jobTitle}</h2>
+                    <h2 className='text-lg sm:text-xl font-medium uppercase dark:text-white'>Ứng tuyển {jobData?.name}</h2>
                     <button onClick={() => setOpenModal(false)} className='text-gray-500 text-xl'>
                         &times;
                     </button>
                 </div>
 
                 <div className='space-y-4 mt-4'>
-                    <label className='block dark:text-gray-400'>
-                        <Radio name='option' value='online' onChange={() => setOption('online')} className='mr-2' />
-                        Sử dụng CV hiện tại
-                    </label>
-
-                    {option === 'online' && (
-                        <div className='w-full flex gap-x-4 rounded-lg bg-[#f7f7f7] dark:bg-slate-800 p-2 sm:p-6 border border-gray-200 dark:border-slate-500'>
-                            <div className='flex flex-col gap-y-3'>
-                                <Link
-                                    className='text-blue-500 underline text-[11px] xs:text-base font-medium'
-                                    to={'/'}
-                                >
-                                    VuHoangHai_Intern_BackEndDeveloper_CV.pdf
-                                </Link>
-                                <span className='text-[#a6a6a6] text-xs sm:text-sm'>Cập nhật lần cuối: 03/03/2025</span>
-
-                            </div>
-                        </div>
-                    )}
-
-                    <label className='block dark:text-gray-400'>
-                        <Radio name='option' value='upload' onChange={() => setOption('upload')} className='mr-2' />
-                        Tải lên CV mới
-                    </label>
-
-                    {option === 'upload' && (
-                        <>
-                            <div className='flex items-center gap-x-6'>
-                                <label className="w-fit p-2 cursor-pointer border border-red-500 rounded-lg bg-white text-sm xs:text-base text-red-500 font-medium flex items-center gap-2">
-                                    <FaFileUpload /> Tải CV lên
-                                    <FileInput
-                                        accept=".docx,.doc,.pdf"
-                                        onChange={(e) => setCv(e.target.files?.[0])}
-                                        className="hidden" // Ẩn input
-                                    />
-                                </label>
-                                {cv && (
-                                    <span className='text-xs xs:text-sm text-red-500'>
-                                        📄 {cv?.name ?? ''}
-                                    </span>
-                                )}
-                            </div>
-                            <div className='text-xs xs:text-sm mt-3 text-gray-500'>Chỉ chấp nhận file định dạng .docx, .doc, .pdf *</div>
-                        </>
-                    )}
+                    <div className='flex items-center gap-x-6'>
+                        <label className="w-fit p-2 cursor-pointer border border-red-500 rounded-lg bg-white text-sm xs:text-base text-red-500 font-medium flex items-center gap-2">
+                            <FaFileUpload /> Tải CV lên
+                            <FileInput
+                                accept=".docx,.doc,.pdf"
+                                onChange={(e) => setCv(e.target.files?.[0])}
+                                className="hidden" // Ẩn input
+                            />
+                        </label>
+                        {cv && (
+                            <span className='text-xs xs:text-sm text-red-500'>
+                                📄 {cv?.name ?? ''}
+                            </span>
+                        )}
+                    </div>
+                    <div className='text-xs xs:text-sm mt-3 text-gray-500'>Chỉ chấp nhận file định dạng .docx, .doc, .pdf *</div>
 
                     <label className='block font-semibold uppercase dark:text-white'>Thông tin cá nhân</label>
                     <form className="flex max-w-md flex-col gap-3">
@@ -79,13 +119,13 @@ const ModalApplyCV = ({ openModal = false, setOpenModal = () => { }, jobTitle = 
                             <div className="mb-2 block">
                                 <Label htmlFor="fullName" value="Họ và tên" />
                             </div>
-                            <TextInput id="fullName" type="text" value="Vũ Hoàng Hải" />
+                            <TextInput id="fullName" type="text" value={user?.lastName + ' ' + user?.firstName} />
                         </div>
                         <div>
                             <div className="mb-2 block">
                                 <Label htmlFor="phoneNumber" value="Số điện thoại" />
                             </div>
-                            <TextInput id="phoneNumber" type="text" value="0123 456 789" />
+                            <TextInput id="phoneNumber" type="text" value={user?.phoneNumber} />
                         </div>
                         <div>
                             <div className="mb-2 block">
@@ -104,14 +144,13 @@ const ModalApplyCV = ({ openModal = false, setOpenModal = () => { }, jobTitle = 
                         placeholder='Nhờ chatbot AI tạo 1 cover letter phù hợp ?'
                         className='border dark:border-gray-500 rounded p-2 w-full outline-none dark:bg-slate-700 dark:text-gray-400'
                         rows={13}
-                        onChange={(e) => setMessage(e.target.value)}
                     />
                 </div>
 
                 <div className='flex justify-end gap-3 mt-6'>
                     <Button color="gray" size='sm' onClick={() => setOpenModal(false)}>Bỏ qua</Button>
                     <Button color="failure" pill onClick={handleApply} size='sm'
-                        disabled={!option || !cv}
+                        disabled={!cv}
                     >
                         Nộp CV
                     </Button>
@@ -121,4 +160,4 @@ const ModalApplyCV = ({ openModal = false, setOpenModal = () => { }, jobTitle = 
     );
 };
 
-export default ModalApplyCV;
+export default withErrorBoundary(ModalApplyCV);
