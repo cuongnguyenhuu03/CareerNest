@@ -29,6 +29,8 @@ const ChatPage = () => {
 
     const { res: resUsersConnected, refetch: refetchUsersConnected } = useUsersConnected();
 
+    console.log(location?.state?.receiver)
+
     useEffect(() => {
         document.title = 'Tin nhắn';
         userSelectedRef.current = userSelected;

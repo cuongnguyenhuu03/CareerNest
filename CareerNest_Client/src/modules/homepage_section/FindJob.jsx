@@ -20,8 +20,8 @@ const FindJob = () => {
         <div className={`w-full h-[500px] bg-slider-bg bg-cover bg-no-repeat bg-bottom mb-6 md:mb-16`}>
             <div className='w-full h-full flex justify-center items-center bg-gray-900 bg-opacity-60'>
                 <div className='mx-16 text-white text-center'>
-                    <div className='mt-14 sm:mt-0 font-medium text-xl sm:text-3xl md:text-4xl mb-6'>Tìm việc làm nhanh 24h, việc làm mới nhất trên toàn quốc.</div>
-                    <div className='font-medium text-xs sm:text-lg lg:text-base mb-8'>Tiếp cận 40,000+ tin tuyển dụng việc làm mỗi ngày từ hàng nghìn doanh nghiệp uy tín tại Việt Nam</div>
+                    <div className='mt-14 sm:mt-0 font-medium text-xl sm:text-3xl md:text-4xl mb-6 animate-pulse'>Tìm việc làm nhanh 24h, việc làm mới nhất trên toàn quốc.</div>
+                    <div className='font-medium text-xs sm:text-lg lg:text-base mb-8 animate-fadeIn'>Tiếp cận 40,000+ tin tuyển dụng việc làm mỗi ngày từ hàng nghìn doanh nghiệp uy tín tại Việt Nam</div>
                     <div className='hidden sm:flex gap-x-4 lg:gap-x-8 mb-8'>
                         <div className="basis-2/3">
                             <input
