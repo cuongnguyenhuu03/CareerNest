@@ -201,7 +201,11 @@ const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false
 
             {/* Modal apply job */}
             {isOpenModal &&
-                <ModalApplyCV openModal={isOpenModal} setOpenModal={setOpenModal} jobTitle={data?.name} />
+                <ModalApplyCV
+                    openModal={isOpenModal}
+                    setOpenModal={setOpenModal}
+                    jobData={data}
+                />
             }
         </>
 

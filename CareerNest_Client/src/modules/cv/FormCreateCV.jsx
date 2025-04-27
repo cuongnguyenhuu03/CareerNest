@@ -32,7 +32,7 @@ const FormCreateCV = () => {
 
         // workExperience:
         workExperiences: [
-            { companyName: "", location: "", startDate: "", endDate: "", description: "" }
+            // { companyName: "", location: "", startDate: "", endDate: "", description: "" }
         ]
     });
     const [renderCounter, setRenderCounter] = useState(0); // Rerender khi push thêm
@@ -80,8 +80,12 @@ const FormCreateCV = () => {
         mutationFn: postCreateOnlineCV,
         onSuccess: async (res) => {
             if (+res?.statusCode === 201 || +res?.statusCode === 200) {
-                if (formRef.current.workExperiences.length <= 0)
+                if (formRef.current.workExperiences.length <= 0) {
+                    message.success("Tạo hồ sơ CV thành công");
+                    mutationResumeOnline.reset();
+                    navigate(`${path.CV}/${path.CV__MANAGE}`);
                     return;
+                }
                 for (const exp of formRef.current.workExperiences) {
                     await mutationWorkExpe.mutateAsync({
                         ...exp,
