@@ -5,8 +5,25 @@ import { toast } from 'react-toastify';
 import { useMutation } from '@tanstack/react-query';
 import { deleteOnlResume } from '../../services/resumeService';
 import { message } from 'antd';
+import { deleteWorkExperience } from '../../services/workExperience';
 
 const ModalDeleteCV = ({ openModal = false, setOpenModal = () => { }, data = {}, refetchOnlResumes = null }) => {
+
+    const mutationDeleteWorkExpe = useMutation({
+        mutationFn: deleteWorkExperience,
+        onSuccess: async (res) => {
+            if (+res?.statusCode === 200 || +res?.statusCode === 201)
+                return;
+            else {
+                console.log(res?.data ?? res);
+                message.error(`${res?.data?.error}: ${res?.data?.message}`);
+            }
+        },
+        onError: (error) => {
+            console.error('Error:', error);
+            toast.error(error?.message || 'Something wrong in Server');
+        },
+    });
 
     const mutation = useMutation({
         mutationFn: deleteOnlResume,
@@ -15,6 +32,7 @@ const ModalDeleteCV = ({ openModal = false, setOpenModal = () => { }, data = {},
                 message.success("Xóa thành công");
                 refetchOnlResumes();
                 mutation.reset();
+                mutationDeleteWorkExpe.reset();
                 setOpenModal(false)
             } else {
                 console.log(res?.data ?? res);
@@ -30,8 +48,15 @@ const ModalDeleteCV = ({ openModal = false, setOpenModal = () => { }, data = {},
 
     const handleDeleteOnlResume = async (id) => {
         if (!data?.id) return;
+        if (data?.workExperiences?.length > 0) {
+            for (const exp of data.workExperiences) {
+                await mutationDeleteWorkExpe.mutateAsync(+exp?.id);
+            }
+        }
         await mutation.mutateAsync(+data?.id);
     }
+
+    if (!data?.id) return null
     return (
         <Modal show={openModal} className="pt-40 md:pt-0" size="md" onClose={() => setOpenModal(false)} popup>
             <Modal.Header />
