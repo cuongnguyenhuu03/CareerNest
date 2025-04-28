@@ -50,7 +50,7 @@ const CVManagementPage = () => {
 
                 <Badge className='w-fit mt-20 text-sm sm:text-lg' color="success" size='sm'>CV online của bạn trên CareerNest</Badge>
                 {isFetching && <CompanyCardSkeleton />}
-                <div className='w-full mt-4 flex flex-col gap-y-4 overflow-y-auto h-[400px]'>
+                <div className='w-full mt-4 flex flex-col gap-y-4 overflow-y-auto h-fit max-h-[400px]'>
                     {onlResumes?.length > 0 ?
                         <>
                             {onlResumes.map(item => (

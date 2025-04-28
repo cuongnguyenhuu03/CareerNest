@@ -23,6 +23,7 @@ import { useDetailUser } from '../../hooks/useDetailUer';
 import { RiRobot2Line } from "react-icons/ri";
 import ModalJobMatching from '../../modules/job/ModalJobMatching';
 import { motion, AnimatePresence } from 'framer-motion';
+import ModalApplyCV from '../../modules/cv/ModalApplyCV';
 
 const { FaRegBuilding, FaMoneyCheckDollar, IoMdTime, IoPeople, GrLocation, FaCircleInfo, HiCheckCircle, FaHeart } = icons;
 const data = [
@@ -40,6 +41,7 @@ const DetailJobPage = () => {
     const queryClient = useQueryClient()
 
     const [openModal, setOpenModal] = useState(false);
+    const [openModalApplyJob, setOpenModalApplyJob] = useState(false);
 
     const [openPopup, setOpenPopup] = useState(false);
     const timeoutRef = useRef(null);
@@ -123,12 +125,13 @@ const DetailJobPage = () => {
         await mutation.mutateAsync({ userId: +user?.id, jobId: +params.id });
     }
 
-    const handleApplyJob = async () => {
+    const handleApplyJob = () => {
         if (!params?.id) return;
         if (!user?.id) {
             message.warning("Vui lòng đăng nhập trước khi ứng tuyển");
             return;
         }
+        setOpenModalApplyJob(true);
     }
 
     if (!params?.id) return null;
@@ -438,6 +441,15 @@ const DetailJobPage = () => {
                     openModal={openModal}
                     setOpenModal={setOpenModal}
                     job={detailJob} />
+            }
+
+            {/* Modal apply job */}
+            {openModalApplyJob &&
+                <ModalApplyCV
+                    openModal={openModalApplyJob}
+                    setOpenModal={setOpenModalApplyJob}
+                    jobData={detailJob}
+                />
             }
         </>
 
