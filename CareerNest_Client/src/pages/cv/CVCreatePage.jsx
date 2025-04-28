@@ -13,7 +13,6 @@ const data = [
 ]
 const CVCreatePage = () => {
     const ref = useRef(null);
-    const navigate = useNavigate();
 
     useEffect(() => {
         if (ref?.current)
