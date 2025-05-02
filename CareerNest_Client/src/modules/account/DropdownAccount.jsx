@@ -12,11 +12,14 @@ import { toast } from 'react-toastify';
 import { persistor } from '../../redux/store.js';
 import { path } from '../../utils/constant';
 import { getFirebaseImageUrl } from '../../utils/getFirebaseImageURL.js';
+import { useTranslation } from 'react-i18next';
 
 const DropdownAccount = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state?.user?.info);
     const navigate = useNavigate();
+    const { t } = useTranslation();
+
 
     const mutation = useMutation({
         mutationFn: postLogout,
@@ -35,7 +38,7 @@ const DropdownAccount = () => {
             toast.error(error.message || 'Something wrong in Server');
         },
     });
-    
+
     const handleLogout = async () => {
         await mutation.mutateAsync({});
     };
@@ -62,11 +65,13 @@ const DropdownAccount = () => {
                 >
                     {dropdownAccount?.length > 0 && dropdownAccount.map(item => (
                         <Link key={item?.path} to={item?.path} onClick={(e) => e.stopPropagation()}>
-                            <Dropdown.Item>{item?.text ?? ''}</Dropdown.Item>
+                            <Dropdown.Item>
+                                {t(item.text)}
+                            </Dropdown.Item>
                         </Link>
                     ))}
                     <Dropdown.Divider />
-                    <Dropdown.Item onClick={handleLogout}>Đăng xuất</Dropdown.Item>
+                    <Dropdown.Item onClick={handleLogout}>{t('header.dropdown_account.logout')}</Dropdown.Item>
                 </Dropdown>
                 :
                 <Dropdown
@@ -91,11 +96,11 @@ const DropdownAccount = () => {
                 >
                     {dropdownRecruitment?.length > 0 && dropdownRecruitment.map(item => (
                         <Link key={item?.path} to={item?.path} onClick={(e) => e.stopPropagation()}>
-                            <Dropdown.Item>{item?.text ?? ''}</Dropdown.Item>
+                            <Dropdown.Item>{t(item.text)}</Dropdown.Item>
                         </Link>
                     ))}
                     <Dropdown.Divider />
-                    <Dropdown.Item onClick={handleLogout}>Đăng xuất</Dropdown.Item>
+                    <Dropdown.Item onClick={handleLogout}>{t('header.dropdown_account.logout')}</Dropdown.Item>
                 </Dropdown>
             }
         </>

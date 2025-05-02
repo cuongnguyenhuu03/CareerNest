@@ -7,8 +7,8 @@ import OnlineCV from '../../modules/account/overview/OnlineCV';
 import MyJob from '../../modules/account/overview/MyJob';
 
 const data = [
-    { text: "Trang chủ", path: path.HOME },
-    { text: "Tổng quan hồ sơ", path: "#" }
+    { text: localStorage.getItem('i18nextLng') === 'vi' ? "Trang chủ" : "Home", path: path.HOME },
+    { text: localStorage.getItem('i18nextLng') === 'vi' ? "Tổng quan hồ sơ" : "Overview profile", path: "#" }
 ]
 const OverviewPage = () => {
     const ref = useRef(null);

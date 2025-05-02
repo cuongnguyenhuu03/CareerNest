@@ -10,8 +10,10 @@ import { useDispatch } from 'react-redux';
 import { updateUserInfo } from "../../redux/slices/userSlice";
 import { useDetailUser } from "../../hooks/useDetailUer";
 import { message } from 'antd';
+import { useTranslation } from "react-i18next";
 
 export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
+    const { t } = useTranslation();
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -100,11 +102,13 @@ export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
             <Modal.Header className="dark:bg-slate-800" />
             <Modal.Body className="dark:bg-slate-800">
                 <form className="space-y-4" onSubmit={handleSubmit}>
-                    <h3 className="text-xl text-center font-medium text-gray-900 dark:text-white">Đăng nhập dành cho ứng viên</h3>
+                    <h3 className="text-xl text-center font-medium text-gray-900 dark:text-white">
+                        {t('login.login_title')}
+                    </h3>
 
                     {/* Input Email */}
                     <div>
-                        <Label htmlFor="email" value="Email" className="mb-1 block" />
+                        <Label htmlFor="email" value={t('login.email')} className="mb-1 block" />
                         <TextInput
                             id="email"
                             icon={HiMail}
@@ -118,7 +122,7 @@ export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
 
                     {/* Input Password */}
                     <div>
-                        <Label htmlFor="password" value="Mật khẩu" className="mb-1 block" />
+                        <Label htmlFor="password" value={t('login.password')} className="mb-1 block" />
                         <div className="relative">
                             <TextInput
                                 id="password"
@@ -144,23 +148,23 @@ export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
                     <div className="flex justify-between">
                         <div className="flex items-center gap-2">
                             <Checkbox id="remember" checked={formData.remember} onChange={handleChange} />
-                            <Label htmlFor="remember">Nhớ mật khẩu</Label>
+                            <Label htmlFor="remember">{t('login.remember_me')}</Label>
                         </div>
                         <Link to={path.FORGOT__PASSWORD} className="text-sm text-cyan-700 hover:underline dark:text-cyan-500">
-                            Quên mật khẩu?
+                            {t('login.forgot_password')}
                         </Link>
                     </div>
 
                     {/* Submit Button */}
                     <div className="w-full">
-                        <Button type="submit">Đăng nhập</Button>
+                        <Button type="submit"> {t('login.login_button')}</Button>
                     </div>
 
                     {/* Register Link */}
                     <div className="flex justify-between text-sm font-medium text-gray-500 dark:text-gray-300">
-                        Bạn chưa có tài khoản?&nbsp;
+                        {t('login.no_account')}?&nbsp;
                         <Link to={path.REGISTER__CANDIDATE} className="text-cyan-700 hover:underline dark:text-cyan-500">
-                            Đăng ký ngay
+                            {t('login.register_now')}
                         </Link>
                     </div>
                 </form>

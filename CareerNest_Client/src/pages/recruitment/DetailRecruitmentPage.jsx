@@ -19,13 +19,15 @@ import slugify from 'slugify';
 import ModalRecruitmentMatching from '../../modules/recruitment/ModalRecruitmentMatching';
 import { FiMessageSquare } from "react-icons/fi";
 import RecruitmentComment from '../../modules/recruitment/RecruitmentComment';
+import { useTranslation } from 'react-i18next';
 
 const { IoPeople, GrLocation, FaCircleInfo } = icons;
 const data = [
-    { text: "Trang chủ", path: path.HOME },
-    { text: "Nhà tuyển dụng", path: "#" }
+    { text: localStorage.getItem('i18nextLng') === 'vi' ? "Trang chủ" : "Home", path: path.HOME },
+    { text: localStorage.getItem('i18nextLng') === 'vi' ? "Nhà tuyển dụng" : "Recruiter", path: "#" }
 ]
 const DetailRecruitmentPage = () => {
+    const { t } = useTranslation();
 
     const navigate = useNavigate();
     const ref = useRef(null);
@@ -117,7 +119,7 @@ const DetailRecruitmentPage = () => {
                         className="absolute hidden sm:block top-2 right-2 z-10 pr-4 text-blue-800"
                         onClick={() => setOpenModal(true)}
                     >
-                        Phân tích văn hóa công ty
+                        {t('company_detail_page.analyze_company_culture')}
                         <span className="absolute animate-bounce top-0 right-0 mt-0 -mr-1 bg-red-500 text-white text-[10px] px-1 py-0.5 rounded-md shadow">
                             New
                         </span>
@@ -128,7 +130,7 @@ const DetailRecruitmentPage = () => {
                         className="absolute sm:hidden top-2 right-2 z-10 pr-4 text-blue-800"
                         onClick={() => setOpenModal(true)}
                     >
-                        Phân tích văn hóa công ty
+                        {t('company_detail_page.analyze_company_culture')}
                         <span className="absolute animate-bounce top-0 right-0 mt-0 -mr-1 bg-red-500 text-white text-[10px] px-1 py-0.5 rounded-md shadow">
                             New
                         </span>
@@ -152,7 +154,7 @@ const DetailRecruitmentPage = () => {
                     <div className='basis-3/5 flex flex-col gap-10'>
                         <div className='flex flex-col gap-4'>
                             <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
-                                1. Giới thiệu nhà tuyển dụng
+                                1.   {t('company_detail_page.introduction')}
                             </div>
                             <div className='text-justify text-sm px-3 job-description'>
                                 <div className='text-justify text-black dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailCompany?.description }}></div>
@@ -160,11 +162,13 @@ const DetailRecruitmentPage = () => {
                         </div>
                         <div className='flex flex-col gap-6'>
                             <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
-                                2. Việc làm đang tuyển dụng
+                                2.  {t('company_detail_page.current_job')}
                             </div>
                             <div className='w-full flex flex-col gap-y-4'>
                                 {jobsByCompany?.length <= 0 ?
-                                    <Badge color="gray" size="sm" className='w-fit uppercase'>Chưa có thông tin tuyển dụng nào</Badge>
+                                    <Badge color="gray" size="sm" className='w-fit uppercase'>
+                                        {localStorage.getItem('i18nextLng') === 'vi' ? "Chưa có thông tin tuyển dụng nào" : "No recruitment information yet."}
+                                    </Badge>
                                     :
                                     <>
                                         {
@@ -180,7 +184,7 @@ const DetailRecruitmentPage = () => {
                         </div>
                         <div className='flex flex-col gap-6'>
                             <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
-                                3. Đánh giá
+                                3. {t('company_detail_page.review')}
                             </div>
                             <RecruitmentComment
                                 companyId={detailCompany?.id ?? null}
@@ -188,7 +192,9 @@ const DetailRecruitmentPage = () => {
                         </div>
                     </div>
                     <div className='basis-2/5 flex flex-col gap-3'>
-                        <h1 className='flex items-center gap-2 md:text-base lg:text-lg font-medium uppercase dark:text-white'> <FaCircleInfo className='text-gray-500' size={15} /> Thông tin nhà tuyển dụng</h1>
+                        <h1 className='flex items-center gap-2 md:text-base lg:text-lg font-medium uppercase dark:text-white'> <FaCircleInfo className='text-gray-500' size={15} />
+                            {t('company_detail_page.information')}
+                        </h1>
                         <div className='flex gap-2 items-center'>
                             <CgWebsite className='text-[#23527c]' size={15} />
                             <span className='font-medium dark:text-white'> Website:</span> <a className='text-blue-600 hover:underline' target='blank' href={detailCompany?.website}>
@@ -197,11 +203,11 @@ const DetailRecruitmentPage = () => {
                         </div>
                         <div className='flex gap-2 items-center'>
                             <IoPeople className='text-[#23527c]' size={15} />
-                            <span className='font-medium dark:text-white'> Quy mô:</span> <span className='dark:text-gray-400'>{detailCompany?.size} nhân viên</span>
+                            <span className='font-medium dark:text-white'>  {t('company_detail_page.scale')}:</span> <span className='dark:text-gray-400'>{detailCompany?.size}  {t('company_detail_page.employees')}</span>
                         </div>
                         <div className='flex gap-2 items-center '>
                             <GrLocation className='text-[#23527c]' size={15} />
-                            <span className='font-medium dark:text-white'> Địa chỉ:</span> <span className='dark:text-gray-400'>{detailCompany?.address}</span>
+                            <span className='font-medium dark:text-white'> {t('company_detail_page.address')}:</span> <span className='dark:text-gray-400'>{detailCompany?.address}</span>
                         </div>
 
                         <Button
@@ -210,11 +216,11 @@ const DetailRecruitmentPage = () => {
                             className='mt-4 dark:bg-slate-800'
                         >
                             <FiMessageSquare className="text-lg mr-2" />
-                            Trò chuyện với nhà tuyển dụng
+                            {t('company_detail_page.chat_with_recruiter')}
                         </Button>
 
                         <h1 className='mt-6 flex items-center gap-2 text-lg font-medium uppercase dark:text-white'> <TbMapSearch className='text-gray-500' size={15} />
-                            Bản đồ
+                            {t('company_detail_page.maps')}
                         </h1>
                         <iframe className='w-full h-[300px] md:h-[400px]'
                             src={`https://maps.google.com/maps?q=${detailCompany?.address}&output=embed`}>
@@ -222,7 +228,9 @@ const DetailRecruitmentPage = () => {
 
                         {/* Clipboard */}
                         <Card className="w-full mt-8 dark:bg-slate-800 dark:shadow-lg">
-                            <h2 className="text-lg font-medium uppercase dark:text-white">Chia sẻ công ty tới bạn bè</h2>
+                            <h2 className="text-lg font-medium uppercase dark:text-white">
+                                {t('company_detail_page.share')}
+                            </h2>
 
                             <div className="flex items-center space-x-2">
                                 <TextInput
@@ -235,9 +243,14 @@ const DetailRecruitmentPage = () => {
                                     📋
                                 </Button>
                             </div>
-                            {copied && <p className="text-green-600 text-sm mt-1">Đã sao chép!</p>}
+                            {copied && <p className="text-green-600 text-sm mt-1">
+                                {localStorage.getItem('i18nextLng') === 'vi' ? "Đã sao chép" : "Copied!"}
+                            </p>}
 
-                            <p className="text-sm text-gray-500 mt-4 dark:text-gray-300">Chia sẻ qua mạng xã hội</p>
+                            <p className="text-sm text-gray-500 mt-4 dark:text-gray-300">
+                                {localStorage.getItem('i18nextLng') === 'vi' ? "Chia sẻ qua mạng xã hội" : "Share via social platform"}
+
+                            </p>
                             <div className="flex gap-4 text-xl">
                                 <a href="#" className="text-blue-600 border border-gray-200 rounded-full p-2 hover:scale-110 transition-transform"><FaFacebook size={30} /></a>
                                 <a href="#" className="text-blue-400 border border-gray-200 rounded-full p-2 hover:scale-110 transition-transform"><FaTwitter size={30} /></a>
@@ -250,7 +263,9 @@ const DetailRecruitmentPage = () => {
                 {/* Resonsive for Mobile */}
                 <div className='sm:hidden w-full flex flex-col px-2 mt-8'>
                     <div className='w-full flex flex-col gap-2 mb-8'>
-                        <h1 className='flex items-center gap-2 text-lg font-medium uppercase dark:text-white'> <FaCircleInfo className='text-gray-500' size={15} /> Thông tin nhà tuyển dụng</h1>
+                        <h1 className='flex items-center gap-2 text-lg font-medium uppercase dark:text-white'> <FaCircleInfo className='text-gray-500' size={15} />
+                            {t('company_detail_page.information')}
+                        </h1>
                         <div className='flex gap-2 items-center'>
                             <CgWebsite className='text-[#23527c]' size={15} />
                             <span className='font-medium dark:text-white'> Website:</span> <a className='text-blue-600 hover:underline' target='blank' href={detailCompany?.website}>
@@ -259,11 +274,11 @@ const DetailRecruitmentPage = () => {
                         </div>
                         <div className='flex gap-2 items-center'>
                             <IoPeople className='text-[#23527c]' size={15} />
-                            <span className='font-medium dark:text-white'> Quy mô:</span> <span className='dark:text-gray-400'>{detailCompany?.size} nhân viên</span>
+                            <span className='font-medium dark:text-white'>  {t('company_detail_page.scale')}:</span> <span className='dark:text-gray-400'>{detailCompany?.size}  {t('company_detail_page.employees')}</span>
                         </div>
                         <div className='flex gap-2 items-center '>
                             <GrLocation className='text-[#23527c]' size={15} />
-                            <span className='font-medium dark:text-white'> Địa chỉ:</span> <span className='dark:text-gray-400'>{detailCompany?.address}</span>
+                            <span className='font-medium dark:text-white'>  {t('company_detail_page.address')}:</span> <span className='dark:text-gray-400'>{detailCompany?.address}</span>
                         </div>
 
                         <Button
@@ -272,20 +287,50 @@ const DetailRecruitmentPage = () => {
                             className='mt-4'
                         >
                             <FiMessageSquare className="text-lg mr-2" />
-                            Trò chuyện với nhà tuyển dụng
+                            {t('company_detail_page.chat_with_recruiter')}
                         </Button>
 
                         <h1 className='mt-6 flex items-center gap-2 text-lg font-medium uppercase dark:text-white'> <TbMapSearch className='text-gray-500' size={15} />
-                            Bản đồ
+                            {t('company_detail_page.maps')}
                         </h1>
                         <iframe className='w-full h-[300px] md:h-[400px]'
                             src='https://maps.google.com/maps?q=15/4%20Đặng%20Lộ%20P7%20Q.Tân%20Bình,%20TP.HCM&output=embed'>
                         </iframe>
                     </div>
+                    <Card className="w-full my-8 dark:bg-slate-800 dark:shadow-lg">
+                        <h2 className="text-lg font-medium uppercase dark:text-white">
+                            {t('company_detail_page.share')}
+                        </h2>
+
+                        <div className="flex items-center space-x-2">
+                            <TextInput
+                                type="text"
+                                value={link}
+                                readOnly
+                                className="flex-1"
+                            />
+                            <Button onClick={handleCopy} color="light">
+                                📋
+                            </Button>
+                        </div>
+                        {copied && <p className="text-green-600 text-sm mt-1">
+                            {localStorage.getItem('i18nextLng') === 'vi' ? "Đã sao chép" : "Copied!"}
+                        </p>}
+
+                        <p className="text-sm text-gray-500 mt-4 dark:text-gray-300">
+                            {localStorage.getItem('i18nextLng') === 'vi' ? "Chia sẻ qua mạng xã hội" : "Share via social platform"}
+
+                        </p>
+                        <div className="flex gap-4 text-xl">
+                            <a href="#" className="text-blue-600 border border-gray-200 rounded-full p-2 hover:scale-110 transition-transform"><FaFacebook size={30} /></a>
+                            <a href="#" className="text-blue-400 border border-gray-200 rounded-full p-2 hover:scale-110 transition-transform"><FaTwitter size={30} /></a>
+                            <a href="#" className="text-blue-700 border border-gray-200 rounded-full p-2 hover:scale-110 transition-transform"><FaLinkedin size={30} /></a>
+                        </div>
+                    </Card>
                     <div className='flex flex-col gap-6'>
                         <div className='flex flex-col gap-4'>
                             <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
-                                1. Giới thiệu nhà tuyển dụng
+                                1.  {t('company_detail_page.introduction')}
                             </div>
                             <div className='text-justify text-sm px-0 xs:px-3'>
                                 <div className='text-justify text-black dark:text-gray-400  ' dangerouslySetInnerHTML={{ __html: detailCompany?.description }}></div>
@@ -293,11 +338,13 @@ const DetailRecruitmentPage = () => {
                         </div>
                         <div className='flex flex-col gap-6'>
                             <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
-                                2. Việc làm đang tuyển dụng
+                                2.  {t('company_detail_page.current_job')}
                             </div>
                             <div className='mt-3 w-full flex flex-col gap-y-4'>
                                 {jobsByCompany?.length <= 0 ?
-                                    <Badge color="gray" size="xs" className='w-fit uppercase tracking-wide'>Chưa có thông tin tuyển dụng nào</Badge>
+                                    <Badge color="gray" size="xs" className='w-fit uppercase tracking-wide'>
+                                        {localStorage.getItem('i18nextLng') === 'vi' ? "Chưa có thông tin tuyển dụng nào" : "No recruitment information yet."}
+                                    </Badge>
                                     :
                                     <>
                                         {
@@ -314,7 +361,7 @@ const DetailRecruitmentPage = () => {
                         </div>
                         <div className='flex flex-col gap-6'>
                             <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
-                                3. Đánh giá
+                                3.  {t('company_detail_page.review')}
                             </div>
                             <RecruitmentComment
                                 companyId={detailCompany?.id ?? null}

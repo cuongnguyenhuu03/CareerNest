@@ -8,15 +8,17 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { postCreateNewSubscriber } from '../../services/subcriberService';
 import { useSubscribers } from '../../hooks/useSubscribers';
-import { Link } from 'react-router-dom';
 import { Badge, Tooltip } from 'flowbite-react';
 import { MdDeleteOutline } from "react-icons/md";
+import { useTranslation } from 'react-i18next';
 
 const data = [
-    { text: "Trang chủ", path: path.HOME },
-    { text: "Nhận job qua mail", path: "#" }
+    { text: localStorage.getItem('i18nextLng') === 'vi' ? "Trang chủ" : "Home", path: path.HOME },
+    { text: localStorage.getItem('i18nextLng') === 'vi' ? "Nhận job qua mail" : "Get jobs via email", path: "#" }
 ]
 const JobViaEmail = () => {
+    const { t } = useTranslation();
+
     const user = useSelector(state => state?.user?.info);
 
     const ref = useRef(null);
@@ -52,11 +54,11 @@ const JobViaEmail = () => {
         try {
             let res = await postCreateNewSubscriber(data);
             if (res?.id) {
-                message.success("Đăng ký nhận job thành công.");
+                message.success(localStorage.getItem('i18nextLng') === 'vi' ? "Đăng ký nhận job thành công." : "Get jobs success");
                 selectedSkillsRef.current = [];
                 setResetKey(prev => prev + 1);  //reset giao diện `Select` cũng về rỗng:
             }
-            else toast.warning("Đăng ký nhận job không thành công!");
+            else toast.warning(localStorage.getItem('i18nextLng') === 'vi' ? "Đăng ký nhận job không thành công!" : "Get jobs failed");
         } catch (error) {
             console.log(error);
             toast.error(error?.message);
@@ -80,14 +82,18 @@ const JobViaEmail = () => {
                     )
                         :
                         <>
-                            <div className='text-base xs:text-lg sm:text-xl font-semibold text-slate-800 dark:text-white uppercase tracking-wider'>Kỹ năng đã đăng ký </div>
-                            <span className='text-xs xs:text-sm md:text-base dark:text-gray-400'>Đăng ký Job Robot để không bỏ lỡ việc làm phù hợp với kỹ năng của bạn.</span>
+                            <div className='text-base xs:text-lg sm:text-xl font-semibold text-slate-800 dark:text-white uppercase tracking-wider'>
+                                {t('job_via_email_page.title')}
+                            </div>
+                            <span className='text-xs xs:text-sm md:text-base dark:text-gray-400'>
+                                {t('job_via_email_page.subtitle')}
+                            </span>
                             <div className='hidden sm:flex items-center gap-x-4'>
                                 <Select
                                     key={resetKey}
                                     mode="multiple"
                                     style={{ width: '60%' }}
-                                    placeholder="Tìm kiếm kĩ năng, chức vụ"
+                                    placeholder={localStorage.getItem('i18nextLng') === 'vi' ? "Tìm kiếm kĩ năng, chức vụ" : "Search for skills, positions"}
                                     defaultValue={[]}
                                     onChange={handleChange}
                                     options={mapSkillsToOptions(resSkills?.data)}
@@ -115,7 +121,7 @@ const JobViaEmail = () => {
                                     ]}
                                 />
                                 <Button onClick={handleSubmit} type="primary" danger style={{ width: '10%' }} >
-                                    Đăng ký
+                                    {t('job_via_email_page.subscribe_button')}
                                 </Button>
                             </div>
                             <div className='sm:hidden flex flex-col gap-y-4'>
@@ -154,7 +160,7 @@ const JobViaEmail = () => {
                                     />
                                 </div>
                                 <Button onClick={handleSubmit} type="primary" size='large' danger style={{ width: '30%', margin: '0 auto' }} >
-                                    Đăng ký
+                                    {t('job_via_email_page.subscribe_button')}
                                 </Button>
                             </div>
 
@@ -166,16 +172,24 @@ const JobViaEmail = () => {
                                         ))}
                                     </div>
                                     <div className='hidden basis-1/3 xs:flex items-center gap-x-2 sm:gap-x-0 justify-start sm:justify-evenly'>
-                                        <Badge color="success" size='sm' className='hidden sm:block'>Đã đăng ký</Badge>
-                                        <Badge color="success" size='xs' className='sm:hidden block'>Đã đăng ký</Badge>
+                                        <Badge color="success" size='sm' className='hidden sm:block'>
+                                            {t('job_via_email_page.already_subscribed')}
+                                        </Badge>
+                                        <Badge color="success" size='xs' className='sm:hidden block'>
+                                            {t('job_via_email_page.already_subscribed')}
+                                        </Badge>
                                         <Tooltip content="Xóa" style="dark">
                                             <MdDeleteOutline size={25} className='hidden sm:block cursor-pointer dark:text-white' />
                                             <MdDeleteOutline size={20} className='sm:hidden block cursor-pointer dark:text-white' />
                                         </Tooltip>
                                     </div>
                                     <div className='xs:hidden basis-1/3 flex flex-col items-center gap-y-2'>
-                                        <Badge color="success" size='sm' className='hidden sm:block'>Đã đăng ký</Badge>
-                                        <Badge color="success" className='sm:hidden block'>Đã đăng ký</Badge>
+                                        <Badge color="success" size='sm' className='hidden sm:block'>
+                                            {t('job_via_email_page.already_subscribed')}
+                                        </Badge>
+                                        <Badge color="success" className='sm:hidden block'>
+                                            {t('job_via_email_page.already_subscribed')}
+                                        </Badge>
                                         <Tooltip content="Xóa" style="dark">
                                             <MdDeleteOutline size={25} className='hidden sm:block cursor-pointer dark:text-white' />
                                             <MdDeleteOutline size={20} className='sm:hidden block cursor-pointer dark:text-white' />

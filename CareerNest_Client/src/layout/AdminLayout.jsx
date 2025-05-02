@@ -62,7 +62,10 @@ const AdminLayout = () => {
         const ACL_ENABLE = import.meta.env.VITE_ACL_ENABLE;
         if (permissions?.length || ACL_ENABLE === 'false') {
             const full = [
-                { label: <Link to='/system/dashboard'>Dashboard</Link>, key: '/system/dashboard', icon: <AppstoreOutlined /> },
+                ...(user?.role?.id !== 2
+                    ? [{ label: <Link to='/system/dashboard'>Dashboard</Link>, key: '/system/dashboard', icon: <AppstoreOutlined /> }]
+                    : []
+                ),
                 ...(permissions?.some(item => item.apiPath === ALL_PERMISSIONS.COMPANIES.GET_PAGINATE.apiPath) || ACL_ENABLE === 'false'
                     ? [{ label: <Link to='/system/company'>Company</Link>, key: '/system/company', icon: <BankOutlined /> }]
                     : []
@@ -76,7 +79,9 @@ const AdminLayout = () => {
                     : []
                 ),
                 ...(permissions?.some(item => item.apiPath === ALL_PERMISSIONS.JOBS.GET_PAGINATE.apiPath) || ACL_ENABLE === 'false'
-                    ? [{ label: <Link to='/system/skill'>Skill</Link>, key: '/system/skill', icon: <ScheduleOutlined /> }]
+                    ? (user?.role?.id !== 2
+                        ? [{ label: <Link to='/system/skill'>Skill</Link>, key: '/system/skill', icon: <ScheduleOutlined /> }]
+                        : [])
                     : []
                 ),
                 ...(permissions?.some(item => item.apiPath === ALL_PERMISSIONS.RESUMES.GET_PAGINATE.apiPath) || ACL_ENABLE === 'false'

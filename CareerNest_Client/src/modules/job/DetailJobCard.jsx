@@ -12,8 +12,11 @@ import { postSaveJob } from '../../services/userService';
 import { toast } from 'react-toastify';
 import { useDetailUser } from '../../hooks/useDetailUer';
 import ModalApplyCV from '../../modules/cv/ModalApplyCV';
+import { useTranslation } from 'react-i18next';
 
 const DetailJobCard = forwardRef(({ job = {} }, ref) => {
+    const { t } = useTranslation();
+
     const user = useSelector(state => state?.user?.info);
     const { refetch } = useDetailUser(user?.id);
     const [isOpenModal, setOpenModal] = useState(false);
@@ -104,9 +107,11 @@ const DetailJobCard = forwardRef(({ job = {} }, ref) => {
                         className="w-full bg-red-500 hover:bg-red-600 hover:transition-colors text-white font-semibold py-2 rounded-lg mt-4"
                         onClick={handleApplyJob}
                     >
-                        Ứng tuyển
+                        {t('detail_job_card.apply_button')}
                     </button>
-                    : <Badge className='uppercase text-base w-fit' color="failure" size='sm' >Đã hết hạn ứng tuyển</Badge>
+                    : <Badge className='uppercase text-base w-fit' color="failure" size='sm' >
+                        {t('detail_job_card.expired')}
+                    </Badge>
                 }
 
 
@@ -119,10 +124,13 @@ const DetailJobCard = forwardRef(({ job = {} }, ref) => {
                             📍 <span>{job?.company?.address}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            🏢 <span>Tại văn phòng</span>
+                            🏢 <span>{t('detail_job_card.at_office')}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            ⏳ <span>{convertTimeStampToString(job?.startDate)}</span>
+                            ⏳ <span>
+                                {convertTimeStampToString(job?.startDate)}
+                                {t('detail_job_card.created_time')}
+                            </span>
                         </div>
                         <div className="flex flex-wrap gap-2 mt-2">
                             {job?.skills?.map(skill => (
@@ -133,17 +141,17 @@ const DetailJobCard = forwardRef(({ job = {} }, ref) => {
 
                     {/* description */}
                     <div className="mt-6">
-                        <h3 className="font-bold text-[#ee4d2d] mb-2">1. Mô tả công việc</h3>
+                        <h3 className="font-bold text-[#ee4d2d] mb-2">1.  {t('detail_job_card.description')}</h3>
                         <div className='text-black text-justify text-wrap dark:text-gray-400' dangerouslySetInnerHTML={{ __html: job?.description }}></div>
                     </div>
                     {/* requirements */}
                     <div className="mt-6">
-                        <h3 className="font-bold text-[#ee4d2d] mb-2">2. Yêu cầu công việc</h3>
+                        <h3 className="font-bold text-[#ee4d2d] mb-2">2.  {t('detail_job_card.requirements')}</h3>
                         <div className='text-black text-justify text-wrap dark:text-gray-400' dangerouslySetInnerHTML={{ __html: job?.requirements }}></div>
                     </div>
                     {/* benefits */}
                     <div className="mt-6">
-                        <h3 className="font-bold text-[#ee4d2d] mb-2">3. Phúc lợi</h3>
+                        <h3 className="font-bold text-[#ee4d2d] mb-2">3.  {t('detail_job_card.benefits')}</h3>
                         <div className='text-black text-justify text-wrap dark:text-gray-400' dangerouslySetInnerHTML={{ __html: job?.benefits }}></div>
                     </div>
 

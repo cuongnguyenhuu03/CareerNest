@@ -9,6 +9,7 @@ import { convertTimeStampToString } from '../../utils/convertTimeStampToString';
 import { getDetailJob } from '../../services/jobService';
 import { path } from '../../utils/constant';
 import { getFirebaseImageUrl } from '../../utils/getFirebaseImageURL';
+import { useTranslation } from 'react-i18next';
 
 const { FaMoneyCheckDollar, FaRegBuilding, GrLocation, GrNetworkDrive, FaRegCalendarAlt, HiCheckCircle, FaHeart } = icons;
 
@@ -16,7 +17,8 @@ const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false
     const location = useLocation();
     const navigate = useNavigate();
     const [isOpenModal, setOpenModal] = useState(false);
-    const queryClient = useQueryClient()
+    const queryClient = useQueryClient();
+    const { t } = useTranslation();
 
     const handlePrefetchJob = (id) => {
         if (!id) return;
@@ -46,14 +48,21 @@ const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false
     const isExpired = (date) => new Date(date * 1000) < new Date();
 
     const getDaysUntilExpiration = (endDate) => {
-        if (!endDate) return "Không xác định";
+        if (!endDate)
+            return localStorage.getItem('i18nextLng') === 'vi' ? "Không xác định" : "Undefined";
         const now = new Date();
         now.setHours(0, 0, 0, 0);
         const end = new Date(endDate * 1000);
         end.setHours(0, 0, 0, 0);
 
         const days = (end - now) / 86400000;
-        return days > 0 ? `Hết hạn trong ${days} ngày tới` : "Đã hết hạn";
+        return days > 0
+            ? localStorage.getItem('i18nextLng') === 'vi'
+                ? `Hết hạn trong ${days} ngày tới`
+                : `Expires in ${days} days left`
+            : localStorage.getItem('i18nextLng') === 'vi'
+                ? 'Đã hết hạn'
+                : 'Expired';
     };
 
 
@@ -122,12 +131,14 @@ const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false
                                         <div className='flex items-center justify-between'>
                                             {isApplied ?
                                                 <Badge icon={HiCheckCircle} color="success" size="sm">
-                                                    Đã ứng tuyển
+                                                    {t('job_card.already_apply_button')}
                                                 </Badge>
                                                 :
                                                 <>
                                                     {!isExpired(data?.endDate) ?
-                                                        <Button gradientDuoTone="pinkToOrange" onClick={() => setOpenModal(true)}>Ứng tuyển</Button>
+                                                        <Button gradientDuoTone="pinkToOrange" onClick={() => setOpenModal(true)}>
+                                                            {t('job_card.apply_button')}
+                                                        </Button>
                                                         : <div></div>
                                                     }
                                                 </>
@@ -141,17 +152,19 @@ const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false
                                 <div className='sm:hidden mb-4'>
                                     <div className='flex flex-col gap-y-2'>
                                         <div className='flex gap-x-2'>
-                                            <span className='text-[10px] xs:text-xs md:text-sm text-orange-600'>(Hết hạn trong 10 ngày)</span>
+                                            <span className='text-[10px] xs:text-xs md:text-sm text-orange-600'>
+                                                {getDaysUntilExpiration(data?.endDate)}
+                                            </span>
                                         </div>
                                         <div className='flex items-center gap-x-4'>
                                             {isApplied ?
                                                 <Badge icon={HiCheckCircle} color="success" size="xs">
-                                                    Đã ứng tuyển
+                                                    {t('job_card.already_apply_button')}
                                                 </Badge>
                                                 : <Button size='xs' gradientDuoTone="pinkToOrange"
                                                     onClick={() => setOpenModal(true)}
                                                 >
-                                                    Ứng tuyển
+                                                    {t('job_card.apply_button')}
                                                 </Button>
                                             }
                                             <Tooltip content="Đã lưu" style="dark">
@@ -185,14 +198,14 @@ const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false
                         }
                     </div>
                     <div className='flex gap-2 items-center text-xs md:text-sm font-light dark:text-gray-400'>
-                        <FaRegCalendarAlt /> {convertTimeStampToString(data?.createdAt)}
+                        <FaRegCalendarAlt /> {convertTimeStampToString(data?.createdAt)} {t('job_card.created_time')}
                     </div>
                     <div className='flex mb-6 gap-2 text-orange-600 items-center text-xs md:text-sm font-light'>
-                        <FaMoneyCheckDollar /> Lương: {data?.salary} $
+                        <FaMoneyCheckDollar /> {t('job_card.salary')}: {data?.salary} $
                     </div>
                     <div className='flex gap-2 items-center text-xs md:text-sm font-light dark:text-gray-400'>
                         {isExpired(data?.endDate)
-                            ? <Badge color="failure" size='sm' >Đã hết hạn ứng tuyển</Badge>
+                            ? <Badge color="failure" size='sm' >{t('job_card.expired')}</Badge>
                             : <><GrNetworkDrive /> {getJobType(data?.jobType)} </>
                         }
                     </div>

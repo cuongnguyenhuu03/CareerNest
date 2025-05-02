@@ -10,8 +10,11 @@ import { useFilterJobs } from '../../hooks/useFilterJobs';
 import FindJobCard from '../../modules/job/FindJobCard';
 import DetailJobCard from '../../modules/job/DetailJobCard';
 import { GrPowerReset } from "react-icons/gr";
+import { useTranslation } from 'react-i18next';
 
 const FindJobPage = () => {
+    const { t } = useTranslation();
+
     const ref = useRef(null);
     const params = useParams();
 
@@ -67,8 +70,6 @@ const FindJobPage = () => {
         detailRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [setSelectedJob]);
 
-    console.log(selectedSalary)
-
     if (!params?.name && !params?.location) return null;
     if (error) return null;
     if (listJobs?.length <= 0)
@@ -77,7 +78,7 @@ const FindJobPage = () => {
                 <div className="hidden mb-6 w-full md:flex items-center justify-between rounded-md shadow-md dark:shadow-lg p-4 dark:bg-gray-700">
                     <div className='flex items-center gap-4'>
                         {/* Cấp bậc */}
-                        <Dropdown label="Cấp bậc" color='light' className="border-gray-300">
+                        <Dropdown label={t('find_job_page.filter_section.level')} color='light' className="border-gray-300">
                             <div className="p-2 w-32 lg:w-40">
                                 {["INTERN", "FRESHER", "JUNIOR", "MIDDLE", "SENIOR"].map((level) => (
                                     <label key={level} className="flex items-center gap-2 p-1">
@@ -95,7 +96,7 @@ const FindJobPage = () => {
 
                         {/* Hình thức làm việc */}
                         <Select className="w-44 lg:w-48 rounded-full border-gray-300">
-                            <option>Hình thức làm việc</option>
+                            <option>{t('find_job_page.filter_section.work_type')}</option>
                             <option>Full-time</option>
                             <option>Part-time</option>
                             <option>Freelance</option>
@@ -107,7 +108,7 @@ const FindJobPage = () => {
                             value={selectedSalary}
                             onChange={(e) => setSelectedSalary(e.target.value)}
                         >
-                            <option value="">Mức lương</option>
+                            <option value="">{t('find_job_page.filter_section.salary')}</option>
                             <option value="under-1000-$">Dưới 1000$</option>
                             <option value="1000-1500-$">Từ 1000 - 1500$</option>
                             <option value="1500-2000-$">Từ 1500-2000$</option>
@@ -150,16 +151,16 @@ const FindJobPage = () => {
         <>
             <div ref={ref} className='ct-container flex flex-col gap-y-6'>
                 <div className='font-semibold text-lg md:text-2xl tracking-wide dark:text-white upper'>
-                    {meta?.total ?? ''} việc làm <span className='text-red-500'>{params?.name} </span>
+                    {meta?.total ?? ''} {localStorage.getItem('i18nextLng') === 'vi' ? " việc làm" : " Jobs"} <span className='text-red-500'>{params?.name} </span>
                     {selectedLevels?.length > 0 &&
-                        <span>dành cho <span className='text-red-500 text-xl'>{selectedLevels.toString()}</span> </span>
+                        <span>{localStorage.getItem('i18nextLng') === 'vi' ? " dành cho" : " for"} <span className='text-red-500 text-xl'>{selectedLevels.toString()}</span> </span>
                     }
-                    tại <span className='text-blue-500'>{selectedLocations[0] !== '' ? selectedLocations[0] : "Việt Nam"}</span>
+                    {localStorage.getItem('i18nextLng') === 'vi' ? " tại" : " in"} <span className='text-blue-500'>{selectedLocations[0] !== '' ? selectedLocations[0] : "Việt Nam"}</span>
                 </div>
                 <div className="hidden mb-6 w-full md:flex items-center justify-between rounded-md shadow-md dark:shadow-lg p-4 dark:bg-slate-800">
                     <div className='flex items-center gap-4'>
                         {/* Cấp bậc */}
-                        <Dropdown label="Cấp bậc" color='light' className="border-gray-300">
+                        <Dropdown label={t('find_job_page.filter_section.level')} color='light' className="border-gray-300">
                             <div className="p-2 w-32 lg:w-40">
                                 {["INTERN", "FRESHER", "JUNIOR", "MIDDLE", "SENIOR"].map((level) => (
                                     <label key={level} className="flex items-center gap-2 p-1">
@@ -177,7 +178,7 @@ const FindJobPage = () => {
 
                         {/* Hình thức làm việc */}
                         <Select className="w-44 lg:w-48 rounded-full border-gray-300">
-                            <option>Hình thức làm việc</option>
+                            <option>{t('find_job_page.filter_section.work_type')}</option>
                             <option>Full-time</option>
                             <option>Part-time</option>
                             <option>Contract</option>
@@ -189,7 +190,7 @@ const FindJobPage = () => {
                             value={selectedSalary}
                             onChange={(e) => setSelectedSalary(e.target.value)}
                         >
-                            <option value="">Mức lương</option>
+                            <option value="">{t('find_job_page.filter_section.salary')}</option>
                             <option value="under-1000-$">Dưới 1000$</option>
                             <option value="1000-1500-$">Từ 1000 - 1500$</option>
                             <option value="1500-2000-$">Từ 1500-2000$</option>

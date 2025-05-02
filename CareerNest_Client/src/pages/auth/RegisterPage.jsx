@@ -4,8 +4,11 @@ import { useState } from "react";
 import { useMutation } from '@tanstack/react-query';
 import { postRegister } from "../../services/userService";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const RegisterPage = () => {
+    const { t } = useTranslation();
+
     const [form, setForm] = useState({
         fullName: "",
         email: "",
@@ -77,11 +80,11 @@ const RegisterPage = () => {
                 <div className="w-full max-h-[85vh] overflow-y-auto bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                            Đăng ký tài khoản mới
+                            {t("register.register_title")}
                         </h1>
                         <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
                             <div>
-                                <label htmlFor="fullName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Họ và tên</label>
+                                <label htmlFor="fullName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> {t("register.full_name")}</label>
                                 <input
                                     type="text"
                                     name="fullName"
@@ -93,7 +96,7 @@ const RegisterPage = () => {
                                 {errors.fullName && <p className="text-red-500 text-sm">{errors.fullName}</p>}
                             </div>
                             <div>
-                                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{t("register.email")}</label>
                                 <input
                                     type="email"
                                     name="email"
@@ -106,7 +109,7 @@ const RegisterPage = () => {
                                 {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
                             </div>
                             <div>
-                                <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mật khẩu</label>
+                                <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> {t("register.password")}</label>
                                 <input
                                     type="password"
                                     name="password"
@@ -119,7 +122,7 @@ const RegisterPage = () => {
                                 {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
                             </div>
                             <div>
-                                <label htmlFor="confirm-password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Xác nhận mật khẩu</label>
+                                <label htmlFor="confirm-password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{t("register.confirm_password")}</label>
                                 <input
                                     type="password"
                                     name="confirmPassword"
@@ -139,12 +142,12 @@ const RegisterPage = () => {
                                     onChange={handleChange}
                                     className="mr-2"
                                 />
-                                <span className="dark:text-gray-400">Tôi đồng ý với <Link to="#">Điều khoản</Link></span>
+                                <span className="dark:text-gray-400"> {t("register.agree_terms")} <Link to="#">{t("register.terms")}</Link></span>
                                 {errors.terms && <p className="text-red-500 text-sm">{errors.terms}</p>}
                             </div>
-                            <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Tạo tài khoản</button>
+                            <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"> {t("register.register_button")}</button>
                             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                                Bạn đã có tài khoản? <Link to={path.HOME} className="font-medium text-primary-600 hover:underline dark:text-primary-500">Quay về trang chủ để đăng nhập</Link>
+                                {t("register.already_have_account")}{" "} <Link to={path.HOME} className="font-medium text-primary-600 hover:underline dark:text-primary-500">{t("register.back_to_login")}</Link>
                             </p>
                         </form>
                     </div>

@@ -9,8 +9,8 @@ export const convertTimeStampToString = (timestamp, isShowTime = false) => {
     const diffInDays = diffInTime / (1000 * 60 * 60 * 24); // Chuyển đổi sự khác biệt thành số ngày
 
     if (diffInDays < 1) {
-        return 'Hôm nay';
+        return localStorage.getItem("i18nextLng") === 'vi' ? 'Hôm nay' : 'Today';
     } else {
-        return `${Math.floor(diffInDays)} ngày trước`;
+        return `${Math.floor(diffInDays)}`;
     }
 };

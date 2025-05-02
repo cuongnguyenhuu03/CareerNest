@@ -1,7 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
+    const { t } = useTranslation();
+    const itemsAbout = t("footer.about.items", { returnObjects: true });
+    const itemsServices = t("footer.services.items", { returnObjects: true });
+    const itemsCareer = t("footer.career.items", { returnObjects: true });
+
     return (
         <footer className="w-full antialiased border-t dark:border-gray-800 border-gray-200 dark:bg-slate-900">
             <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
@@ -9,65 +15,56 @@ const Footer = () => {
                     <div className="items-start gap-6 md:gap-8 lg:flex 2xl:gap-24">
                         <div className="grid min-w-0 flex-1 grid-cols-2 gap-6 md:gap-8 xl:grid-cols-3">
                             <div>
-                                <h6 className="mb-4 text-sm font-semibold uppercase text-gray-900 dark:text-white">Về CareerNest</h6>
+                                <h6 className="mb-4 text-sm font-semibold uppercase text-gray-900 dark:text-white">
+                                    {t('footer.about.title')}
+                                </h6>
                                 <ul className="space-y-3">
-                                    <li>
-                                        <a href="#" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"> Giới thiệu </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"> Liên hệ hợp tác </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"> Điều khoản dịch vụ </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"> Chính sách bảo mật </a>
-                                    </li>
-
+                                    {itemsAbout.map((item, index) => (
+                                        <li key={index}>
+                                            <a
+                                                href="#"
+                                                className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                                            >
+                                                {item}
+                                            </a>
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
                             <div>
-                                <h6 className="mb-4 text-sm font-semibold uppercase text-gray-900 dark:text-white">Dịch vụ</h6>
+                                <h6 className="mb-4 text-sm font-semibold uppercase text-gray-900 dark:text-white"> {t('footer.services.title')}</h6>
                                 <ul className="space-y-3">
-                                    <li>
-                                        <a href="#" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Quản lý CV</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Tìm kiếm việc làm</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Bí quyết tìm việc</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Tuyển dụng nhân sự</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Review CV</a>
-                                    </li>
+                                    {itemsServices.map((item, index) => (
+                                        <li key={index}>
+                                            <a
+                                                href="#"
+                                                className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                                            >
+                                                {item}
+                                            </a>
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
                             <div>
-                                <h6 className="mb-4 text-sm font-semibold uppercase text-gray-900 dark:text-white">Xây dựng sự nghiệp</h6>
+                                <h6 className="mb-4 text-sm font-semibold uppercase text-gray-900 dark:text-white">
+                                    {t('footer.career.title')}
+                                </h6>
                                 <ul className="space-y-3">
-                                    <li>
-                                        <a href="#" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Việc làm tốt nhất</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Việc làm lương cao</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Việc làm IT</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Việc làm Senior</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Việc làm bán thời gian</a>
-                                    </li>
+                                    {itemsCareer.map((item, index) => (
+                                        <li key={index}>
+                                            <a
+                                                href="#"
+                                                className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                                            >
+                                                {item}
+                                            </a>
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
                             <div>
-                                <h6 className="mb-4 text-sm font-semibold uppercase text-gray-900 dark:text-white">Liên hệ</h6>
+                                <h6 className="mb-4 text-sm font-semibold uppercase text-gray-900 dark:text-white">{t('footer.contact.title')}</h6>
                                 <ul className="space-y-3">
                                     <li>
                                         <span className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
@@ -87,7 +84,7 @@ const Footer = () => {
                                 <form action="#">
                                     <div className="items-end space-y-4 sm:flex sm:space-y-0">
                                         <div className="relative mr-3 w-full sm:w-96 lg:w-full">
-                                            <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300"> Đăng ký nhận thông tin qua mail </label>
+                                            <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">{t('footer.newsletter.title')} </label>
                                             <input className="block outline-none w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500 sm:w-96 lg:w-full" placeholder="Enter your email address" type="email" id="email" required />
                                         </div>
                                         <div>
@@ -97,7 +94,7 @@ const Footer = () => {
                                 </form>
                                 <hr className="border-gray-200 dark:border-gray-600" />
                                 <div>
-                                    <p className="mb-3 text-sm font-medium text-gray-900 dark:text-white">Tải ứng dụng qua nền tảng </p>
+                                    <p className="mb-3 text-sm font-medium text-gray-900 dark:text-white">{t('footer.app_download.title')} </p>
                                     <div className="gap-4 space-y-4 sm:flex sm:space-y-0">
                                         <a href="#" className="inline-flex w-full items-center justify-center rounded-lg bg-gray-800 px-4 py-2.5 text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500 dark:focus:ring-gray-800 sm:w-auto">
                                             <svg className="mr-3 h-7 w-7" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google-play" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

@@ -11,8 +11,11 @@ import { useComments } from '../../hooks/useComments';
 import CompanyCardSkeleton from '../../components/skeleton/CompanyCardSkeleton';
 import { format } from 'date-fns';
 import RatingCard from './Ratingcard';
+import { useTranslation } from 'react-i18next';
 
 const RecruitmentComment = ({ companyId = null }) => {
+    const { t } = useTranslation();
+
     const user = useSelector(state => state?.user?.info);
     const [rating, setRating] = useState(0);
     const [hover, setHover] = useState(0);
@@ -78,7 +81,9 @@ const RecruitmentComment = ({ companyId = null }) => {
     return (
         <div className="w-full flex flex-col gap-4">
             {dataComments?.length <= 0 ?
-                <Badge color="gray" size="sm" className='w-fit uppercase'>Chưa có bài đánh giá nào.</Badge>
+                <Badge color="gray" size="sm" className='w-fit uppercase'>
+                    {t('company_detail_page.empty_review')}
+                </Badge>
                 : <RatingCard companyId={companyId} />
             }
 
@@ -107,7 +112,7 @@ const RecruitmentComment = ({ companyId = null }) => {
 
                 {/* Submit button */}
                 <Button onClick={handleSubmitComment} className="w-fit mt-2" disabled={rating === 0}>
-                    Gửi đánh giá
+                    {t('company_detail_page.review_button')}
                 </Button>
             </div>
 
@@ -125,7 +130,7 @@ const RecruitmentComment = ({ companyId = null }) => {
                                             rounded
                                             className='mr-3'
                                         />
-                                        Người đăng ẩn danh {index + 1}
+                                        {localStorage.getItem('i18nextLng') === 'vi' ? "Người đăng ẩn danh " : "Anonymous user "} {index + 1}
                                     </p>
                                     <div className='flex items-center gap-4'>
                                         <p className="text-xs text-gray-600 dark:text-gray-400">
@@ -150,7 +155,7 @@ const RecruitmentComment = ({ companyId = null }) => {
                                     <svg className="mr-1.5 w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                                         <path d="M18 0H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h2v4a1 1 0 0 0 1.707.707L10.414 13H18a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5 4h2a1 1 0 1 1 0 2h-2a1 1 0 1 1 0-2ZM5 4h5a1 1 0 1 1 0 2H5a1 1 0 0 1 0-2Zm2 5H5a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Zm9 0h-6a1 1 0 0 1 0-2h6a1 1 0 1 1 0 2Z" />
                                     </svg>
-                                    Phản hồi
+                                    {localStorage.getItem('i18nextLng') === 'vi' ? "Phản hồi" : "Reply"}
                                 </button>
                             </div>
                         </article>

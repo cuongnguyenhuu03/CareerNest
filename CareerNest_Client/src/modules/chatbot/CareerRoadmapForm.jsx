@@ -2,10 +2,13 @@ import React, { useRef, useState } from 'react';
 import { FiMic } from 'react-icons/fi';
 import { askGemini } from './gemini';
 import { Spinner } from 'flowbite-react';
+import { useTranslation } from 'react-i18next';
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
 export default function CareerRoadmapForm() {
+    const { t } = useTranslation();
+
     const [isLoading, setIsLoading] = useState(false);
     const [answerFromAI, setAnswerFromAI] = useState("");
 
@@ -151,26 +154,28 @@ export default function CareerRoadmapForm() {
         <>
             {!answerFromAI ?
                 <div className="max-w-3xl mx-auto p-6 bg-white rounded-xl shadow-md space-y-6 mt-10">
-                    <h2 className="text-xl font-bold text-center text-slate-800 uppercase">Thông tin tư vấn lộ trình</h2>
+                    <h2 className="text-xl font-bold text-center text-slate-800 uppercase">
+                        {t('roadmap_by_ai_page.form.title')}
+                    </h2>
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div>
-                            <label className="block font-medium mb-1">Trình độ học vấn:</label>
+                            <label className="block font-medium mb-1">{t('roadmap_by_ai_page.form.education')}</label>
                             <select ref={educationRef} className="w-full border rounded-md p-2">
-                                <option value="">-- Chọn trình độ --</option>
+                                <option value="">-- {localStorage.getItem('i18nextLng') === 'vi' ? "Chọn trình độ" : "Select level"} --</option>
                                 <option value="Cao đẳng">Cao đẳng</option>
                                 <option value="Đại học">Đại học</option>
                                 <option value="Thạc sĩ">Thạc sĩ</option>
                             </select>
                         </div>
 
-                        {renderTextareaWithMic('Kỹ năng hiện có:', skillsRef, 'VD: ReactJS, SQL, ...', 'skills')}
-                        {renderTextareaWithMic('Kinh nghiệm làm việc:', experienceRef, 'VD: 2 năm làm Frontend...', 'experience')}
-                        {renderTextareaWithMic('Sở thích & đam mê:', interestRef, 'VD: Phát triển web, giáo dục...', 'interest')}
-                        {renderTextareaWithMic('Mục tiêu nghề nghiệp:', goalRef, 'VD: Fullstack Developer, lương $2000...', 'goal')}
+                        {renderTextareaWithMic(t('roadmap_by_ai_page.form.skills'), skillsRef, 'VD: ReactJS, SQL, ...', 'skills')}
+                        {renderTextareaWithMic(t('roadmap_by_ai_page.form.work_expe'), experienceRef, localStorage.getItem('i18nextLng') === 'vi' ? 'VD: 2 năm làm Frontend...' : "ex: 2 years in FrontEnd...", 'experience')}
+                        {renderTextareaWithMic(t('roadmap_by_ai_page.form.hobby'), interestRef, localStorage.getItem('i18nextLng') === 'vi' ? 'VD: Phát triển web, giáo dục...' : "ex: Web development, education...", 'interest')}
+                        {renderTextareaWithMic(t('roadmap_by_ai_page.form.career_objective'), goalRef, 'VD: Fullstack Developer, lương $2000...', 'goal')}
 
                         <div className="text-center">
                             <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition">
-                                Gửi tư vấn
+                                {t('roadmap_by_ai_page.form.submit')}
                             </button>
                         </div>
                     </form>
@@ -190,7 +195,7 @@ export default function CareerRoadmapForm() {
                                     <h3 className="text-base font-semibold text-justify text-gray-900 dark:text-white before:mb-2 before:block before:font-mono before:text-sm before:text-gray-500">
                                         {item?.name}
                                     </h3>
-                                    <span className='text-red-500 font-medium'>Thời gian: {item?.duration}</span>
+                                    <span className='text-red-500 font-medium'>{localStorage.getItem('i18nextLng') === 'vi' ? "Thời gian" : "Time"}: {item?.duration}</span>
                                     <h4 className="mt-2 text-base text-gray-700 dark:text-gray-400 text-justify">
                                         {
                                             extractDetails(item?.description)?.length > 0 && (

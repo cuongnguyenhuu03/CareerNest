@@ -62,7 +62,8 @@ const RatingCard = ({ companyId = null }) => {
                             <Rate disabled defaultValue={getAverageRating(res?.result)} />
                         </div>
                         <div className="text-md text-gray-600 dark:text-gray-300 mt-2 font-medium text-center">
-                            {res?.meta?.total} đánh giá
+                            {res?.meta?.total} {localStorage.getItem('i18nextLng') === 'vi' ? " đánh giá" : " reviews"}
+
                         </div>
                     </div>
 
@@ -91,7 +92,7 @@ const RatingCard = ({ companyId = null }) => {
                     className="w-fit p-3 mx-auto mt-3 text-blue-800"
                     onClick={() => setOpenModal(true)}
                 >
-                    AI đánh giá chi tiết công ty
+                    {localStorage.getItem('i18nextLng') === 'vi' ? "AI đánh giá công ty" : "Evaluate company by AI"}
                     <span className="absolute animate-bounce top-0 right-0 mt-0 -mr-1 bg-red-500 text-white text-[10px] px-1 py-0.5 rounded-md shadow">
                         New
                     </span>
