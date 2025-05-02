@@ -6,11 +6,13 @@ import { Link } from 'react-router-dom';
 import { path } from '../../../utils/constant';
 import { useSelector } from 'react-redux';
 import { getFirebaseImageUrl } from '../../../utils/getFirebaseImageURL';
+import { useTranslation } from 'react-i18next';
 
 const { CiMail, MdOutlineSubtitles } = icons;
 
 const ShortInfo = () => {
     const user = useSelector(state => state?.user?.info);
+    const { t } = useTranslation();
 
     if (!user?.id) return null;
     return (
@@ -29,7 +31,7 @@ const ShortInfo = () => {
                     <span className='font-medium'> {user?.email}</span>
                 </div>
                 <Link to={`${path.ACCOUNT}/profile`} className='flex items-center text-blue-600'>
-                    Chi tiết hồ sơ <MdKeyboardDoubleArrowRight size={18} />
+                    {t('overview_page.short_info.detail')} <MdKeyboardDoubleArrowRight size={18} />
                 </Link>
             </div>
         </div>

@@ -7,12 +7,15 @@ import { Avatar } from 'flowbite-react';
 import { useSelector } from 'react-redux';
 import { convertMillisecondsToString } from '../../utils/convertMiliSecondsToString';
 import { getFirebaseImageUrl } from '../../utils/getFirebaseImageURL';
+import { useTranslation } from 'react-i18next';
 
 const data = [
-    { text: "Trang chủ", path: path.HOME },
-    { text: "Tài khoản", path: "#" }
+    { text: localStorage.getItem('i18nextLng') === 'vi' ? "Trang chủ" : "Home", path: path.HOME },
+    { text: localStorage.getItem('i18nextLng') === 'vi' ? "Tài khoản" : "Account", path: "#" }
 ]
 const ProfilePage = () => {
+    const { t } = useTranslation();
+
     const user = useSelector(state => state?.user?.info);
     const ref = useRef(null);
     const [isOpenModal, setOpenModal] = useState(false);
@@ -65,15 +68,21 @@ const ProfilePage = () => {
                     <div className="mx-auto max-w-screen-lg px-4 2xl:px-0">
                         <Breadcrumbs data={data} />
                         <div className='flex items-center justify-between mb-4'>
-                            <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Thông tin tài khoản</h2>
-                            <span onClick={() => setOpenChangePasswordModal(true)} className=' text-xs xs:text-sm text-gray-500 cursor-pointer hover:underline hover:transition-all'>Đổi mật khẩu</span>
+                            <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">
+                                {t('profile_page.title')}
+                            </h2>
+                            <span onClick={() => setOpenChangePasswordModal(true)} className=' text-xs xs:text-sm text-gray-500 cursor-pointer hover:underline hover:transition-all'>
+                                {t('profile_page.change_password')}
+                            </span>
                         </div>
                         <div className="grid grid-cols-2 gap-3 xs:gap-6 border-b border-t border-gray-200 py-4 dark:border-gray-700 md:py-8 lg:grid-cols-4 xl:gap-16">
                             <div>
                                 <svg className="mb-2 h-6 w-6 xs:h-8 xs:w-8 text-gray-400 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width={24} height={24} fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" strokeWidth={2} d="M11.083 5.104c.35-.8 1.485-.8 1.834 0l1.752 4.022a1 1 0 0 0 .84.597l4.463.342c.9.069 1.255 1.2.556 1.771l-3.33 2.723a1 1 0 0 0-.337 1.016l1.03 4.119c.214.858-.71 1.552-1.474 1.106l-3.913-2.281a1 1 0 0 0-1.008 0L7.583 20.8c-.764.446-1.688-.248-1.474-1.106l1.03-4.119A1 1 0 0 0 6.8 14.56l-3.33-2.723c-.698-.571-.342-1.702.557-1.771l4.462-.342a1 1 0 0 0 .84-.597l1.753-4.022Z" />
                                 </svg>
-                                <h3 className="mb-2 text-gray-500 dark:text-gray-400">Việc làm đã ứng tuyển</h3>
+                                <h3 className="mb-2 text-gray-500 dark:text-gray-400">
+                                    {t('profile_page.applied_jobs')}
+                                </h3>
                                 <span className="flex items-center text-2xl font-bold text-gray-900 dark:text-white">
                                     0
                                 </span>
@@ -82,7 +91,9 @@ const ProfilePage = () => {
                                 <svg className="mb-2 h-6 w-6 xs:h-8 xs:w-8 text-gray-400 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width={24} height={24} fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z" />
                                 </svg>
-                                <h3 className="mb-2 text-gray-500 dark:text-gray-400">Việc làm đã lưu</h3>
+                                <h3 className="mb-2 text-gray-500 dark:text-gray-400">
+                                    {t('profile_page.saved_jobs')}
+                                </h3>
                                 <span className="flex items-center text-2xl font-bold text-gray-900 dark:text-white">
                                     {user?.saveJob?.length ?? 0}
                                 </span>
@@ -99,11 +110,11 @@ const ProfilePage = () => {
                                         </div>
                                     </div>
                                     <dl className>
-                                        <dt className="font-semibold text-gray-900 dark:text-white">Địa chỉ Email</dt>
+                                        <dt className="font-semibold text-gray-900 dark:text-white">{t('profile_page.email')}</dt>
                                         <dd className="text-gray-500 dark:text-gray-400">{user?.email}</dd>
                                     </dl>
                                     <dl>
-                                        <dt className="font-semibold text-gray-900 dark:text-white">Địa chỉ nơi ở</dt>
+                                        <dt className="font-semibold text-gray-900 dark:text-white">{t('profile_page.address')}</dt>
                                         <dd className="flex items-center gap-1 text-gray-500 dark:text-gray-400">
                                             <svg className="hidden h-5 w-5 shrink-0 text-gray-400 dark:text-gray-500 lg:inline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width={24} height={24} fill="none" viewBox="0 0 24 24">
                                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5" />
@@ -112,7 +123,7 @@ const ProfilePage = () => {
                                         </dd>
                                     </dl>
                                     <dl>
-                                        <dt className="font-semibold text-gray-900 dark:text-white">Giới tính</dt>
+                                        <dt className="font-semibold text-gray-900 dark:text-white">{t('profile_page.gender')}</dt>
                                         <dd className="flex items-center gap-1 text-gray-500 dark:text-gray-400">
                                             {user?.gender === 'MALE' ? 'Nam' : "Nữ"}
                                         </dd>
@@ -120,11 +131,11 @@ const ProfilePage = () => {
                                 </div>
                                 <div className="space-y-4">
                                     <dl>
-                                        <dt className="font-semibold text-gray-900 dark:text-white">Số điện thoại</dt>
+                                        <dt className="font-semibold text-gray-900 dark:text-white">{t('profile_page.phone')}</dt>
                                         <dd className="text-gray-500 dark:text-gray-400">{user?.phoneNumber ?? 'Chưa có dữ liệu'}</dd>
                                     </dl>
                                     <dl>
-                                        <dt className="font-semibold text-gray-900 dark:text-white">Ngày sinh</dt>
+                                        <dt className="font-semibold text-gray-900 dark:text-white">{t('profile_page.dob')}</dt>
                                         <dd className="flex items-center gap-1 text-gray-500 dark:text-gray-400">
                                             {user?.dateOfBirth ? convertMillisecondsToString(user.dateOfBirth) : 'Chưa có dữ liệu'}
                                         </dd>
@@ -150,7 +161,7 @@ const ProfilePage = () => {
                                 <svg className="-ms-0.5 me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width={24} height={24} fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
                                 </svg>
-                                Sửa thông tin
+                                {t('profile_page.edit_button')}
                             </button>
                         </div>
                     </div>

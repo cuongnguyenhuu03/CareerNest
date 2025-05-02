@@ -12,8 +12,11 @@ import { message } from "antd";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { path } from "../../utils/constant";
+import { useTranslation } from 'react-i18next';
 
 const FormCreateCV = () => {
+    const { t } = useTranslation();
+
     const navigate = useNavigate();
     const containerRef = useRef(null);
     const user = useSelector(state => state?.user?.info);
@@ -157,7 +160,7 @@ const FormCreateCV = () => {
                 {/* Input Fields */}
                 <div className="col-span-2 sm:col-span-1">
                     <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-                        Tên hồ sơ
+                        {t('cv_create_page.cv_title')}
                     </label>
                     <input
                         type="text"
@@ -180,7 +183,8 @@ const FormCreateCV = () => {
 
                 <div className="col-span-2 sm:col-span-1">
                     <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-                        Họ và tên
+                        {t('cv_create_page.full_name')}
+
                     </label>
                     <input
                         readOnly
@@ -192,7 +196,7 @@ const FormCreateCV = () => {
 
                 <div className="col-span-2 sm:col-span-1">
                     <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-                        Số điện thoại
+                        {t('cv_create_page.phone')}
                     </label>
                     <input
                         readOnly
@@ -203,7 +207,10 @@ const FormCreateCV = () => {
                 </div>
 
                 <div className="col-span-2 sm:col-span-1">
-                    <label htmlFor="birthDay_info_modal" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Ngày sinh </label>
+                    <label htmlFor="birthDay_info_modal" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+                        {t('cv_create_page.dob')}
+
+                    </label>
                     <Datepicker
                         key={user?.dateOfBirth}
                         value={user?.dateOfBirth}
@@ -214,7 +221,7 @@ const FormCreateCV = () => {
                 </div>
 
                 <div className="col-span-2 sm:col-span-1">
-                    <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Địa chỉ </label>
+                    <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">  {t('cv_create_page.address')} </label>
                     <input
                         type='text'
                         defaultValue={user?.address ?? ''}
@@ -225,7 +232,7 @@ const FormCreateCV = () => {
 
                 {/* Select Fields */}
                 <div className="col-span-2 sm:col-span-1">
-                    <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Kỹ năng </label>
+                    <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">  {t('cv_create_page.skills')} </label>
                     <ProFormSelect
                         rules={[{ required: true, message: 'Vui lòng không bỏ trống' }]}
                         placeholder="Chọn chuyên môn"
@@ -246,10 +253,10 @@ const FormCreateCV = () => {
 
                 {/* ReactQuill Fields */}
                 {[
-                    { label: "Giới thiệu", field: "summary" },
-                    { label: "Ngoại ngữ", field: "languages" },
-                    { label: "Học vấn", field: "educations" },
-                    { label: "Chứng chỉ đạt được", field: "certifications" },
+                    { label: t('cv_create_page.description'), field: "summary" },
+                    { label: t('cv_create_page.language'), field: "languages" },
+                    { label: t('cv_create_page.education'), field: "educations" },
+                    { label: t('cv_create_page.certificate'), field: "certifications" },
                 ].map(({ label, field }) => (
                     <div key={field} className="col-span-2 mb-8">
                         <label className="mb-2 block text-sm font-semibold text-gray-900 dark:text-white">
@@ -265,9 +272,9 @@ const FormCreateCV = () => {
 
                 {/* Kinh nghiệm làm việc */}
                 <label className="mb-2 block text-sm font-semibold text-gray-900 dark:text-white col-span-2">
-                    Kinh nghiệm làm việc
+                    {t('cv_create_page.work_experience')}
                     <Button className="mt-3" size="xs" color="light" onClick={handleAddWorkExperience}>
-                        + Thêm kinh nghiệm
+                        + {t('cv_create_page.work_expe_button')}
                     </Button>
                 </label>
 
@@ -275,7 +282,9 @@ const FormCreateCV = () => {
                 {formRef.current.workExperiences.map((exp, index) => (
                     <React.Fragment key={index}>
                         <div className="col-span-2 sm:col-span-1">
-                            <label className="block text-sm font-medium text-gray-900 dark:text-white">Tên công ty</label>
+                            <label className="block text-sm font-medium text-gray-900 dark:text-white">
+                                {t('cv_create_page.work_expe.company_name')}
+                            </label>
                             <input
                                 placeholder="Nhập tên công ty làm việc"
                                 type="text"
@@ -285,7 +294,9 @@ const FormCreateCV = () => {
                         </div>
 
                         <div className="col-span-2 sm:col-span-1">
-                            <label className="block text-sm font-medium text-gray-900 dark:text-white">Địa chỉ</label>
+                            <label className="block text-sm font-medium text-gray-900 dark:text-white">
+                                {t('cv_create_page.work_expe.address')}
+                            </label>
                             <input
                                 type="text"
                                 className="outline-none block w-full dark:bg-slate-800 dark:text-white rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
@@ -294,7 +305,9 @@ const FormCreateCV = () => {
                         </div>
 
                         <div className="col-span-2 sm:col-span-1">
-                            <label className="block text-sm font-medium text-gray-900 dark:text-white">Ngày bắt đầu</label>
+                            <label className="block text-sm font-medium text-gray-900 dark:text-white">
+                                {t('cv_create_page.work_expe.start_date')}
+                            </label>
                             <input
                                 type="date"
                                 className="outline-none dark:bg-slate-800 dark:text-white block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
@@ -303,7 +316,9 @@ const FormCreateCV = () => {
                         </div>
 
                         <div className="col-span-2 sm:col-span-1">
-                            <label className="block text-sm font-medium text-gray-900 dark:text-white">Ngày kết thúc</label>
+                            <label className="block text-sm font-medium text-gray-900 dark:text-white">
+                                {t('cv_create_page.work_expe.end_date')}
+                            </label>
                             <input
                                 type="date"
                                 className="outline-none dark:bg-slate-800 dark:text-white block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
@@ -312,7 +327,9 @@ const FormCreateCV = () => {
                         </div>
 
                         <div className="col-span-2 mb-10">
-                            <label className="block text-sm font-medium text-gray-900 dark:text-white">Mô tả công việc</label>
+                            <label className="block text-sm font-medium text-gray-900 dark:text-white">
+                                {t('cv_create_page.work_expe.job_description')}
+                            </label>
                             <ReactQuill
                                 theme="snow"
                                 className="h-[200px] custom-quill-editor dark:text-white dark:font-medium"
@@ -328,16 +345,16 @@ const FormCreateCV = () => {
             <div className="text-right border-t border-gray-200 pt-4 dark:border-gray-700 md:pt-5 mt-14">
                 <Button
                     loading={mutationResumeOnline.isPending || mutationWorkExpe.isPending}
-                    className="me-2 inline-flex items-center rounded-lg bg-primary-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-800"
+                    className="me-2 inline-flex items-center rounded-lg bg-primary-700 px-4 py-1 text-center text-sm font-medium text-white hover:bg-primary-800"
                     onClick={handleSubmit}
                 >
-                    Tạo CV
+                    {localStorage.getItem('i18nextLng') === 'vi' ? "Tạo CV" : "Create CV"}
                 </Button>
                 <button
                     type="button"
                     className="me-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100"
                 >
-                    Hủy
+                    {localStorage.getItem('i18nextLng') === 'vi' ? "Hủy" : "Cancel"}
                 </button>
             </div>
         </div>

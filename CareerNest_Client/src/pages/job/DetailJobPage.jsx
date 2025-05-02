@@ -24,14 +24,17 @@ import { RiRobot2Line } from "react-icons/ri";
 import ModalJobMatching from '../../modules/job/ModalJobMatching';
 import { motion, AnimatePresence } from 'framer-motion';
 import ModalApplyCV from '../../modules/cv/ModalApplyCV';
+import { useTranslation } from 'react-i18next';
 
 const { FaRegBuilding, FaMoneyCheckDollar, IoMdTime, IoPeople, GrLocation, FaCircleInfo, HiCheckCircle, FaHeart } = icons;
 const data = [
-    { text: "Trang chủ", path: path.HOME },
-    { text: "Chi tiết công việc", path: "#" }
+    { text: localStorage.getItem('i18nextLng') === 'vi' ? "Trang chủ" : "Home", path: path.HOME },
+    { text: localStorage.getItem('i18nextLng') === 'vi' ? "Chi tiết công việc" : "Job Detail", path: "#" }
 ]
 
 const DetailJobPage = () => {
+    const { t } = useTranslation();
+
     const user = useSelector(state => state?.user?.info);
     const { refetch } = useDetailUser(user?.id);
 
@@ -193,25 +196,27 @@ const DetailJobPage = () => {
                             </div>
                             <div className='flex order-1 md:order-2 items-center gap-4'>
                                 {isExpired(detailJob?.endDate)
-                                    ? <Badge color="failure" size='sm' className='uppercase'>Đã hết hạn ứng tuyển</Badge>
+                                    ? <Badge color="failure" size='sm' className='uppercase'>
+                                        {localStorage.getItem('i18nextLng') === 'vi' ? "Hết hạn ứng tuyển" : "Expired"}
+                                    </Badge>
                                     :
                                     <>
                                         <Button size='xs' className="block sm:hidden" gradientDuoTone="pinkToOrange" onClick={handleApplyJob}>
-                                            Ứng tuyển
+                                            {t('job_detail_page.apply_button')}
                                         </Button>
                                         <Button size='sm' className="hidden sm:block" gradientDuoTone="pinkToOrange" onClick={handleApplyJob}>
-                                            Ứng tuyển
+                                            {t('job_detail_page.apply_button')}
                                         </Button>
 
                                         <Button size='xs' className="block sm:hidden" gradientDuoTone="pinkToOrange"
                                             onClick={!checkIsSavedJob(params?.id, user?.saveJob) ? handleSaveJob : () => { message.warning("Bạn đã lưu tin tuyển dụng này") }}>
                                             <FaHeart size={18} className='mr-2' />
-                                            {checkIsSavedJob(params?.id, user?.saveJob) ? 'Đã lưu' : 'Lưu tin'}
+                                            {checkIsSavedJob(params?.id, user?.saveJob) ? t('job_detail_page.already_saved_button') : t('job_detail_page.save_button')}
                                         </Button>
                                         <Button size='sm' className="hidden sm:block" gradientDuoTone="pinkToOrange"
                                             onClick={!checkIsSavedJob(params?.id, user?.saveJob) ? handleSaveJob : () => { message.warning("Bạn đã lưu tin tuyển dụng này") }}>
                                             <FaHeart size={18} className='mr-2' />
-                                            {checkIsSavedJob(params?.id, user?.saveJob) ? 'Đã lưu' : 'Lưu tin'}
+                                            {checkIsSavedJob(params?.id, user?.saveJob) ? t('job_detail_page.already_saved_button') : t('job_detail_page.save_button')}
                                         </Button>
                                     </>
                                 }
@@ -257,13 +262,13 @@ const DetailJobPage = () => {
                                                 </div>
                                                 <div className="flex gap-2 px-2">
                                                     <button className="flex-1 rounded-full bg-blue-600 dark:bg-blue-800 text-white dark:text-white antialiased font-bold hover:bg-blue-800 dark:hover:bg-blue-900 px-4 py-2">
-                                                        Theo dõi
+                                                        {t('job_detail_page.follow')}
                                                     </button>
                                                     <button
                                                         className="flex-1 rounded-full border-2 border-gray-400 dark:border-gray-700 font-semibold text-black dark:text-white px-4 py-2"
                                                         onClick={() => navigate(`${path.RECRUITMENT}/detail/${detailJob?.company?.id}/${slugify(detailJob?.company?.name, { lower: true, strict: true })}`)}
                                                     >
-                                                        Nhắn tin
+                                                        {t('job_detail_page.message')}
                                                     </button>
                                                 </div>
                                             </div>
@@ -275,11 +280,11 @@ const DetailJobPage = () => {
                             </AnimatePresence>
                         }
                         <div className='flex gap-2 text-orange-600 items-center text-xs md:text-sm font-light'>
-                            <FaMoneyCheckDollar /> Lương: {detailJob?.salary}$
+                            <FaMoneyCheckDollar /> {t('job_detail_page.salary')}: {detailJob?.salary}$
                         </div>
                         {detailJob?.skills?.length > 0 &&
                             <div className="flex flex-wrap mb-6 gap-2 items-center text-xs md:text-sm font-light dark:text-white dark:tracking-wide">
-                                <SiHyperskill color='gray' /> Kĩ năng:
+                                <SiHyperskill color='gray' /> {t('job_detail_page.skills')}:
                                 {detailJob.skills.map((skill) => (
                                     <span key={skill?.id}
                                         className="bg-gray-200 text-slate-800 px-3 py-1 rounded-full border border-gray-300 text-xs cursor-pointer hover:transition-all hover:bg-red-500 hover:text-white"
@@ -291,13 +296,13 @@ const DetailJobPage = () => {
                             </div>
                         }
                         <div className='flex gap-2 items-center text-xs md:text-sm font-light dark:text-white dark:tracking-wide'>
-                            <IoMdTime /> Hạn nộp: {convertTimeStampToString(detailJob?.endDate, true)}
+                            <IoMdTime /> {t('job_detail_page.deadline')}: {convertTimeStampToString(detailJob?.endDate, true)}
                         </div>
                         <Tooltip content="Kiểm tra độ phù hợp với công việc" placement="right">
                             <div className="relative inline-block">
                                 <Button onClick={() => setOpenModal(true)} color="light" className="mt-2 pr-3">
                                     <RiRobot2Line className="mr-2 h-5 w-5" />
-                                    Tư vấn bởi AI
+                                    {t('job_detail_page.consult_ai_button')}
                                 </Button>
                                 <span className="absolute animate-bounce top-0 right-0 mt-1 -mr-1 bg-red-500 text-white text-[10px] px-1 py-0.5 rounded-full shadow">
                                     New
@@ -311,7 +316,7 @@ const DetailJobPage = () => {
 
                 <div className='hidden w-full sm:flex gap-6'>
                     <div className='basis-2/5 h-fit rounded-lg flex flex-col gap-3 bg-[#ebeeef] p-4 dark:bg-slate-800'>
-                        <h1 className='flex items-center gap-2 text-lg font-medium dark:text-white'> <FaCircleInfo className='text-gray-500 ' size={15} /> Nhà tuyển dụng:</h1>
+                        <h1 className='flex items-center gap-2 text-lg font-medium dark:text-white'> <FaCircleInfo className='text-gray-500 ' size={15} /> {t('job_detail_page.recruiter')}</h1>
                         <div className='flex gap-2 text-base font-semibold text-[#23527c] dark:text-blue-500 cursor-pointer hover:underline'
                             onClick={() => navigate(`${path.RECRUITMENT}/detail/${detailJob?.company?.id}/${slugify(detailJob?.company?.name, { lower: true, strict: true })}`)}
                             onMouseEnter={() => handlePrefetchRecruitment(+detailJob?.company?.id)}
@@ -324,45 +329,45 @@ const DetailJobPage = () => {
                         </div>
                         <div className='flex gap-2 items-center'>
                             <IoPeople className='text-[#23527c]' size={15} />
-                            <span className='font-medium dark:text-white'> Quy mô:</span> <span className='dark:text-white dark:font-light'>{detailJob?.company?.size}  nhân viên</span>
+                            <span className='font-medium dark:text-white'> {t('job_detail_page.scale')}</span> <span className='dark:text-white dark:font-light'>{detailJob?.company?.size}  {t('job_detail_page.employees')}</span>
                         </div>
                         <div className='flex gap-2 items-center '>
                             <GrLocation className='text-[#23527c]' size={15} />
-                            <span className='font-medium dark:text-white'> Địa chỉ:</span> <span className='dark:text-white dark:font-light'>{detailJob?.company?.address}</span>
+                            <span className='font-medium dark:text-white'> {t('job_detail_page.address')}</span> <span className='dark:text-white dark:font-light'>{detailJob?.company?.address}</span>
                         </div>
                     </div>
                     <div className='basis-3/5 flex flex-col gap-3 dark:text-white'>
-                        <h1 className='uppercase text-lg sm:text-xl font-semibold'>Chi tiết công việc</h1>
+                        <h1 className='uppercase text-lg sm:text-xl font-semibold'>{t('job_detail_page.description')}</h1>
                         <div>
                             <List ordered className='flex flex-col gap-6'>
                                 <List.Item className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
-                                    Thông tin tuyển dụng
+                                    {t('job_detail_page.information')}
                                     <List nested className='text-black text-sm font-normal'>
-                                        <List.Item icon={HiCheckCircle} >Mức lương: {detailJob?.salary}$</List.Item>
-                                        <List.Item icon={HiCheckCircle} >Hình thức làm việc: Remote - Làm việc từ xa.</List.Item>
-                                        <List.Item icon={HiCheckCircle} >Giới tính: Nam.</List.Item>
-                                        <List.Item icon={HiCheckCircle} >Số lượng tuyển: {detailJob?.quantity}.</List.Item>
-                                        <List.Item icon={HiCheckCircle} >Cấp bậc: {detailJob?.level}.</List.Item>
-                                        <List.Item icon={HiCheckCircle} >Địa điểm làm việc: {detailJob?.location}</List.Item>
+                                        <List.Item icon={HiCheckCircle} >{t('job_detail_page.salary')}: {detailJob?.salary}$</List.Item>
+                                        <List.Item icon={HiCheckCircle} >{localStorage.getItem('i18nextLng') === 'vi' ? "Hình thức làm việc" : "Work type"}: {detailJob?.jobType}</List.Item>
+                                        <List.Item icon={HiCheckCircle} >{localStorage.getItem('i18nextLng') === 'vi' ? "Giới tính" : "Gender"}: Nam.</List.Item>
+                                        <List.Item icon={HiCheckCircle} >{localStorage.getItem('i18nextLng') === 'vi' ? "Số lượng" : "Quantity"}: {detailJob?.quantity}.</List.Item>
+                                        <List.Item icon={HiCheckCircle} >{localStorage.getItem('i18nextLng') === 'vi' ? "Cấp bậc" : "Level"}: {detailJob?.level}.</List.Item>
+                                        <List.Item icon={HiCheckCircle} >{localStorage.getItem('i18nextLng') === 'vi' ? "Địa điểm" : "Location"}: {detailJob?.location}</List.Item>
                                     </List>
                                 </List.Item>
                                 <div className='flex flex-col job-description'>
                                     <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
-                                        2. Mô tả công việc
+                                        2. {t('job_detail_page.job_detail')}
                                     </div>
                                     <div className='text-black text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.description }}></div>
                                 </div>
 
                                 <div className='flex flex-col'>
                                     <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
-                                        3. Yêu cầu ứng viên
+                                        3. {t('job_detail_page.requirements')}
                                     </div>
                                     <div className='text-black text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.requirements?.replace(/\*/g, '<br>•') }}></div>
                                 </div>
 
                                 <div className='flex flex-col'>
                                     <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
-                                        4. Phúc lợi
+                                        4. {t('job_detail_page.benefits')}
                                     </div>
                                     <div className='text-black text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.benefits?.replace(/\*/g, '<br>•') }}></div>
                                 </div>
@@ -373,7 +378,7 @@ const DetailJobPage = () => {
 
                 <div className='w-full sm:hidden flex flex-col gap-6'>
                     <div className='h-fit rounded-lg flex flex-col gap-3 bg-[#ebeeef] p-4 dark:bg-slate-800'>
-                        <h1 className='flex items-center gap-2 text-lg font-medium dark:text-white'> <FaCircleInfo className='text-gray-500' size={15} /> Nhà tuyển dụng:</h1>
+                        <h1 className='flex items-center gap-2 text-lg font-medium dark:text-white'> <FaCircleInfo className='text-gray-500' size={15} /> {t('job_detail_page.recruiter')}:</h1>
                         <div className='flex gap-2 text-base font-semibold text-[#23527c] dark:text-blue-500 cursor-pointer hover:underline'
                             onClick={() => navigate(`${path.RECRUITMENT}/detail/${detailJob?.company?.id}/${slugify(detailJob?.company?.name, { lower: true, strict: true })}`)}
                             onMouseEnter={() => handlePrefetchRecruitment(+detailJob?.company?.id)}
@@ -386,32 +391,31 @@ const DetailJobPage = () => {
                         </div>
                         <div className='flex gap-2 items-center'>
                             <IoPeople className='text-[#23527c]' size={15} />
-                            <span className='font-medium dark:text-white'> Quy mô:</span> <span className='dark:text-gray-400'>{detailJob?.company?.size} nhân viên</span>
+                            <span className='font-medium dark:text-white'> {t('job_detail_page.scale')}:</span> <span className='dark:text-gray-400'>{detailJob?.company?.size} {t('job_detail_page.employees')}</span>
                         </div>
                         <div className='flex gap-2 items-center '>
                             <GrLocation className='text-[#23527c]' size={15} />
-                            <span className='font-medium dark:text-white'> Địa chỉ:</span> <span className='dark:text-gray-400'>{detailJob?.company?.address}</span>
+                            <span className='font-medium dark:text-white'> {t('job_detail_page.address')}:</span> <span className='dark:text-gray-400'>{detailJob?.company?.address}</span>
                         </div>
                     </div>
                     <div className='flex flex-col gap-3'>
-                        <h1 className='uppercase text-lg sm:text-xl font-semibold dark:text-white'>Chi tiết công việc</h1>
+                        <h1 className='uppercase text-lg sm:text-xl font-semibold dark:text-white'>{t('job_detail_page.description')}</h1>
                         <div>
                             <List ordered className='flex flex-col gap-6'>
                                 <List.Item className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
-                                    Thông tin tuyển dụng
+                                    {t('job_detail_page.information')}
                                     <List nested className='text-black text-sm font-normal'>
-                                        <List.Item icon={HiCheckCircle} >Mức lương: {detailJob?.salary}$</List.Item>
-                                        <List.Item icon={HiCheckCircle} >Hình thức làm việc: Remote - Làm việc từ xa.</List.Item>
-                                        <List.Item icon={HiCheckCircle} >Giới tính: Nam.</List.Item>
-                                        <List.Item icon={HiCheckCircle} >Số lượng tuyển: {detailJob?.quantity}.</List.Item>
-                                        <List.Item icon={HiCheckCircle} >Cấp bậc: {detailJob?.level}.</List.Item>
-                                        <List.Item icon={HiCheckCircle} >Địa điểm làm việc: {detailJob?.location}</List.Item>
-
+                                        <List.Item icon={HiCheckCircle} >{t('job_detail_page.salary')}: {detailJob?.salary}$</List.Item>
+                                        <List.Item icon={HiCheckCircle} >{localStorage.getItem('i18nextLng') === 'vi' ? "Hình thức làm việc" : "Work type"}: {detailJob?.jobType}</List.Item>
+                                        <List.Item icon={HiCheckCircle} >{localStorage.getItem('i18nextLng') === 'vi' ? "Giới tính" : "Gender"}: Nam.</List.Item>
+                                        <List.Item icon={HiCheckCircle} >{localStorage.getItem('i18nextLng') === 'vi' ? "Số lượng" : "Quantity"}: {detailJob?.quantity}.</List.Item>
+                                        <List.Item icon={HiCheckCircle} >{localStorage.getItem('i18nextLng') === 'vi' ? "Cấp bậc" : "Level"}: {detailJob?.level}.</List.Item>
+                                        <List.Item icon={HiCheckCircle} >{localStorage.getItem('i18nextLng') === 'vi' ? "Địa điểm" : "Location"}: {detailJob?.location}</List.Item>
                                     </List>
                                 </List.Item>
                                 <div className='flex flex-col job-description'>
                                     <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
-                                        2. Mô tả công việc
+                                        2. {t('job_detail_page.job_detail')}
                                     </div>
                                     <div className='text-black text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.description?.replace(/\*/g, '<br>•') }}></div>
 
@@ -419,14 +423,14 @@ const DetailJobPage = () => {
 
                                 <div className='flex flex-col'>
                                     <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
-                                        3. Yêu cầu ứng viên
+                                        3. {t('job_detail_page.requirements')}
                                     </div>
                                     <div className='text-black text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.requirements?.replace(/\*/g, '<br>•') }}></div>
                                 </div>
 
                                 <div className='flex flex-col'>
                                     <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
-                                        4. Phúc lợi
+                                        4. {t('job_detail_page.benefits')}
                                     </div>
                                     <div className='text-black text-justify dark:text-gray-400' dangerouslySetInnerHTML={{ __html: detailJob?.benefits?.replace(/\*/g, '<br>•') }}></div>
                                 </div>

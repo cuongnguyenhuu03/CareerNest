@@ -9,8 +9,11 @@ import { useDetailUser } from '../../hooks/useDetailUer';
 import useFirebaseImage from "../../hooks/useFireBaseImage";
 import ImageUpload from '../../components/image/ImageUpload';
 import { getFirebaseImageUrl } from '../../utils/getFirebaseImageURL';
+import { useTranslation } from 'react-i18next';
 
 const UpdateAccount = ({ isOpen = false, setOpenModal = () => { } }) => {
+    const { t } = useTranslation();
+
     const user = useSelector(state => state?.user?.info);
     const { refetch } = useDetailUser(user?.id);
 
@@ -95,7 +98,9 @@ const UpdateAccount = ({ isOpen = false, setOpenModal = () => { } }) => {
                                 </div>
                             </div>
                             <div className="col-span-2 sm:col-span-1">
-                                <label htmlFor="full_name_info_modal" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Họ và tên </label>
+                                <label htmlFor="full_name_info_modal" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+                                    {t('profile_page.update_account_form.fullName')}
+                                </label>
                                 <input
                                     type="text"
                                     defaultValue={`${user?.lastName} ${user?.firstName}` || ''}
@@ -107,7 +112,9 @@ const UpdateAccount = ({ isOpen = false, setOpenModal = () => { } }) => {
                                 />
                             </div>
                             <div className="col-span-2 sm:col-span-1">
-                                <label htmlFor="email_info_modal" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Email </label>
+                                <label htmlFor="email_info_modal" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+                                    {t('profile_page.update_account_form.email')}
+                                </label>
                                 <input
                                     type="text"
                                     readOnly
@@ -120,7 +127,9 @@ const UpdateAccount = ({ isOpen = false, setOpenModal = () => { } }) => {
                                 <input type="text" id="title_info_modal" className="outline-none block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="ex: Business Analysist" required />
                             </div> */}
                             <div className="col-span-2 sm:col-span-1">
-                                <label htmlFor="birthDay_info_modal" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Ngày sinh </label>
+                                <label htmlFor="birthDay_info_modal" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+                                    {t('profile_page.update_account_form.dob')}
+                                </label>
                                 <Datepicker
                                     value={dob}
                                     onChange={(date) => setDOB(date)}
@@ -129,7 +138,9 @@ const UpdateAccount = ({ isOpen = false, setOpenModal = () => { } }) => {
                                 />
                             </div>
                             <div className="col-span-2 sm:col-span-1">
-                                <label htmlFor="gender_info_modal" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Giới tính </label>
+                                <label htmlFor="gender_info_modal" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+                                    {t('profile_page.update_account_form.gender')}
+                                </label>
                                 <Select
                                     id="gender_info_modal"
                                     defaultValue={user?.gender || 'FEMALE'}
@@ -141,7 +152,9 @@ const UpdateAccount = ({ isOpen = false, setOpenModal = () => { } }) => {
                                 </Select>
                             </div>
                             <div className="col-span-2">
-                                <label htmlFor="phone-input_billing_modal" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Số điện thoại </label>
+                                <label htmlFor="phone-input_billing_modal" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+                                    {t('profile_page.update_account_form.phone')}
+                                </label>
                                 <div className="flex items-center">
                                     <button id="dropdown_phone_input__button_billing_modal" data-dropdown-toggle="dropdown_phone_input_billing_modal" className="z-10 inline-flex shrink-0 items-center rounded-s-lg border border-gray-300 bg-gray-100 px-4 py-2.5 text-center text-sm font-medium text-gray-900 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-700" type="button">
                                         <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" className="h-4 w-4 mr-2" preserveAspectRatio="xMidYMid meet"><circle cx={32} cy={32} r={30} fill="#f42f4c" /><path fill="#ffe62e" d="M32 39l9.9 7l-3.7-11.4l9.8-7.4H35.8L32 16l-3.7 11.2H16l9.8 7.4L22.1 46z" /></svg>
@@ -158,7 +171,9 @@ const UpdateAccount = ({ isOpen = false, setOpenModal = () => { } }) => {
                                 </div>
                             </div>
                             <div className="col-span-2">
-                                <label htmlFor="address_billing_modal" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Địa chỉ </label>
+                                <label htmlFor="address_billing_modal" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+                                    {t('profile_page.update_account_form.address')}
+                                </label>
                                 <input
                                     type='text'
                                     id="address_billing_modal"
@@ -169,14 +184,16 @@ const UpdateAccount = ({ isOpen = false, setOpenModal = () => { } }) => {
                             </div>
                             <div className="col-span-2 sm:col-span-1">
                                 <div className="mb-2 flex items-center gap-2">
-                                    <label htmlFor="select_city_input_billing_modal" className="block text-sm font-medium text-gray-900 dark:text-white"> Tỉnh thành </label>
+                                    <label htmlFor="select_city_input_billing_modal" className="block text-sm font-medium text-gray-900 dark:text-white">
+                                        {t('profile_page.update_account_form.province')}
+                                    </label>
                                 </div>
                                 <select
                                     id="select_city_input_billing_modal"
                                     defaultValue={city}
                                     onChange={(e) => setCity(e.target.value)}
                                     className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500">
-                                    <option value="">Chọn tỉnh thành</option>
+                                    <option value="">{t('profile_page.update_account_form.selectProvince')}</option>
                                     <option value="Hồ Chí Minh">Hồ Chí Minh</option>
                                     <option value="Hà Nội">Hà Nội</option>
                                     <option value="Huế">Huế</option>
@@ -186,13 +203,13 @@ const UpdateAccount = ({ isOpen = false, setOpenModal = () => { } }) => {
                                 </select>
                             </div>
                             <div className="col-span-2 sm:col-span-1">
-                                <label htmlFor="company_name" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Porfolio (nếu có) </label>
+                                <label htmlFor="company_name" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> {t('profile_page.update_account_form.portfolio')} </label>
                                 <input type="text" id="company_name" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="Flowbite LLC" />
                             </div>
                         </div>
                         <div className="text-right border-t border-gray-200 pt-4 dark:border-gray-700 md:pt-5">
-                            <button type="submit" className="me-2 inline-flex items-center rounded-lg bg-primary-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Lưu</button>
-                            <button type="button" data-modal-toggle="accountInformationModal2" className="me-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700">Hủy bỏ</button>
+                            <button type="submit" className="me-2 inline-flex items-center rounded-lg bg-primary-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">{t('profile_page.update_account_form.save')}</button>
+                            <button type="button" data-modal-toggle="accountInformationModal2" className="me-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700">{t('profile_page.update_account_form.cancel')}</button>
                         </div>
                     </form>
                 </Modal.Body>

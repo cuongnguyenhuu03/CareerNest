@@ -6,11 +6,12 @@ import { toast } from 'react-toastify';
 import { askGeminiWithPDF } from '../../modules/chatbot/gemini';
 
 const data = [
-    { text: "Trang chủ", path: path.HOME },
-    { text: "Đánh giá CV qua AI", path: "#" }
+    { text: localStorage.getItem('i18nextLng') === 'vi' ? "Trang chủ" : "Home", path: path.HOME },
+    { text: localStorage.getItem('i18nextLng') === 'vi' ? "Đánh giá CV qua AI" : "CV Evaluation", path: "#" }
 ]
 
 const CVReviewByAI = () => {
+
     const ref = useRef(null);
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState("");
@@ -46,10 +47,12 @@ const CVReviewByAI = () => {
             <Breadcrumbs data={data} />
             <div className={`bg-[#fff] ${result ? 'dark:bg-gray-900' : 'dark:bg-slate-800'} px-3 xs:px-6 py-8 rounded-lg flex items-center justify-center min-h-[350px]`}>
                 <div className="text-center max-w-2xl">
-                    <h1 className="text-2xl font-bold mb-8 dark:text-white">Đánh giá CV bởi AI CareerNest</h1>
+                    <h1 className="text-2xl font-bold mb-8 dark:text-white">
+                        {localStorage.getItem('i18nextLng') === 'vi' ? "Đánh giá CV bởi AI CareerNest" : "CV Evaluation by AI"}
+                    </h1>
                     {!loading && !result && (
                         <label className="cursor-pointer bg-blue-600 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-700 transition">
-                            Chọn file CV (PDF)
+                            {localStorage.getItem('i18nextLng') === 'vi' ? "Chọn file CV (PDF)" : "Select pdf file"}
                             <input
                                 type="file"
                                 accept=".pdf"
@@ -62,7 +65,9 @@ const CVReviewByAI = () => {
                     {loading && (
                         <div className="flex flex-col items-center justify-center gap-4">
                             <Spinner size='xl' color='info' />
-                            <p className="text-lg font-medium animate-pulse dark:text-white">Đang phân tích CV...</p>
+                            <p className="text-lg font-medium animate-pulse dark:text-white">
+                                {localStorage.getItem('i18nextLng') === 'vi' ? "Đang phân tích CV..." : "Reviewing CV..."}
+                            </p>
                         </div>
                     )}
 

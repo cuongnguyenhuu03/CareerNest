@@ -15,6 +15,8 @@ import 'nprogress/nprogress.css';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import 'react-quill/dist/quill.snow.css';
 
+import './setup/i18n';
+
 // Create a client
 const queryClient = new QueryClient()
 

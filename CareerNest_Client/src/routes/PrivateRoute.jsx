@@ -37,7 +37,7 @@ const PrivateRoute = ({ children }) => {
     }
     else {
         if (location.pathname.startsWith('/system')) {
-            if (+user?.role?.id === 1)// is ADMIN
+            if (+user?.role?.id === 1 || +user?.role?.id === 2)// is ADMIN
                 return children;
             else
                 return (

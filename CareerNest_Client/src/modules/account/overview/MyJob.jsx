@@ -4,20 +4,22 @@ import { path } from '../../../utils/constant';
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 const MyJob = () => {
     const user = useSelector(state => state?.user?.info);
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     return (
         <div className='w-full flex flex-col gap-y-4 shadow-md dark:shadow-lg p-4 rounded-lg dark:bg-slate-800'>
-            <Badge className='w-fit text-base sm:text-lg' color="warning" size='sm'>Hoạt động của bạn</Badge>
+            <Badge className='w-fit text-base sm:text-lg' color="warning" size='sm'>{t('overview_page.user_activity.title')}</Badge>
             <div className='w-full flex gap-4'>
                 <div className='basis-1/2 bg-[#eaf0fa] dark:bg-gray-300 flex rounded-lg cursor-pointer hover:border hover:border-blue-500 ct-hover-transition'
                     onClick={() => navigate(`${path.ACCOUNT}/${path.ACCOUNT__MY__JOB}`, { state: 'applied' })}
                 >
                     <div className='basis-2/3 flex flex-col gap-y-4 p-3'>
-                        <div className='text-slate-800 font-medium text-sm xs:text-lg sm:text-xl'>Việc làm đã ứng tuyển</div>
+                        <div className='text-slate-800 font-medium text-sm xs:text-lg sm:text-xl'>{t('overview_page.user_activity.applied_jobs')}</div>
                         <span className='text-[#085bdd] font-bold text-2xl sm:text-3xl flex items-center gap-3'>
                             1 <MdKeyboardDoubleArrowRight size={18} />
                         </span>
@@ -35,7 +37,7 @@ const MyJob = () => {
                     onClick={() => navigate(`${path.ACCOUNT}/${path.ACCOUNT__MY__JOB}`, { state: 'saved' })}
                 >
                     <div className='basis-2/3 flex flex-col gap-y-4 p-3'>
-                        <div className='text-slate-800 font-medium text-sm xs:text-lg sm:text-xll'>Việc làm đã lưu</div>
+                        <div className='text-slate-800 font-medium text-sm xs:text-lg sm:text-xll'>{t('overview_page.user_activity.saved_jobs')}</div>
                         <span className='text-[#c82222] font-bold text-2xl sm:text-3xl flex items-center gap-3'>
                             {user?.saveJob?.length > 0 ? user.saveJob.length : 0} <MdKeyboardDoubleArrowRight size={18} />
                         </span>

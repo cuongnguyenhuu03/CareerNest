@@ -8,9 +8,12 @@ import { MdDelete } from "react-icons/md";
 import { path } from '../../utils/constant';
 import ModalDeleteCV from '../../modules/cv/ModalDeleteCV';
 import { format } from 'date-fns';
+import { useTranslation } from 'react-i18next';
 
 const { FaRegBuilding } = icons;
 const CVCard = ({ className = '', data = {}, ...props }) => {
+    const { t } = useTranslation();
+
     const navigate = useNavigate();
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
@@ -44,14 +47,14 @@ const CVCard = ({ className = '', data = {}, ...props }) => {
                                 gradientDuoTone="cyanToBlue"
                                 onClick={() => navigate(`${path.CV}/${path.CV__DETAIL}?candidate=${slugify(data?.fullName, { lower: true, strict: true })}&cv=${data?.id}`, { state: { dataResume: data } })}
                             >
-                                Xem hồ sơ
+                                {t('cv_card.view')}
                             </Button>
                             <div className='flex gap-x-4  items-center justify-between'>
                                 <Button color="gray" size='xs' pill onClick={() => alert('aaa')}>
-                                    <FaRegEdit size={15} className='mr-2' /> Sửa
+                                    <FaRegEdit size={15} className='mr-2' /> {t('cv_card.edit')}
                                 </Button>
                                 <Button color="gray" size='xs' pill onClick={() => setOpenDeleteModal(true)}>
-                                    <MdDelete size={15} className='mr-2' /> Xóa
+                                    <MdDelete size={15} className='mr-2' /> {t('cv_card.delete')}
                                 </Button>
                             </div>
                         </div>
@@ -74,7 +77,7 @@ const CVCard = ({ className = '', data = {}, ...props }) => {
                     </div>
 
                     <div className='flex mb-6 gap-2 text-orange-600 items-center text-xs md:text-sm font-light'>
-                        <FaRegBuilding size={15} /> Ngày tạo: {convertTimeStampToString(data?.createdAt)}
+                        <FaRegBuilding size={15} /> {t('cv_card.created_time')}: {convertTimeStampToString(data?.createdAt)}
                     </div>
                 </div>
             </div>

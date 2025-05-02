@@ -8,8 +8,11 @@ import { postApplyJob } from '../../services/resumeService';
 import { askGeminiWithPDF } from '../../modules/chatbot/gemini';
 import { toast } from 'react-toastify';
 import withErrorBoundary from '../../hoc/withErrorBoundary';
+import { useTranslation } from 'react-i18next';
 
 const ModalApplyCV = ({ openModal = false, setOpenModal = () => { }, jobData = null }) => {
+    const { t } = useTranslation();
+
     const user = useSelector(state => state?.user?.info);
 
     const [loading, setLoading] = useState(false);
@@ -89,7 +92,7 @@ const ModalApplyCV = ({ openModal = false, setOpenModal = () => { }, jobData = n
                     </div>
                 )}
                 <div className='flex justify-between items-center border-b pb-2'>
-                    <h2 className='text-lg sm:text-xl font-medium uppercase dark:text-white'>Ứng tuyển {jobData?.name}</h2>
+                    <h2 className='text-lg sm:text-xl font-medium uppercase dark:text-white'>{t('modal_apply_job.title')} {jobData?.name}</h2>
                     <button onClick={() => setOpenModal(false)} className='text-gray-500 text-xl'>
                         &times;
                     </button>
@@ -98,7 +101,7 @@ const ModalApplyCV = ({ openModal = false, setOpenModal = () => { }, jobData = n
                 <div className='space-y-4 mt-4'>
                     <div className='flex items-center gap-x-6'>
                         <label className="w-fit p-2 cursor-pointer border border-red-500 rounded-lg bg-white text-sm xs:text-base text-red-500 font-medium flex items-center gap-2">
-                            <FaFileUpload /> Tải CV lên
+                            <FaFileUpload /> {t('modal_apply_job.upload')}
                             <FileInput
                                 accept=".docx,.doc,.pdf"
                                 onChange={(e) => setCv(e.target.files?.[0])}
@@ -111,25 +114,25 @@ const ModalApplyCV = ({ openModal = false, setOpenModal = () => { }, jobData = n
                             </span>
                         )}
                     </div>
-                    <div className='text-xs xs:text-sm mt-3 text-gray-500'>Chỉ chấp nhận file định dạng .docx, .doc, .pdf *</div>
+                    <div className='text-xs xs:text-sm mt-3 text-gray-500'>{t('modal_apply_job.cv_condition')} *</div>
 
-                    <label className='block font-semibold uppercase dark:text-white'>Thông tin cá nhân</label>
+                    <label className='block font-semibold uppercase dark:text-white'>{t('modal_apply_job.information')}</label>
                     <form className="flex max-w-md flex-col gap-3">
                         <div>
                             <div className="mb-2 block">
-                                <Label htmlFor="fullName" value="Họ và tên" />
+                                <Label htmlFor="fullName" value={t('modal_apply_job.full_name')} />
                             </div>
                             <TextInput id="fullName" type="text" value={user?.lastName + ' ' + user?.firstName} />
                         </div>
                         <div>
                             <div className="mb-2 block">
-                                <Label htmlFor="phoneNumber" value="Số điện thoại" />
+                                <Label htmlFor="phoneNumber" value={t('modal_apply_job.phone')} />
                             </div>
                             <TextInput id="phoneNumber" type="text" value={user?.phoneNumber} />
                         </div>
                         <div>
                             <div className="mb-2 block">
-                                <Label htmlFor="city" value="Nơi làm việc mong muốn" />
+                                <Label htmlFor="city" value={t('modal_apply_job.location')} />
                             </div>
                             <Select id="city" defaultValue={'hcm'} required>
                                 <option value={'hcm'}>TP HCM</option>
@@ -139,20 +142,20 @@ const ModalApplyCV = ({ openModal = false, setOpenModal = () => { }, jobData = n
                             </Select>
                         </div>
                     </form>
-                    <label className='block font-semibold dark:text-white'>Thư xin việc:</label>
+                    <label className='block font-semibold dark:text-white'>{t('modal_apply_job.cover_letter')}:</label>
                     <textarea
-                        placeholder='Nhờ chatbot AI tạo 1 cover letter phù hợp ?'
+                        placeholder={localStorage.getItem('i18nextLng') === 'vi' ? 'Nhờ chatbot AI tạo 1 cover letter phù hợp ?' : "Using chatbox assitance ..."}
                         className='border dark:border-gray-500 rounded p-2 w-full outline-none dark:bg-slate-700 dark:text-gray-400'
                         rows={13}
                     />
                 </div>
 
                 <div className='flex justify-end gap-3 mt-6'>
-                    <Button color="gray" size='sm' onClick={() => setOpenModal(false)}>Bỏ qua</Button>
+                    <Button color="gray" size='sm' onClick={() => setOpenModal(false)}>{t('modal_apply_job.cancel')}</Button>
                     <Button color="failure" pill onClick={handleApply} size='sm'
                         disabled={!cv}
                     >
-                        Nộp CV
+                        {t('modal_apply_job.submit')}
                     </Button>
                 </div>
             </div>

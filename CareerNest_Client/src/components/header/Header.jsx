@@ -7,8 +7,12 @@ import { path } from "../../utils/constant";
 import DropdownAccount from "../../modules/account/DropdownAccount";
 import DropdownAdmin from "../../modules/system/DropdownAdmin";
 import { useSelector } from "react-redux";
+import Languages from "./Languages";
+import { useTranslation } from "react-i18next";
 
 const Header = () => {
+    const { t } = useTranslation();
+
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
     const [openModalLogin, setOpenModalLogin] = useState(false);
@@ -51,12 +55,12 @@ const Header = () => {
                         <div className="flex items-center lg:order-2 gap-3 sm:gap-5">
                             {!user?.id ?
                                 <>
-                                    <Button color="light" onClick={handleOpenLogin}>Đăng nhập</Button>
+                                    <Button color="light" onClick={handleOpenLogin}>{t('header.login')}</Button>
                                     {!location.pathname.includes(path.RECRUITMENT) &&
                                         <Button color="blue" className="uppercase hidden sm:inline-flex"
                                             onClick={() => navigate(path.RECRUITMENT)}
                                         >
-                                            Nhà tuyển dụng
+                                            {t('header.recruiter')}
                                         </Button>
                                     }
                                 </>
@@ -65,6 +69,7 @@ const Header = () => {
                                     {+user?.role?.id === 1 ? <DropdownAdmin /> : <DropdownAccount />}
                                 </>
                             }
+                            <Languages />
                             <button
                                 onClick={() => setIsOpen(!isOpen)}
                                 className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
@@ -92,7 +97,7 @@ const Header = () => {
                                                         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                                                         className="ct-header-dropdown ct-hover-transition flex items-center"
                                                     >
-                                                        {item.text}
+                                                        {t(item.text)}
                                                         <svg className="w-4 h-4 ml-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                                             <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414L10 13.414l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
                                                         </svg>
@@ -101,12 +106,12 @@ const Header = () => {
                                                         <ul className="z-50 absolute left-0 mt-2 w-48 bg-white border rounded-md shadow-lg dark:bg-gray-700">
                                                             <li>
                                                                 <Link to={`${path.CV}/${path.CV__MANAGE}`} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-white">
-                                                                    Quản lý CV
+                                                                    {localStorage.getItem('i18nextLng') === 'vi' ? "Quản lý CV" : "CV Management"}
                                                                 </Link>
                                                             </li>
                                                             <li>
                                                                 <Link to={`${path.CV}/${path.CV__CREATE}`} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-white">
-                                                                    Tạo CV
+                                                                    {localStorage.getItem('i18nextLng') === 'vi' ? "Tạo CV" : "Create CV"}
                                                                 </Link>
                                                             </li>
                                                             <li className="relative">
@@ -114,7 +119,7 @@ const Header = () => {
                                                                     to={`${path.CV}/${path.CV__REVIEW__BY__AI}`}
                                                                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-white"
                                                                 >
-                                                                    Đánh giá CV bởi AI
+                                                                    {localStorage.getItem('i18nextLng') === 'vi' ? "Đánh giá CV bởi AI" : "CV Evaluation by AI"}
                                                                     <span className="absolute top-0 right-0 mt-1 bg-red-500 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">
                                                                         New
                                                                     </span>
@@ -133,7 +138,7 @@ const Header = () => {
                                                 ${isActive && 'text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white'}`
                                                     }
                                                 >
-                                                    <span>{item.text}</span>
+                                                    <span>  {t(item.text)}</span>
                                                     {(item.path === '/interview-by-AI' || item.path === '/roadmap-by-AI') && (
                                                         <span className="absolute -top-1 -right-2 text-[8px] bg-red-600 text-white rounded-full px-1.5 py-[1px] font-bold animate-bounce">
                                                             NEW

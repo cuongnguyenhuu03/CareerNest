@@ -10,9 +10,11 @@ import { toast } from 'react-toastify';
 import { postUploadMainCV } from '../../../services/userService';
 import { useMutation } from '@tanstack/react-query';
 import { message } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 const AttachedCV = () => {
     const user = useSelector(state => state?.user?.info);
+    const { t } = useTranslation();
 
     const [fileName, setFileName] = useState('');
     const location = useLocation();
@@ -65,7 +67,7 @@ const AttachedCV = () => {
 
     return (
         <div className='w-full flex flex-col gap-y-4 shadow-md dark:shadow-lg p-3 sm:p-4 rounded-lg mb-6 dark:bg-slate-800'>
-            <Badge className='w-fit text-base sm:text-lg' color="info" size='sm'>CV đính kèm của bạn</Badge>
+            <Badge className='w-fit text-base sm:text-lg' color="info" size='sm'>{t('overview_page.attached_cv.title')}</Badge>
             <div className='w-full flex gap-x-4 rounded-lg bg-[#f7f7f7] dark:bg-slate-800 p-2 sm:p-6 border border-gray-200 dark:border-gray-600'>
                 <Avatar size='lg' className='sm:order-1 order-2'
                     img={'https://itviec.com/assets/profile/uploaded-resume-f70bd4d24afa0fa12412353a2fe8c4deaa8bdc1a9ffef1cdb2b8638adb24a5ac.svg'}
@@ -83,25 +85,25 @@ const AttachedCV = () => {
                         </Tooltip>
 
                         :
-                        <Badge className='w-fit uppercase text-base sm:text-lg' color="gray" size='sm'>Chưa có CV nào được upload</Badge>
+                        <Badge className='w-fit uppercase text-base sm:text-lg' color="gray" size='sm'> {t('overview_page.attached_cv.empty_cv')}</Badge>
                     }
 
 
                     {location.pathname.includes('overview') ?
                         <Link to={`${path.CV}/${path.CV__MANAGE}`} className='flex text-xs sm:text-sm items-center text-blue-600'>
-                            Quản lý CV <MdKeyboardDoubleArrowRight size={18} />
+                            {t('overview_page.attached_cv.manage_cv')} <MdKeyboardDoubleArrowRight size={18} />
                         </Link>
                         :
                         <>
                             <label className="w-fit p-2 cursor-pointer border border-red-500 rounded-lg bg-white text-sm xs:text-base text-red-500 font-medium flex items-center gap-2">
-                                <FaFileUpload /> Tải CV lên
+                                <FaFileUpload /> {t('overview_page.attached_cv.upload_cv')}
                                 <FileInput
                                     accept=".docx,.doc,.pdf"
                                     onChange={handleUploadMainCV}
                                     className="hidden" // Ẩn input
                                 />
                             </label>
-                            <div className='text-xs xs:text-sm mt-3 text-gray-400'>Chỉ chấp nhận file định dạng .docx, .doc, .pdf *</div>
+                            <div className='text-xs xs:text-sm mt-3 text-gray-400'>{t('overview_page.attached_cv.file_condition')}</div>
                         </>
 
                     }

@@ -29,8 +29,6 @@ const ChatPage = () => {
 
     const { res: resUsersConnected, refetch: refetchUsersConnected } = useUsersConnected();
 
-    console.log(location?.state?.receiver)
-
     useEffect(() => {
         document.title = 'Tin nhắn';
         userSelectedRef.current = userSelected;
@@ -265,7 +263,9 @@ const ChatPage = () => {
                                                         : user?.firstName}
                                                 </h3>
                                             </div>
-                                            <p className="text-sm mt-1 text-gray-400 truncate">(Xem đầy đủ tin nhắn)</p>
+                                            <p className="text-sm mt-1 text-gray-400 truncate">
+                                                {localStorage.getItem('i18nextLng') === 'vi' ? 'Xem đầy đủ tin nhắn' : 'Show all messages'}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -316,7 +316,9 @@ const ChatPage = () => {
                                                         : user?.firstName}
                                                 </h3>
                                             </div>
-                                            <p className="text-xs xs:text-sm mt-1 text-gray-400 truncate">(Xem đầy đủ tin nhắn)</p>
+                                            <p className="text-xs xs:text-sm mt-1 text-gray-400 truncate">
+                                                {localStorage.getItem('i18nextLng') === 'vi' ? 'Xem đầy đủ tin nhắn' : 'Show all messages'}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>

@@ -12,11 +12,13 @@ import { useNavigate } from 'react-router-dom';
 import { persistor } from '../../redux/store.js';
 import { path } from '../../utils/constant';
 import { getFirebaseImageUrl } from '../../utils/getFirebaseImageURL.js';
+import { useTranslation } from 'react-i18next';
 
 const DropdownAdmin = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state?.user?.info);
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const mutation = useMutation({
         mutationFn: postLogout,
@@ -58,11 +60,11 @@ const DropdownAdmin = () => {
             >
                 {dropdownAdmin?.length > 0 && dropdownAdmin.map(item => (
                     <Link key={item?.path} to={item?.path} onClick={(e) => e.stopPropagation()}>
-                        <Dropdown.Item>{item?.text ?? ''}</Dropdown.Item>
+                        <Dropdown.Item>{t(item.text)}</Dropdown.Item>
                     </Link>
                 ))}
                 <Dropdown.Divider />
-                <Dropdown.Item onClick={handleLogout}>Đăng xuất</Dropdown.Item>
+                <Dropdown.Item onClick={handleLogout}>{t('header.dropdown_account.logout')}</Dropdown.Item>
             </Dropdown>
         </>
     );

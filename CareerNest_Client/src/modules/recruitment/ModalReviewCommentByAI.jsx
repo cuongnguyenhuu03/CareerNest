@@ -53,7 +53,9 @@ const ModalReviewCommentByAI = ({ openModal = false, setOpenModal = null, dataCo
     return (
         <Modal show={openModal} onClose={() => setOpenModal(false)}>
             <div className="relative dark:bg-slate-800">
-                <ModalHeader>Đánh giá công ty bởi AI</ModalHeader>
+                <ModalHeader>
+                    {localStorage.getItem('i18nextLng') === 'vi' ? "Đánh giá công ty bởi AI" : "Evaluate company by AI"}
+                </ModalHeader>
                 {answerFromAI &&
                     <ModalBody className="max-h-[70vh] overflow-y-auto dark:bg-white">
                         <div
@@ -65,7 +67,7 @@ const ModalReviewCommentByAI = ({ openModal = false, setOpenModal = null, dataCo
 
                 <ModalFooter className="w-full flex justify-end gap-2">
                     <Button color="info" onClick={() => setOpenModal(false)}>
-                        Quay lại
+                        {localStorage.getItem('i18nextLng') === 'vi' ? "Quay lại" : "Return"}
                     </Button>
                 </ModalFooter>
 

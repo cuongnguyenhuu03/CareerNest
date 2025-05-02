@@ -6,8 +6,10 @@ import { FaDollarSign, FaMapMarkerAlt, FaLaptop } from "react-icons/fa";
 import { getFirebaseImageUrl } from '../../utils/getFirebaseImageURL';
 import { convertTimeStampToString } from '../../utils/convertTimeStampToString';
 import { SiOpslevel } from "react-icons/si";
+import { useTranslation } from 'react-i18next';
 
 const FindJobCard = ({ job = {}, selectedJob = {}, handleSelectJob = () => { } }) => {
+    const { t } = useTranslation();
 
     const isExpired = (date) => new Date(date * 1000) < new Date();
     const isNew = (startDate) => {
@@ -44,7 +46,7 @@ const FindJobCard = ({ job = {}, selectedJob = {}, handleSelectJob = () => { } }
             {/* Thêm tag "expired" */}
             {isExpired(job?.endDate) && (
                 <span className="absolute bottom-0 right-0 bg-red-500 text-white text-sm uppercase font-semibold px-2 py-1">
-                    Đã hết hạn ứng tuyển
+                    {t('find_job_card.expired')}
                 </span>
             )}
             {/* Thêm tag "New" */}
@@ -53,7 +55,9 @@ const FindJobCard = ({ job = {}, selectedJob = {}, handleSelectJob = () => { } }
                     NEW
                 </span>
             )}
-            <p className="text-gray-500 text-sm ">{convertTimeStampToString(job?.startDate)}</p>
+            <p className="text-gray-500 text-sm ">
+                {convertTimeStampToString(job?.startDate)} {t('find_job_card.created_time')}
+            </p>
             <h2 className="hidden md:block text-lg font-bold mt-1 dark:text-white">{job?.name}</h2>
             <Link to={`/job/detail/${job?.id}/${slugify(job?.name, { lower: true, strict: true })}`} target="_blank"
                 className="md:hidden text-lg font-bold mt-1 dark:text-white text-md hover:underline hover:transition-all

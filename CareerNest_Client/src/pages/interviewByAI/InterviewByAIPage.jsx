@@ -5,10 +5,11 @@ import { Input, Button, Spin } from 'antd'; // Import từ antd
 import { toast } from 'react-toastify';
 import { askGemini } from '../../modules/chatbot/gemini';
 import InterviewForm from '../../modules/chatbot/InterviewForm';
+import { useTranslation } from 'react-i18next';
 
 const data = [
-    { text: "Trang chủ", path: path.HOME },
-    { text: "Phỏng vấn bởi AI", path: "#" }
+    { text: localStorage.getItem('i18nextLng') === 'vi' ? "Trang chủ" : "Home", path: path.HOME },
+    { text: localStorage.getItem('i18nextLng') === 'vi' ? "Phỏng vấn bởi AI" : "Interview by AI", path: "#" }
 ]
 
 const InterviewByAIPage = () => {
@@ -16,6 +17,7 @@ const InterviewByAIPage = () => {
     const [loading, setLoading] = useState(false);
     const [questions, setQuestions] = useState([]);
     const ref = useRef(null);
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (ref?.current)
@@ -49,19 +51,19 @@ const InterviewByAIPage = () => {
             <Breadcrumbs data={data} />
 
             <div className="bg-white p-6 rounded-lg shadow-lg dark:bg-slate-800">
-                <h2 className="text-xl md:text-2xl font-semibold mb-10 uppercase text-center dark:text-white">Phỏng vấn giả lập bởi AI</h2>
+                <h2 className="text-xl md:text-2xl font-semibold mb-10 uppercase text-center dark:text-white">
+                    {t('interview_by_ai_page.title')}
+                </h2>
                 <div className="hidden sm:flex flex-row gap-6">
                     <div className="flex-1">
                         <p className="text-[14px] dark:text-gray-400 text-gray-700 text-justify indent-8">
-                            Trang này được thiết kế để giúp bạn chuẩn bị cho các cuộc phỏng vấn xin việc thông qua công nghệ trí tuệ nhân tạo (AI).
-                            Bạn có thể trải nghiệm các tình huống phỏng vấn thực tế và nhận phản hồi ngay lập tức về cách trả lời của mình.
+                            {t('interview_by_ai_page.paragraph_1')}
                         </p>
                         <p className="text-[14px] dark:text-gray-400 text-gray-700 mt-4 text-justify indent-8">
-                            Với AI, bạn sẽ được phỏng vấn về các câu hỏi phổ biến trong nhiều lĩnh vực công việc, giúp bạn tự tin hơn khi bước vào cuộc phỏng vấn thật sự.
-                            Hệ thống sẽ phân tích và đưa ra những lời khuyên, giúp bạn cải thiện kỹ năng giao tiếp và phản ứng của mình.
+                            {t('interview_by_ai_page.paragraph_2')}
                         </p>
                         <p className="text-[14px] dark:text-gray-400 text-gray-700 mt-4 text-justify indent-8">
-                            Để bắt đầu, chỉ cần chọn loại phỏng vấn mà bạn muốn trải nghiệm, và AI sẽ hướng dẫn bạn qua từng bước một.
+                            {t('interview_by_ai_page.paragraph_3')}
                         </p>
                     </div>
                     <div className="flex-1">
@@ -72,16 +74,11 @@ const InterviewByAIPage = () => {
                 <div className="sm:hidden flex flex-col gap-6">
                     <div className="flex-1">
                         <p className="text-[14px] dark:text-gray-400 text-gray-700 text-justify indent-8">
-                            Trang này được thiết kế để giúp bạn chuẩn bị cho các cuộc phỏng vấn xin việc thông qua công nghệ trí tuệ nhân tạo (AI).
-                            Bạn có thể trải nghiệm các tình huống phỏng vấn thực tế và nhận phản hồi ngay lập tức về cách trả lời của mình.
-                        </p>
+                            {t('interview_by_ai_page.paragraph_1')}                        </p>
                         <p className="text-[14px] dark:text-gray-400 text-gray-700 mt-4 text-justify indent-8">
-                            Với AI, bạn sẽ được phỏng vấn về các câu hỏi phổ biến trong nhiều lĩnh vực công việc, giúp bạn tự tin hơn khi bước vào cuộc phỏng vấn thật sự.
-                            Hệ thống sẽ phân tích và đưa ra những lời khuyên, giúp bạn cải thiện kỹ năng giao tiếp và phản ứng của mình.
-                        </p>
+                            {t('interview_by_ai_page.paragraph_2')}                        </p>
                         <p className="text-[14px] dark:text-gray-400 text-gray-700 mt-4 text-justify indent-8">
-                            Để bắt đầu, chỉ cần chọn loại phỏng vấn mà bạn muốn trải nghiệm, và AI sẽ hướng dẫn bạn qua từng bước một.
-                        </p>
+                            {t('interview_by_ai_page.paragraph_3')}                        </p>
                     </div>
                     <div className="flex-1">
                         <img src="https://cdn.impossibleimages.ai/wp-content/uploads/2023/04/25130031/AI-Background-Image-Generator-How-It-Works-and-Why-You-Need-It.jpg" alt="AI Interview" className="w-full h-auto rounded-lg shadow-lg" />
@@ -91,7 +88,7 @@ const InterviewByAIPage = () => {
                 {questions?.length <= 0 &&
                     <form onSubmit={handleSubmit} className="mt-8 flex flex-col items-center justify-center">
                         <div className="mb-4 w-full max-w-xs">
-                            <label htmlFor="position" className="block text-lg font-medium text-blue-500 dark:text-white">Bạn muốn phỏng vấn vị trí nào?</label>
+                            <label htmlFor="position" className="block text-lg font-medium text-blue-500 dark:text-white">{t('interview_by_ai_page.subtitle')}</label>
                             <Input
                                 id="position"
                                 value={position}
@@ -107,7 +104,7 @@ const InterviewByAIPage = () => {
                             className="mt-4 w-fit"
                             loading={loading} // Show loading indicator when submitting
                         >
-                            Bắt đầu phỏng vấn
+                            {t('interview_by_ai_page.submit')}
                         </Button>
                     </form>
                 }
@@ -120,7 +117,8 @@ const InterviewByAIPage = () => {
 
                 {questions?.length > 0 &&
                     <div className='mt-16'>
-                        <h1 className="text-xl text-center font-semibold mb-8 tracking-wide dark:text-white">Câu hỏi phỏng vấn <span className='text-red-500 uppercase'>{position}</span></h1>
+                        <h1 className="text-xl text-center font-semibold mb-8 tracking-wide dark:text-white">
+                            {localStorage.getItem('i18nextLng') === 'vi' ? "Câu hỏi phỏng vấn " : "Interview questions "} <span className='text-red-500 uppercase'>{position}</span></h1>
                         <InterviewForm questions={questions} />
                     </div>
                 }
