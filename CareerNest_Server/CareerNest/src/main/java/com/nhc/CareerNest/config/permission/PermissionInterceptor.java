@@ -42,14 +42,17 @@ public class PermissionInterceptor implements HandlerInterceptor {
         System.out.println(">>> httpMethod= " + httpMethod);
         System.out.println(">>> requestURI= " + requestURI);
 
-        if ("PUT".equalsIgnoreCase(request.getMethod()) && request.getRequestURI().startsWith("/api/v1/users")) {
+        if ("PUT".equalsIgnoreCase(request.getMethod())
+                && request.getRequestURI().startsWith("/api/v1/users")) {
             return true;
         }
 
-        if ("GET".equalsIgnoreCase(request.getMethod()) && request.getRequestURI().startsWith("/api/v1/jobs/**")) {
+        if ("GET".equalsIgnoreCase(request.getMethod())
+                && request.getRequestURI().startsWith("/api/v1/jobs/**")) {
             return true;
         }
-        if ("GET".equalsIgnoreCase(request.getMethod()) && request.getRequestURI().startsWith("/api/v1/jobs")) {
+        if ("GET".equalsIgnoreCase(request.getMethod())
+                && request.getRequestURI().startsWith("/api/v1/jobs")) {
             return true;
         }
 

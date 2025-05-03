@@ -2,6 +2,7 @@ package com.nhc.CareerNest.controller;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -62,7 +63,6 @@ public class ResumeController {
 
     }
 
-    // need to fix
     @PostMapping("resumes")
     @ApiMessage("create a resume")
     public ResponseEntity<RestResponse> createResume(
@@ -134,6 +134,16 @@ public class ResumeController {
 
             return ResponseEntity.ok(res);
         }
+    }
+
+    @GetMapping("resumes/user/{id}")
+    public ResponseEntity<RestResponse> getMethodName(@PathVariable Long id) throws IdInvalidException {
+        List<Resume> list = this.resumeService.findByUser(id);
+        RestResponse res = new RestResponse();
+        res.setStatusCode(HttpStatus.OK.value());
+        res.setData(list);
+
+        return ResponseEntity.ok(res);
     }
 
     @PutMapping("resumes")

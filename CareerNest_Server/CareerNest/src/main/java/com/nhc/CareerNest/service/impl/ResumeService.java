@@ -1,5 +1,6 @@
 package com.nhc.CareerNest.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -95,6 +96,10 @@ public class ResumeService {
                 resume.getUser().getFirstName() + " " + resume.getUser().getLastName()));
         dto.setJob(new ResFetchResumeDTO.JobResume(resume.getJob().getId(), resume.getJob().getName()));
         return dto;
+    }
+
+    public List<Resume> findByUser(Long id) {
+        return this.resumeRepository.findByUserId(id);
     }
 
 }
