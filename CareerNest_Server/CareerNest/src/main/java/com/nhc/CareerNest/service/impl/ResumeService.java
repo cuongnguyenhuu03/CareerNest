@@ -102,4 +102,8 @@ public class ResumeService {
         return this.resumeRepository.findByUserId(id);
     }
 
+    public List<Resume> findByJob(Long id) {
+        return this.resumeRepository.findByJobId(id);
+    }
+
 }

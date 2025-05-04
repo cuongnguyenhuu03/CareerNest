@@ -2,6 +2,7 @@ package com.nhc.CareerNest.domain.entity;
 
 import com.nhc.CareerNest.constant.ResumeStateEnum;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -31,8 +32,10 @@ public class Resume extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private ResumeStateEnum status;
 
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String advantage;
 
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String shortcoming;
 
     private int rating;

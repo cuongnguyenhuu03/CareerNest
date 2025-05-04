@@ -72,7 +72,7 @@ public class ResumeController {
             @RequestParam(name = "userId", required = false) Long userId,
             @RequestParam(name = "jobId", required = false) Long jobId,
             @RequestParam(name = "advantage", required = false) String advantage,
-            @RequestParam(name = "shortcoming ", required = false) String shortcoming,
+            @RequestParam(name = "shortcoming", required = false) String shortcoming,
             @RequestParam(name = "rating", required = false) int rating,
             @RequestHeader(name = "Authorization") String accessToken)
             throws IdInvalidException,
@@ -174,4 +174,15 @@ public class ResumeController {
             this.resumeService.deleteResume(id);
         }
     }
+
+    @GetMapping("resumes/job/{id}")
+    public ResponseEntity<RestResponse> getByJob(@PathVariable Long id) throws IdInvalidException {
+        List<Resume> list = this.resumeService.findByJob(id);
+        RestResponse res = new RestResponse();
+        res.setStatusCode(HttpStatus.OK.value());
+        res.setData(list);
+
+        return ResponseEntity.ok(res);
+    }
+
 }
