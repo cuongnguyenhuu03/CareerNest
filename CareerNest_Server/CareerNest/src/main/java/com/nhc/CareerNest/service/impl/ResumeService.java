@@ -103,7 +103,7 @@ public class ResumeService {
     }
 
     public List<Resume> findByJob(Long id) {
-        return this.resumeRepository.findByJobId(id);
+        return this.resumeRepository.findByJobIdOrderByRatingDesc(id);
     }
 
 }

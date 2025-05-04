@@ -13,5 +13,5 @@ public interface ResumeRepository extends JpaRepository<Resume, Long> {
 
     List<Resume> findByUserId(Long id);
 
-    List<Resume> findByJobId(Long id);
+    List<Resume> findByJobIdOrderByRatingDesc(Long id);
 }
