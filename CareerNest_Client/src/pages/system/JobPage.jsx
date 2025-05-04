@@ -7,13 +7,14 @@ import queryString from 'query-string';
 import { ALL_PERMISSIONS } from '../../utils/constant';
 import Access from '../../components/share/Access';
 import withErrorBoundary from '../../hoc/withErrorBoundary';
-import { convertTimeStampToString } from '../../utils/convertTimeStampToString';
 import { useJobs } from '../../hooks/useJobs';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { ProFormSelect } from '@ant-design/pro-components';
 import ModalJob from '../../modules/admin/job/ModalJob';
 import { deleteJob } from '../../services/jobService';
+import { useJobsByCompany } from '../../hooks/useJobsByCompany';
+import { convertMillisecondsToString } from '../../utils/convertMiliSecondsToString';
 
 const JobPage = () => {
     const [openModal, setOpenModal] = useState(false);
@@ -23,14 +24,20 @@ const JobPage = () => {
     const tableRef = useRef(null);
 
     const { res, isFetching, error, refetch } = useJobs(currentPage, jobName);
+    const { res: resJobsByCompany, isFetching: isFetchJobsByCompany, error: errorJobsByCompany, refetch: refetchJobsByCompany }
+        = useJobsByCompany();
 
     const meta = res?.meta ?? {
         page: 1,
-        pageSize: 6,
-        pages: 0,
-        total: res?.data?.length > 0 ? res.data.length : 0
-    };;
-    const jobs = res?.result?.length > 0 ? res.result : [];
+        pageSize: resJobsByCompany?.data?.size ?? 6,
+        pages: resJobsByCompany?.data?.totalPages ?? 0,
+        total: res?.data?.length > 0 ? res.data.length : resJobsByCompany?.data?.totalElements ? resJobsByCompany.data.totalElements : 0
+    };
+
+    const jobs = res?.result?.length > 0 ? res.result
+        : resJobsByCompany?.data?.content?.length > 0
+            ? resJobsByCompany.data.content
+            : [];
 
     const mutation = useMutation({
         mutationFn: deleteJob,
@@ -56,7 +63,7 @@ const JobPage = () => {
     }
 
     const reloadTable = useCallback(() => {
-        refetch();
+        res?.result?.length > 0 ? refetch() : refetchJobsByCompany();
     }, []);
 
     const columns = [
@@ -131,7 +138,7 @@ const JobPage = () => {
             sorter: true,
             render: (text, record, index, action) => {
                 return (
-                    <>{record?.createdAt ? convertTimeStampToString(record.createdAt, true) : ""}</>
+                    <>{record?.createdAt ? convertMillisecondsToString(record.createdAt * 1000) : ""}</>
                 )
             },
             hideInSearch: true,
@@ -143,7 +150,7 @@ const JobPage = () => {
             sorter: true,
             render: (text, record, index, action) => {
                 return (
-                    <>{record?.updatedAt ? convertTimeStampToString(record.updatedAt, true) : ""}</>
+                    <>{record?.updatedAt ? convertMillisecondsToString(record.updatedAt * 1000) : ""}</>
                 )
             },
             hideInSearch: true,
@@ -246,8 +253,11 @@ const JobPage = () => {
         return temp;
     }
 
-    if (error)
-        console.log(error);
+    if (error || errorJobsByCompany) {
+        console.log(error || errorJobsByCompany);
+        toast.error(error?.message || errorJobsByCompany?.message || 'Đã xảy ra lỗi');
+        return null;
+    }
     return (
         <>
             <Access permission={ALL_PERMISSIONS.JOBS.GET_PAGINATE} >
@@ -255,7 +265,7 @@ const JobPage = () => {
                     actionRef={tableRef}
                     headerTitle="Danh sách các công việc"
                     rowKey="id"
-                    loading={isFetching}
+                    loading={isFetching || isFetchJobsByCompany}
                     columns={columns}
                     dataSource={jobs}
                     request={async (params, sort, filter) => {

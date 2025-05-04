@@ -37,7 +37,8 @@ const useAppLogic = () => {
             if (resRefreshToken?.statusCode === 200) {
                 dispatch(updateUserInfo({ ...resRefreshToken?.data }));
                 setUserId(resRefreshToken?.data?.user?.id);
-                dispatch(fetchAllAppliedJobs({ id: +resRefreshToken?.data?.user?.id }));
+                if (resRefreshToken?.data?.user?.role?.id === 3)
+                    dispatch(fetchAllAppliedJobs({ id: +resRefreshToken?.data?.user?.id }));
             }
             else {
                 // logout

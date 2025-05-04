@@ -8,12 +8,12 @@ import { ALL_PERMISSIONS } from '../../utils/constant';
 import Access from '../../components/share/Access';
 import { sfLike } from "spring-filter-query-builder";
 import withErrorBoundary from '../../hoc/withErrorBoundary';
-import { convertTimeStampToString } from '../../utils/convertTimeStampToString';
 import { useCompanies } from '../../hooks/useCompanies';
 import ModalCompany from '../../modules/admin/company/ModalCompany';
 import { useMutation } from '@tanstack/react-query';
 import { deleteCompany } from '../../services/companyService';
 import { toast } from 'react-toastify';
+import { convertMillisecondsToString } from '../../utils/convertMiliSecondsToString';
 
 const CompanyPage = () => {
     const [openModal, setOpenModal] = useState(false);
@@ -95,7 +95,7 @@ const CompanyPage = () => {
             sorter: true,
             render: (text, record, index, action) => {
                 return (
-                    <>{record?.createdAt ? convertTimeStampToString(record.createdAt, true) : ""}</>
+                    <>{record?.createdAt ? convertMillisecondsToString(record.createdAt * 1000) : ""}</>
                 )
             },
             hideInSearch: true,
@@ -107,7 +107,7 @@ const CompanyPage = () => {
             sorter: true,
             render: (text, record, index, action) => {
                 return (
-                    <>{record?.updatedAt ? convertTimeStampToString(record.updatedAt, true) : ""}</>
+                    <>{record?.updatedAt ? convertMillisecondsToString(record.updatedAt * 1000) : ""}</>
                 )
             },
             hideInSearch: true,

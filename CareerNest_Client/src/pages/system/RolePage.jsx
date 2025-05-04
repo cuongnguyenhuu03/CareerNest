@@ -10,6 +10,7 @@ import { useRoles } from '../../hooks/useRoles';
 import withErrorBoundary from '../../hoc/withErrorBoundary';
 import { convertTimeStampToString } from '../../utils/convertTimeStampToString';
 import ModalRole from '../../modules/admin/role/ModalRole';
+import { convertMillisecondsToString } from '../../utils/convertMiliSecondsToString';
 
 const RolePage = () => {
     const [openModal, setOpenModal] = useState(false);
@@ -84,7 +85,7 @@ const RolePage = () => {
             sorter: true,
             render: (text, record, index, action) => {
                 return (
-                    <>{record?.createdAt ? convertTimeStampToString(record.createdAt, true) : ""}</>
+                    <>{record?.createdAt ? convertMillisecondsToString(record.createdAt * 1000) : ""}</>
                 )
             },
             hideInSearch: true,
@@ -96,7 +97,7 @@ const RolePage = () => {
             sorter: true,
             render: (text, record, index, action) => {
                 return (
-                    <>{record?.updatedAt ? convertTimeStampToString(record.updatedAt, true) : ""}</>
+                    <>{record?.updatedAt ? convertMillisecondsToString(record.updatedAt * 1000) : ""}</>
                 )
             },
             hideInSearch: true,
