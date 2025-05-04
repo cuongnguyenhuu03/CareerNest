@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRefreshToken } from '../services/authService';
-import { updateUserInfo } from '../redux/slices/userSlice';
+import { fetchAllAppliedJobs, updateUserInfo } from '../redux/slices/userSlice';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useDetailUser } from './useDetailUer';
@@ -37,6 +37,7 @@ const useAppLogic = () => {
             if (resRefreshToken?.statusCode === 200) {
                 dispatch(updateUserInfo({ ...resRefreshToken?.data }));
                 setUserId(resRefreshToken?.data?.user?.id);
+                dispatch(fetchAllAppliedJobs({ id: +resRefreshToken?.data?.user?.id }));
             }
             else {
                 // logout

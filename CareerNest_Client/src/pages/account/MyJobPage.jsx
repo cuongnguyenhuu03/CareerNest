@@ -21,6 +21,8 @@ const MyJobPage = () => {
     const ref = useRef(null);
 
     const user = useSelector(state => state?.user?.info);
+    const appliedJobs = useSelector(state => state?.user?.appliedJobs);
+
     const listSaveJobs = useMemo(() => {
         return user?.saveJob?.length > 0 ? user.saveJob : [];
     }, [user?.saveJob]);
@@ -101,7 +103,7 @@ const MyJobPage = () => {
             </div>
             <div className='w-full px-6 py-3'>
                 {/* Render component theo activeTab */}
-                {activeTab === 0 && <AppliedJob />}
+                {activeTab === 0 && <AppliedJob listJobs={appliedJobs} />}
                 {activeTab === 1 && <SavedJob listJobs={listSaveJobs} />}
             </div>
         </div>

@@ -47,11 +47,15 @@ const putUpdateUser = (data) => {
     return axios.put(`/users`, { ...data })
 };
 
+const getAllAppliedJobs = (id) => {
+    return axios.get(`/resumes/user/${id}`);
+}
+
 const deleteUser = (id) => {
     return axios.delete(`/users/${id}`);
 }
 
 export {
     postLogin, postUploadMainCV, putChangePassword, postRegister, postCreateNewUser, postLogout, getAllUsers, getDetailUser, putUpdateUser, deleteUser,
-    postSaveJob
+    postSaveJob, getAllAppliedJobs
 };

@@ -56,7 +56,7 @@ const DashboardPage = () => {
         labels: ['Active', 'UnActive'],
         datasets: [
             {
-                data: [6, 5],
+                data: [dataStatistic?.totalJobs, 1],
                 backgroundColor: ['#60a5fa', '#38bdf8'],
                 hoverOffset: 4,
             },

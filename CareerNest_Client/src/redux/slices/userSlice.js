@@ -1,20 +1,27 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-// import { getDetailUser } from '../../services/userService';
 import { toast } from 'react-toastify';
+import { getAllAppliedJobs } from '../../services/userService';
 
 const initialState = {
     info: {},
+    appliedJobs: [],
     access_token: '',
 }
 
-// export const fetchDetailUser = createAsyncThunk('user/fetchDetailUser', async ({ id }) => {
-//     try {
-//         const res = await getDetailUser(id);
-//         return res?.DT; // payload
-//     } catch (error) {
-//         throw error;
-//     }
-// });
+export const fetchAllAppliedJobs = createAsyncThunk('user/fetchAllAppliedJobs', async ({ id }, { rejectWithValue }) => {
+    try {
+        const res = await getAllAppliedJobs(+id);
+        if (res.statusCode === 200) {
+            return res.data; // Trả về data khi thành công
+        } else {
+            return rejectWithValue(res.message || 'Không thể lấy danh sách các job đã ứng tuyển!');
+        }
+    } catch (error) {
+        return rejectWithValue(error.message || 'Lỗi hệ thống');
+    }
+}
+);
+
 
 export const userSlice = createSlice({
     name: 'user',
@@ -25,23 +32,28 @@ export const userSlice = createSlice({
             state.info = rest?.user ?? rest?.info;
             state.access_token = access_token;
         },
+        resetAppliedJobs: (state) => {
+            state.appliedJobs = [];
+        }
     },
+
     //xử lí Action liên quan API thì viết trong extraReducers
     extraReducers: (builder) => {
-        // builder
-        //     .addCase(fetchDetailUser.pending, (state, action) => {
-        //         // console.log('Pending:', action.meta);
-        //     })
-        //     .addCase(fetchDetailUser.fulfilled, (state, action) => {
-        //         // console.log('FULLFILLED')
-        //     })
-        //     .addCase(fetchDetailUser.rejected, (state, action) => {
-        //         toast.error(action.error.message)
-        //         console.error('Error:', action.error);
-        //     })
+        builder
+            .addCase(fetchAllAppliedJobs.pending, (state) => {
+                // state.loadingAppliedJobs = true;
+            })
+            .addCase(fetchAllAppliedJobs.fulfilled, (state, action) => {
+                state.appliedJobs = action.payload || [];
+                // state.loadingAppliedJobs = false;
+            })
+            .addCase(fetchAllAppliedJobs.rejected, (state, action) => {
+                // state.loadingAppliedJobs = false;
+                toast.error(action.payload || 'Không thể lấy danh sách công việc đã ứng tuyển');
+            });
     },
 
 })
 
-export const { updateUserInfo } = userSlice.actions
+export const { updateUserInfo, resetAppliedJobs } = userSlice.actions
 export default userSlice.reducer

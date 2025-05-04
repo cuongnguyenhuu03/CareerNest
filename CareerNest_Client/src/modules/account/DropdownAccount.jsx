@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { postLogout } from '../../services/userService';
-import { updateUserInfo } from '../../redux/slices/userSlice';
+import { resetAppliedJobs, updateUserInfo } from '../../redux/slices/userSlice';
 import { toast } from 'react-toastify';
 import { persistor } from '../../redux/store.js';
 import { path } from '../../utils/constant';
@@ -29,6 +29,7 @@ const DropdownAccount = () => {
                 // localStorage.clear();        // Xóa toàn bộ localStorage
                 await persistor.purge();    // Xóa dữ liệu của Redux Persist
                 dispatch(updateUserInfo({ info: {}, access_token: '' }));
+                dispatch(resetAppliedJobs());
                 navigate(path.HOME);
             } else
                 toast.error('Đăng xuất thất bại');

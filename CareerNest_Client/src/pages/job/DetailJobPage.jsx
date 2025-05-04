@@ -36,6 +36,8 @@ const DetailJobPage = () => {
     const { t } = useTranslation();
 
     const user = useSelector(state => state?.user?.info);
+    const appliedJobs = useSelector(state => state?.user?.appliedJobs);
+
     const { refetch } = useDetailUser(user?.id);
 
     const navigate = useNavigate();
@@ -116,6 +118,11 @@ const DetailJobPage = () => {
     const checkIsSavedJob = (id, saveJobs) => {
         if (!saveJobs || saveJobs?.length === 0) return false;
         return saveJobs.some(job => +job.id === +id);
+    };
+
+    const checkIsAppliedJob = (id, appliedJobs) => {
+        if (!appliedJobs || appliedJobs?.length === 0) return false;
+        return appliedJobs.some(item => +item?.job?.id === +id);
     };
 
     const handleSaveJob = async () => {
@@ -201,11 +208,13 @@ const DetailJobPage = () => {
                                     </Badge>
                                     :
                                     <>
-                                        <Button size='xs' className="block sm:hidden" gradientDuoTone="pinkToOrange" onClick={handleApplyJob}>
-                                            {t('job_detail_page.apply_button')}
+                                        <Button size='xs' className="block sm:hidden" gradientDuoTone="pinkToOrange"
+                                            onClick={!checkIsAppliedJob(params?.id, appliedJobs) ? handleApplyJob : () => { message.warning("Bạn đã ứng tuyển công việc này!") }}>
+                                            {checkIsAppliedJob(params?.id, appliedJobs) ? t('job_detail_page.already_applied_button') : t('job_detail_page.apply_button')}
                                         </Button>
-                                        <Button size='sm' className="hidden sm:block" gradientDuoTone="pinkToOrange" onClick={handleApplyJob}>
-                                            {t('job_detail_page.apply_button')}
+                                        <Button size='sm' className="hidden sm:block" gradientDuoTone="pinkToOrange"
+                                            onClick={!checkIsAppliedJob(params?.id, appliedJobs) ? handleApplyJob : () => { message.warning("Bạn đã ứng tuyển công việc này!") }}>
+                                            {checkIsAppliedJob(params?.id, appliedJobs) ? t('job_detail_page.already_applied_button') : t('job_detail_page.apply_button')}
                                         </Button>
 
                                         <Button size='xs' className="block sm:hidden" gradientDuoTone="pinkToOrange"
@@ -438,7 +447,7 @@ const DetailJobPage = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
 
             {openModal &&
                 <ModalJobMatching
@@ -448,7 +457,8 @@ const DetailJobPage = () => {
             }
 
             {/* Modal apply job */}
-            {openModalApplyJob &&
+            {
+                openModalApplyJob &&
                 <ModalApplyCV
                     openModal={openModalApplyJob}
                     setOpenModal={setOpenModalApplyJob}

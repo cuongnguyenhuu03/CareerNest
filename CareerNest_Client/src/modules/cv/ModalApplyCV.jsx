@@ -1,7 +1,7 @@
 import { Button, FileInput, Label, Select, TextInput } from 'flowbite-react';
 import React, { useState } from 'react';
 import { FaFileUpload } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useMutation } from '@tanstack/react-query';
 import { message } from 'antd';
 import { postApplyJob } from '../../services/resumeService';
@@ -9,10 +9,12 @@ import { askGeminiWithPDF } from '../../modules/chatbot/gemini';
 import { toast } from 'react-toastify';
 import withErrorBoundary from '../../hoc/withErrorBoundary';
 import { useTranslation } from 'react-i18next';
+import { fetchAllAppliedJobs } from '../../redux/slices/userSlice';
 
 const ModalApplyCV = ({ openModal = false, setOpenModal = () => { }, jobData = null }) => {
     const { t } = useTranslation();
 
+    const dispatch = useDispatch();
     const user = useSelector(state => state?.user?.info);
 
     const [loading, setLoading] = useState(false);
@@ -38,6 +40,7 @@ const ModalApplyCV = ({ openModal = false, setOpenModal = () => { }, jobData = n
         onSuccess: async (res) => {
             if (+res?.statusCode === 200) {
                 message.success("Ứng tuyển thành công.");
+                dispatch(fetchAllAppliedJobs({ id: +user?.id }));
                 mutation.reset();
                 setOpenModal(false);
             } else
