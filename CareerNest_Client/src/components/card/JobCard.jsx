@@ -10,10 +10,11 @@ import { getDetailJob } from '../../services/jobService';
 import { path } from '../../utils/constant';
 import { getFirebaseImageUrl } from '../../utils/getFirebaseImageURL';
 import { useTranslation } from 'react-i18next';
+import { convertMillisecondsToString } from '../../utils/convertMiliSecondsToString';
 
 const { FaMoneyCheckDollar, FaRegBuilding, GrLocation, GrNetworkDrive, FaRegCalendarAlt, HiCheckCircle, FaHeart } = icons;
 
-const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false }) => {
+const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false, ...props }) => {
     const location = useLocation();
     const navigate = useNavigate();
     const [isOpenModal, setOpenModal] = useState(false);
@@ -65,7 +66,6 @@ const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false
                 : 'Expired';
     };
 
-
     const getJobType = (type) => ({
         FULL_TIME: "Toàn thời gian",
         PART_TIME: "Bán thời gian",
@@ -101,16 +101,16 @@ const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false
                     {(isApplied && !isSaved) ?
                         <>
                             <div className='hidden sm:flex items-center justify-between'>
-                                <div className={`text-sm md:text-base lg:text-lg xl:text-base font-medium uppercase`}
+                                <div className={`text-sm md:text-base lg:text-lg xl:text-base font-medium uppercase dark:text-white`}
                                     onClick={() => navigate(`/job/detail/${data?.id}/${slugify(data?.name, { lower: true, strict: true })}`)}
                                 >
                                     {data?.name}
                                 </div>
-                                <span className='text-xs md:text-sm'>Ứng tuyển vào ngày: 27/02/2025</span>
+                                <span className='text-xs md:text-sm text-gray-700 dark:text-gray-400'>Ứng tuyển vào ngày: {convertMillisecondsToString(+props?.createdAt * 1000)}</span>
                             </div>
                             <div className='sm:hidden'>
-                                <span className='text-xs md:text-sm text-gray-400 '>Ứng tuyển vào ngày: 27/02/2025</span>
-                                <div className={`mt-4 text-sm md:text-base lg:text-lg xl:text-base font-medium uppercase`}
+                                <span className='text-xs md:text-sm text-gray-400 dark:text-gray-400'>Ứng tuyển vào ngày: {convertMillisecondsToString(+props?.createdAt * 1000)}</span>
+                                <div className={`mt-4 text-sm md:text-base lg:text-lg xl:text-base font-medium uppercase dark:text-white`}
                                     onClick={() => navigate(`/job/detail/${data?.id}/${slugify(data?.name, { lower: true, strict: true })}`)}
                                 >
                                     {data?.name}

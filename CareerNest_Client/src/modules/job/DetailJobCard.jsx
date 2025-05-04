@@ -17,15 +17,16 @@ import { useTranslation } from 'react-i18next';
 const DetailJobCard = forwardRef(({ job = {} }, ref) => {
     const { t } = useTranslation();
 
+    const appliedJobs = useSelector(state => state?.user?.appliedJobs);
     const user = useSelector(state => state?.user?.info);
     const { refetch } = useDetailUser(user?.id);
     const [isOpenModal, setOpenModal] = useState(false);
 
     const isExpired = (date) => new Date(date * 1000) < new Date();
 
-    const checkIsSavedJob = (id, saveJobs) => {
-        if (!saveJobs || saveJobs?.length === 0) return false;
-        return saveJobs.some(job => +job.id === +id);
+    const checkIsAppliedJob = (id, appliedJobs) => {
+        if (!appliedJobs || appliedJobs?.length === 0) return false;
+        return appliedJobs.some(item => +item?.job?.id === +id);
     };
 
     const mutation = useMutation({
@@ -105,9 +106,9 @@ const DetailJobCard = forwardRef(({ job = {} }, ref) => {
                 {!isExpired(job?.endDate) ?
                     <button
                         className="w-full bg-red-500 hover:bg-red-600 hover:transition-colors text-white font-semibold py-2 rounded-lg mt-4"
-                        onClick={handleApplyJob}
+                        onClick={!checkIsAppliedJob(job?.id, appliedJobs) ? handleApplyJob : () => { message.warning("Bạn đã ứng tuyển công việc này!") }}
                     >
-                        {t('detail_job_card.apply_button')}
+                        {checkIsAppliedJob(job?.id, appliedJobs) ? t('job_detail_page.already_applied_button') : t('detail_job_card.apply_button')}
                     </button>
                     : <Badge className='uppercase text-base w-fit' color="failure" size='sm' >
                         {t('detail_job_card.expired')}

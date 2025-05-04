@@ -7,7 +7,7 @@ import { useMutation } from '@tanstack/react-query';
 import { postLogin } from '../../services/userService';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
-import { updateUserInfo } from "../../redux/slices/userSlice";
+import { fetchAllAppliedJobs, updateUserInfo } from "../../redux/slices/userSlice";
 import { useDetailUser } from "../../hooks/useDetailUer";
 import { message } from 'antd';
 import { useTranslation } from "react-i18next";
@@ -31,6 +31,8 @@ export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
         onSuccess: async (res) => {
             if (+res?.statusCode === 200) {
                 dispatch(updateUserInfo({ ...res?.data }));
+                if (res?.data?.user?.role?.id === 3)
+                    dispatch(fetchAllAppliedJobs({ id: +res?.data?.user?.id }));
                 setUserId(res?.data?.user?.id);
                 setAccessToken(res?.data?.access_token);
                 mutation.reset();

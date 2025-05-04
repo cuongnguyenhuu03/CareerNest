@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 const MyJob = () => {
     const user = useSelector(state => state?.user?.info);
+    const appliedJobs = useSelector(state => state?.user?.appliedJobs);
     const navigate = useNavigate();
     const { t } = useTranslation();
 
@@ -21,7 +22,7 @@ const MyJob = () => {
                     <div className='basis-2/3 flex flex-col gap-y-4 p-3'>
                         <div className='text-slate-800 font-medium text-sm xs:text-lg sm:text-xl'>{t('overview_page.user_activity.applied_jobs')}</div>
                         <span className='text-[#085bdd] font-bold text-2xl sm:text-3xl flex items-center gap-3'>
-                            1 <MdKeyboardDoubleArrowRight size={18} />
+                            {appliedJobs?.length > 0 ? appliedJobs.length : 0} <MdKeyboardDoubleArrowRight size={18} />
                         </span>
                     </div>
                     <div className='basis-1/3 flex items-center'>
