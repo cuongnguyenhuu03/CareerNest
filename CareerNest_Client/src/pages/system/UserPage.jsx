@@ -14,6 +14,7 @@ import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import ModalUser from '../../modules/admin/user/ModalUser';
 import { deleteUser } from '../../services/userService';
+import { convertMillisecondsToString } from '../../utils/convertMiliSecondsToString';
 
 const UserPage = () => {
     const [openModal, setOpenModal] = useState(false);
@@ -108,7 +109,7 @@ const UserPage = () => {
             sorter: true,
             render: (text, record, index, action) => {
                 return (
-                    <>{record?.createdAt ? convertTimeStampToString(record.createdAt, true) : ""}</>
+                    <>{record?.createdAt ? convertMillisecondsToString(record.createdAt * 1000) : ""}</>
                 )
             },
             hideInSearch: true,
@@ -120,7 +121,7 @@ const UserPage = () => {
             sorter: true,
             render: (text, record, index, action) => {
                 return (
-                    <>{record?.updatedAt ? convertTimeStampToString(record.updatedAt, true) : ""}</>
+                    <>{record?.updatedAt ? convertMillisecondsToString(record.updatedAt * 1000) : ""}</>
                 )
             },
             hideInSearch: true,

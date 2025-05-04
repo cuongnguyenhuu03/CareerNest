@@ -5,9 +5,9 @@ import { Button } from "antd";
 import queryString from 'query-string';
 import { sfLike } from "spring-filter-query-builder";
 import withErrorBoundary from '../../hoc/withErrorBoundary';
-import { convertTimeStampToString } from '../../utils/convertTimeStampToString';
 import { useSkills } from '../../hooks/useSkills';
 import ModalSkill from '../../modules/admin/skill/ModalSkill';
+import { convertMillisecondsToString } from '../../utils/convertMiliSecondsToString';
 
 const SkillPage = () => {
     const [openModal, setOpenModal] = useState(false);
@@ -66,7 +66,7 @@ const SkillPage = () => {
             sorter: true,
             render: (text, record, index, action) => {
                 return (
-                    <>{record?.createdAt ? convertTimeStampToString(record.createdAt, true) : ""}</>
+                    <>{record?.createdAt ? convertMillisecondsToString(record.createdAt * 1000) : ""}</>
                 )
             },
             hideInSearch: true,
@@ -78,7 +78,7 @@ const SkillPage = () => {
             sorter: true,
             render: (text, record, index, action) => {
                 return (
-                    <>{record?.updatedAt ? convertTimeStampToString(record.updatedAt, true) : ""}</>
+                    <>{record?.updatedAt ? convertMillisecondsToString(record.updatedAt, true) : ""}</>
                 )
             },
             hideInSearch: true,

@@ -164,7 +164,7 @@ const DetailRecruitmentPage = () => {
                             <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
                                 2.  {t('company_detail_page.current_job')}
                             </div>
-                            <div className='w-full flex flex-col gap-y-4'>
+                            <div className='w-full flex flex-col gap-y-4 overflow-y-auto h-[calc(100vh-300px)]'>
                                 {jobsByCompany?.length <= 0 ?
                                     <Badge color="gray" size="sm" className='w-fit uppercase'>
                                         {localStorage.getItem('i18nextLng') === 'vi' ? "Chưa có thông tin tuyển dụng nào" : "No recruitment information yet."}
@@ -340,7 +340,7 @@ const DetailRecruitmentPage = () => {
                             <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
                                 2.  {t('company_detail_page.current_job')}
                             </div>
-                            <div className='mt-3 w-full flex flex-col gap-y-4'>
+                            <div className='mt-3 w-full flex flex-col gap-y-4 overflow-y-auto h-[calc(100vh-300px)]'>
                                 {jobsByCompany?.length <= 0 ?
                                     <Badge color="gray" size="xs" className='w-fit uppercase tracking-wide'>
                                         {localStorage.getItem('i18nextLng') === 'vi' ? "Chưa có thông tin tuyển dụng nào" : "No recruitment information yet."}
