@@ -33,9 +33,13 @@ const postApplyJob = (data) => {
     });
 }
 
+const putUpdateOnlineResume = (data) => {
+    return axios.put(`/online-resumes`, { ...data })
+};
+
 const deleteOnlResume = (id) => {
     return axios.delete(`/online-resumes/${id}`);
 }
 
 
-export { getAllResumesByUser, getMainResumeUpload, postCreateOnlineCV, postApplyJob, deleteOnlResume };
+export { getAllResumesByUser, getMainResumeUpload, postCreateOnlineCV, putUpdateOnlineResume, postApplyJob, deleteOnlResume };

@@ -50,7 +50,8 @@ const CVCard = ({ className = '', data = {}, ...props }) => {
                                 {t('cv_card.view')}
                             </Button>
                             <div className='flex gap-x-4  items-center justify-between'>
-                                <Button color="gray" size='xs' pill onClick={() => alert('aaa')}>
+                                <Button color="gray" size='xs' pill
+                                    onClick={() => navigate(`${path.CV}/${path.CV__UPDATE}?candidate=${slugify(data?.fullName, { lower: true, strict: true })}&cv=${data?.id}`, { state: { dataResume: data } })}>
                                     <FaRegEdit size={15} className='mr-2' /> {t('cv_card.edit')}
                                 </Button>
                                 <Button color="gray" size='xs' pill onClick={() => setOpenDeleteModal(true)}>
