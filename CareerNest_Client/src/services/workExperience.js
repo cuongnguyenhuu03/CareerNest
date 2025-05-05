@@ -4,8 +4,12 @@ const postCreateWorkExperience = (data) => {
     return axios.post('/workExperiences', { ...data });
 }
 
+const putUpdateWorkExperience = (data) => {
+    return axios.put('/workExperiences', { ...data });
+}
+
 const deleteWorkExperience = (id) => {
     return axios.delete(`/workExperiences/${id}`);
 }
 
-export { postCreateWorkExperience, deleteWorkExperience };
+export { postCreateWorkExperience, putUpdateWorkExperience, deleteWorkExperience };

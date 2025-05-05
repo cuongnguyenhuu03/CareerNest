@@ -14,6 +14,7 @@ export const path = {
     CV: '/cv',
     CV__MANAGE: 'management',
     CV__CREATE: 'create',
+    CV__UPDATE: 'update',
     CV__DETAIL: 'detail',
     CV__REVIEW__BY__AI: 'review-by-ai',
 
