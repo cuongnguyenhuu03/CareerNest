@@ -56,7 +56,7 @@ const ModalApplyCV = ({ openModal = false, setOpenModal = () => { }, jobData = n
         if (cv?.type === "application/pdf") {
             setLoading(true);
             try {
-                let res = await askGeminiWithPDF(cv, `Bạn hãy đọc file cv này. Sau đó tôi sẽ truyền thêm vào mô tả công việc và yêu cầu công việc.
+                let res = await askGeminiWithPDF(cv, `Bạn hãy đọc file cv này, nếu trong CV có ảnh, hãy bỏ qua chỉ phân tích text. Sau đó tôi sẽ truyền thêm vào mô tả công việc và yêu cầu công việc.
                 Hãy dựa vào thông tin đọc được từ CV, cùng với thông tin mô tả công việc và yêu cầu công việc, phân tích bằng tiếng việt và phải ngắn gọn về điểm mạnh, điểm yếu, và đánh số điểm về mức độ phù hợp của CV này (từ 10-100).Trả về kết quả giúp tôi dạng: advantage:...;shortcoming:...;rating:... (dùng dấu chấm phẩy để ngăn cách nhé).
                 Mô tả công việc:${jobData?.description}.
                 Yêu cầu công việc:${jobData?.requirements}`);
@@ -69,7 +69,7 @@ const ModalApplyCV = ({ openModal = false, setOpenModal = () => { }, jobData = n
                     jobId: +jobData?.id,
                     advantage: parseText(res)?.advantage,
                     shortcoming: parseText(res)?.shortcoming,
-                    rating: +parseText(res)?.rating
+                    rating: +parseText(res)?.rating || 50
                 })
             } catch (error) {
                 console.log(error);

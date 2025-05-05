@@ -1,8 +1,8 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { db } from '../../firebase/configFirebase';;
 import DataTable from '../../modules/client/DataTable';
-import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button, Popconfirm, Space, Tag, message } from "antd";
+import { DeleteOutlined, EditOutlined, PlusOutlined, EyeOutlined } from "@ant-design/icons";
+import { Button, Popconfirm, Space, Tag, Tooltip, message } from "antd";
 import queryString from 'query-string';
 import { ALL_PERMISSIONS } from '../../utils/constant';
 import Access from '../../components/share/Access';
@@ -15,9 +15,11 @@ import ModalJob from '../../modules/admin/job/ModalJob';
 import { deleteJob } from '../../services/jobService';
 import { useJobsByCompany } from '../../hooks/useJobsByCompany';
 import { convertMillisecondsToString } from '../../utils/convertMiliSecondsToString';
+import ModalResume from '../../modules/admin/resume/ModalResume';
 
 const JobPage = () => {
     const [openModal, setOpenModal] = useState(false);
+    const [openModalResume, setOpenModalResume] = useState(false);
     const [jobId, setJobId] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [jobName, setJobName] = useState('');
@@ -25,7 +27,7 @@ const JobPage = () => {
 
     const { res, isFetching, error, refetch } = useJobs(currentPage, jobName);
     const { res: resJobsByCompany, isFetching: isFetchJobsByCompany, error: errorJobsByCompany, refetch: refetchJobsByCompany }
-        = useJobsByCompany();
+        = useJobsByCompany(currentPage);
 
     const meta = res?.meta ?? {
         page: 1,
@@ -200,6 +202,24 @@ const JobPage = () => {
                             </span>
                         </Popconfirm>
                     </Access>
+                    <Access
+                        permission={ALL_PERMISSIONS.JOBS.UPDATE}
+                        hideChildren
+                    >
+                        <Tooltip title="Xem danh sách ứng tuyển">
+                            <EyeOutlined
+                                style={{
+                                    fontSize: 20,
+                                    color: '#ffa500',
+                                    cursor: 'pointer',
+                                }}
+                                onClick={() => {
+                                    setJobId(entity?.id);
+                                    setOpenModalResume(true);
+                                }}
+                            />
+                        </Tooltip>
+                    </Access>
                 </Space>
             ),
 
@@ -310,6 +330,14 @@ const JobPage = () => {
                     openModal={openModal}
                     setOpenModal={setOpenModal}
                     reloadTable={reloadTable}
+                />
+            }
+            {openModalResume &&
+                <ModalResume
+                    jobId={jobId}
+                    setJobId={setJobId}
+                    openModal={openModalResume}
+                    setOpenModal={setOpenModalResume}
                 />
             }
         </>

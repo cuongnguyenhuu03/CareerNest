@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Alert, Badge, Button, Card, TextInput } from 'flowbite-react';
+import { Alert, Badge, Button, Card, Pagination, TextInput } from 'flowbite-react';
 import icons from '../../utils/icons';
 import JobCard from '../../components/card/JobCard';
 import { CgWebsite } from "react-icons/cg";
@@ -20,6 +20,7 @@ import ModalRecruitmentMatching from '../../modules/recruitment/ModalRecruitment
 import { FiMessageSquare } from "react-icons/fi";
 import RecruitmentComment from '../../modules/recruitment/RecruitmentComment';
 import { useTranslation } from 'react-i18next';
+import { useJobsByCompany } from '../../hooks/useJobsByCompany';
 
 const { IoPeople, GrLocation, FaCircleInfo } = icons;
 const data = [
@@ -34,6 +35,7 @@ const DetailRecruitmentPage = () => {
     const { id, slug } = useParams();
     const [copied, setCopied] = useState(false);
     const [openModal, setOpenModal] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
         if (ref?.current)
@@ -51,14 +53,13 @@ const DetailRecruitmentPage = () => {
     const detailCompany = resRecruitment?.data?.company;
     const link = `http://localhost:3000/${path.RECRUITMENT}/detail/${detailCompany?.id}/${slugify(detailCompany?.name ?? '', { lower: true, strict: true })}`;
 
-    const { data: resJobs } = useQuery({
-        queryKey: ['jobsByCompany', +detailCompany?.id],
-        queryFn: () => getJobsByCompany(+detailCompany?.id),
-        enabled: !!detailCompany?.id,
-        staleTime: 10 * 1000,
-        refetchOnWindowFocus: true,
-    })
+    const { res: resJobs, isFetching: isFetchJobsByCompany, error: errorJobsByCompany } = useJobsByCompany(currentPage);
     const jobsByCompany = resJobs?.data?.content ?? [];
+    const meta = {
+        pageSize: resJobs?.data?.size,
+        pages: resJobs?.data?.totalPages,
+        total: resJobs?.data?.totalElements
+    };
 
     const handleCopy = () => {
         navigator.clipboard.writeText(link);
@@ -66,8 +67,12 @@ const DetailRecruitmentPage = () => {
         setTimeout(() => setCopied(false), 2000);
     };
 
+    const onPageChange = (page) => {
+        setCurrentPage(+page);
+    };
+
     if (!id || !slug) return null;
-    if (isLoading || isFetching)
+    if (isLoading || isFetching || isFetchJobsByCompany)
         return (
             <div className='ct-container flex flex-col gap-8 mt-20 dark:bg-gray-800'>
                 <div>
@@ -182,6 +187,16 @@ const DetailRecruitmentPage = () => {
                                 }
                             </div>
                         </div>
+                        {meta?.pages > 1 &&
+                            <div className="flex overflow-x-auto justify-center mb-8">
+                                <Pagination
+                                    currentPage={currentPage}
+                                    totalPages={meta?.pages}
+                                    onPageChange={onPageChange}
+                                    showIcons
+                                />
+                            </div>
+                        }
                         <div className='flex flex-col gap-6'>
                             <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
                                 3. {t('company_detail_page.review')}
@@ -359,6 +374,16 @@ const DetailRecruitmentPage = () => {
                                 }
                             </div>
                         </div>
+                        {meta?.pages > 1 &&
+                            <div className="flex overflow-x-auto justify-center mb-8">
+                                <Pagination
+                                    currentPage={currentPage}
+                                    totalPages={meta?.pages}
+                                    onPageChange={onPageChange}
+                                    showIcons
+                                />
+                            </div>
+                        }
                         <div className='flex flex-col gap-6'>
                             <div className='text-[#ee4d2d] text-lg sm:text-xl font-semibold'>
                                 3.  {t('company_detail_page.review')}

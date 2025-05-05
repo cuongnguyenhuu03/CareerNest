@@ -11,6 +11,10 @@ const getMainResumeUpload = (fileName = '', folder = '') => {
     });
 };
 
+const getResumesByJob = (jobId) => {
+    return axios.get(`/resumes/job/${jobId}`);
+};
+
 const postCreateOnlineCV = (data) => {
     return axios.post('/online-resumes', { ...data });
 }
@@ -37,9 +41,16 @@ const putUpdateOnlineResume = (data) => {
     return axios.put(`/online-resumes`, { ...data })
 };
 
+const putUpdateResume = (data) => {
+    return axios.put(`/resumes`, { ...data })
+};
+
 const deleteOnlResume = (id) => {
     return axios.delete(`/online-resumes/${id}`);
 }
 
 
-export { getAllResumesByUser, getMainResumeUpload, postCreateOnlineCV, putUpdateOnlineResume, postApplyJob, deleteOnlResume };
+export {
+    getAllResumesByUser, getMainResumeUpload, getResumesByJob, postCreateOnlineCV,
+    putUpdateOnlineResume, putUpdateResume, postApplyJob, deleteOnlResume
+};
