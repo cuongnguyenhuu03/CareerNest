@@ -50,8 +50,8 @@ const getDetailJob = (id) => {
     return axios.get(`/jobs/${id}`);
 }
 
-const getJobsByCompany = (companyId) => {
-    return axios.get(`/jobs/company/${companyId}`);
+const getJobsByCompany = (companyId, page, size = 6) => {
+    return axios.get(`/jobs/company/${companyId}?page=${page}&size=${size}`);
 }
 
 const postCreateNewJob = (data) => {
