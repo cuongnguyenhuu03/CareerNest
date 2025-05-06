@@ -61,7 +61,7 @@ const MyJobPage = () => {
                             <div className='flex items-center gap-2'>
                                 {t('my_job_page.applied_jobs')}
                                 <Badge color={activeTab === 0 ? "info" : "gray"} size="sm" className='rounded-full'>
-                                    3
+                                    {appliedJobs?.length ?? 0}
                                 </Badge>
                             </div>
                         }>

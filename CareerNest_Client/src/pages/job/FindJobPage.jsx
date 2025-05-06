@@ -119,12 +119,12 @@ const FindJobPage = () => {
                     </div>
                     <GrPowerReset onClick={handleResetFilter} size={22} className='ml-4 dark:text-white hover:cursor-pointer hover:text-red-500 hover:transition-all' />
                 </div>
-                <div className='w-full md:hidden flex justify-end'>
-                    <Button color="light" onClick={() => setOpenModalFilter(true)}>
-                        <FaFilter size={18} className='mr-2' /> Bộ lọc
-                    </Button>
+                <div className='w-full md:hidden flex items-center justify-end mb-4'>
+                    <Button onClick={handleResetFilter} color='light'>
+                        <GrPowerReset size={18} className='mr-1' />
+                        {localStorage.getItem('i18nextLng') === 'vi' ? "Làm mới" : "Reset"}</Button>
                 </div>
-                <Badge color="gray" size="sm" className='w-fit text-xl uppercase tracking-wide'>Không tìm thấy thông tin việc làm.</Badge>
+                <Badge color="gray" size="sm" className='w-fit text-lg sm:text-xl uppercase tracking-wide'>Không tìm thấy thông tin việc làm.</Badge>
             </div>
         )
     if (isLoading || isFetching)
@@ -147,6 +147,7 @@ const FindJobPage = () => {
             </div>
 
         )
+
     return (
         <>
             <div ref={ref} className='ct-container flex flex-col gap-y-6'>
@@ -200,15 +201,16 @@ const FindJobPage = () => {
                         </Select>
                     </div>
                     <GrPowerReset onClick={handleResetFilter} size={22} className='ml-4 dark:text-white hover:cursor-pointer hover:text-red-500 hover:transition-all' />
-                </div>
-                <div className='w-full md:hidden flex justify-end'>
+                </div >
+                <div className='w-full md:hidden flex items-center justify-between' >
                     <Button color="light" onClick={() => setOpenModalFilter(true)}>
-                        <FaFilter size={18} className='mr-2' /> Bộ lọc
+                        <FaFilter size={18} className='mr-2' /> {localStorage.getItem('i18nextLng') === 'vi' ? "Bộ lọc" : "Filter"}
                     </Button>
-                </div>
+                    <GrPowerReset onClick={handleResetFilter} size={22} className='ml-4 dark:text-white hover:cursor-pointer hover:text-red-500 hover:transition-all' />
+                </div >
 
                 {/* Hiển thị danh sách jobs và detail job */}
-                <div className='hidden w-full md:flex gap-6'>
+                <div className='hidden w-full md:flex gap-6' >
                     <div className='flex flex-col gap-7 basis-2/5'>
                         {listJobs?.map((job) => (
                             <FindJobCard
@@ -220,7 +222,7 @@ const FindJobPage = () => {
                         ))}
                     </div>
                     <DetailJobCard ref={detailRef} job={selectedJob} />
-                </div>
+                </div >
 
                 <div className='md:hidden flex flex-col gap-8'>
                     {listJobs?.map((job) => (
@@ -232,11 +234,21 @@ const FindJobPage = () => {
                         />
                     ))}
                 </div>
-            </div>
+            </div >
             <div className="flex overflow-x-auto justify-center mb-8">
                 <Pagination currentPage={currentPage} totalPages={meta?.pages} onPageChange={onPageChange} showIcons />
             </div>
-            {openModalFilter && <FilterJobModal isOpen={openModalFilter} setOpenModal={setOpenModalFilter} />}
+            {
+                openModalFilter &&
+                <FilterJobModal
+                    isOpen={openModalFilter}
+                    setOpenModal={setOpenModalFilter}
+                    selectedLevels={selectedLevels}
+                    setSelectedLevels={setSelectedLevels}
+                    selectedSalary={selectedSalary}
+                    setSelectedSalary={setSelectedSalary}
+                />
+            }
         </>
     );
 };

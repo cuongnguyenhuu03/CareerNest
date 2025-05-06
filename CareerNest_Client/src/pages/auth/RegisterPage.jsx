@@ -26,7 +26,7 @@ const RegisterPage = () => {
                 mutation.reset();
             } else {
                 console.log(res?.data)
-                toast.error("Email này đã tồn tại");
+                toast.error(res?.data?.message?.firstName || res?.data?.message?.email);
             }
         },
         onError: (error) => {

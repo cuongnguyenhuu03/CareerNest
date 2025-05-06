@@ -9,8 +9,8 @@ export const useDetailUser = (id) => {
         error,
         refetch,
     } = useQuery({
-        queryKey: ['detail_user', id],
-        queryFn: () => getDetailUser(id),
+        queryKey: ['detail_user', +id],
+        queryFn: () => getDetailUser(+id),
         enabled: !!id,
         staleTime: 10 * 1000,
         refetchOnWindowFocus: false,
