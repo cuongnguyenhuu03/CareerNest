@@ -92,7 +92,6 @@ const DetailJobCard = forwardRef(({ job = {} }, ref) => {
                         <div>
                             <h2 className="text-xl font-semibold text-gray-800 flex items-center gap-1 dark:text-white">
                                 {job?.name}
-                                <Link to={`/job/detail/${job?.id}/${slugify(job?.name, { lower: true, strict: true })}`} target="_blank" className="text-blue-500 text-md hover:underline">↗</Link>
                             </h2>
                             <Link to={`${path.RECRUITMENT}/detail/${job?.company?.id}/${slugify(job?.company?.name || '', { lower: true, strict: true })}`} className="text-gray-600 hover:underline dark:text-gray-400 hover:text-red-500 hover:transition-all">
                                 {job?.company?.name}
@@ -102,10 +101,13 @@ const DetailJobCard = forwardRef(({ job = {} }, ref) => {
                             </p>
                         </div>
                     </div>
-                    {!isExpired(job?.endDate) &&
-                        <button className="text-red-500 text-xl hover:text-red-600" onClick={handleSaveJob}>❤️</button>
-                    }
+                    <div className='flex gap-3'>
+                        <Link to={`/job/detail/${job?.id}/${slugify(job?.name, { lower: true, strict: true })}`} target="_blank" className="text-blue-500 text-md hover:underline hover:transition-all text-2xl font-semibold">↗</Link>
+                        {!isExpired(job?.endDate) &&
+                            <button className="text-red-500 text-xl hover:text-red-600" onClick={handleSaveJob}>❤️</button>
+                        }
 
+                    </div>
                 </div>
 
                 {/* Apply Button */}
