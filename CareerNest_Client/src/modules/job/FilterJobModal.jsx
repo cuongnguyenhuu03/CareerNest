@@ -1,17 +1,15 @@
 import { Button, Checkbox, Modal, Select } from 'flowbite-react';
 import React, { useState } from 'react';
 import { AiOutlinePlus } from "react-icons/ai";
-import Slider from "react-slider";
-import { FaDollarSign } from "react-icons/fa";
+import { GrPowerReset } from "react-icons/gr";
 
 const levels = ["INTERN", "FRESHER", "JUNIOR", "MIDDLE", "SENIOR"];
-const workType = ["Fulltime", "Part-time", "Remote"];
+const workType = ["Full-time", "Part-time", "Contract"];
 
 // use for Tablet, Mobile
-const FilterJobModal = ({ isOpen = false, setOpenModal = () => { } }) => {
-    const [selectedLevels, setSelectedLevels] = useState([]);
+const FilterJobModal = ({ isOpen = false, setOpenModal = () => { }, selectedLevels = [], setSelectedLevels = null, selectedSalary = '', setSelectedSalary = null }) => {
+
     const [selectedWorkType, setSelectedWorkType] = useState([]);
-    const [salary, setSalary] = useState([500, 10000]);
 
     const toggleLevel = (level) => {
         setSelectedLevels((prev) =>
@@ -25,12 +23,19 @@ const FilterJobModal = ({ isOpen = false, setOpenModal = () => { } }) => {
         );
     };
 
+    const handleResetFilter = () => {
+        setSelectedLevels([]);
+        setSelectedWorkType([]);
+        setSelectedSalary('');
+    }
+
+
     return (
         <Modal show={isOpen} onClose={() => setOpenModal(false)}>
             <Modal.Header >Bộ lọc</Modal.Header>
             <Modal.Body className='flex flex-col gap-6'>
                 <div className='flex flex-col gap-4'>
-                    <div className='font-semibold'>Cấp bậc</div>
+                    <div className='font-semibold'>{localStorage.getItem('i18nextLng') === 'vi' ? "Cấp bậc" : "Levels"}</div>
                     <div className="flex flex-wrap gap-3">
                         {levels.map((level) => (
                             <label
@@ -55,7 +60,7 @@ const FilterJobModal = ({ isOpen = false, setOpenModal = () => { } }) => {
                 </div>
 
                 <div className='flex flex-col gap-4'>
-                    <div className='font-semibold'>Hình thức làm việc</div>
+                    <div className='font-semibold'>{localStorage.getItem('i18nextLng') === 'vi' ? "Hình thức làm việc" : "Work type"}</div>
                     <div className="flex flex-wrap gap-3">
                         {workType.map((level) => (
                             <label
@@ -79,39 +84,30 @@ const FilterJobModal = ({ isOpen = false, setOpenModal = () => { } }) => {
                     </div>
                 </div>
                 <div className='flex flex-col gap-4'>
-                    <div className='font-semibold'>Mức lương</div>
+                    <div className='font-semibold'>{localStorage.getItem('i18nextLng') === 'vi' ? "Mức lương" : "Salary"}</div>
                     <div className="flex gap-3">
-                        <span className="basis-1/3 text-gray-700 flex items-center gap-1">
-                            <FaDollarSign className="text-blue-600" />
-                            {salary[0].toLocaleString()}$ - {salary[1].toLocaleString()}$
-                        </span>
-                        <Slider
-                            className="flex-auto h-2 bg-gray-300 rounded-lg relative"
-                            min={500}
-                            max={10000}
-                            step={100}
-                            value={salary}
-                            onChange={setSalary}
-                            renderTrack={(props, state) => (
-                                <div
-                                    {...props}
-                                    className={`h-2 rounded-lg ${state.index === 1 ? "bg-blue-500" : "bg-gray-300"
-                                        }`}
-                                />
-                            )}
-                            renderThumb={(props) => (
-                                <div
-                                    {...props}
-                                    className="w-5 h-5 bg-white border-2 border-blue-500 rounded-full cursor-pointer -top-1.5"
-                                />
-                            )}
-                        />
+                        {/* Mức lương */}
+                        <Select
+                            className="w-fit rounded-full border-gray-300"
+                            value={selectedSalary}
+                            onChange={(e) => setSelectedSalary(e.target.value)}
+                        >
+                            <option value="">{localStorage.getItem('i18nextLng') === 'vi' ? "Tất cả" : "All"}</option>
+                            <option value="under-1000-$">Dưới 1000$</option>
+                            <option value="1000-1500-$">Từ 1000 - 1500$</option>
+                            <option value="1500-2000-$">Từ 1500-2000$</option>
+                            <option value="2000-2500-$">Từ 2000-2500$</option>
+                            <option value="2500-3000-$">Từ 2500-3000$</option>
+                            <option value="over-3000-$">Trên 3000$</option>
+                        </Select>
                     </div>
                 </div>
             </Modal.Body>
             <Modal.Footer className='flex items-center justify-between'>
-                <Button color="gray" onClick={() => setOpenModal(false)}>Hủy bỏ</Button>
-                <Button onClick={() => setOpenModal(false)}>Áp dụng</Button>
+                <Button color="gray" onClick={() => setOpenModal(false)}>{localStorage.getItem('i18nextLng') === 'vi' ? "Hủy bỏ" : "Cancel"}</Button>
+                <Button onClick={handleResetFilter}>
+                    <GrPowerReset size={18} className='mr-1' />
+                    {localStorage.getItem('i18nextLng') === 'vi' ? "Làm mới" : "Reset"}</Button>
             </Modal.Footer>
         </Modal>
     );

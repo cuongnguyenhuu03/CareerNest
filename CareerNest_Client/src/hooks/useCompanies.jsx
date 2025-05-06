@@ -9,7 +9,7 @@ export const useCompanies = (currentPage = 1) => {
         queryKey: ['companies', currentPage],
         queryFn: () => getAllCompanies(currentPage),
         enabled: user?.role?.id === 1, // Chỉ ADMIN mới được gọi
-        staleTime: 60 * 1000,
+        staleTime: 30 * 1000,
         refetchOnWindowFocus: true,
         placeholderData: (previousData) => previousData, // thường dùng khi Paginate
     });

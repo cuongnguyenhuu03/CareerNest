@@ -19,6 +19,7 @@ const DetailJobCard = forwardRef(({ job = {} }, ref) => {
 
     const appliedJobs = useSelector(state => state?.user?.appliedJobs);
     const user = useSelector(state => state?.user?.info);
+
     const { refetch } = useDetailUser(user?.id);
     const [isOpenModal, setOpenModal] = useState(false);
 
@@ -27,6 +28,11 @@ const DetailJobCard = forwardRef(({ job = {} }, ref) => {
     const checkIsAppliedJob = (id, appliedJobs) => {
         if (!appliedJobs || appliedJobs?.length === 0) return false;
         return appliedJobs.some(item => +item?.job?.id === +id);
+    };
+
+    const checkIsSavedJob = (id, saveJobs) => {
+        if (!saveJobs || saveJobs?.length === 0) return false;
+        return saveJobs.some(job => +job.id === +id);
     };
 
     const mutation = useMutation({

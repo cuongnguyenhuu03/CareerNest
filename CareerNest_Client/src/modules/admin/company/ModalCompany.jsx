@@ -20,12 +20,12 @@ import { toast } from 'react-toastify';
 const ModalCompany = ({ companyId = '', setCompanyId = () => { }, openModal, setOpenModal, reloadTable }) => {
     const { res, isFetching, error, refetch } = useDetailCompany(companyId);
     const { res: resSkills, isLoading: isLoadingSkills } = useSkills();
-    const queryClient = useQueryClient()
+    const queryClient = useQueryClient();
 
     const [animation, setAnimation] = useState('open');
     const descriptionRef = useRef("");
     const [form] = Form.useForm();
-    const dataInit = res?.data ?? {};
+    const dataInit = res?.data?.company ?? {};
 
     const [logoUrl, setLogoUrl] = useState('');
     const [imageNameState, setImageName] = useState('');

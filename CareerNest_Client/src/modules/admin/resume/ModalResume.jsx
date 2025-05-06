@@ -1,7 +1,7 @@
 import './ModalResume.scss';
 import React, { useRef, useState } from 'react';
-import { EditOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button, ConfigProvider, Space, Tag } from "antd";
+import { EditOutlined, PlusOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Button, ConfigProvider, Popconfirm, Space, Tag, message } from "antd";
 import queryString from 'query-string';
 import { ALL_PERMISSIONS } from '../../../utils/constant';
 import withErrorBoundary from '../../../hoc/withErrorBoundary';
@@ -15,6 +15,8 @@ import { isMobile } from 'react-device-detect';
 import { CheckSquareOutlined } from "@ant-design/icons";
 import viVN from 'antd/locale/vi_VN';
 import ModalDetailResume from './ModalDetailResume';
+import { useMutation } from '@tanstack/react-query';
+import { deleteResume } from '../../../services/resumeService';
 
 const statusColorMap = {
     PENDING: 'default',
@@ -155,6 +157,29 @@ const ModalResume = ({ jobId = '', setJobId = null, openModal = false, setOpenMo
                             }}
                         />
                     </Access>
+
+                    <Access
+                        permission={ALL_PERMISSIONS.JOBS.DELETE}
+                        hideChildren
+                    >
+                        <Popconfirm
+                            placement="leftTop"
+                            title={"Xác nhận xóa Hồ sơ ứng tuyển"}
+                            description={"Bạn có chắc chắn muốn xóa hồ sơ ứng tuyển này ?"}
+                            onConfirm={() => { handleDeleteResume(entity?.id) }}
+                            okText="Xác nhận"
+                            cancelText="Hủy"
+                        >
+                            <span style={{ cursor: "pointer", margin: "0 10px" }}>
+                                <DeleteOutlined
+                                    style={{
+                                        fontSize: 20,
+                                        color: '#ff4d4f',
+                                    }}
+                                />
+                            </span>
+                        </Popconfirm>
+                    </Access>
                 </Space>
             ),
 
@@ -206,6 +231,24 @@ const ModalResume = ({ jobId = '', setJobId = null, openModal = false, setOpenMo
         await new Promise(r => setTimeout(r, 400));
         setOpenModal(false);
     };
+
+    const mutation = useMutation({
+        mutationFn: deleteResume,
+        onSuccess: async (res) => {
+            message.success("Xóa thành công");
+            refetch();
+            mutation.reset();
+        },
+        onError: (error) => {
+            console.error('Error:', error);
+            toast.error(error?.message || 'Something wrong in Server');
+        },
+    });
+
+    const handleDeleteResume = async (id) => {
+        if (!id) return;
+        await mutation.mutateAsync(+id);
+    }
 
     if (error) {
         console.log(error);

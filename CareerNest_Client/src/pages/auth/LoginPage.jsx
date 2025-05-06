@@ -36,8 +36,10 @@ export function LoginPage({ isOpen = false, setOpenModal = () => { } }) {
                 setUserId(res?.data?.user?.id);
                 setAccessToken(res?.data?.access_token);
                 mutation.reset();
-            } else
-                toast.error(res?.error ?? 'Login failed!');
+            } else {
+                console.log(res?.data);
+                toast.error('Wrong password or Email existed!');
+            }
         },
         onError: (error) => {
             console.error('Error:', error);

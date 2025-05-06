@@ -10,7 +10,6 @@ import { path } from '../../utils/constant';
 import { getDetailRecruitment } from '../../services/recruitmentService';
 import { useQuery } from '@tanstack/react-query';
 import { HiInformationCircle } from "react-icons/hi";
-import { getJobsByCompany } from '../../services/jobService';
 import withErrorBoundary from '../../hoc/withErrorBoundary';
 import '../job/DetailJobPage.scss';
 import { getFirebaseImageUrl } from '../../utils/getFirebaseImageURL';
@@ -51,9 +50,9 @@ const DetailRecruitmentPage = () => {
         refetchOnWindowFocus: true,
     })
     const detailCompany = resRecruitment?.data?.company;
-    const link = `http://localhost:3000/${path.RECRUITMENT}/detail/${detailCompany?.id}/${slugify(detailCompany?.name ?? '', { lower: true, strict: true })}`;
+    const link = `${import.meta.env.VITE_FE_URL}${path.RECRUITMENT}/detail/${detailCompany?.id}/${slugify(detailCompany?.name ?? '', { lower: true, strict: true })}`;
 
-    const { res: resJobs, isFetching: isFetchJobsByCompany, error: errorJobsByCompany } = useJobsByCompany(currentPage);
+    const { res: resJobs, isFetching: isFetchJobsByCompany, error: errorJobsByCompany } = useJobsByCompany(currentPage, +id);
     const jobsByCompany = resJobs?.data?.content ?? [];
     const meta = {
         pageSize: resJobs?.data?.size,

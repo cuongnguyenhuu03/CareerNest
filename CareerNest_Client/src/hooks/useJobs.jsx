@@ -9,7 +9,7 @@ export const useJobs = (currentPage = 1, name = '') => {
         queryKey: ['listJobs', currentPage, name],
         queryFn: () => getAllJobs(currentPage, name),
         enabled: user?.role?.id === 1, // Chỉ ADMIN mới được gọi
-        staleTime: 60 * 1000,
+        staleTime: 30 * 1000,
         refetchOnWindowFocus: true,
         placeholderData: (previousData) => previousData, // thường dùng khi Paginate
     });
