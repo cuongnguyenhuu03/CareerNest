@@ -26,6 +26,7 @@ const ChatPage = () => {
 
     const [openPopup, setOpenPopup] = useState(false);
     const timeoutRef = useRef(null);
+    const messagesEndRef = useRef(null);
 
     const { res: resUsersConnected, refetch: refetchUsersConnected } = useUsersConnected();
 
@@ -106,7 +107,7 @@ const ChatPage = () => {
         let client = null;
 
         if (user?.email) {
-            const socket = new SockJS('http://localhost:8080/ws');
+            const socket = new SockJS(`${import.meta.env.VITE_BACKEND_CHAT}/ws`);
             client = Stomp.over(socket);
 
             client.connect({}, () => {
@@ -166,6 +167,10 @@ const ChatPage = () => {
         if (stompClient && userSelected?.id)
             fetchAllMessages();
     }, [stompClient, userSelected?.id]);
+
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [messages]);
 
     const handleInputChange = useCallback((e) => {
         setInputMessage(e.target.value);
@@ -444,8 +449,7 @@ const ChatPage = () => {
                                     </div>
                                 );
                             })}
-
-
+                            <div ref={messagesEndRef} />
                         </div>
                         <footer className="p-4 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 absolute bottom-0 left-0 right-0" >
                             <div className="flex dark:text-white items-center gap-2 dark:bg-gray-700 border border-gray-300 rounded-xl p-2">
