@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import slugify from 'slugify';
-import { path } from '../../utils/constant';
+import { JOB_TYPE, path } from '../../utils/constant';
 import { FaDollarSign, FaMapMarkerAlt, FaLaptop } from "react-icons/fa";
 import { getFirebaseImageUrl } from '../../utils/getFirebaseImageURL';
 import { convertTimeStampToString } from '../../utils/convertTimeStampToString';
@@ -29,11 +29,8 @@ const FindJobCard = ({ job = {}, selectedJob = {}, handleSelectJob = () => { } }
         return diffDays <= 2;
     };
 
-    const getJobType = (type) => ({
-        FULL_TIME: "Toàn thời gian",
-        PART_TIME: "Bán thời gian",
-        CONTRACT: "Theo hợp đồng"
-    }[type] || "");
+    const getJobType = (type) => JOB_TYPE[type] || "";
+
 
     if (!job?.active) return null;
     return (

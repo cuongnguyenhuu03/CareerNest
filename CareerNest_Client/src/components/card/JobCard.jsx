@@ -11,6 +11,7 @@ import { path } from '../../utils/constant';
 import { getFirebaseImageUrl } from '../../utils/getFirebaseImageURL';
 import { useTranslation } from 'react-i18next';
 import { convertMillisecondsToString } from '../../utils/convertMiliSecondsToString';
+import { JOB_TYPE } from '../../utils/constant';
 
 const { FaMoneyCheckDollar, FaRegBuilding, GrLocation, GrNetworkDrive, FaRegCalendarAlt, HiCheckCircle, FaHeart } = icons;
 
@@ -66,11 +67,7 @@ const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false
                 : 'Expired';
     };
 
-    const getJobType = (type) => ({
-        FULL_TIME: "Toàn thời gian",
-        PART_TIME: "Bán thời gian",
-        CONTRACT: "Theo hợp đồng"
-    }[type] || "");
+    const getJobType = (type) => JOB_TYPE[type] || "";
 
     if (!data?.active) return null;
     return (

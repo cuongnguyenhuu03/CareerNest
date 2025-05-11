@@ -16,6 +16,7 @@ import { useCompanies } from '../../../hooks/useCompanies';
 import { Badge } from 'flowbite-react';
 import { useSkills } from '../../../hooks/useSkills';
 import { postCreateNewJob, putUpdateJob } from '../../../services/jobService';
+import { JOB_TYPE } from '../../../utils/constant';
 
 const ModalJob = ({ jobId = '', setJobId = () => { }, openModal, setOpenModal, reloadTable }) => {
     const queryClient = useQueryClient()
@@ -87,6 +88,13 @@ const ModalJob = ({ jobId = '', setJobId = () => { }, openModal, setOpenModal, r
     };
     const transformData = (data) => data?.length > 0 ? data?.map(({ id, name }) => ({ label: name, value: id, desc: name })) : [];
     const transformIds = (ids) => ids?.map(id => ({ id }));
+
+    const getJobTypeOptions = () => {
+        return Object.entries(JOB_TYPE).map(([key, value]) => ({
+            label: value,
+            value: key
+        }));
+    };
 
     const handleSelect = (company) => {
         if (jobId) return;
@@ -284,11 +292,8 @@ const ModalJob = ({ jobId = '', setJobId = () => { }, openModal, setOpenModal, r
                         </Modal>
                     }
                     <Col span={12}>
-                        <ProFormSelect label="Hình thức làm việc" name="jobType" rules={[{ required: true, message: 'Vui lòng không bỏ trống' }]} options={[
-                            { label: "Toàn thời gian", value: "FULL_TIME" },
-                            { label: "Bán thời gian", value: "PART_TIME" },
-                            { label: "Theo hợp đồng", value: "CONTRACT" },
-                        ]} placeholder="Chọn hình thức làm việc" />
+                        <ProFormSelect label="Vị trí công việc" name="jobType" rules={[{ required: true, message: 'Vui lòng không bỏ trống' }]}
+                            options={getJobTypeOptions()} placeholder="Chọn vị trí công việc" />
                     </Col>
                     {selectedCompany !== null &&
                         <Col span={12}>
@@ -364,7 +369,7 @@ const ModalJob = ({ jobId = '', setJobId = () => { }, openModal, setOpenModal, r
                         <ProFormSwitch label="Trạng thái" name="active" checkedChildren="ACTIVE" unCheckedChildren="INACTIVE" initialValue fieldProps={{ defaultChecked: true }} />
                     </Col>
                     <Col span={24}>
-                        <ProCard title="Miêu tả" headStyle={{ color: '#d81921' }} bordered>
+                        <ProCard title="Miêu tả" headStyle={{ color: '#d81921' }} >
                             <ReactQuill
                                 theme="snow"
                                 value={descriptionRef.current}
@@ -373,7 +378,7 @@ const ModalJob = ({ jobId = '', setJobId = () => { }, openModal, setOpenModal, r
                         </ProCard>
                     </Col>
                     <Col span={24}>
-                        <ProCard title="Yêu cầu công việc" headStyle={{ color: '#d81921' }} bordered>
+                        <ProCard title="Yêu cầu công việc" headStyle={{ color: '#d81921' }} >
                             <ReactQuill
                                 theme="snow"
                                 value={requirementRef.current}
@@ -382,7 +387,7 @@ const ModalJob = ({ jobId = '', setJobId = () => { }, openModal, setOpenModal, r
                         </ProCard>
                     </Col>
                     <Col span={24}>
-                        <ProCard title="Quyền lợi" headStyle={{ color: '#d81921' }} bordered>
+                        <ProCard title="Quyền lợi" headStyle={{ color: '#d81921' }} >
                             <ReactQuill
                                 theme="snow"
                                 value={benefitRef.current}

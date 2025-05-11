@@ -18,7 +18,7 @@ const getAllJobs = (page, name) => {
 //     location: ["New York", "Los Angeles"], 
 //     level: ["Junior", "Mid"] 
 // });
-const filterJobs = ({ page = 1, pageSize = 4, name, location, level, salary }) => {
+const filterJobs = ({ page = 1, pageSize = 4, name, location, level, jobType, salary }) => {
     // Kiểm tra page và pageSize hợp lệ, nếu không, gán giá trị mặc định
     if (page <= 0) page = 1;
     if (pageSize <= 0) pageSize = 6;
@@ -41,6 +41,11 @@ const filterJobs = ({ page = 1, pageSize = 4, name, location, level, salary }) =
     // Kiểm tra level có phải là mảng và thêm từng giá trị vào query
     if (Array.isArray(level) && level.length > 0) {
         level.forEach(lvl => params.append("level", lvl));
+    }
+
+     // Kiểm tra jobType có phải là mảng và thêm từng giá trị vào query
+     if (Array.isArray(jobType) && jobType.length > 0) {
+        jobType.forEach(lvl => params.append("jobType", lvl));
     }
 
     return axios.get(`/jobs?${params.toString()}`);

@@ -11,6 +11,7 @@ import FindJobCard from '../../modules/job/FindJobCard';
 import DetailJobCard from '../../modules/job/DetailJobCard';
 import { GrPowerReset } from "react-icons/gr";
 import { useTranslation } from 'react-i18next';
+import { JOB_TYPE } from '../../utils/constant';
 
 const FindJobPage = () => {
     const { t } = useTranslation();
@@ -24,8 +25,10 @@ const FindJobPage = () => {
 
     const [selectedLocations, setLocation] = useState([params?.location === 'all' ? '' : params?.location]);
     const [selectedLevels, setSelectedLevels] = useState([]);
+    const [selectedJobTypes, setSelectedJobTypes] = useState([]);
     const [selectedSalary, setSelectedSalary] = useState('');
-    const { res, isLoading, isFetching, error, refetch } = useFilterJobs(currentPage, params?.name, selectedLocations, selectedLevels, selectedSalary);
+    const { res, isLoading, isFetching, error, refetch } =
+        useFilterJobs(currentPage, params?.name, selectedLocations, selectedLevels, selectedJobTypes, selectedSalary);
     const listJobs = res?.result?.length > 0 ? res.result : [];
     const [selectedJob, setSelectedJob] = useState(null); // State lưu job được chọn
     const meta = res?.meta ?? {};
@@ -47,10 +50,14 @@ const FindJobPage = () => {
             setSelectedJob(listJobs[0]);
     }, [listJobs]);
 
-    const toggleLevel = (level) => {
-        setSelectedLevels((prev) =>
-            prev.includes(level) ? prev.filter((l) => l !== level) : [...prev, level]
+    const toggleFilterItem = (item, setFunction, currentValues) => {
+        setFunction((prev) =>
+            prev.includes(item) ? prev.filter((val) => val !== item) : [...prev, item]
         );
+    };
+
+    const getJobTypeKeys = () => {
+        return Object.keys(JOB_TYPE);
     };
 
     const onPageChange = (page) => {
@@ -62,6 +69,7 @@ const FindJobPage = () => {
 
     const handleResetFilter = () => {
         setSelectedLevels([]);
+        setSelectedJobTypes([]);
         setSelectedSalary('');
     }
 
@@ -94,13 +102,22 @@ const FindJobPage = () => {
                             </div>
                         </Dropdown>
 
-                        {/* Hình thức làm việc */}
-                        <Select className="w-44 lg:w-48 rounded-full border-gray-300">
-                            <option>{t('find_job_page.filter_section.work_type')}</option>
-                            <option>Full-time</option>
-                            <option>Part-time</option>
-                            <option>Freelance</option>
-                        </Select>
+                        {/* Vị trí công việc */}
+                        <Dropdown label={t('find_job_page.filter_section.work_type')} color="light" className="border-gray-300">
+                            <div className="p-2 w-32 lg:w-64 max-h-[200px] overflow-y-auto">
+                                {getJobTypeKeys()?.map((type) => (
+                                    <label key={type} className="flex items-center gap-2 p-1">
+                                        <input
+                                            type="checkbox"
+                                            checked={selectedJobTypes.includes(type)}
+                                            onChange={() => toggleFilterItem(type, setSelectedJobTypes, selectedJobTypes)}
+                                            className="w-4 h-4"
+                                        />
+                                        {type}
+                                    </label>
+                                ))}
+                            </div>
+                        </Dropdown>
 
                         {/* Mức lương */}
                         <Select
@@ -168,7 +185,7 @@ const FindJobPage = () => {
                                         <input
                                             type="checkbox"
                                             checked={selectedLevels.includes(level)}
-                                            onChange={() => toggleLevel(level)}
+                                            onChange={() => toggleFilterItem(level, setSelectedLevels, selectedLevels)}
                                             className="w-4 h-4"
                                         />
                                         {level}
@@ -177,13 +194,22 @@ const FindJobPage = () => {
                             </div>
                         </Dropdown>
 
-                        {/* Hình thức làm việc */}
-                        <Select className="w-44 lg:w-48 rounded-full border-gray-300">
-                            <option>{t('find_job_page.filter_section.work_type')}</option>
-                            <option>Full-time</option>
-                            <option>Part-time</option>
-                            <option>Contract</option>
-                        </Select>
+                        {/* Vị trí công việc */}
+                        <Dropdown label={t('find_job_page.filter_section.work_type')} color="light" className="border-gray-300">
+                            <div className="p-2 w-32 lg:w-64 max-h-[200px] overflow-y-auto">
+                                {getJobTypeKeys()?.map((type) => (
+                                    <label key={type} className="flex items-center gap-2 p-1">
+                                        <input
+                                            type="checkbox"
+                                            checked={selectedJobTypes.includes(type)}
+                                            onChange={() => toggleFilterItem(type, setSelectedJobTypes, selectedJobTypes)}
+                                            className="w-4 h-4"
+                                        />
+                                        {type}
+                                    </label>
+                                ))}
+                            </div>
+                        </Dropdown>
 
                         {/* Mức lương */}
                         <Select
@@ -245,6 +271,8 @@ const FindJobPage = () => {
                     setOpenModal={setOpenModalFilter}
                     selectedLevels={selectedLevels}
                     setSelectedLevels={setSelectedLevels}
+                    setSelectedJobTypes={setSelectedJobTypes}
+                    selectedJobTypes={selectedJobTypes}
                     selectedSalary={selectedSalary}
                     setSelectedSalary={setSelectedSalary}
                 />
