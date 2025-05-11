@@ -16,8 +16,10 @@ import { deleteJob } from '../../services/jobService';
 import { useJobsByCompany } from '../../hooks/useJobsByCompany';
 import { convertMillisecondsToString } from '../../utils/convertMiliSecondsToString';
 import ModalResume from '../../modules/admin/resume/ModalResume';
+import { useSelector } from 'react-redux';
 
 const JobPage = () => {
+    const user = useSelector(state => state?.user?.info);
     const [openModal, setOpenModal] = useState(false);
     const [openModalResume, setOpenModalResume] = useState(false);
     const [jobId, setJobId] = useState('');
@@ -65,8 +67,11 @@ const JobPage = () => {
     }
 
     const reloadTable = useCallback(() => {
-        res?.result?.length > 0 ? refetch() : refetchJobsByCompany();
-    }, []);
+        res?.result?.length > 0
+            ? refetch()
+            : (user?.role?.id === 2 ? refetchJobsByCompany() : refetch());
+    }, [res, user]);
+
 
     const columns = [
         {

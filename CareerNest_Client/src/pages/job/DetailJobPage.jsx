@@ -3,7 +3,7 @@ import icons from '../../utils/icons';
 import { Alert, Badge, Button, List, Tooltip, Popover } from "flowbite-react";
 import { message } from "antd";
 import { useNavigate, useParams } from 'react-router-dom';
-import { path } from '../../utils/constant';
+import { JOB_TYPE, path } from '../../utils/constant';
 import slugify from 'slugify';
 import Breadcrumbs from '../../components/breadcrumb/Breadcrumbs';
 import { getDetailJob } from '../../services/jobService';
@@ -101,6 +101,8 @@ const DetailJobPage = () => {
             staleTime: 10 * 1000,
         })
     }
+
+    const getJobType = (type) => JOB_TYPE[type] || "";
 
     const isExpired = (date) => new Date(date * 1000) < new Date();
 
@@ -353,7 +355,7 @@ const DetailJobPage = () => {
                                     {t('job_detail_page.information')}
                                     <List nested className='text-black text-sm font-normal'>
                                         <List.Item icon={HiCheckCircle} >{t('job_detail_page.salary')}: {detailJob?.salary}$</List.Item>
-                                        <List.Item icon={HiCheckCircle} >{localStorage.getItem('i18nextLng') === 'vi' ? "Hình thức làm việc" : "Work type"}: {detailJob?.jobType}</List.Item>
+                                        <List.Item icon={HiCheckCircle} >{localStorage.getItem('i18nextLng') === 'vi' ? "Vị trí công việc" : "Work type"}: {getJobType(detailJob?.jobType)}</List.Item>
                                         <List.Item icon={HiCheckCircle} >{localStorage.getItem('i18nextLng') === 'vi' ? "Giới tính" : "Gender"}: Nam.</List.Item>
                                         <List.Item icon={HiCheckCircle} >{localStorage.getItem('i18nextLng') === 'vi' ? "Số lượng" : "Quantity"}: {detailJob?.quantity}.</List.Item>
                                         <List.Item icon={HiCheckCircle} >{localStorage.getItem('i18nextLng') === 'vi' ? "Cấp bậc" : "Level"}: {detailJob?.level}.</List.Item>
@@ -415,7 +417,7 @@ const DetailJobPage = () => {
                                     {t('job_detail_page.information')}
                                     <List nested className='text-black text-sm font-normal'>
                                         <List.Item icon={HiCheckCircle} >{t('job_detail_page.salary')}: {detailJob?.salary}$</List.Item>
-                                        <List.Item icon={HiCheckCircle} >{localStorage.getItem('i18nextLng') === 'vi' ? "Hình thức làm việc" : "Work type"}: {detailJob?.jobType}</List.Item>
+                                        <List.Item icon={HiCheckCircle} >{localStorage.getItem('i18nextLng') === 'vi' ? "Vị trí công việc" : "Work type"}: {getJobType(detailJob?.jobType)}</List.Item>
                                         <List.Item icon={HiCheckCircle} >{localStorage.getItem('i18nextLng') === 'vi' ? "Giới tính" : "Gender"}: Nam.</List.Item>
                                         <List.Item icon={HiCheckCircle} >{localStorage.getItem('i18nextLng') === 'vi' ? "Số lượng" : "Quantity"}: {detailJob?.quantity}.</List.Item>
                                         <List.Item icon={HiCheckCircle} >{localStorage.getItem('i18nextLng') === 'vi' ? "Cấp bậc" : "Level"}: {detailJob?.level}.</List.Item>

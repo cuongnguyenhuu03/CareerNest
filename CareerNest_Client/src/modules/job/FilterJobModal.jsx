@@ -2,14 +2,16 @@ import { Button, Checkbox, Modal, Select } from 'flowbite-react';
 import React, { useState } from 'react';
 import { AiOutlinePlus } from "react-icons/ai";
 import { GrPowerReset } from "react-icons/gr";
+import { JOB_TYPE } from '../../utils/constant';
 
 const levels = ["INTERN", "FRESHER", "JUNIOR", "MIDDLE", "SENIOR"];
-const workType = ["Full-time", "Part-time", "Contract"];
 
 // use for Tablet, Mobile
-const FilterJobModal = ({ isOpen = false, setOpenModal = () => { }, selectedLevels = [], setSelectedLevels = null, selectedSalary = '', setSelectedSalary = null }) => {
+const FilterJobModal = ({ isOpen = false, setOpenModal = () => { }, selectedLevels = [], setSelectedLevels = null, selectedJobTypes = [], setSelectedJobTypes = null, selectedSalary = '', setSelectedSalary = null }) => {
 
-    const [selectedWorkType, setSelectedWorkType] = useState([]);
+    const getJobTypeKeys = () => {
+        return Object.keys(JOB_TYPE);
+    };
 
     const toggleLevel = (level) => {
         setSelectedLevels((prev) =>
@@ -17,22 +19,21 @@ const FilterJobModal = ({ isOpen = false, setOpenModal = () => { }, selectedLeve
         );
     };
 
-    const toggleWorkType = (level) => {
-        setSelectedWorkType((prev) =>
-            prev.includes(level) ? prev.filter((l) => l !== level) : [...prev, level]
+    const toggleWorkType = (jobType) => {
+        setSelectedJobTypes((prev) =>
+            prev.includes(jobType) ? prev.filter((l) => l !== jobType) : [...prev, jobType]
         );
     };
 
     const handleResetFilter = () => {
         setSelectedLevels([]);
-        setSelectedWorkType([]);
+        setSelectedJobTypes([]);
         setSelectedSalary('');
     }
 
-
     return (
         <Modal show={isOpen} onClose={() => setOpenModal(false)}>
-            <Modal.Header >Bộ lọc</Modal.Header>
+            <Modal.Header >Filter</Modal.Header>
             <Modal.Body className='flex flex-col gap-6'>
                 <div className='flex flex-col gap-4'>
                     <div className='font-semibold'>{localStorage.getItem('i18nextLng') === 'vi' ? "Cấp bậc" : "Levels"}</div>
@@ -60,24 +61,24 @@ const FilterJobModal = ({ isOpen = false, setOpenModal = () => { }, selectedLeve
                 </div>
 
                 <div className='flex flex-col gap-4'>
-                    <div className='font-semibold'>{localStorage.getItem('i18nextLng') === 'vi' ? "Hình thức làm việc" : "Work type"}</div>
+                    <div className='font-semibold'>{localStorage.getItem('i18nextLng') === 'vi' ? "Vị trí công việc" : "Work type"}</div>
                     <div className="flex flex-wrap gap-3">
-                        {workType.map((level) => (
+                        {getJobTypeKeys()?.map((jobType) => (
                             <label
-                                key={level}
+                                key={jobType}
                                 className={`flex items-center gap-2 px-4 py-2 border rounded-full cursor-pointer transition-all 
-                        ${selectedWorkType.includes(level)
+                        ${selectedJobTypes.includes(jobType)
                                         ? "bg-blue-500 text-white border-blue-500"
                                         : "border-gray-300 text-gray-800 hover:bg-gray-100"
                                     }`}
-                                onClick={() => toggleLevel(level)}
+                                onClick={() => toggleWorkType(jobType)}
                             >
                                 <Checkbox
-                                    checked={selectedWorkType.includes(level)}
-                                    onChange={() => toggleWorkType(level)}
+                                    checked={selectedJobTypes.includes(jobType)}
+                                    onChange={() => toggleWorkType(jobType)}
                                     className="hidden"
                                 />
-                                {level}
+                                {jobType}
                                 <AiOutlinePlus className="w-4 h-4" />
                             </label>
                         ))}

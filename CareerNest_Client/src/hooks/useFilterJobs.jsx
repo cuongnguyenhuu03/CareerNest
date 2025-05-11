@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { filterJobs } from '../services/jobService';
 
-export const useFilterJobs = (currentPage = 1, name = '', location = [], level = [], salary = '') => {
+export const useFilterJobs = (currentPage = 1, name = '', location = [], level = [], jobType = [], salary = '') => {
 
     const { data: res, isLoading, isFetching, error, refetch, } = useQuery({
-        queryKey: ['filterJobs', currentPage, name, location, level, salary],
-        queryFn: () => filterJobs({ page: currentPage, name, location, level, salary }),
+        queryKey: ['filterJobs', currentPage, name, location, level, jobType, salary],
+        queryFn: () => filterJobs({ page: currentPage, name, location, level, jobType, salary }),
         staleTime: 10 * 1000,
         refetchOnWindowFocus: true,
         placeholderData: (previousData) => previousData, // thường dùng khi Paginate
