@@ -37,7 +37,7 @@ const FindJobPage = () => {
         document.title = 'Tìm việc làm';
         if (currentPage !== 1)
             setCurrentPage(1);
-    }, [params?.name, params?.location, selectedLevels]);
+    }, [params?.name, params?.location, selectedLevels,selectedJobTypes,selectedSalary]);
 
     useEffect(() => {
         setLocation([params?.location === 'all' ? '' : params?.location]);
@@ -93,7 +93,7 @@ const FindJobPage = () => {
                                         <input
                                             type="checkbox"
                                             checked={selectedLevels.includes(level)}
-                                            onChange={() => toggleLevel(level)}
+                                            onChange={() => toggleFilterItem(level, setSelectedLevels, selectedLevels)}
                                             className="w-4 h-4"
                                         />
                                         {level}

@@ -7,7 +7,8 @@ import { JOB_TYPE } from '../../utils/constant';
 const levels = ["INTERN", "FRESHER", "JUNIOR", "MIDDLE", "SENIOR"];
 
 // use for Tablet, Mobile
-const FilterJobModal = ({ isOpen = false, setOpenModal = () => { }, selectedLevels = [], setSelectedLevels = null, selectedJobTypes = [], setSelectedJobTypes = null, selectedSalary = '', setSelectedSalary = null }) => {
+const FilterJobModal = ({ isOpen = false, setOpenModal = () => { }, selectedLevels = [], setSelectedLevels = null,
+    selectedJobTypes = [], setSelectedJobTypes = null, selectedSalary = '', setSelectedSalary = null, setCurrentPage = null }) => {
 
     const getJobTypeKeys = () => {
         return Object.keys(JOB_TYPE);
