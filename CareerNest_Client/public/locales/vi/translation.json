@@ -221,7 +221,7 @@
     "find_job_page": {
         "filter_section": {
             "level": "Cấp bậc",
-            "work_type": "Hình thức làm  việc",
+            "work_type": "Vị trí công việc",
             "salary": "Mức lương"
         }
     },
