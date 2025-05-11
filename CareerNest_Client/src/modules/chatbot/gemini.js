@@ -1,12 +1,12 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { getDocument } from 'pdfjs-dist';
-import './pdfWorker';
 import * as marked from 'marked';
 import { filterJobs } from "../../services/jobService";
 import { toast } from "react-toastify";
 import { formatJobsToHTML } from "./formatJobToMarkdown";
 import { getAllCompanies } from "../../services/companyService";
 import { formatCompanyToHTML } from "./formatCompanyToHTML";
+import { extractTextFromPDF } from "../../utils/extractTextFromPDF";
+import { ocrExtractFromPDF } from "../../utils/ocrExtractFromPDF";
 
 // Thay API key của bạn ở đây (lưu ý: ai cũng có thể xem khi bundle)
 const genAI = new GoogleGenerativeAI(`${import.meta.env.VITE_GOOGLE_GEMINI_API_KEY}`);
@@ -117,36 +117,20 @@ export async function askGemini(prompt) {
     }
 }
 
-export async function extractTextFromPDF(file) {
-    const fileReader = new FileReader();
-
-    return new Promise((resolve, reject) => {
-        fileReader.onload = async () => {
-            const typedArray = new Uint8Array(fileReader.result);
-            const pdf = await getDocument({ data: typedArray }).promise;
-
-            let textContent = '';
-
-            for (let i = 0; i < pdf.numPages; i++) {
-                const page = await pdf.getPage(i + 1);
-                const content = await page.getTextContent();
-                content.items.forEach((item) => {
-                    textContent += item.str + ' ';
-                });
-            }
-
-            resolve(textContent);
-        };
-
-        fileReader.onerror = reject;
-        fileReader.readAsArrayBuffer(file);
-    });
-}
-
 export async function askGeminiWithPDF(pdfFile, input = "review giúp tôi cv này") {
     try {
         // Trích xuất văn bản từ PDF
-        const extractedText = await extractTextFromPDF(pdfFile);
+        let extractedText = await extractTextFromPDF(pdfFile);
+
+        // Nếu text rỗng → dùng OCR
+        if (!extractedText.trim()) {
+            extractedText = await ocrExtractFromPDF(pdfFile);
+        }
+
+        // Nếu vẫn rỗng sau OCR → trả lỗi rõ ràng
+        if (!extractedText.trim()) {
+            return "Không thể trích xuất nội dung từ file PDF.";
+        }
 
         // Kết hợp văn bản input và văn bản trích xuất từ PDF
         const combinedPrompt = `${input}\n\nDocument Text:\n${extractedText}`;
