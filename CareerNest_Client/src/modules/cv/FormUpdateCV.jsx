@@ -334,7 +334,7 @@ const FormUpdateCV = ({ dataResume = {}, ...props }) => {
                     className="me-2 inline-flex items-center rounded-lg bg-primary-700 px-4 py-1 text-center text-sm font-medium text-white hover:bg-primary-800"
                     onClick={handleSubmit}
                 >
-                    {localStorage.getItem('i18nextLng') === 'vi' ? "Chỉnh sửa CV CV" : "Update CV"}
+                    {localStorage.getItem('i18nextLng') === 'vi' ? "Cập nhật CV" : "Update CV"}
                 </Button>
                 <button
                     type="button"

@@ -62,10 +62,18 @@ const CVCard = ({ className = '', data = {}, ...props }) => {
                     </div>
                     <div className='sm:hidden mb-4'>
                         <div className='flex gap-x-4 mb-4'>
-                            <Button className='w-fit' size='xs' gradientDuoTone="cyanToBlue" onClick={() => navigate(`${path.CV}/${path.CV__CREATE}`)}>Xem hồ sơ</Button>
+                            <Button className='w-fit' size='xs' gradientDuoTone="cyanToBlue"
+                                onClick={() => navigate(`${path.CV}/${path.CV__DETAIL}?candidate=${slugify(data?.fullName, { lower: true, strict: true })}&cv=${data?.id}`, { state: { dataResume: data } })}
+                            >
+                                {t('cv_card.view')}
+                            </Button>
                             <div className='flex gap-x-4 items-center'>
                                 <Tooltip content="Sửa hồ sơ" style="light">
-                                    <Button color="gray" size='xs' pill> <FaRegEdit size={15} /> </Button>
+                                    <Button color="gray" size='xs' pill
+                                        onClick={() => navigate(`${path.CV}/${path.CV__UPDATE}?candidate=${slugify(data?.fullName, { lower: true, strict: true })}&cv=${data?.id}`, { state: { dataResume: data } })}
+                                    >
+                                        <FaRegEdit size={15} />
+                                    </Button>
                                 </Tooltip>
                                 <Tooltip content="Xóa hồ sơ" style="light">
                                     <Button color="gray" size='xs' pill> <MdDelete size={15} onClick={() => setOpenDeleteModal(true)} /> </Button>

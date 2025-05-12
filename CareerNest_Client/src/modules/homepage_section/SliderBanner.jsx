@@ -1,6 +1,5 @@
 import { Carousel } from 'flowbite-react';
 import React from 'react';
-
 import slider1 from '../../assets/homepage/slider-1.jpg'
 import slider2 from '../../assets/homepage/slider-2.jpg'
 import slider3 from '../../assets/homepage/slider-3.jpg'

@@ -107,19 +107,19 @@ const FindJob = () => {
                     <div className='sm:hidden w-full flex flex-col gap-y-4'>
                         <span className='text-base'>{t('homepage.find_job_section.suggestions')}: </span>
                         <div className='flex gap-x-2 xs:gap-x-4 items-center justify-center'>
-                            <span className='text-white px-4 py-2 rounded-full border border-gray-400 hover:bg-gray-500 ct-hover-transition hover:cursor-pointer'
+                            <span className='text-white text-xs px-3 xs:px-4 py-2 rounded-full border border-gray-400 hover:bg-gray-500 ct-hover-transition hover:cursor-pointer'
                                 onClick={() => setKeyword("ReactJS")}>
                                 ReactJS
                             </span>
-                            <span className='text-white px-4 py-2 rounded-full border border-gray-400 hover:bg-gray-500 ct-hover-transition hover:cursor-pointer'
+                            <span className='text-white text-xs px-3 xs:px-4 py-2 rounded-full border border-gray-400 hover:bg-gray-500 ct-hover-transition hover:cursor-pointer'
                                 onClick={() => setKeyword("NodeJS")}>
                                 NodeJS
                             </span>
-                            <span className='text-white px-4 py-2 rounded-full border border-gray-400 hover:bg-gray-500 ct-hover-transition hover:cursor-pointer'
+                            <span className='text-white text-xs px-3 xs:px-4 py-2 rounded-full border border-gray-400 hover:bg-gray-500 ct-hover-transition hover:cursor-pointer'
                                 onClick={() => setKeyword("Java")}>
                                 Java
                             </span>
-                            <span className='text-white px-4 py-2 rounded-full border border-gray-400 hover:bg-gray-500 ct-hover-transition hover:cursor-pointer'
+                            <span className='text-white text-xs px-3 xs:px-4 py-2 rounded-full border border-gray-400 hover:bg-gray-500 ct-hover-transition hover:cursor-pointer'
                                 onClick={() => setKeyword("Python")}>
                                 Python
                             </span>
