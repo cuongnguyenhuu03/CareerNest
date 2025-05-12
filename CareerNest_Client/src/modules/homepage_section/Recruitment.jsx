@@ -3,12 +3,13 @@ import JobCard from '../../components/card/JobCard';
 import { getAllJobs } from '../../services/jobService';
 import _ from 'lodash';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { Button } from 'flowbite-react';
+import { Button, Carousel } from 'flowbite-react';
 import withErrorBoundary from '../../hoc/withErrorBoundary';
 import JobCardSkeleton from '../../components/skeleton/JobCardSkeleton';
 import { useNavigate } from 'react-router-dom';
 import { path } from '../../utils/constant';
 import { useTranslation } from 'react-i18next';
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const Recruitment = () => {
     const { t } = useTranslation();
@@ -40,11 +41,31 @@ const Recruitment = () => {
     return (
         <div className='ct-container py-10 bg-[#f7f7f7] flex flex-col items-center dark:bg-slate-800'>
             <h1 className='text-base sm:text-lg xs:text-xl mb-10 text-slate-800 font-bold uppercase dark:text-white'>{t('homepage.recruitment_section.title')}</h1>
-            <div className='w-full xs:w-2/3 border border-gray-300 rounded-lg sm:border-none sm:w-full flex flex-nowrap overflow-x-auto sm:grid sm:grid-cols-2 xl:grid-cols-3 xs:gap-4 xl:gap-8'>
+            <div className='w-full hidden  border border-gray-300 rounded-lg sm:border-none sm:w-full  flex-nowrap overflow-x-auto sm:grid sm:grid-cols-2 xl:grid-cols-3 xs:gap-4 xl:gap-8'>
                 {listJobs.length > 0 && listJobs.map(item => (
                     <JobCard key={item?.id} data={item} className="min-w-full sm:min-w-0 dark:text-white" />
                 ))}
             </div>
+            <Carousel
+                slideInterval={2500}
+                className="w-full h-56 sm:hidden block px-0 xs:px-14"
+                leftControl={
+                    <div className="flex items-center justify-center bg-gray-100 rounded-full p-2">
+                        <FaChevronLeft className="text-gray-700 text-sm sm:text-lg" />
+                    </div>
+                }
+                rightControl={
+                    <div className="flex items-center justify-center bg-gray-100 rounded-full p-2">
+                        <FaChevronRight className="text-gray-700 text-sm sm:text-lg" />
+                    </div>
+
+                }
+            >
+                {listJobs.length > 0 && listJobs.map(item => (
+                    <JobCard key={item?.id} data={item} className="dark:text-white" />
+                ))}
+            </Carousel>
+
             {(hasNextPage && !data?.pages[1]) ?
                 <div className='flex items-center justify-center mt-8'>
                     <Button isProcessing={isFetchingNextPage} color='light' onClick={() => fetchNextPage()} disabled={isFetchingNextPage}>

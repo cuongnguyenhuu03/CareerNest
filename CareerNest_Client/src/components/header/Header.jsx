@@ -55,7 +55,8 @@ const Header = () => {
                         <div className="flex items-center lg:order-2 gap-3 sm:gap-5">
                             {!user?.id ?
                                 <>
-                                    <Button color="light" onClick={handleOpenLogin}>{t('header.login')}</Button>
+                                    <Button color="light" className="xs:block hidden" size="sm" onClick={handleOpenLogin}>{t('header.login')}</Button>
+                                    <Button color="light" className="xs:hidden block" size="xs" onClick={handleOpenLogin}>{t('header.login')}</Button>
                                     {!location.pathname.includes(path.RECRUITMENT) &&
                                         <Button color="blue" className="uppercase hidden sm:inline-flex"
                                             onClick={() => navigate(path.RECRUITMENT)}
