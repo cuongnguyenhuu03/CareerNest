@@ -105,7 +105,15 @@
         "salary": "Salary",
         "expired": "Job expired",
         "apply_button": "Apply",
-        "already_apply_button": "Already applied"
+        "already_apply_button": "Already applied",
+        "apply_at_title": "Applied at",
+        "status": {
+            "pending": "Pending",
+            "reviewing": "Reviewing",
+            "approved": "Approved",
+            "rejected": "Rejected",
+            "undefined": "Undefined"
+        }
     },
     "cv_card": {
         "created_time": "Created",
@@ -227,6 +235,13 @@
             "work_type": "Work type",
             "salary": "Salary"
         }
+    },
+    "review_cv_by_ai_page": {
+        "title": "CV Evaluation by AI CareerNest",
+        "button": "Select pdf file",
+        "processing": "Reviewing CV...",
+        "title_matching": "Suitability for each position",
+        "no_jobs": "There are no jobs that match your CV yet"
     },
     "interview_by_ai_page": {
         "title": "AI-Powered Mock Interview",

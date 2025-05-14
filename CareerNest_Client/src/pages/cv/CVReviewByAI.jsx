@@ -7,12 +7,14 @@ import { askGeminiWithPDF } from '../../modules/chatbot/gemini';
 import { filterJobs } from '../../services/jobService';
 import { useQuery } from '@tanstack/react-query';
 import JobCard from '../../components/card/JobCard';
+import { useTranslation } from 'react-i18next';
 
 const data = [
     { text: localStorage.getItem('i18nextLng') === 'vi' ? "Trang chủ" : "Home", path: path.HOME },
     { text: localStorage.getItem('i18nextLng') === 'vi' ? "Đánh giá CV qua AI" : "CV Evaluation", path: "#" }
 ]
 const CVReviewByAI = () => {
+    const { t } = useTranslation();
 
     const ref = useRef(null);
     const [loading, setLoading] = useState(false);
@@ -115,11 +117,11 @@ const CVReviewByAI = () => {
             <div className={`bg-[#fff] ${result ? 'dark:bg-gray-900' : 'dark:bg-slate-800'} px-3 xs:px-6 py-8 rounded-lg flex items-center justify-center min-h-[350px]`}>
                 <div className="text-center max-w-2xl">
                     <h1 className="text-2xl font-bold mb-8 dark:text-white">
-                        {localStorage.getItem('i18nextLng') === 'vi' ? "Đánh giá CV bởi AI CareerNest" : "CV Evaluation by AI"}
+                        {t('review_cv_by_ai_page.title')}
                     </h1>
                     {!loading && !result && (
                         <label className="cursor-pointer bg-blue-600 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-700 transition">
-                            {localStorage.getItem('i18nextLng') === 'vi' ? "Chọn file CV (PDF)" : "Select pdf file"}
+                            {t('review_cv_by_ai_page.button')}
                             <input
                                 type="file"
                                 accept=".pdf"
@@ -133,7 +135,7 @@ const CVReviewByAI = () => {
                         <div className="flex flex-col items-center justify-center gap-4">
                             <Spinner size='xl' color='info' />
                             <p className="text-lg font-medium animate-pulse dark:text-white">
-                                {localStorage.getItem('i18nextLng') === 'vi' ? "Đang phân tích CV..." : "Reviewing CV..."}
+                                {t('review_cv_by_ai_page.processing')}
                             </p>
                         </div>
                     )}
@@ -146,7 +148,7 @@ const CVReviewByAI = () => {
                             />
                             {percent?.length > 0 &&
                                 <div className='mt-12 mb-4 w-full text-lg sm:text-xl text-slate-800 uppercase animate-pulse dark:text-white font-semibold'>
-                                    {localStorage.getItem('i18nextLng') === 'vi' ? "Độ phù hợp từng công việc" : "Suitability for each position."}
+                                    {t('review_cv_by_ai_page.title_matching')}
                                 </div>
                             }
                             <div className="flex flex-col w-full sm:w-2/3 mx-auto space-y-3">
@@ -168,7 +170,7 @@ const CVReviewByAI = () => {
                                 {
                                     res?.result?.length <= 0 ?
                                         <Badge color="gray" size="sm" className='w-fit uppercase tracking-wide'>
-                                            {localStorage.getItem('i18nextLng') === 'vi' ? "Chưa có công việc phù hợp với CV của bạn" : "There are no jobs that match your CV yet."}
+                                            {t('review_cv_by_ai_page.no_jobs')}
                                         </Badge>
                                         :
                                         <>

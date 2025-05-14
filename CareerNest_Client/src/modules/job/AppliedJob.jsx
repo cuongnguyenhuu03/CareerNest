@@ -6,7 +6,14 @@ const AppliedJob = ({ listJobs = [] }) => {
     return (
         <div className='w-full flex flex-col gap-y-6 overflow-y-auto h-[calc(100vh-200px)]'>
             {listJobs.map(item => (
-                <JobCard key={item?.id} data={item?.job} createdAt={item?.createdAt} className='shadow-md' isApplied />
+                <JobCard
+                    key={item?.id}
+                    data={item?.job}
+                    createdAt={item?.createdAt}
+                    className='shadow-md'
+                    isApplied
+                    status={item?.status ?? ''}
+                />
             ))}
         </div>
     );

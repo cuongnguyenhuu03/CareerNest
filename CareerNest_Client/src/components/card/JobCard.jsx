@@ -15,7 +15,7 @@ import { JOB_TYPE } from '../../utils/constant';
 
 const { FaMoneyCheckDollar, FaRegBuilding, GrLocation, GrNetworkDrive, FaRegCalendarAlt, HiCheckCircle, FaHeart } = icons;
 
-const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false, ...props }) => {
+const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false, status = '', ...props }) => {
     const location = useLocation();
     const navigate = useNavigate();
     const [isOpenModal, setOpenModal] = useState(false);
@@ -69,6 +69,21 @@ const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false
 
     const getJobType = (type) => JOB_TYPE[type] || "";
 
+    const renderStatusBadge = (status) => {
+        switch (status) {
+            case 'PENDING':
+                return <Badge className='w-fit uppercase' size='sm' color="gray">{t('job_card.status.pending')}</Badge>;
+            case 'REVIEWING':
+                return <Badge className='w-fit uppercase' size='sm' color="info">{t('job_card.status.reviewing')}</Badge>;
+            case 'APPROVED':
+                return <Badge className='w-fit uppercase' size='sm' color="success">{t('job_card.status.approved')}</Badge>;
+            case 'REJECTED':
+                return <Badge className='w-fit uppercase' size='sm' color="failure">{t('job_card.status.rejected')}</Badge>;
+            default:
+                return <Badge className='w-fit uppercase' size='sm' color="warning">{t('job_card.status.undefined')}</Badge>;
+        }
+    }
+
     if (!data?.active) return null;
     return (
         <>
@@ -103,10 +118,19 @@ const JobCard = ({ className = '', data = {}, isApplied = false, isSaved = false
                                 >
                                     {data?.name}
                                 </div>
-                                <span className='text-xs md:text-sm text-gray-700 dark:text-gray-400'>Ứng tuyển vào ngày: {convertMillisecondsToString(+props?.createdAt * 1000)}</span>
+                                <div className='flex flex-col gap-2'>
+                                    <span className='text-xs md:text-sm text-gray-700 dark:text-gray-400'>{t('job_card.apply_at_title')}: {convertMillisecondsToString(+props?.createdAt * 1000)}</span>
+                                    <span className='text-xs md:text-sm text-gray-700 dark:text-gray-400'>
+                                        {renderStatusBadge(status)}
+                                    </span>
+                                </div>
                             </div>
                             <div className='sm:hidden'>
-                                <span className='text-xs md:text-sm text-gray-400 dark:text-gray-400'>Ứng tuyển vào ngày: {convertMillisecondsToString(+props?.createdAt * 1000)}</span>
+                                <span className='text-xs md:text-sm text-gray-400 dark:text-gray-400'>{t('job_card.apply_at_title')}: {convertMillisecondsToString(+props?.createdAt * 1000)}</span>
+                                <span className='text-xs text-gray-700 dark:text-gray-400'>
+                                    {renderStatusBadge(status)}
+                                </span>
+
                                 <div className={`mt-4 text-sm md:text-base lg:text-lg xl:text-base font-medium uppercase dark:text-white`}
                                     onClick={() => navigate(`/job/detail/${data?.id}/${slugify(data?.name, { lower: true, strict: true })}`)}
                                 >

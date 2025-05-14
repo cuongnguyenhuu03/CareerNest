@@ -17,16 +17,18 @@ import { Badge } from 'flowbite-react';
 import { useSkills } from '../../../hooks/useSkills';
 import { postCreateNewJob, putUpdateJob } from '../../../services/jobService';
 import { JOB_TYPE } from '../../../utils/constant';
+import { useSelector } from 'react-redux';
 
 const ModalJob = ({ jobId = '', setJobId = () => { }, openModal, setOpenModal, reloadTable }) => {
     const queryClient = useQueryClient()
 
+    const user = useSelector(state => state?.user?.info);
     const { res, isFetching, error, refetch } = useDetailJob(jobId);
     const dataInit = res?.data ?? {};
 
     const [visible, setVisible] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [selectedCompany, setSelectedCompany] = useState(null);
+    const [selectedCompany, setSelectedCompany] = useState(user?.role?.id === 2 ? user?.company : null);
 
     const { res: resSkills, isFetchingSkills, error: errSkills } = useSkills();
     const { res: resCompanies, isFetching: isFetchingCompanies, error: errCompanies, refetch: refetchCompanies } = useCompanies(currentPage);

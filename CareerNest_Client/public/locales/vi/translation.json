@@ -105,7 +105,15 @@
         "salary": "Lương",
         "expired": "Hết hạn ứng tuyển",
         "apply_button": "Ứng tuyển",
-        "already_apply_button": "Đã ứng tuyển"
+        "already_apply_button": "Đã ứng tuyển",
+        "apply_at_title": "Ứng tuyển vào ngày",
+        "status": {
+            "pending": "Đang chờ",
+            "reviewing": "Đang xem xét",
+            "approved": "Đã phê duyệt",
+            "rejected": "Bị từ chối",
+            "undefined": "Không xác định"
+        }
     },
     "cv_card": {
         "created_time": "Ngày tạo",
@@ -224,6 +232,13 @@
             "work_type": "Vị trí công việc",
             "salary": "Mức lương"
         }
+    },
+    "review_cv_by_ai_page": {
+        "title": "Đánh giá CV bởi AI CareerNest",
+        "button": "Chọn file CV (PDF)",
+        "processing": "Đang phân tích CV...",
+        "title_matching": "Độ phù hợp từng công việc",
+        "no_jobs": "Chưa có công việc phù hợp với CV của bạn"
     },
     "interview_by_ai_page": {
         "title": " Phỏng vấn giả lập bởi AI",
