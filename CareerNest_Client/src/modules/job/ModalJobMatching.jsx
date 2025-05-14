@@ -31,7 +31,6 @@ const ModalJobMatching = ({ openModal = false, setOpenModal = null, job = {} }) 
         setIsLoading(true);
         try {
             let res = await askGeminiWithPDF(selectedFile, inputMessage);
-            console.log(res);
             setAnswerFromAI(res ?? "");
         } catch (error) {
             console.log(error);

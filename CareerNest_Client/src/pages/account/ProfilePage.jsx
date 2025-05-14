@@ -17,6 +17,7 @@ const ProfilePage = () => {
     const { t } = useTranslation();
 
     const user = useSelector(state => state?.user?.info);
+    const appliedJobs = useSelector(state => state?.user?.appliedJobs);
     const ref = useRef(null);
     const [isOpenModal, setOpenModal] = useState(false);
     const [openChangePasswordModal, setOpenChangePasswordModal] = useState(false);
@@ -84,7 +85,7 @@ const ProfilePage = () => {
                                     {t('profile_page.applied_jobs')}
                                 </h3>
                                 <span className="flex items-center text-2xl font-bold text-gray-900 dark:text-white">
-                                    0
+                                    {appliedJobs?.length ?? 0}
                                 </span>
                             </div>
                             <div>
